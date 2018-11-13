@@ -1,10 +1,14 @@
 package br.com.usinasantafe.ecm;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +44,11 @@ public class PrincipalActivity extends ActivityGeneric {
         configuracaoTO.hasElements();
 
         ecmContext = (ECMContext) getApplication();
+
+        if(!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions((Activity) this, PERMISSIONS, 112);
+        }
 
         startTimer();
 
@@ -155,5 +164,9 @@ public class PrincipalActivity extends ActivityGeneric {
         }
     }
 
+    public boolean checkPermission(String permission){
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        return (check == PackageManager.PERMISSION_GRANTED);
+    }
 
 }

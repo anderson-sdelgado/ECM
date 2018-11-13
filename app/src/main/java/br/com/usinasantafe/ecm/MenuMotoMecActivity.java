@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -261,7 +260,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                                 if(infBoletimTO.getDataChegCampo().equals("")){
 
-                                    infBoletimTO.setDataChegCampo(Tempo.getInstance().data());
+                                    infBoletimTO.setDataChegCampo(Tempo.getInstance().datahora());
                                     infBoletimTO.update();
                                     mensagem = "FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBD.getNomeMotoMec();
 

@@ -44,7 +44,7 @@ public class FrenteActivity extends ActivityGeneric {
                         infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
 
                         infBoletimTO.setFrente(Long.parseLong(editTextPadrao.getText().toString()));
-                        infBoletimTO.setDataSaidaUsina(Tempo.getInstance().data());
+                        infBoletimTO.setDataSaidaUsina(Tempo.getInstance().datahora());
                         infBoletimTO.update();
 
                         AtividadeOsTO atividadeOs = new AtividadeOsTO();

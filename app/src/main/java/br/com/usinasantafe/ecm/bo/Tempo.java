@@ -92,42 +92,7 @@ public class Tempo {
 
 	}
 
-	public void ativaTimer(Context context){
-		
-		envioDado = true;
-		this.context = context;
-		
-        task = new TimerTask() {
-            public void run() {
-                    handler.post(new Runnable() {
-                            public void run() {
-                            	
-                            	Log.i("ECM", "RODANDO");
-                                if(datahora != null) {
-                                    datahora.setTime(datahora.getTime() + REFRESH_TIME);
-                                }
-                                Log.i("ECM", "DATA HORA = " + data());
-
-                            	if(isEnvioDado()){
-                            		
-                            		Log.i("ECM", "VERIFICANDO ENVIO");
-                            		setEnvioDado(ManipDadosEnvio.getInstance().verifDadosEnvio());
-
-                            		if(isEnvioDado()){
-                            			Log.i("ECM", "ENVIANDO");
-                                        ManipDadosEnvio.getInstance().envioDados(Tempo.getInstance().context);
-                            		}
-                            		
-                            	}
-                            	
-                            }
-                   });
-            }};
-           
-            timerAtual.schedule(task, REFRESH_TIME, REFRESH_TIME); 
-    }
-	
-    public String data(){
+    public String datahora(){
 
         String dataCerta = "";
 

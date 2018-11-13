@@ -32,7 +32,7 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
                 InfBoletimTO infBoletimTO = new InfBoletimTO();
                 List infBoletimTOList = infBoletimTO.all();
                 infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
-                infBoletimTO.setDataSaidaCampo(Tempo.getInstance().data());
+                infBoletimTO.setDataSaidaCampo(Tempo.getInstance().datahora());
                 infBoletimTO.update();
 
                 ecmContext.getApontMotoMecTO().setOpcor((long) 437);

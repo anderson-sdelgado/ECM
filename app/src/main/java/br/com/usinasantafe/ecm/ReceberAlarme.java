@@ -4,9 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.bo.Tempo;
@@ -33,7 +30,7 @@ public class ReceberAlarme extends BroadcastReceiver {
 			Tempo.getInstance().getDatahora().setTime(Tempo.getInstance().getDatahora().getTime() + 60000L);
 		}
 
-		Log.i("ECM", "DATA HORA = " + Tempo.getInstance().data());
+		Log.i("ECM", "DATA HORA = " + Tempo.getInstance().datahora());
 		if(ManipDadosEnvio.getInstance().verifDadosEnvio()){
 			Log.i("ECM", "ENVIANDO");
 			ManipDadosEnvio.getInstance().envioDados(context);

@@ -14,7 +14,6 @@ import android.util.Log;
 
 import br.com.usinasantafe.ecm.conWEB.ConHttpPostCadGenerico;
 import br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp;
-import br.com.usinasantafe.ecm.to.tb.estaticas.DataTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
@@ -142,7 +141,7 @@ public class ManipDadosEnvio {
         apontMotoMecTO.setVeic(configuracaoTO.getCamConfig());
         apontMotoMecTO.setMotorista(infBoletimTO.getCodigoMoto());
 
-        apontMotoMecTO.setDihi(Tempo.getInstance().data());
+        apontMotoMecTO.setDihi(Tempo.getInstance().datahora());
         apontMotoMecTO.setCaux(atividadeOsTO.getAtivOS());
 
         apontMotoMecTO.setEstado(atividadeOsTO.getEstado());
@@ -198,7 +197,7 @@ public class ManipDadosEnvio {
         qtdeCab = qtdeCab + 1;
 
         cabecCheckListTO.setIdCabecCheckList((long) qtdeCab);
-        cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().data());
+        cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
         cabecCheckListTO.setEquipCabecCheckList(configTO.getCamConfig());
         cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
         cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());

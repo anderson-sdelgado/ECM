@@ -70,7 +70,7 @@ public class VerMotoristaActivity extends ActivityGeneric {
                 else if(infBoletimTO.getTipoAtiv() == 2){
 
                     ecmContext.getCompVVinhacaTO().setMoto(infBoletimTO.getCodigoMoto());
-                    ecmContext.getCompVVinhacaTO().setData(Tempo.getInstance().data());
+                    ecmContext.getCompVVinhacaTO().setData(Tempo.getInstance().datahora());
 
                     ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
                     List listConfig = configuracaoTO.all();
