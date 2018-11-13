@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.usinasantafe.ecm">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".ECMContext"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".PrincipalActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AtividadeOSActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BackupBoletimActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BackupViagemCanaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BoletimActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CaminhaoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CaminhaoTurnoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CarretaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CarretaEngateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CertificadoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfiguracoesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DesengateCarretaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EnvioDadosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FrenteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HodometroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LiberacaoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListaFinalizaApontActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListaLocalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListaTurnoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MaquinaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MenuInicialApontActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MenuMotoMecActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MotivoParadaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MotoristaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgAtividadeOSActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgCarretaEngateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgLiberacaoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgNoteiroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgNumCarretaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgSaidaCampoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NoteiroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OperadorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OSActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SenhaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TipoFuncoesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerMotoristaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ItemChecklistActivity"
+            android:screenOrientation="portrait" />
+        <receiver android:name="ReceberAlarme" >
+            <intent-filter>
+                <action android:name="EXECUTAR_ALARME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
