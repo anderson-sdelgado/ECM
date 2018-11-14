@@ -1,7 +1,6 @@
 package br.com.usinasantafe.ecm;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,10 +49,10 @@ public class SenhaActivity extends ActivityGeneric {
 
                     if (lista.size() > 0) {
 
-                        configuracaoTO.setCamConfig(((ConfiguracaoTO) lista.get(0)).getCamConfig());
+                        configuracaoTO.setCodCamConfig(((ConfiguracaoTO) lista.get(0)).getCodCamConfig());
 
                         ecmContext.setVerTabelaConfig(true);
-                        ecmContext.setEquipConfig(configuracaoTO.getCamConfig());
+                        ecmContext.setEquipConfig(configuracaoTO.getCodCamConfig());
                         ecmContext.setSenhaConfig(editTextSenha.getText().toString());
 
                         Intent it = new Intent(SenhaActivity.this, ConfiguracoesActivity.class);

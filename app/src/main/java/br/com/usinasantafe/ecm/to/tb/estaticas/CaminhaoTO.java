@@ -21,6 +21,8 @@ public class CaminhaoTO extends Entidade {
 	
 	@DatabaseField(id=true)
     private Long idCaminhao;
+    @DatabaseField
+    private Long codCaminhao;
 	@DatabaseField
     private Long tipoCaminhao;
 
@@ -35,6 +37,14 @@ public class CaminhaoTO extends Entidade {
         this.idCaminhao = idCaminhao;
     }
 
+    public Long getCodCaminhao() {
+        return codCaminhao;
+    }
+
+    public void setCodCaminhao(Long codCaminhao) {
+        this.codCaminhao = codCaminhao;
+    }
+
     public Long getTipoCaminhao() {
         return tipoCaminhao;
     }
@@ -42,5 +52,4 @@ public class CaminhaoTO extends Entidade {
     public void setTipoCaminhao(Long tipoCaminhao) {
         this.tipoCaminhao = tipoCaminhao;
     }
-
 }

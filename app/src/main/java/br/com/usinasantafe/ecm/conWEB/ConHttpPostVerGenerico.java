@@ -92,16 +92,7 @@ public class ConHttpPostVerGenerico extends AsyncTask<String, Void, String> {
 
         try {
             Log.i("ECM", "RETORNO = " + result);
-            if (this.tipo.equals("BoletimTO")) {
-                if (result.contains("exceeded")) {
-                    ManipDadosVerif.getInstance().envioDados();
-                } else {
-                    ManipDadosVerif.getInstance().manipularDadosHttp(result, tipo);
-                }
-            }
-            else{
-                ManipDadosVerif.getInstance().manipularDadosHttp(result, tipo);
-            }
+            ManipDadosVerif.getInstance().manipularDadosHttp(result);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             Log.i("ERRO", "Erro2 = " + e);

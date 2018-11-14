@@ -56,15 +56,10 @@ public class ManipDadosVerif {
         return instance;
     }
 
-    public void manipularDadosHttp(String result, String tipo) {
+    public void manipularDadosHttp(String result) {
 
         if (!result.equals("")) {
-            if (tipo.equals("BoletimTO")){
-                retornoBoletim(result);
-            } else {
-                retornoVerifNormal(result, tipo);
-            }
-
+            retornoVerifNormal(result);
         }
 
     }
@@ -163,70 +158,80 @@ public class ManipDadosVerif {
 
     }
 
-    public void retornoVerifNormal(String result, String tipo) {
+    public void retornoVerifNormal(String result) {
 
         try {
 
-            JSONObject jObj = new JSONObject(result);
-            JSONArray jsonArray = jObj.getJSONArray("dados");
-            Class classe = Class.forName(manipLocalClasse(tipo));
+            if(this.tipo.equals("BoletimTO")) {
 
-            if (jsonArray.length() > 0) {
+                JSONObject jObj = new JSONObject(result);
+                JSONArray jsonArray = jObj.getJSONArray("dados");
 
-                for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject objeto = jsonArray.getJSONObject(0);
+                Gson gson = new Gson();
+                BoletimTO boletimTO = gson.fromJson(objeto.toString(), BoletimTO.class);
+                boletimTO.insert();
 
-                    JSONObject objeto = jsonArray.getJSONObject(i);
-                    Gson gson = new Gson();
-                    genericRecordable = new GenericRecordable();
-                    genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
-
-                }
-
+                this.progressDialog.dismiss();
                 Intent it = new Intent(telaAtual, telaProx);
                 telaAtual.startActivity(it);
 
-            } else {
+            }
+            else if(this.tipo.equals("Atualiza")) {
 
-                AlertDialog.Builder alerta = new AlertDialog.Builder(telaAtual);
-                alerta.setTitle("ATENÇÃO");
-                alerta.setMessage(variavel + " INEXISTENTE NA BASE DE DADOS.");
+                String verAtualizacao = result.trim();
 
-                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
+                if(verAtualizacao.equals("S")){
+                    AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
+                    atualizarAplicativo.setContext(this.principalActivity);
+                    atualizarAplicativo.execute();
+                }
+                else{
+                    this.principalActivity.startTimer(verAtualizacao);
+                }
+
+            }
+            else{
+
+                JSONObject jObj = new JSONObject(result);
+                JSONArray jsonArray = jObj.getJSONArray("dados");
+                Class classe = Class.forName(manipLocalClasse(tipo));
+
+                if (jsonArray.length() > 0) {
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject objeto = jsonArray.getJSONObject(i);
+                        Gson gson = new Gson();
+                        genericRecordable = new GenericRecordable();
+                        genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
+
                     }
-                });
-                alerta.show();
+
+                    Intent it = new Intent(telaAtual, telaProx);
+                    telaAtual.startActivity(it);
+
+                } else {
+
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(telaAtual);
+                    alerta.setTitle("ATENÇÃO");
+                    alerta.setMessage(variavel + " INEXISTENTE NA BASE DE DADOS.");
+
+                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // TODO Auto-generated method stub
+                        }
+                    });
+                    alerta.show();
+
+                }
 
             }
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             Log.i("ERRO", "Erro Manip = " + e);
-        }
-
-    }
-
-    public void retornoBoletim(String result) {
-
-        try {
-
-            JSONObject jObj = new JSONObject(result);
-            JSONArray jsonArray = jObj.getJSONArray("dados");
-
-            JSONObject objeto = jsonArray.getJSONObject(0);
-            Gson gson = new Gson();
-            BoletimTO boletimTO = gson.fromJson(objeto.toString(), BoletimTO.class);
-            boletimTO.insert();
-
-            this.progressDialog.dismiss();
-            Intent it = new Intent(telaAtual, telaProx);
-            telaAtual.startActivity(it);
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            Log.i("ERRO", "Erro Manip2 = " + e);
         }
 
     }

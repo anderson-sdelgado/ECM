@@ -44,7 +44,7 @@ public class ECMContext extends Application {
 
 	private boolean verTimer;
 
-	public static String versaoAplic = "1.22";
+	public static String versaoAplic = "1.0";
 	private String verAtualCL;
 
 	@Override

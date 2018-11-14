@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class CaminhaoTurnoActivity extends ActivityGeneric {
 
@@ -32,7 +31,7 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
         List listConfigTO = configTO.all();
 
         configTO = (ConfiguracaoTO) listConfigTO.get(0);
-        textViewCodCaminhao.setText(String.valueOf(configTO.getCamConfig()));
+        textViewCodCaminhao.setText(String.valueOf(configTO.getCodCamConfig()));
 
         buttonOkCaminhao.setOnClickListener(new View.OnClickListener() {
 

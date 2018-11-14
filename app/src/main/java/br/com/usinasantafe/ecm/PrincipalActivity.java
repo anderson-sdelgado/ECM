@@ -7,15 +7,12 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,16 +20,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.ConexaoWeb;
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
 import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.estaticas.MotoMecTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class PrincipalActivity extends ActivityGeneric {
 
@@ -75,7 +66,7 @@ public class PrincipalActivity extends ActivityGeneric {
 
                 configTO = (ConfiguracaoTO) configList.get(0);
                 AtualizaTO atualizaTO = new AtualizaTO();
-                atualizaTO.setIdEquipAtualizacao(configTO.getCamConfig());
+                atualizaTO.setIdEquipAtualizacao(configTO.getIdCamConfig());
                 atualizaTO.setVersaoAtual(ecmContext.versaoAplic);
                 ManipDadosVerif.getInstance().verAtualizacao(atualizaTO, this, progressBar);
             }

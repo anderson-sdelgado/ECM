@@ -138,7 +138,7 @@ public class ManipDadosEnvio {
         qtde = qtde + 1;
 
         apontMotoMecTO.setId((long) qtde);
-        apontMotoMecTO.setVeic(configuracaoTO.getCamConfig());
+        apontMotoMecTO.setVeic(configuracaoTO.getCodCamConfig());
         apontMotoMecTO.setMotorista(infBoletimTO.getCodigoMoto());
 
         apontMotoMecTO.setDihi(Tempo.getInstance().datahora());
@@ -198,7 +198,7 @@ public class ManipDadosEnvio {
 
         cabecCheckListTO.setIdCabecCheckList((long) qtdeCab);
         cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
-        cabecCheckListTO.setEquipCabecCheckList(configTO.getCamConfig());
+        cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
         cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
         cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
         cabecCheckListTO.insert();

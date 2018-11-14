@@ -2,7 +2,6 @@ package br.com.usinasantafe.ecm;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 //import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import java.util.List;
 import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
-import br.com.usinasantafe.ecm.to.tb.estaticas.DataTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
@@ -55,16 +53,18 @@ public class ConfiguracoesActivity extends ActivityGeneric {
                 if(!editTextCamConfig.getText().toString().equals("") &&
                         !editTextSenhaConfig.getText().toString().equals("")){
 
-                    CaminhaoTO caminhaoBD = new CaminhaoTO();
+                    CaminhaoTO caminhaoTO = new CaminhaoTO();
 
-                    if(caminhaoBD.hasElements()){
+                    if(caminhaoTO.hasElements()){
 
-                        List lista = caminhaoBD.all();
+                        List caminhaoList = caminhaoTO.get("codCaminhao", Long.valueOf(editTextCamConfig.getText().toString()));
 
-                        if(caminhaoBD.exists("idCaminhao", Long.valueOf(editTextCamConfig.getText().toString()))){
+                        if(caminhaoList.size() > 0){
 
+                            caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
                             ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-                            configuracaoTO.setCamConfig(Long.valueOf(editTextCamConfig.getText().toString()));
+                            configuracaoTO.setIdCamConfig(caminhaoTO.getIdCaminhao());
+                            configuracaoTO.setCodCamConfig(Long.valueOf(editTextCamConfig.getText().toString()));
                             configuracaoTO.setSenhaConfig(editTextSenhaConfig.getText().toString());
                             configuracaoTO.setDtUltimoCheckListConfig("");
                             configuracaoTO.deleteAll();

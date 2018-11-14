@@ -41,7 +41,7 @@ public class CarretaActivity extends ActivityGeneric {
                     configTO = (ConfiguracaoTO) listaConfig.get(0);
 
                     CaminhaoTO caminhaoTOBDPesq = new CaminhaoTO();
-                    List listaCam = caminhaoTOBDPesq.get("idCaminhao", configTO.getCamConfig());
+                    List listaCam = caminhaoTOBDPesq.get("idCaminhao", configTO.getCodCamConfig());
                     CaminhaoTO caminhaoTOBD = (CaminhaoTO) listaCam.get(0);//
 
                     CarretaTO carretaTOBD = new CarretaTO();

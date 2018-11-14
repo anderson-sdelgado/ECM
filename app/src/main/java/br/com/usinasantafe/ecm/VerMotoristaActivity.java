@@ -77,7 +77,7 @@ public class VerMotoristaActivity extends ActivityGeneric {
 
                     configuracaoTO = (ConfiguracaoTO) listConfig.get(0);
 
-                    ecmContext.getCompVVinhacaTO().setCam(configuracaoTO.getCamConfig());
+                    ecmContext.getCompVVinhacaTO().setCam(configuracaoTO.getCodCamConfig());
 
                     Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);

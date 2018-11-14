@@ -10,8 +10,10 @@ public class ConfiguracaoTO extends Entidade {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@DatabaseField(id=true)	
-	private Long camConfig;
+	@DatabaseField(id=true)
+	private Long idCamConfig;
+	@DatabaseField
+	private Long codCamConfig;
 	@DatabaseField
 	private String senhaConfig;
 	@DatabaseField
@@ -21,12 +23,20 @@ public class ConfiguracaoTO extends Entidade {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Long getCamConfig() {
-		return camConfig;
+	public Long getIdCamConfig() {
+		return idCamConfig;
 	}
 
-	public void setCamConfig(Long camconfig) {
-		this.camConfig = camconfig;
+	public void setIdCamConfig(Long idCamConfig) {
+		this.idCamConfig = idCamConfig;
+	}
+
+	public Long getCodCamConfig() {
+		return codCamConfig;
+	}
+
+	public void setCodCamConfig(Long camconfig) {
+		this.codCamConfig = camconfig;
 	}
 
 	public String getSenhaConfig() {

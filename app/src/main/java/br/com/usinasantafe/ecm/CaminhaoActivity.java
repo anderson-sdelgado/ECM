@@ -30,7 +30,7 @@ public class CaminhaoActivity extends ActivityGeneric {
         List lista = configTO.all();
         configTO = (ConfiguracaoTO) lista.get(0);//
 
-        caminhao = String.valueOf(configTO.getCamConfig());
+        caminhao = String.valueOf(configTO.getCodCamConfig());
         textViewCodCaminhaoTurno.setText(caminhao);
 
         Button buttonOkCaminhao = (Button) findViewById(R.id.buttonOkCaminhao);

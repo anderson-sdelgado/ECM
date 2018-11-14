@@ -6,10 +6,10 @@ public class UrlsConexaoHttp {
 
     public static String datahorahttp = "http://www.usinasantafe.com.br/ecm/datahora.php";
 
-    public static String urlPrincipal = "http://www.usinasantafe.com.br/ecm/";
+    public static String urlPrincipal = "http://www.usinasantafe.com.br/ecmdev/";
     //public static String urlPrincipal = "http://www.usinasantafe.com.br/ecmdesenv/";
 
-    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecm/";
+    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecmdev/";
     //public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecmdesenv/";
 
     //public static String localPSTVariavel = "br.com.usinasantafe.ecm.to.tb.variaveis.";
@@ -63,6 +63,8 @@ public class UrlsConexaoHttp {
             retorno = urlPrincEnvio + "buscaboletim.php";
         } else if (classe.equals("BoletimTOViagem")) {
             retorno = urlPrincEnvio + "buscaboletimv.php";
+        } else if (classe.equals("Atualiza")) {
+            retorno = urlPrincEnvio + "atualizaaplic.php";
         }
         return retorno;
     }
