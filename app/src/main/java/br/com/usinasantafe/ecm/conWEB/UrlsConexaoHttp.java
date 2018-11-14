@@ -24,11 +24,7 @@ public class UrlsConexaoHttp {
     public static String LiberacaoTO = urlPrincipal + "liberacao.php";
     public static String MotoMecTO = urlPrincipal + "motomec.php";
     public static String MotoristaTO = urlPrincipal + "motorista.php";
-    public static String NoteiroCanaTO = urlPrincipal + "noteirocana.php";
-    public static String NoteiroVinhacaTO = urlPrincipal + "noteirovinhaca.php";
-    public static String OperadorCarregTO = urlPrincipal + "operadorcarreg.php";
     public static String OSTO = urlPrincipal + "os.php";
-    public static String TipoFuncCamTO = urlPrincipal + "tipofunccam.php";
     public static String TurnoTO = urlPrincipal + "turno.php";
     public static String LocalTO = urlPrincipal + "local.php";
     public static String ItemChecklistTO = urlPrincipal + "itemchecklist.php";

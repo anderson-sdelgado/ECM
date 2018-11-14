@@ -107,29 +107,6 @@ public class PrincipalActivity extends ActivityGeneric {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                } else if (position == 3) {
-
-//                    Intent it = new Intent(PrincipalActivity.this, ConexaoPushActivity.class);
-//                    startActivity(it);
-
-                    //MediaPlayer player = MediaPlayer.create(PrincipalActivity.this, R.raw.johnny);
-                    //player.start();
-
-					/*
-                    Vibrator rr = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-			        long milliseconds = 100;
-			        rr.vibrate(milliseconds);
-
-			        try{
-			        	Uri som = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-			        	Ringtone tone = RingtoneManager.getRingtone(PrincipalActivity.this, som);
-			        	tone.play();
-			        }
-			        catch(Exception ex){
-
-			        }
-					*/
-
                 }
             }
 

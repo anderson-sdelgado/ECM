@@ -9,8 +9,7 @@ import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.estaticas.NoteiroCanaTO;
-import br.com.usinasantafe.ecm.to.tb.estaticas.NoteiroVinhacaTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.NoteiroTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class NoteiroActivity extends ActivityGeneric {
@@ -38,11 +37,11 @@ public class NoteiroActivity extends ActivityGeneric {
                     List lTurno = infBoletimTO.all();
                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
 
+                    NoteiroTO noteiroTOBD = new NoteiroTO();
+
                     if(infBoletimTO.getTipoAtiv() == 1){
 
-                        NoteiroCanaTO noteiroCanaTOBD = new NoteiroCanaTO();
-
-                        if(noteiroCanaTOBD.exists("codNoteiroCana", Long.parseLong(editTextPadrao.getText().toString()))){
+                        if(noteiroTOBD.exists("codNoteiro", Long.parseLong(editTextPadrao.getText().toString()))){
 
 //                            ecmContext.getCompVCanaTO().setNoteiro(Long.parseLong(editTextPadrao.getText().toString()));
                             Intent it = new Intent(NoteiroActivity.this, AtividadeOSActivity.class);
@@ -71,9 +70,7 @@ public class NoteiroActivity extends ActivityGeneric {
                     }
                     else if(infBoletimTO.getTipoAtiv() == 2){
 
-                        NoteiroVinhacaTO noteiroVinhacaTOBD = new NoteiroVinhacaTO();
-
-                        if(noteiroVinhacaTOBD.exists("codNoteiroVinhaca", Long.parseLong(editTextPadrao.getText().toString()))){
+                        if(noteiroTOBD.exists("codNoteiro", Long.parseLong(editTextPadrao.getText().toString()))){
 
                             ecmContext.getCompVVinhacaTO().setApont(Long.parseLong(editTextPadrao.getText().toString()));
                             Intent it = new Intent(NoteiroActivity.this, ListaLocalActivity.class);

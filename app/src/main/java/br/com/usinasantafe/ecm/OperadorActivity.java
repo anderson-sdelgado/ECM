@@ -3,15 +3,13 @@ package br.com.usinasantafe.ecm;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.estaticas.OperadorCarregTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class OperadorActivity extends ActivityGeneric {
@@ -35,9 +33,9 @@ public class OperadorActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    OperadorCarregTO operadorCarregTOBD = new OperadorCarregTO();
+                    MotoristaTO motoristaTO = new MotoristaTO();
 
-                    if(operadorCarregTOBD.exists("codOperadorCarreg", Long.parseLong(editTextPadrao.getText().toString()))){
+                    if(motoristaTO.exists("codMotorista", Long.parseLong(editTextPadrao.getText().toString()))){
 
                         InfBoletimTO infBoletimTO = new InfBoletimTO();
                         List infBoletimTOList = infBoletimTO.all();
@@ -45,16 +43,16 @@ public class OperadorActivity extends ActivityGeneric {
 
                         switch(ecmContext.getNumCarreta()){
                             case 0:
-                                infBoletimTO.setOpCam(operadorCarregTOBD.getCodOperadorCarreg());
+                                infBoletimTO.setOpCam(motoristaTO.getCodMotorista());
                                 break;
                             case 1:
-                                infBoletimTO.setOpCarr1(operadorCarregTOBD.getCodOperadorCarreg());
+                                infBoletimTO.setOpCarr1(motoristaTO.getCodMotorista());
                                 break;
                             case 2:
-                                infBoletimTO.setOpCarr2(operadorCarregTOBD.getCodOperadorCarreg());
+                                infBoletimTO.setOpCarr2(motoristaTO.getCodMotorista());
                                 break;
                             case 3:
-                                infBoletimTO.setOpCarr3(operadorCarregTOBD.getCodOperadorCarreg());
+                                infBoletimTO.setOpCarr3(motoristaTO.getCodMotorista());
                                 break;
                         }
 
