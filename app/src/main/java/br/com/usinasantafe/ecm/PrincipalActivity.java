@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
@@ -21,12 +22,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
+import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
 import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.to.tb.estaticas.MotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
@@ -34,6 +38,8 @@ public class PrincipalActivity extends ActivityGeneric {
 
     private ListView lista;
     private ECMContext ecmContext;
+    private ConfiguracaoTO configTO;
+    private ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,36 @@ public class PrincipalActivity extends ActivityGeneric {
             ActivityCompat.requestPermissions((Activity) this, PERMISSIONS, 112);
         }
 
-        startTimer();
+        ConexaoWeb conexaoWeb = new ConexaoWeb();
+        configTO = new ConfiguracaoTO();
+        List configList = configTO.all();
+
+        progressBar = new ProgressDialog(this);
+
+        if(conexaoWeb.verificaConexao(this))
+        {
+
+            configTO = new ConfiguracaoTO();
+            configList = configTO.all();
+            if(configList.size() > 0){
+
+                progressBar.setCancelable(true);
+                progressBar.setMessage("Buscando Atualização...");
+                progressBar.show();
+
+                configTO = (ConfiguracaoTO) configList.get(0);
+                AtualizaTO atualizaTO = new AtualizaTO();
+                atualizaTO.setIdEquipAtualizacao(configTO.getCamConfig());
+                atualizaTO.setVersaoAtual(ecmContext.versaoAplic);
+                ManipDadosVerif.getInstance().verAtualizacao(atualizaTO, this, progressBar);
+            }
+
+        }
+        else{
+            startTimer("N_NAC");
+        }
+
+        configList.clear();
 
         listarMenuInicial();
 
@@ -117,13 +152,19 @@ public class PrincipalActivity extends ActivityGeneric {
     public void onBackPressed()  {
     }
 
-    public void startTimer() {
+    public void startTimer(String verAtualizacao) {
 
+        Log.i("PMM", "VERATUAL = " + verAtualizacao);
+        ecmContext.setVerAtualCL(verAtualizacao);
         boolean alarmeAtivo = (PendingIntent.getBroadcast(this, 0, new Intent("ALARME_DISPARADO"), PendingIntent.FLAG_NO_CREATE) == null);
+
+        if(progressBar.isShowing()){
+            progressBar.dismiss();
+        }
 
         if(alarmeAtivo){
 
-            Log.i("ECM", "NOVO ALARME");
+            Log.i("PMM", "NOVO TIMER");
 
             Intent intent = new Intent("EXECUTAR_ALARME");
             PendingIntent p = PendingIntent.getBroadcast(this, 0, intent, 0);
@@ -137,7 +178,7 @@ public class PrincipalActivity extends ActivityGeneric {
 
         }
         else{
-            Log.i("Script", "Alarme já ativo");
+            Log.i("PMM", "TIMER já ativo");
         }
     }
 

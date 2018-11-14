@@ -44,6 +44,9 @@ public class ECMContext extends Application {
 
 	private boolean verTimer;
 
+	public static String versaoAplic = "1.22";
+	private String verAtualCL;
+
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -190,8 +193,11 @@ public class ECMContext extends Application {
 		this.verTimer = verTimer;
 	}
 
+	public String getVerAtualCL() {
+		return verAtualCL;
+	}
 
-
-
-
+	public void setVerAtualCL(String verAtualCL) {
+		this.verAtualCL = verAtualCL;
+	}
 }

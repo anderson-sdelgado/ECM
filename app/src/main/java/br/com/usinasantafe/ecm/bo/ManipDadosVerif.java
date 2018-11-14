@@ -18,10 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.usinasantafe.ecm.PrincipalActivity;
 import br.com.usinasantafe.ecm.conWEB.ConHttpPostCadGenerico;
 import br.com.usinasantafe.ecm.conWEB.ConHttpPostVerGenerico;
 import br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp;
 import br.com.usinasantafe.ecm.pst.GenericRecordable;
+import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 
@@ -40,6 +42,9 @@ public class ManipDadosVerif {
     private ProgressDialog progressDialog;
     private String dado;
     private String tipo;
+    private AtualizaTO atualizaTO;
+    private PrincipalActivity principalActivity;
+    private ConHttpPostVerGenerico conHttpPostVerGenerico;
 
     public ManipDadosVerif() {
         //genericRecordable = new GenericRecordable();
@@ -69,6 +74,18 @@ public class ManipDadosVerif {
             classe = urlsConexaoHttp.localPSTEstatica + classe;
         }
         return classe;
+    }
+
+    public void verAtualizacao(AtualizaTO atualizaTO, PrincipalActivity principalActivity, ProgressDialog progressDialog) {
+
+        urlsConexaoHttp = new UrlsConexaoHttp();
+        this.atualizaTO = atualizaTO;
+        this.progressDialog = progressDialog;
+        this.tipo = "Atualiza";
+        this.principalActivity = principalActivity;
+
+        envioAtualizacao();
+
     }
 
     public void verDados(String dado, String tipo, Context telaAtual, Class telaProx, ProgressDialog progressDialog) {
@@ -134,7 +151,7 @@ public class ManipDadosVerif {
         }
 
 
-        ConHttpPostVerGenerico conHttpPostVerGenerico = new ConHttpPostVerGenerico();
+        conHttpPostVerGenerico = new ConHttpPostVerGenerico();
         conHttpPostVerGenerico.setParametrosPost(parametrosPost);
         if(this.tipo.equals("BoletimTOViagem")) {
             this.tipo = "BoletimTO";
@@ -214,5 +231,27 @@ public class ManipDadosVerif {
 
     }
 
+
+    public void envioAtualizacao(){
+
+        JsonArray jsonArray = new JsonArray();
+
+        Gson gson = new Gson();
+        jsonArray.add(gson.toJsonTree(atualizaTO, atualizaTO.getClass()));
+
+        JsonObject json = new JsonObject();
+        json.add("dados", jsonArray);
+
+        Log.i("PMM", "LISTA = " + json.toString());
+
+        String[] url = {urlsConexaoHttp.urlVerifica(tipo)};
+        Map<String, Object> parametrosPost = new HashMap<String, Object>();
+        parametrosPost.put("dado", json.toString());
+
+        conHttpPostVerGenerico = new ConHttpPostVerGenerico();
+        conHttpPostVerGenerico.setParametrosPost(parametrosPost);
+        conHttpPostVerGenerico.execute(url);
+
+    }
 
 }
