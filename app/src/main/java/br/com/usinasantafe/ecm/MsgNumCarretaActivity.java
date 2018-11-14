@@ -44,7 +44,7 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
+
                             editTextPadrao.setText("");
                         }
                     });

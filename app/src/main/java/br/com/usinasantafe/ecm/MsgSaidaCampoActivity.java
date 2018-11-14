@@ -27,7 +27,7 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
         buttonSimSaidaCampo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 InfBoletimTO infBoletimTO = new InfBoletimTO();
                 List infBoletimTOList = infBoletimTO.all();
@@ -46,7 +46,7 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
         buttonNaoSaidaCampo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
             }
         });
 

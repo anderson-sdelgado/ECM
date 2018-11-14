@@ -31,7 +31,7 @@ public class SenhaActivity extends ActivityGeneric {
             @SuppressWarnings("unchecked")
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
 
@@ -70,7 +70,7 @@ public class SenhaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(SenhaActivity.this, PrincipalActivity.class);
                 startActivity(it);
                 finish();

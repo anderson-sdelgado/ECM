@@ -31,7 +31,7 @@ public class MaquinaActivity extends ActivityGeneric {
             @SuppressWarnings("rawtypes")
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 if(!editTextPadrao.getText().toString().equals("")){
                     CarregadeiraTO carregadeiraTOBD = new CarregadeiraTO();
@@ -72,7 +72,7 @@ public class MaquinaActivity extends ActivityGeneric {
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO Auto-generated method stub
+
                                 editTextPadrao.setText("");
                             }
                         });
@@ -88,7 +88,7 @@ public class MaquinaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 if(editTextPadrao.getText().toString().length() > 0){
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }

@@ -42,7 +42,7 @@ public class ItemChecklistActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 respItemCheckListTO.setOpcaoItemCheckList(1L);
                 proximaTela();
 
@@ -54,7 +54,7 @@ public class ItemChecklistActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 respItemCheckListTO.setOpcaoItemCheckList(2L);
                 proximaTela();
             }
@@ -65,7 +65,7 @@ public class ItemChecklistActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 respItemCheckListTO.setOpcaoItemCheckList(3L);
                 proximaTela();
             }
@@ -76,7 +76,7 @@ public class ItemChecklistActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 retornoTela();
             }
 

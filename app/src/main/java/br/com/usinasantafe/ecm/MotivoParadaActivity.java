@@ -71,7 +71,7 @@ public class MotivoParadaActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
+
 
                 final int posicao = position;
 
@@ -137,7 +137,7 @@ public class MotivoParadaActivity extends ActivityGeneric {
                         alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO Auto-generated method stub
+
                             }
                         });
 
@@ -175,7 +175,7 @@ public class MotivoParadaActivity extends ActivityGeneric {
                         alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO Auto-generated method stub
+
                             }
                         });
 
@@ -212,7 +212,7 @@ public class MotivoParadaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 for(int i = 0; i < listaMM.size(); i++){
                     motoMecBD = (MotoMecTO) listaMM.get(i);

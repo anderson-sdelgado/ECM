@@ -39,7 +39,7 @@ public class MenuInicialApontActivity extends ActivityGeneric{
         buttonRetMenuInicialApont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
@@ -76,7 +76,7 @@ public class MenuInicialApontActivity extends ActivityGeneric{
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
+
 
                 if (position == 0) {
 

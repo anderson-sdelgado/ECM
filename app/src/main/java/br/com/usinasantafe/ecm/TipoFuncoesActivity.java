@@ -32,7 +32,7 @@ public class TipoFuncoesActivity extends ActivityGeneric {
 //
 //            @Override
 //            public void onClick(View v) {
-//                // TODO Auto-generated method stub
+//
 //                Intent it = new Intent(TipoFuncoesActivity.this, CaminhaoTurnoActivity.class);
 //                startActivity(it);
 //                finish();
@@ -63,7 +63,7 @@ public class TipoFuncoesActivity extends ActivityGeneric {
 //            @Override
 //            public void onItemClick(AdapterView<?> l, View v, int position,
 //                                    long id) {
-//                // TODO Auto-generated method stub
+//
 //                TipoFuncCamTO tipoFuncCamBD = (TipoFuncCamTO) listaTipoFuncCam.get(position);
 //
 //                if(position == 0) {

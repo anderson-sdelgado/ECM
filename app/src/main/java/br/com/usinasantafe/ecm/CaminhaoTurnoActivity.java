@@ -37,7 +37,6 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if (ecmContext.getAltMotoL() == 1) {//Menu Inicial
                     Intent it = new Intent(CaminhaoTurnoActivity.this, ListaTurnoActivity.class);
@@ -61,7 +60,7 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(CaminhaoTurnoActivity.this, MotoristaActivity.class);
                 startActivity(it);
                 finish();

@@ -40,7 +40,7 @@ public class CertificadoActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
+
                 if (position == 0) {
                     Intent it = new Intent(CertificadoActivity.this, CaminhaoActivity.class);
                     startActivity(it);

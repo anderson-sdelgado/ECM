@@ -44,7 +44,7 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 AtividadeOsTO atividadeOs = new AtividadeOsTO();
                 atividadeOs.deleteAll();
@@ -73,7 +73,7 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(MsgAtividadeOSActivity.this, AtividadeOSActivity.class);
                 startActivity(it);
                 finish();

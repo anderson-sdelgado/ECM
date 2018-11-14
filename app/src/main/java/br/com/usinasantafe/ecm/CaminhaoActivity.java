@@ -40,7 +40,6 @@ public class CaminhaoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 CaminhaoTO caminhaoTOBD = new CaminhaoTO();
 
@@ -75,7 +74,6 @@ public class CaminhaoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 Intent it = new Intent(CaminhaoActivity.this, CertificadoActivity.class);
                 startActivity(it);

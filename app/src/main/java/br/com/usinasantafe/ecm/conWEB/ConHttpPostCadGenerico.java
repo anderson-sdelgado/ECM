@@ -33,7 +33,7 @@ public class ConHttpPostCadGenerico extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... arg) {
-		// TODO Auto-generated method stub
+
 		
 		BufferedReader bufferedReader = null;
 		String resultado = null;

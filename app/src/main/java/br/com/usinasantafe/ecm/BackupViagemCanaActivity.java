@@ -43,7 +43,6 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if(contador < listViagemCana.size() - 1){
                     contador = contador + 1;
@@ -60,7 +59,6 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if(contador > 0){
                     contador = contador - 1;
@@ -77,7 +75,6 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 Intent it = new Intent(BackupViagemCanaActivity.this, MenuInicialApontActivity.class);
                 startActivity(it);

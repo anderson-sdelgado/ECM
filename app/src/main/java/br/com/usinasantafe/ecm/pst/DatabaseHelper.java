@@ -54,7 +54,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
+
 		super.close();
 		
 		instance = null;
@@ -63,7 +63,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource cs) {
-		// TODO Auto-generated method stub
+
 		
 		try{
 			

@@ -30,7 +30,7 @@ public class ConHttpGetBDGenerico extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... arg) {
-		// TODO Auto-generated method stub
+
 		
 		String resultado = "";
 		BufferedReader bufferedReader = null;

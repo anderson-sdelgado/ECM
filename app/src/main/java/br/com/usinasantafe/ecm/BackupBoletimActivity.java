@@ -44,7 +44,6 @@ public class BackupBoletimActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if(contador < listBoletim.size() - 1){
                     contador = contador + 1;
@@ -61,7 +60,6 @@ public class BackupBoletimActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if(contador > 0){
                     contador = contador - 1;
@@ -78,7 +76,6 @@ public class BackupBoletimActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 Intent it = new Intent(BackupBoletimActivity.this, MenuInicialApontActivity.class);
                 startActivity(it);

@@ -32,7 +32,7 @@ public class CarretaEngateActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
@@ -224,7 +224,7 @@ public class CarretaEngateActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 if(editTextPadrao.getText().toString().length() > 0){
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));

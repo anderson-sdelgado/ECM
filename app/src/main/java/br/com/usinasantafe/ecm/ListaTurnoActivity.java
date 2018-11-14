@@ -36,7 +36,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(ListaTurnoActivity.this, CaminhaoTurnoActivity.class);
                 startActivity(it);
                 finish();
@@ -66,7 +66,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
+
                 TurnoTO turnoBD = (TurnoTO) listaTurno.get(position);
 
                 InfBoletimTO infBoletimTO = new InfBoletimTO();

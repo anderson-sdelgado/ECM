@@ -31,7 +31,7 @@ public class HodometroActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 if (!editTextPadrao.getText().toString().equals("")) {
                     HodometroTO hodometroTO = new HodometroTO();
                     hodometroTO.setHodometro(Long.parseLong(editTextPadrao.getText().toString()));
@@ -63,7 +63,7 @@ public class HodometroActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 } else {

@@ -59,7 +59,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         buttonRetMotoMec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 Intent it = new Intent(MenuMotoMecActivity.this, PrincipalActivity.class);
                 startActivity(it);
@@ -349,7 +349,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // TODO Auto-generated method stub
+
                                     }
                                 });
 
@@ -392,7 +392,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // TODO Auto-generated method stub
+
                                     }
                                 });
 
@@ -448,7 +448,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // TODO Auto-generated method stub
+
                                     }
                                 });
 
@@ -486,7 +486,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // TODO Auto-generated method stub
+
                                     }
                                 });
 

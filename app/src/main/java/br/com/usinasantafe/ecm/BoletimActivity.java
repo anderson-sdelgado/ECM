@@ -36,7 +36,7 @@ public class BoletimActivity extends ActivityGeneric {
         buttonOkBoletim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(BoletimActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
 

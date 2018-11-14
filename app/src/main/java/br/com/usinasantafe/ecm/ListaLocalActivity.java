@@ -33,7 +33,7 @@ public class ListaLocalActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(ListaLocalActivity.this, ListaTurnoActivity.class);
                 startActivity(it);
                 finish();
@@ -63,7 +63,7 @@ public class ListaLocalActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
+
 
                 LocalTO localBD = (LocalTO) listaLocal.get(position);
                 ecmContext.getCompVVinhacaTO().setLocal(localBD.getIdLocal());

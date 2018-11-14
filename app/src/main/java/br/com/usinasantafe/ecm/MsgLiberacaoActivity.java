@@ -121,7 +121,7 @@ public class MsgLiberacaoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent it = new Intent(MsgLiberacaoActivity.this, LiberacaoActivity.class);
                 startActivity(it);
                 finish();

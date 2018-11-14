@@ -48,7 +48,7 @@ public class ConfiguracoesActivity extends ActivityGeneric {
         btOkConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 if(!editTextCamConfig.getText().toString().equals("") &&
                         !editTextSenhaConfig.getText().toString().equals("")){
@@ -94,7 +94,7 @@ public class ConfiguracoesActivity extends ActivityGeneric {
         btCancConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 Intent it = new Intent(ConfiguracoesActivity.this, PrincipalActivity.class);
                 startActivity(it);
@@ -106,7 +106,7 @@ public class ConfiguracoesActivity extends ActivityGeneric {
         btAtualBDConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 ConexaoWeb conexaoWeb = new ConexaoWeb();
 

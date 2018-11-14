@@ -49,7 +49,7 @@ public class ECMContext extends Application {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
+
 		super.onCreate();
 //		count = 0L;
 //		handler = new Handler();

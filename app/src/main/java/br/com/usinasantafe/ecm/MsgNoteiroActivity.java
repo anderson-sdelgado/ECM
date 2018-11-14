@@ -20,7 +20,7 @@ public class MsgNoteiroActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 Intent it = new Intent(MsgNoteiroActivity.this, NoteiroActivity.class);
                 startActivity(it);
@@ -33,7 +33,7 @@ public class MsgNoteiroActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 Intent it = new Intent(MsgNoteiroActivity.this, MenuInicialApontActivity.class);
                 startActivity(it);
