@@ -23,6 +23,12 @@ public class CabecCheckListTO extends Entidade {
     private Long funcCabecCheckList;
     @DatabaseField
     private Long turnoCabecCheckList;
+    @DatabaseField
+    private Long statusCabecCheckList;  //1 - Aberto; 2 - Encerrado
+    @DatabaseField
+    private Long qtdeItemCabecCheckList;
+    @DatabaseField
+    private String dtAtualCheckList;
 
     public CabecCheckListTO() {
     }
@@ -67,4 +73,27 @@ public class CabecCheckListTO extends Entidade {
         this.turnoCabecCheckList = turnoCabecCheckList;
     }
 
+    public Long getStatusCabecCheckList() {
+        return statusCabecCheckList;
+    }
+
+    public void setStatusCabecCheckList(Long statusCabecCheckList) {
+        this.statusCabecCheckList = statusCabecCheckList;
+    }
+
+    public Long getQtdeItemCabecCheckList() {
+        return qtdeItemCabecCheckList;
+    }
+
+    public void setQtdeItemCabecCheckList(Long qtdeItemCabecCheckList) {
+        this.qtdeItemCabecCheckList = qtdeItemCabecCheckList;
+    }
+
+    public String getDtAtualCheckList() {
+        return dtAtualCheckList;
+    }
+
+    public void setDtAtualCheckList(String dtAtualCheckList) {
+        this.dtAtualCheckList = dtAtualCheckList;
+    }
 }

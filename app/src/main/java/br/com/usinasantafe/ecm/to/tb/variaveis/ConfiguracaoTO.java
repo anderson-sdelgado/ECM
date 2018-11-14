@@ -17,7 +17,9 @@ public class ConfiguracaoTO extends Entidade {
 	@DatabaseField
 	private String senhaConfig;
 	@DatabaseField
-	private String dtUltimoCheckListConfig;
+	private Long ultTurnoCLConfig;
+//	@DatabaseField
+//	private String dtUltimoCheckListConfig;
 	
 	public ConfiguracaoTO() {
 		// TODO Auto-generated constructor stub
@@ -47,12 +49,20 @@ public class ConfiguracaoTO extends Entidade {
 		this.senhaConfig = senhaconfig;
 	}
 
-	public String getDtUltimoCheckListConfig() {
-		return dtUltimoCheckListConfig;
+	public Long getUltTurnoCLConfig() {
+		return ultTurnoCLConfig;
 	}
 
-	public void setDtUltimoCheckListConfig(String dtUltimoCheckListConfig) {
-		this.dtUltimoCheckListConfig = dtUltimoCheckListConfig;
+	public void setUltTurnoCLConfig(Long ultTurnoCLConfig) {
+		this.ultTurnoCLConfig = ultTurnoCLConfig;
 	}
+
+	//	public String getDtUltimoCheckListConfig() {
+//		return dtUltimoCheckListConfig;
+//	}
+//
+//	public void setDtUltimoCheckListConfig(String dtUltimoCheckListConfig) {
+//		this.dtUltimoCheckListConfig = dtUltimoCheckListConfig;
+//	}
 
 }

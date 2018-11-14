@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.to.tb.estaticas.ItemChecklistTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
 public class ItemChecklistActivity extends ActivityGeneric {
@@ -30,13 +30,13 @@ public class ItemChecklistActivity extends ActivityGeneric {
         Button buttonReparo = (Button) findViewById(R.id.buttonReparo);
         Button buttonCancChecklist = (Button) findViewById(R.id.buttonCancChecklist);
 
-        respItemCheckListTO = ecmContext.getListRespChecklist().get(ecmContext.getPosChecklist());
+//        respItemCheckListTO = ecmContext.getListRespChecklist().get(ecmContext.getPosChecklist());
 
-        ItemChecklistTO itemChecklistTO = new ItemChecklistTO();
-        List list = itemChecklistTO.get("idItemChecklist", respItemCheckListTO.getIdItItemCheckList());
-        itemChecklistTO = (ItemChecklistTO) list.get(0);
+        ItemCheckListTO itemCheckListTO = new ItemCheckListTO();
+        List list = itemCheckListTO.get("idItemChecklist", respItemCheckListTO.getIdItItemCheckList());
+        itemCheckListTO = (ItemCheckListTO) list.get(0);
 
-        textViewItemChecklist.setText(itemChecklistTO.getSeqItemChecklist() + " - " + itemChecklistTO.getDescrItemChecklist());
+        textViewItemChecklist.setText(itemCheckListTO.getSeqItemChecklist() + " - " + itemCheckListTO.getDescrItemChecklist());
 
         buttonConforme.setOnClickListener(new View.OnClickListener() {
 
@@ -87,22 +87,22 @@ public class ItemChecklistActivity extends ActivityGeneric {
 
     public void proximaTela(){
 
-        ecmContext.setPosChecklist(ecmContext.getPosChecklist() + 1);
-
-        if(ecmContext.getListRespChecklist().size() == ecmContext.getPosChecklist()){
-
-            ManipDadosEnvio.getInstance().salvaCheckList(ecmContext.getListRespChecklist());
-
-            Intent it = new Intent(ItemChecklistActivity.this, TipoFuncoesActivity.class);
-            startActivity(it);
-            finish();
-
-        }
-        else{
-            Intent it = new Intent(ItemChecklistActivity.this, ItemChecklistActivity.class);
-            startActivity(it);
-            finish();
-        }
+//        ecmContext.setPosChecklist(ecmContext.getPosChecklist() + 1);
+//
+//        if(ecmContext.getListRespChecklist().size() == ecmContext.getPosChecklist()){
+//
+//            ManipDadosEnvio.getInstance().salvaCheckList(ecmContext.getListRespChecklist());
+//
+//            Intent it = new Intent(ItemChecklistActivity.this, TipoFuncoesActivity.class);
+//            startActivity(it);
+//            finish();
+//
+//        }
+//        else{
+//            Intent it = new Intent(ItemChecklistActivity.this, ItemChecklistActivity.class);
+//            startActivity(it);
+//            finish();
+//        }
 
     }
 

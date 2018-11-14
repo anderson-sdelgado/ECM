@@ -25,7 +25,7 @@ public class ECMContext extends Application {
 	private ApontMotoMecTO apontMotoMecTO;
 	
 	private int numCarreta;
-	private int altMotoL;
+	private int altMotoL; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
 	private int posMenu;
 
 	private Long codigoAtivOS;
@@ -40,7 +40,6 @@ public class ECMContext extends Application {
 	private Long lugarMotivoParada;
 
 	private int posChecklist;
-	private ArrayList<RespItemCheckListTO> listRespChecklist;
 
 	private boolean verTimer;
 
@@ -49,32 +48,15 @@ public class ECMContext extends Application {
 
 	@Override
 	public void onCreate() {
-
 		super.onCreate();
-//		count = 0L;
-//		handler = new Handler();
-//		handler.post(this);
-
 	}
 
-//	public CompVCanaTO getCompVCanaTO() {
-//		if(compVCanaTO == null)
-//			compVCanaTO = new CompVCanaTO();
-//		return compVCanaTO;
-//	}
-	
     public CompVVinhacaTO getCompVVinhacaTO() {
         if (compVVinhacaTO == null)
         compVVinhacaTO = new CompVVinhacaTO();
         return compVVinhacaTO;
     }
-	
-//    public InfBoletimTO getInfBoletimTO() {
-//        if (infBoletimTO == null)
-//        infBoletimTO = new InfBoletimTO();
-//        return infBoletimTO;
-//    }
-	
+
     public ApontMotoMecTO getApontMotoMecTO() {
         if (apontMotoMecTO == null)
         apontMotoMecTO = new ApontMotoMecTO();
@@ -100,7 +82,7 @@ public class ECMContext extends Application {
 	public int getPosMenu() {
 		return posMenu;
 	}
-	
+
 	public void setPosMenu(int posMenu) {
 		this.posMenu = posMenu;
 	}
@@ -167,14 +149,6 @@ public class ECMContext extends Application {
 
 	public void setLugarMotivoParada(Long lugarMotivoParada) {
 		this.lugarMotivoParada = lugarMotivoParada;
-	}
-
-	public ArrayList<RespItemCheckListTO> getListRespChecklist() {
-		return listRespChecklist;
-	}
-
-	public void setListRespChecklist(ArrayList<RespItemCheckListTO> listRespChecklist) {
-		this.listRespChecklist = listRespChecklist;
 	}
 
 	public int getPosChecklist() {

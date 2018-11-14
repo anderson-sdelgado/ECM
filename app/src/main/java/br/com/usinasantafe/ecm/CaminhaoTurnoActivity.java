@@ -38,15 +38,15 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                if (ecmContext.getAltMotoL() == 1) {//Menu Inicial
+                if (ecmContext.getAltMotoL() == 1) {
                     Intent it = new Intent(CaminhaoTurnoActivity.this, ListaTurnoActivity.class);
                     startActivity(it);
                     finish();
-                } else if (ecmContext.getAltMotoL() == 2) {//Ver Motorista Final
+                } else if (ecmContext.getAltMotoL() == 2) {
                     Intent it = new Intent(CaminhaoTurnoActivity.this, VerMotoristaActivity.class);
                     startActivity(it);
                     finish();
-                } else if (ecmContext.getAltMotoL() == 3) {//Menu Moto Mec
+                } else if (ecmContext.getAltMotoL() == 3) {
                     ecmContext.setPosMenu(1);
                     Intent it = new Intent(CaminhaoTurnoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);

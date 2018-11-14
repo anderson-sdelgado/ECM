@@ -104,5 +104,5 @@
     <string name="texto_reparo">NÃO CONFORME (REPARO)</string>
     <string name="texto_titulo_checklist">CHECKLIST</string>
     <string name="texto_cancelar">CANCELAR</string>
-
+    <string name="texto_atual_checklist">ATENÇÃO! HÁ NOVAS ATUALIZAÇÕES PARA QUESTÕES DE CHECKLIST. DESEJA ATUALIZÁ-LAS?</string>
 </resources>

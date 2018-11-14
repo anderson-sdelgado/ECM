@@ -10,18 +10,20 @@ import br.com.usinasantafe.ecm.pst.Entidade;
  */
 
 @DatabaseTable(tableName="tbitemchecklistest")
-public class ItemChecklistTO extends Entidade {
+public class ItemCheckListTO extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
     @DatabaseField(id=true)
     private Long idItemChecklist;
     @DatabaseField
+    private Long idChecklist;
+    @DatabaseField
     private Long seqItemChecklist;
     @DatabaseField
     private String descrItemChecklist;
 
-    public ItemChecklistTO() {
+    public ItemCheckListTO() {
     }
 
     public Long getIdItemChecklist() {
@@ -30,6 +32,14 @@ public class ItemChecklistTO extends Entidade {
 
     public void setIdItemChecklist(Long idItemChecklist) {
         this.idItemChecklist = idItemChecklist;
+    }
+
+    public Long getIdChecklist() {
+        return idChecklist;
+    }
+
+    public void setIdChecklist(Long idChecklist) {
+        this.idChecklist = idChecklist;
     }
 
     public Long getSeqItemChecklist() {
@@ -47,5 +57,4 @@ public class ItemChecklistTO extends Entidade {
     public void setDescrItemChecklist(String descrItemChecklist) {
         this.descrItemChecklist = descrItemChecklist;
     }
-
 }

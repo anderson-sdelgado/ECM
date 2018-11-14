@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.estaticas.ItemChecklistTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.TurnoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
 public class ListaTurnoActivity extends ActivityGeneric {
 
@@ -67,55 +68,62 @@ public class ListaTurnoActivity extends ActivityGeneric {
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
 
-                TurnoTO turnoBD = (TurnoTO) listaTurno.get(position);
+                TurnoTO turnoTO = (TurnoTO) listaTurno.get(position);
 
                 InfBoletimTO infBoletimTO = new InfBoletimTO();
                 List lTurno = infBoletimTO.all();
                 infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                infBoletimTO.setTurno(turnoBD.getIdTurno());
+                infBoletimTO.setTurno(turnoTO.getIdTurno());
                 infBoletimTO.update();
 
-                if (turnoBD.getIdTurno() == 2) {
+                CaminhaoTO caminhaoTO = new CaminhaoTO();
+                List caminhaoList = caminhaoTO.get("codCaminhao", infBoletimTO.getCam());
+                caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
+                caminhaoList.clear();
 
-                    ConfiguracaoTO configTO = new ConfiguracaoTO();
-                    List listaConfig = configTO.all();
-                    configTO = (ConfiguracaoTO) listaConfig.get(0);
+                ConfiguracaoTO configTO = new ConfiguracaoTO();
+                List configList = configTO.all();
+                configTO = (ConfiguracaoTO) configList.get(0);
 
-                    if(!configTO.getDtUltimoCheckListConfig().equals(Tempo.getInstance().dataSHora())) {
+                if ((caminhaoTO.getIdChecklist() > 0) && (configTO.getUltTurnoCLConfig() != turnoTO.getIdTurno())) {
 
-                        ecmContext.setListRespChecklist(new ArrayList<RespItemCheckListTO>());
+                    ecmContext.setPosChecklist(1);
 
-                        ItemChecklistTO itemChecklistTO = new ItemChecklistTO();
-                        List items = itemChecklistTO.all();
+                    if (ecmContext.getVerAtualCL().equals("N_AC")) {
 
-                        for (int i = 0; i < items.size(); i++) {
-
-                            RespItemCheckListTO respItemCheckListTO = new RespItemCheckListTO();
-                            itemChecklistTO = (ItemChecklistTO) items.get(i);
-
-                            respItemCheckListTO.setIdItItemCheckList(itemChecklistTO.getIdItemChecklist());
-                            ecmContext.getListRespChecklist().add(respItemCheckListTO);
-
-                        }
-
-                        ecmContext.setPosChecklist(0);
-                        Intent it = new Intent(ListaTurnoActivity.this, ItemChecklistActivity.class);
+                        Intent it = new Intent(ListaTurnoActivity.this, PergAtualCheckListActivity.class);
                         startActivity(it);
                         finish();
 
-                    }else{
+                    } else {
 
-                        Intent it = new Intent(ListaTurnoActivity.this, TipoFuncoesActivity.class);
+                        ItemCheckListTO itemCheckListTO = new ItemCheckListTO();
+                        List itemCheckList = itemCheckListTO.get("idChecklist", caminhaoTO.getIdChecklist());
+                        Long qtde = (long) itemCheckList.size();
+                        itemCheckList.clear();
+
+                        CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
+                        cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
+                        cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
+                        cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
+                        cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
+                        cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
+                        cabecCheckListTO.setStatusCabecCheckList(1L);
+                        cabecCheckListTO.setDtAtualCheckList("0");
+                        cabecCheckListTO.insert();
+
+                        Intent it = new Intent(ListaTurnoActivity.this, ItemChecklistActivity.class);
                         startActivity(it);
                         finish();
 
                     }
 
-
                 } else {
+
                     Intent it = new Intent(ListaTurnoActivity.this, TipoFuncoesActivity.class);
                     startActivity(it);
                     finish();
+
                 }
 
 
@@ -126,7 +134,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
     }
 
-    public void onBackPressed()  {
+    public void onBackPressed() {
     }
 
 }

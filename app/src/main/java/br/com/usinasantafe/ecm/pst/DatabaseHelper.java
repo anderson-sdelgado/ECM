@@ -9,7 +9,7 @@ import br.com.usinasantafe.ecm.to.tb.estaticas.CarregadeiraTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CarretaTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.DataTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.FrenteTO;
-import br.com.usinasantafe.ecm.to.tb.estaticas.ItemChecklistTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.LiberacaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.LocalTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.MotoMecTO;
@@ -78,7 +78,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, OSTO.class);
 			TableUtils.createTable(cs, TurnoTO.class);
 			TableUtils.createTable(cs, LocalTO.class);
-			TableUtils.createTable(cs, ItemChecklistTO.class);
+			TableUtils.createTable(cs, ItemCheckListTO.class);
 			TableUtils.createTable(cs, CabecCheckListTO.class);
 			TableUtils.createTable(cs, RespItemCheckListTO.class);
 			TableUtils.createTable(cs, DataTO.class);
