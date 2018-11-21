@@ -36,7 +36,6 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 InfBoletimTO infBoletimTO = new InfBoletimTO();
                 List lTurno = infBoletimTO.all();
@@ -77,7 +76,6 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 ConexaoWeb conexaoWeb = new ConexaoWeb();
 

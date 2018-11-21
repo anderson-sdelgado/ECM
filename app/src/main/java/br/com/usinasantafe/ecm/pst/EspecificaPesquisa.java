@@ -6,7 +6,6 @@ public class EspecificaPesquisa {
 	private Object valor;
 	
 	public EspecificaPesquisa() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getCampo() {

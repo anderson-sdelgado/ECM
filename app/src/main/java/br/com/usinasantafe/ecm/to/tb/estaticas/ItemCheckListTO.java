@@ -15,46 +15,46 @@ public class ItemCheckListTO extends Entidade {
     private static final long serialVersionUID = 1L;
 
     @DatabaseField(id=true)
-    private Long idItemChecklist;
+    private Long idItemCheckList;
     @DatabaseField
-    private Long idChecklist;
+    private Long idCheckList;
     @DatabaseField
-    private Long seqItemChecklist;
+    private Long seqItemCheckList;
     @DatabaseField
-    private String descrItemChecklist;
+    private String descrItemCheckList;
 
     public ItemCheckListTO() {
     }
 
-    public Long getIdItemChecklist() {
-        return idItemChecklist;
+    public Long getIdItemCheckList() {
+        return idItemCheckList;
     }
 
-    public void setIdItemChecklist(Long idItemChecklist) {
-        this.idItemChecklist = idItemChecklist;
+    public void setIdItemCheckList(Long idItemCheckList) {
+        this.idItemCheckList = idItemCheckList;
     }
 
-    public Long getIdChecklist() {
-        return idChecklist;
+    public Long getIdCheckList() {
+        return idCheckList;
     }
 
-    public void setIdChecklist(Long idChecklist) {
-        this.idChecklist = idChecklist;
+    public void setIdCheckList(Long idCheckList) {
+        this.idCheckList = idCheckList;
     }
 
-    public Long getSeqItemChecklist() {
-        return seqItemChecklist;
+    public Long getSeqItemCheckList() {
+        return seqItemCheckList;
     }
 
-    public void setSeqItemChecklist(Long seqItemChecklist) {
-        this.seqItemChecklist = seqItemChecklist;
+    public void setSeqItemCheckList(Long seqItemCheckList) {
+        this.seqItemCheckList = seqItemCheckList;
     }
 
-    public String getDescrItemChecklist() {
-        return descrItemChecklist;
+    public String getDescrItemCheckList() {
+        return descrItemCheckList;
     }
 
-    public void setDescrItemChecklist(String descrItemChecklist) {
-        this.descrItemChecklist = descrItemChecklist;
+    public void setDescrItemCheckList(String descrItemCheckList) {
+        this.descrItemCheckList = descrItemCheckList;
     }
 }

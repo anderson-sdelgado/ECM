@@ -10,6 +10,8 @@ public class CompVCanaBkpTO extends Entidade{
 
 	private static final long serialVersionUID = 1L;
 
+	@DatabaseField(generatedId=true)
+	private Long idVCanaBkp;
 	@DatabaseField
     private Long moto;
 	@DatabaseField
@@ -18,7 +20,7 @@ public class CompVCanaBkpTO extends Entidade{
     private Long carr2;
 	@DatabaseField
     private Long carr3;
-	@DatabaseField(id=true)
+	@DatabaseField
     private String dataSaidaCampo;
 	@DatabaseField
     private Long noteiro;

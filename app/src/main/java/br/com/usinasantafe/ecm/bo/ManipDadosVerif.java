@@ -237,7 +237,6 @@ public class ManipDadosVerif {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             Log.i("ERRO", "Erro Manip = " + e);
         }
 

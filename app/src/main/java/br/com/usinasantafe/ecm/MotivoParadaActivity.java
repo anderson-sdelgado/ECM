@@ -76,7 +76,6 @@ public class MotivoParadaActivity extends ActivityGeneric {
                 final int posicao = position;
 
                 MotoMecTO motoMecBD = (MotoMecTO) listaMM.get(posicao);
-                ecmContext.getApontMotoMecTO().setTipoFuncao(motoMecBD.getCargoMotoMec());
 
                 if(motoMecBD.getFuncaoMotoMec() == 1){
 

@@ -14,7 +14,6 @@ import br.com.usinasantafe.ecm.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
@@ -56,12 +55,12 @@ public class ItemChecklistActivity extends ActivityGeneric {
         ArrayList itemListPesq = new ArrayList();
 
         EspecificaPesquisa pesq3 = new EspecificaPesquisa();
-        pesq3.setCampo("seqItemChecklist");
+        pesq3.setCampo("seqItemCheckList");
         pesq3.setValor(ecmContext.getPosChecklist());
         itemListPesq.add(pesq3);
 
         EspecificaPesquisa pesq4 = new EspecificaPesquisa();
-        pesq4.setCampo("idChecklist");
+        pesq4.setCampo("idCheckList");
         pesq4.setValor(caminhaoTO.getIdChecklist());
         itemListPesq.add(pesq4);
 
@@ -72,7 +71,7 @@ public class ItemChecklistActivity extends ActivityGeneric {
         ArrayList respPesq = new ArrayList();
         EspecificaPesquisa pesq1 = new EspecificaPesquisa();
         pesq1.setCampo("idItItemCheckList");
-        pesq1.setValor(itemCheckListTO.getIdItemChecklist());
+        pesq1.setValor(itemCheckListTO.getIdItemCheckList());
         respPesq.add(pesq1);
 
         EspecificaPesquisa pesq2 = new EspecificaPesquisa();
@@ -87,13 +86,12 @@ public class ItemChecklistActivity extends ActivityGeneric {
             respItemCheckListTO.delete();
         }
 
-        textViewItemChecklist.setText(itemCheckListTO.getSeqItemChecklist() + " - " + itemCheckListTO.getDescrItemChecklist());
+        textViewItemChecklist.setText(itemCheckListTO.getSeqItemCheckList() + " - " + itemCheckListTO.getDescrItemCheckList());
 
         buttonConforme.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 proximaTela(1L);
 
             }
@@ -133,13 +131,13 @@ public class ItemChecklistActivity extends ActivityGeneric {
     public void proximaTela(Long opcao){
 
         respItemCheckListTO.setIdCabecItemCheckList(cabecCheckListTO.getIdCabecCheckList());
-        respItemCheckListTO.setIdItItemCheckList(itemCheckListTO.getIdItemChecklist());
+        respItemCheckListTO.setIdItItemCheckList(itemCheckListTO.getIdItemCheckList());
         respItemCheckListTO.setOpcaoItemCheckList(opcao);
         respItemCheckListTO.insert();
 
         if(cabecCheckListTO.getQtdeItemCabecCheckList() == ecmContext.getPosChecklist()){
 
-            Intent it = new Intent(ItemChecklistActivity.this, TipoFuncoesActivity.class);
+            Intent it = new Intent(ItemChecklistActivity.this, MenuMotoMecActivity.class);
             startActivity(it);
             finish();
 

@@ -16,7 +16,6 @@ public class TurnoTO extends Entidade {
 	private String descTurno;
 	
 	public TurnoTO() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Long getIdTurno() {

@@ -35,7 +35,10 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-	
+
+	public static final String FORCA_DB_NAME = "ecm_db";
+	public static final int FORCA_BD_VERSION = 1;
+
 	private static DatabaseHelper instance;
 	
 	public static DatabaseHelper getInstance(){
@@ -44,10 +47,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	public DatabaseHelper(Context context) {
 		
-		super(context, Database.FORCA_DB_NAME,
-				null, Database.FORCA_BD_VERSION);
-		
-		// TODO Auto-generated constructor stub
+		super(context, FORCA_DB_NAME,
+				null, FORCA_BD_VERSION);
+
 		instance = this;
 		
 	}

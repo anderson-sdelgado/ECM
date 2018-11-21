@@ -74,6 +74,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
                 List lTurno = infBoletimTO.all();
                 infBoletimTO = (InfBoletimTO) lTurno.get(0);
                 infBoletimTO.setTurno(turnoTO.getIdTurno());
+                infBoletimTO.setTipoAtiv(1L);
                 infBoletimTO.update();
 
                 CaminhaoTO caminhaoTO = new CaminhaoTO();
@@ -98,7 +99,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
                     } else {
 
                         ItemCheckListTO itemCheckListTO = new ItemCheckListTO();
-                        List itemCheckList = itemCheckListTO.get("idChecklist", caminhaoTO.getIdChecklist());
+                        List itemCheckList = itemCheckListTO.get("idCheckList", caminhaoTO.getIdChecklist());
                         Long qtde = (long) itemCheckList.size();
                         itemCheckList.clear();
 
@@ -123,7 +124,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
                 } else {
 
-                    Intent it = new Intent(ListaTurnoActivity.this, TipoFuncoesActivity.class);
+                    Intent it = new Intent(ListaTurnoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();
 

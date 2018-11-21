@@ -21,7 +21,6 @@ public class ConHttpPostCadGenerico extends AsyncTask<String, Void, String> {
 	private Map<String, Object> parametrosPost = null;
 
 	public ConHttpPostCadGenerico() {
-		// TODO Auto-generated constructor stub
 	}
 
     public static ConHttpPostCadGenerico getInstance() {
@@ -116,7 +115,6 @@ public class ConHttpPostCadGenerico extends AsyncTask<String, Void, String> {
 				Tempo.getInstance().setEnvioDado(true);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.i("ERRO", "Erro2 = " + e);
 		}
 		

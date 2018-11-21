@@ -9,9 +9,9 @@ import com.j256.ormlite.table.DatabaseTable;
 public class CompVCanaTO extends Entidade{
 
 	private static final long serialVersionUID = 1L;
-	
-	@DatabaseField(id=true)
-	private Long id;
+
+	@DatabaseField(generatedId=true)
+	private Long idCompVCana;
 	@DatabaseField
     private Long cam;
 	@DatabaseField
@@ -60,13 +60,17 @@ public class CompVCanaTO extends Entidade{
     public CompVCanaTO(){
     }
 
-	public Long getId() {
-		return id;
+	public Long getIdCompVCana() {
+		return idCompVCana;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCompVCana(Long idCompVCana) {
+		this.idCompVCana = idCompVCana;
 	}
+
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public Long getCam() {
 		return cam;

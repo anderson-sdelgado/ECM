@@ -20,7 +20,6 @@ public class AtividadeOSTO extends Entidade {
 	private Long codFazendaAtivOS;
     
     public AtividadeOSTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getCodigoAtivOS() {

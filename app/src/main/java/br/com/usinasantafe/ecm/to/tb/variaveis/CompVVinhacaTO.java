@@ -11,7 +11,7 @@ public class CompVVinhacaTO extends Entidade {
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(id=true)
-	private Long id;
+	private Long idCompVVinhaca;
 	@DatabaseField
     private Long apont;
 	@DatabaseField
@@ -28,15 +28,14 @@ public class CompVVinhacaTO extends Entidade {
     private String data;
 	
 	public CompVVinhacaTO() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdCompVVinhaca() {
+		return idCompVVinhaca;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCompVVinhaca(Long idCompVVinhaca) {
+		this.idCompVVinhaca = idCompVVinhaca;
 	}
 
 	public Long getApont() {

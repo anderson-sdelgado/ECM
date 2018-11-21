@@ -5,12 +5,14 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import br.com.usinasantafe.ecm.pst.Entidade;
 
-@DatabaseTable(tableName="tbturnovar")
+@DatabaseTable(tableName="tbinfbolvar")
 public class InfBoletimTO extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
-	@DatabaseField(id=true)
+	@DatabaseField(generatedId=true)
+	private Long idInfBoletim;
+	@DatabaseField
 	private Long cam;
 	@DatabaseField
     private Long codigoMoto;
@@ -62,7 +64,6 @@ public class InfBoletimTO extends Entidade {
 	private Long frente;
     
     public InfBoletimTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getCodigoMoto() {

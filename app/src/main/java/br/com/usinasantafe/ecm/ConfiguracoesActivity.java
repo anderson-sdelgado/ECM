@@ -71,11 +71,11 @@ public class ConfiguracoesActivity extends ActivityGeneric {
                             configuracaoTO.insert();
 
                             InfBoletimTO infBoletimTO = new InfBoletimTO();
-                            infBoletimTO.deleteAll();
                             infBoletimTO.setCam(Long.valueOf(editTextCamConfig.getText().toString()));
                             infBoletimTO.setDataSaidaUsina("");
                             infBoletimTO.setDataChegCampo("");
                             infBoletimTO.setDataSaidaCampo("");
+                            infBoletimTO.deleteAll();
                             infBoletimTO.insert();
 
                             Intent it = new Intent(ConfiguracoesActivity.this, PrincipalActivity.class);

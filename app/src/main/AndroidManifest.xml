@@ -127,9 +127,6 @@
             android:name=".SenhaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TipoFuncoesActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".VerMotoristaActivity"
             android:screenOrientation="portrait" />
         <activity

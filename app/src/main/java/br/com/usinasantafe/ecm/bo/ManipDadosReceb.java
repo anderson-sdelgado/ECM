@@ -33,7 +33,6 @@ public class ManipDadosReceb {
 	private UrlsConexaoHttp urlsConexaoHttp;
 	
 	public ManipDadosReceb() {
-		// TODO Auto-generated constructor stub
 		genericRecordable = new GenericRecordable();
 	}
 	
@@ -81,7 +80,6 @@ public class ManipDadosReceb {
 
 				}
 				catch (Exception e) {
-				// TODO Auto-generated catch block
 				Log.i("ERRO", "Erro Manip = " + e);
 				}
 
@@ -122,7 +120,6 @@ public class ManipDadosReceb {
 //			conHttpGetBDGenerico.execute(url);
 //
 //		} catch (Exception e) {
-//			// TODO Auto-generated catch block
 //			Log.i("ERRO", "Erro Manip2 = " + e);
 //		}
 //
@@ -157,7 +154,6 @@ public class ManipDadosReceb {
 	        conHttpGetBDGenerico.execute(url);
 	        
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.i("ERRO", "Erro Manip2 = " + e);
 		}
         
@@ -190,7 +186,6 @@ public class ManipDadosReceb {
 			conHttpGetBDGenerico.execute(url);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.i("ERRO", "Erro Manip2 = " + e);
 		}
 

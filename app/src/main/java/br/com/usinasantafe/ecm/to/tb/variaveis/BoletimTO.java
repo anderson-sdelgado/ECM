@@ -9,8 +9,10 @@ import com.j256.ormlite.table.DatabaseTable;
 public class BoletimTO extends Entidade  {
 
 	private static final long serialVersionUID = 1L;
-	
-	@DatabaseField(id=true)
+
+	@DatabaseField(generatedId=true)
+	private Long idBoletim;
+	@DatabaseField
     private Long ultviagemIdBoleto;
 	@DatabaseField
     private Long caminhaoBoleto;
@@ -38,16 +40,23 @@ public class BoletimTO extends Entidade  {
     private Double pesoLiquidoBoleto;
 	
 	public BoletimTO() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public Long getIdBoletim() {
+		return idBoletim;
+	}
+
+	public void setIdBoletim(Long idBoletim) {
+		this.idBoletim = idBoletim;
 	}
 
 	public Long getUltviagemIdBoleto() {
 		return ultviagemIdBoleto;
 	}
-
-	public void setUltviagemIdBoleto(Long ultviagemIdBoleto) {
-		this.ultviagemIdBoleto = ultviagemIdBoleto;
-	}
+//
+//	public void setUltviagemIdBoleto(Long ultviagemIdBoleto) {
+//		this.ultviagemIdBoleto = ultviagemIdBoleto;
+//	}
 
 	public Long getCaminhaoBoleto() {
 		return caminhaoBoleto;

@@ -16,7 +16,7 @@ import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 public class CaminhaoActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private String caminhao;
+    private ConfiguracaoTO configTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,12 @@ public class CaminhaoActivity extends ActivityGeneric {
 
         ecmContext = (ECMContext) getApplication();
         TextView textViewCodCaminhaoTurno = (TextView) findViewById(R.id.textViewCodCaminhaoTurno);
-        ConfiguracaoTO configTO = new ConfiguracaoTO();
 
+        configTO = new ConfiguracaoTO();
         List lista = configTO.all();
         configTO = (ConfiguracaoTO) lista.get(0);//
 
-        caminhao = String.valueOf(configTO.getCodCamConfig());
-        textViewCodCaminhaoTurno.setText(caminhao);
+        textViewCodCaminhaoTurno.setText(String.valueOf(configTO.getCodCamConfig()));
 
         Button buttonOkCaminhao = (Button) findViewById(R.id.buttonOkCaminhao);
         Button buttonCancCaminhao = (Button) findViewById(R.id.buttonCancCaminhao);
@@ -42,9 +41,8 @@ public class CaminhaoActivity extends ActivityGeneric {
             public void onClick(View v) {
 
                 CaminhaoTO caminhaoTOBD = new CaminhaoTO();
-
-                List lista = caminhaoTOBD.get("idCaminhao", Long.parseLong(caminhao));
-                caminhaoTOBD = (CaminhaoTO) lista.get(0);
+                List caminhaoList = caminhaoTOBD.get("idCaminhao", configTO.getIdCamConfig());
+                caminhaoTOBD = (CaminhaoTO) caminhaoList.get(0);
 
                 if(caminhaoTOBD.getTipoCaminhao() == 1){
                     ecmContext.setNumCarreta(0);

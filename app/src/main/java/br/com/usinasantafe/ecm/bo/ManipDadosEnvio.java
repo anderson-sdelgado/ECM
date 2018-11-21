@@ -33,7 +33,6 @@ public class ManipDadosEnvio {
     private boolean envio;
 
     public ManipDadosEnvio() {
-        // TODO Auto-generated constructor stub
         urlsConexaoHttp = new UrlsConexaoHttp();
     }
 
@@ -50,10 +49,6 @@ public class ManipDadosEnvio {
         List infBoletimTOList = infBoletimTO.all();
         infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
         CompVCanaTO compVCanaTO = new CompVCanaTO();
-
-        int qtde = compVCanaTO.count();
-        qtde = qtde + 1;
-        compVCanaTO.setId((long) qtde);
 
         compVCanaTO.setCam(infBoletimTO.getCam());
         compVCanaTO.setLibCam(infBoletimTO.getLibCam());
@@ -109,10 +104,6 @@ public class ManipDadosEnvio {
 
     public void salvaViagemVinhaca(CompVVinhacaTO compVVinhacaTO) {
 
-        int qtde = compVVinhacaTO.count();
-        qtde = qtde + 1;
-
-        compVVinhacaTO.setId((long) qtde);
         compVVinhacaTO.insert();
 
         List viagemVinhaca = verifDadosViagemVinhaca();
@@ -134,47 +125,10 @@ public class ManipDadosEnvio {
         List listaConfig = configuracaoTO.all();
         configuracaoTO = (ConfiguracaoTO) listaConfig.get(0);
 
-        int qtde = apontMotoMecTO.count();
-        qtde = qtde + 1;
-
-        apontMotoMecTO.setId((long) qtde);
         apontMotoMecTO.setVeic(configuracaoTO.getCodCamConfig());
         apontMotoMecTO.setMotorista(infBoletimTO.getCodigoMoto());
-
         apontMotoMecTO.setDihi(Tempo.getInstance().datahora());
         apontMotoMecTO.setCaux(atividadeOsTO.getAtivOS());
-
-        apontMotoMecTO.setEstado(atividadeOsTO.getEstado());
-        apontMotoMecTO.setFrente(1L);
-
-        CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
-        List listaCarretaEngDeseng = carretaEngDesengTO.all();
-        qtde = listaCarretaEngDeseng.size();
-
-        if (qtde == 0) {
-            apontMotoMecTO.setCar1((long) 0);
-            apontMotoMecTO.setCar2((long) 0);
-            apontMotoMecTO.setCar3((long) 0);
-        } else if (qtde == 1) {
-            carretaEngDesengTO = (CarretaEngDesengTO) listaCarretaEngDeseng.get(0);
-            apontMotoMecTO.setCar1(carretaEngDesengTO.getNumCarreta());
-            apontMotoMecTO.setCar2((long) 0);
-            apontMotoMecTO.setCar3((long) 0);
-        } else if (qtde == 2) {
-            carretaEngDesengTO = (CarretaEngDesengTO) listaCarretaEngDeseng.get(0);
-            apontMotoMecTO.setCar1(carretaEngDesengTO.getNumCarreta());
-            carretaEngDesengTO = (CarretaEngDesengTO) listaCarretaEngDeseng.get(1);
-            apontMotoMecTO.setCar2(carretaEngDesengTO.getNumCarreta());
-            apontMotoMecTO.setCar3((long) 0);
-        } else if (qtde == 3) {
-            carretaEngDesengTO = (CarretaEngDesengTO) listaCarretaEngDeseng.get(0);
-            apontMotoMecTO.setCar1(carretaEngDesengTO.getNumCarreta());
-            carretaEngDesengTO = (CarretaEngDesengTO) listaCarretaEngDeseng.get(1);
-            apontMotoMecTO.setCar2(carretaEngDesengTO.getNumCarreta());
-            carretaEngDesengTO = (CarretaEngDesengTO) listaCarretaEngDeseng.get(2);
-            apontMotoMecTO.setCar3(carretaEngDesengTO.getNumCarreta());
-        }
-
         apontMotoMecTO.insert();
 
         List motoMec = verifDadosMotoMec();
@@ -373,7 +327,6 @@ public class ManipDadosEnvio {
         ConexaoWeb conexaoWeb = new ConexaoWeb();
         if (conexaoWeb.verificaConexao(context)) {
             delChecklist();
-            delApontVinhaca();
             List viagemCana = verifDadosViagemCana();
             if (viagemCana.size() > 0) {
                 envioViagemCana(viagemCana);
@@ -390,7 +343,7 @@ public class ManipDadosEnvio {
 
     public boolean verifDadosEnvio() {
 
-        if ((verifDadosViagemCana().size() == 0) && (verifDadosViagemVinhaca().size() == 0)
+        if ((verifDadosViagemCana().size() == 0)
                 && (verifDadosMotoMec().size() == 0) && (verifDadosChecklist().size() == 0)) {
             return false;
         } else {

@@ -37,9 +37,6 @@ public class PrincipalActivity extends ActivityGeneric {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-        configuracaoTO.hasElements();
-
         ecmContext = (ECMContext) getApplication();
 
         if(!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){

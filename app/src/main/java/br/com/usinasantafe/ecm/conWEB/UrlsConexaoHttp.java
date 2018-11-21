@@ -27,11 +27,9 @@ public class UrlsConexaoHttp {
     public static String OSTO = urlPrincipal + "os.php";
     public static String TurnoTO = urlPrincipal + "turno.php";
     public static String LocalTO = urlPrincipal + "local.php";
-    public static String ItemChecklistTO = urlPrincipal + "itemchecklist.php";
-    public static String TipoFuncCamTO = urlPrincipal + "tipofunccam.php";
+    public static String ItemCheckListTO = urlPrincipal + "itemchecklist.php";
 
     public UrlsConexaoHttp() {
-        // TODO Auto-generated constructor stub
     }
 
     public String getsApontVCana() {

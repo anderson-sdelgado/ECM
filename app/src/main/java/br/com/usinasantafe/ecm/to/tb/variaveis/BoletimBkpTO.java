@@ -10,6 +10,8 @@ public class BoletimBkpTO extends Entidade  {
 
 	private static final long serialVersionUID = 1L;
 
+	@DatabaseField(generatedId=true)
+	private Long idBoleto;
 	@DatabaseField
     private Long caminhaoBoleto;
 	@DatabaseField
@@ -18,7 +20,7 @@ public class BoletimBkpTO extends Entidade  {
     private Long cecPaiBoleto;
 	@DatabaseField
     private Long cdFrenteBoleto;
-	@DatabaseField(id=true)
+	@DatabaseField
     private String dthrEntradaBoleto;
 	@DatabaseField
     private Long cecSorteado1Boleto;
@@ -36,7 +38,6 @@ public class BoletimBkpTO extends Entidade  {
     private Double pesoLiquidoBoleto;
 
 	public BoletimBkpTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getCaminhaoBoleto() {
@@ -134,5 +135,12 @@ public class BoletimBkpTO extends Entidade  {
 	public void setPesoLiquidoBoleto(Double pesoLiquidoBoleto) {
 		this.pesoLiquidoBoleto = pesoLiquidoBoleto;
 	}
-	
+
+	public Long getIdBoleto() {
+		return idBoleto;
+	}
+
+	public void setIdBoleto(Long idBoleto) {
+		this.idBoleto = idBoleto;
+	}
 }

@@ -157,7 +157,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                 final int posicao = position;
 
                 MotoMecTO motoMecBD = (MotoMecTO) listaMM.get(position);
-                ecmContext.getApontMotoMecTO().setTipoFuncao(motoMecBD.getCargoMotoMec());
 
                 if(motoMecBD.getFuncaoMotoMec() == 1){  // ATIVIDADES NORMAIS
 

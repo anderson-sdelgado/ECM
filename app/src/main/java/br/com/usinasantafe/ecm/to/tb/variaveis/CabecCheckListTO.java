@@ -13,7 +13,7 @@ public class CabecCheckListTO extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
-    @DatabaseField(id=true)
+    @DatabaseField(generatedId=true)
     private Long idCabecCheckList;
     @DatabaseField
     private Long equipCabecCheckList;
@@ -37,9 +37,9 @@ public class CabecCheckListTO extends Entidade {
         return idCabecCheckList;
     }
 
-    public void setIdCabecCheckList(Long idCabecCheckList) {
-        this.idCabecCheckList = idCabecCheckList;
-    }
+//    public void setIdCabecCheckList(Long idCabecCheckList) {
+//        this.idCabecCheckList = idCabecCheckList;
+//    }
 
     public Long getEquipCabecCheckList() {
         return equipCabecCheckList;
