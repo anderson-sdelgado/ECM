@@ -39,12 +39,12 @@ public class ECMContext extends Application {
 	private Long cargoMotomec;
 	private Long lugarMotivoParada;
 
-	private int posChecklist;
-
 	private boolean verTimer;
 
 	public static String versaoAplic = "1.0";
 	private String verAtualCL;
+
+	private Long posChecklist;
 
 	@Override
 	public void onCreate() {
@@ -151,14 +151,6 @@ public class ECMContext extends Application {
 		this.lugarMotivoParada = lugarMotivoParada;
 	}
 
-	public int getPosChecklist() {
-		return posChecklist;
-	}
-
-	public void setPosChecklist(int posChecklist) {
-		this.posChecklist = posChecklist;
-	}
-
 	public boolean isVerTimer() {
 		return verTimer;
 	}
@@ -173,5 +165,13 @@ public class ECMContext extends Application {
 
 	public void setVerAtualCL(String verAtualCL) {
 		this.verAtualCL = verAtualCL;
+	}
+
+	public Long getPosChecklist() {
+		return posChecklist;
+	}
+
+	public void setPosChecklist(Long posChecklist) {
+		this.posChecklist = posChecklist;
 	}
 }

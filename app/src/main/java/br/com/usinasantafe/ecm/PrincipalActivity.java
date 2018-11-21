@@ -58,6 +58,7 @@ public class PrincipalActivity extends ActivityGeneric {
 
             configTO = new ConfiguracaoTO();
             configList = configTO.all();
+
             if(configList.size() > 0){
 
                 progressBar.setCancelable(true);
@@ -66,7 +67,7 @@ public class PrincipalActivity extends ActivityGeneric {
 
                 configTO = (ConfiguracaoTO) configList.get(0);
                 AtualizaTO atualizaTO = new AtualizaTO();
-                atualizaTO.setIdEquipAtualizacao(configTO.getIdCamConfig());
+                atualizaTO.setIdEquipAtualizacao(configTO.getCodCamConfig());
                 atualizaTO.setVersaoAtual(ecmContext.versaoAplic);
                 ManipDadosVerif.getInstance().verAtualizacao(atualizaTO, this, progressBar);
             }

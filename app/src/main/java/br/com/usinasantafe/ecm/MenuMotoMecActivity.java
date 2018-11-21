@@ -60,7 +60,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-
                 Intent it = new Intent(MenuMotoMecActivity.this, PrincipalActivity.class);
                 startActivity(it);
                 finish();
@@ -222,7 +221,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                             if(!infBoletimTO.getDataSaidaUsina().equals("")){
 
                                 mensagem = "O HORÁRIO DE SAÍDA DA USINA JÁ FOI INSERIDO ANTERIORMENTE. " +
-                                        "POR FAVOR TERMINEI DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.";
+                                        "POR FAVOR TERMINE DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.";
 
                                 AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
                                 alerta.setTitle("ATENÇÃO");

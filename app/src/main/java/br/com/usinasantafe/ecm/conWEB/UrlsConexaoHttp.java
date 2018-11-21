@@ -66,6 +66,8 @@ public class UrlsConexaoHttp {
             retorno = urlPrincEnvio + "buscaboletimv.php";
         } else if (classe.equals("Atualiza")) {
             retorno = urlPrincEnvio + "atualizaaplic.php";
+        } else if (classe.equals("CheckList")) {
+            retorno = urlPrincEnvio + "itemchecklist.php";
         }
         return retorno;
     }

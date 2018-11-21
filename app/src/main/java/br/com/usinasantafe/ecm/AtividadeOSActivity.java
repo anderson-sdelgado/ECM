@@ -42,7 +42,6 @@ public class AtividadeOSActivity extends ActivityGeneric {
                 if (!editTextPadrao.getText().toString().equals("")) {
 
                     AtividadeOSTO atividadeOsTOBD = new AtividadeOSTO();
-                    List lista = atividadeOsTOBD.get("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()));
 
                     if (atividadeOsTOBD.exists("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()))) {
 

@@ -182,44 +182,15 @@ public class ManipDadosEnvio {
 
     }
 
-    public void salvaCheckList(ArrayList listItem) {
-
-        InfBoletimTO infBoletimTO = new InfBoletimTO();
-        List lTurno = infBoletimTO.all();
-        infBoletimTO = (InfBoletimTO) lTurno.get(0);
-
-        ConfiguracaoTO configTO = new ConfiguracaoTO();
-        List listaConfig = configTO.all();
-        configTO = (ConfiguracaoTO) listaConfig.get(0);
+    public void salvaCheckList() {
 
         CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
-        int qtdeCab = cabecCheckListTO.count();
-        qtdeCab = qtdeCab + 1;
+        List cabecCheckListLista = cabecCheckListTO.get("statusCabecCheckList", 1L);
+        cabecCheckListTO = (CabecCheckListTO) cabecCheckListLista.get(0);
+        cabecCheckListLista.clear();
 
-        cabecCheckListTO.setIdCabecCheckList((long) qtdeCab);
-        cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
-        cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
-        cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
-        cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
-        cabecCheckListTO.insert();
-
-        configTO.setDtUltimoCheckListConfig(Tempo.getInstance().dataSHora());
-        configTO.update();
-
-        RespItemCheckListTO resp = new RespItemCheckListTO();
-        int qtdeItem = resp.count();
-
-        for (int i = 0; i < listItem.size(); i++) {
-
-            resp = (RespItemCheckListTO) listItem.get(i);
-
-            qtdeItem = qtdeItem + 1;
-
-            resp.setIdCabecItemCheckList((long) qtdeCab);
-            resp.setIdItemCheckList((long) qtdeItem);
-            resp.insert();
-
-        }
+        cabecCheckListTO.setStatusCabecCheckList(2L);
+        cabecCheckListTO.update();
 
         enviarChecklist();
 

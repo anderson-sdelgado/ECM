@@ -66,7 +66,7 @@ public class ConfiguracoesActivity extends ActivityGeneric {
                             configuracaoTO.setIdCamConfig(caminhaoTO.getIdCaminhao());
                             configuracaoTO.setCodCamConfig(Long.valueOf(editTextCamConfig.getText().toString()));
                             configuracaoTO.setSenhaConfig(editTextSenhaConfig.getText().toString());
-                            configuracaoTO.setDtUltimoCheckListConfig("");
+                            configuracaoTO.setUltTurnoCLConfig(0L);
                             configuracaoTO.deleteAll();
                             configuracaoTO.insert();
 

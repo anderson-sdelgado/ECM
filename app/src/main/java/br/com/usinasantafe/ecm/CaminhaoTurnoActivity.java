@@ -29,7 +29,6 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
 
         ConfiguracaoTO configTO = new ConfiguracaoTO();
         List listConfigTO = configTO.all();
-
         configTO = (ConfiguracaoTO) listConfigTO.get(0);
         textViewCodCaminhao.setText(String.valueOf(configTO.getCodCamConfig()));
 

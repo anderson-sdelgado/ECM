@@ -23,9 +23,14 @@ import br.com.usinasantafe.ecm.conWEB.ConHttpPostCadGenerico;
 import br.com.usinasantafe.ecm.conWEB.ConHttpPostVerGenerico;
 import br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp;
 import br.com.usinasantafe.ecm.pst.GenericRecordable;
+import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 /**
  * Created by anderson on 16/11/2015.
@@ -190,42 +195,44 @@ public class ManipDadosVerif {
                     this.principalActivity.startTimer(verAtualizacao);
                 }
 
-            }
-            else{
+            }else if(this.tipo.equals("CheckList")) {
 
-                JSONObject jObj = new JSONObject(result);
-                JSONArray jsonArray = jObj.getJSONArray("dados");
-                Class classe = Class.forName(manipLocalClasse(tipo));
+                if (!result.contains("exceeded")) {
 
-                if (jsonArray.length() > 0) {
+                    JSONObject jObj = new JSONObject(result);
+                    JSONArray jsonArray = jObj.getJSONArray("dados");
+                    Class classe = Class.forName(urlsConexaoHttp.localPSTEstatica + "ItemCheckListTO");
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                    if (jsonArray.length() > 0) {
 
-                        JSONObject objeto = jsonArray.getJSONObject(i);
-                        Gson gson = new Gson();
                         genericRecordable = new GenericRecordable();
-                        genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
+                        genericRecordable.deleteAll(classe);
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject objeto = jsonArray.getJSONObject(i);
+                            Gson gson = new Gson();
+                            genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
+
+                        }
 
                     }
 
+                    cabecCheckList(Tempo.getInstance().datahora());
+                    this.progressDialog.dismiss();
                     Intent it = new Intent(telaAtual, telaProx);
                     telaAtual.startActivity(it);
 
-                } else {
+                }
+                else{
 
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(telaAtual);
-                    alerta.setTitle("ATENÇÃO");
-                    alerta.setMessage(variavel + " INEXISTENTE NA BASE DE DADOS.");
-
-                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alerta.show();
+                    cabecCheckList("0");
+                    this.progressDialog.dismiss();
+                    Intent it = new Intent(telaAtual, telaProx);
+                    telaAtual.startActivity(it);
 
                 }
+
 
             }
 
@@ -256,6 +263,38 @@ public class ManipDadosVerif {
         conHttpPostVerGenerico = new ConHttpPostVerGenerico();
         conHttpPostVerGenerico.setParametrosPost(parametrosPost);
         conHttpPostVerGenerico.execute(url);
+
+    }
+
+    public void cabecCheckList(String data){
+
+        InfBoletimTO infBoletimTO = new InfBoletimTO();
+        List lTurno = infBoletimTO.all();
+        infBoletimTO = (InfBoletimTO) lTurno.get(0);
+
+        ConfiguracaoTO configTO = new ConfiguracaoTO();
+        List listConfigTO = configTO.all();
+        configTO = (ConfiguracaoTO) listConfigTO.get(0);
+
+        CaminhaoTO caminhaoTO = new CaminhaoTO();
+        List caminhaoList = caminhaoTO.get("idCaminhao", configTO.getIdCamConfig());
+        caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
+        caminhaoList.clear();
+
+        ItemCheckListTO itemCheckListTO = new ItemCheckListTO();
+        List itemCheckList =  itemCheckListTO.get("idChecklist", caminhaoTO.getIdChecklist());
+        Long qtde = (long) itemCheckList.size();
+        itemCheckList.clear();
+
+        CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
+        cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
+        cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
+        cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
+        cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
+        cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
+        cabecCheckListTO.setStatusCabecCheckList(1L);
+        cabecCheckListTO.setDtAtualCheckList("0");
+        cabecCheckListTO.insert();
 
     }
 

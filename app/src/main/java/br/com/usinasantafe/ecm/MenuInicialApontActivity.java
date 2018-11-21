@@ -24,7 +24,6 @@ public class MenuInicialApontActivity extends ActivityGeneric{
 
     private ProgressDialog progressBar;
     private ListView lista;
-    private ECMContext ecmContext;
     private InfBoletimTO infBoletimTO;
 
     @Override
@@ -52,8 +51,6 @@ public class MenuInicialApontActivity extends ActivityGeneric{
     }
 
     public void listarMenu() {
-
-        ecmContext = (ECMContext) getApplication();
 
         ArrayList<String> itens = new ArrayList<String>();
 

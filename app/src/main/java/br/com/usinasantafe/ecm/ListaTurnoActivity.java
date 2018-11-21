@@ -87,7 +87,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
                 if ((caminhaoTO.getIdChecklist() > 0) && (configTO.getUltTurnoCLConfig() != turnoTO.getIdTurno())) {
 
-                    ecmContext.setPosChecklist(1);
+                    ecmContext.setPosChecklist(1L);
 
                     if (ecmContext.getVerAtualCL().equals("N_AC")) {
 
@@ -111,6 +111,9 @@ public class ListaTurnoActivity extends ActivityGeneric {
                         cabecCheckListTO.setStatusCabecCheckList(1L);
                         cabecCheckListTO.setDtAtualCheckList("0");
                         cabecCheckListTO.insert();
+
+                        configTO.setUltTurnoCLConfig(turnoTO.getIdTurno());
+                        configTO.update();
 
                         Intent it = new Intent(ListaTurnoActivity.this, ItemChecklistActivity.class);
                         startActivity(it);
