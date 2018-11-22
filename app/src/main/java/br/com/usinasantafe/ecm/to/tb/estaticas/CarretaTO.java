@@ -23,6 +23,8 @@ public class CarretaTO extends Entidade {
 	@DatabaseField(id=true)
     private Long idCarreta;
 	@DatabaseField
+	private Long codCarreta;
+	@DatabaseField
     private Long tipoCarreta;
 
     public CarretaTO() {
@@ -32,16 +34,23 @@ public class CarretaTO extends Entidade {
 		return idCarreta;
 	}
 
-	public void setIdCarreta(Long idcarreta) {
-		this.idCarreta = idcarreta;
+	public void setIdCarreta(Long idCarreta) {
+		this.idCarreta = idCarreta;
+	}
+
+	public Long getCodCarreta() {
+		return codCarreta;
+	}
+
+	public void setCodCarreta(Long codCarreta) {
+		this.codCarreta = codCarreta;
 	}
 
 	public Long getTipoCarreta() {
 		return tipoCarreta;
 	}
 
-	public void setTipoCarreta(Long tipocarreta) {
-		this.tipoCarreta = tipocarreta;
+	public void setTipoCarreta(Long tipoCarreta) {
+		this.tipoCarreta = tipoCarreta;
 	}
-	
 }

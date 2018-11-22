@@ -99,7 +99,7 @@ public class Tempo {
         Date dataHora = new Date();
         Date d = new Date();
         Calendar cal = Calendar.getInstance();
-        Long dt =  dataHora.getTime() + tz.getOffset(d.getTime());
+        Long dt =  dataHora.getTime() - tz.getOffset(d.getTime());
         cal.setTimeInMillis(dt);
 
         int mes = cal.get(Calendar.MONTH);
@@ -155,7 +155,7 @@ public class Tempo {
         Date dataHora = new Date();
         Date d = new Date();
         Calendar cal = Calendar.getInstance();
-        Long dt =  dataHora.getTime() + tz.getOffset(d.getTime());
+        Long dt =  dataHora.getTime() - tz.getOffset(d.getTime());
         cal.setTimeInMillis(dt);
 
         int mes = cal.get(Calendar.MONTH);

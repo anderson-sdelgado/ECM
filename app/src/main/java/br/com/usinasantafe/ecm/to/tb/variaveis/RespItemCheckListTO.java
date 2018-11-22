@@ -30,10 +30,6 @@ public class RespItemCheckListTO extends Entidade {
         return idItemCheckList;
     }
 
-//    public void setIdItemCheckList(Long idItemCheckList) {
-//        this.idItemCheckList = idItemCheckList;
-//    }
-
     public Long getIdItItemCheckList() {
         return idItItemCheckList;
     }

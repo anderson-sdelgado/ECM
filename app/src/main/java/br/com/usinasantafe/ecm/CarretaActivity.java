@@ -41,23 +41,23 @@ public class CarretaActivity extends ActivityGeneric {
                     configTO = (ConfiguracaoTO) listaConfig.get(0);
 
                     CaminhaoTO caminhaoTOBDPesq = new CaminhaoTO();
-                    List listaCam = caminhaoTOBDPesq.get("idCaminhao", configTO.getCodCamConfig());
-                    CaminhaoTO caminhaoTOBD = (CaminhaoTO) listaCam.get(0);//
+                    List listaCam = caminhaoTOBDPesq.get("idCaminhao", configTO.getIdCamConfig());
+                    CaminhaoTO caminhaoTO = (CaminhaoTO) listaCam.get(0);//
 
                     CarretaTO carretaTOBD = new CarretaTO();
-                    List listaCarreta = carretaTOBD.get("idCarreta", Long.parseLong(editTextPadrao.getText().toString()));
+                    List listaCarreta = carretaTOBD.get("codCarreta", Long.parseLong(editTextPadrao.getText().toString()));
 
                     if(listaCarreta.size() > 0){
 
                         carretaTOBD = (CarretaTO) listaCarreta.get(0);//
 
-                        if(caminhaoTOBD.getTipoCaminhao() == 1){
+                        if(caminhaoTO.getTipoCaminhao() == 1){
                             if(carretaTOBD.getTipoCarreta() == 4){
                                 if(ecmContext.getNumCarreta() == 1){
                                     InfBoletimTO infBoletimTO = new InfBoletimTO();
                                     List lTurno = infBoletimTO.all();
                                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                                    infBoletimTO.setCarr1(carretaTOBD.getIdCarreta());
+                                    infBoletimTO.setCarr1(carretaTOBD.getCodCarreta());
                                     infBoletimTO.update();
                                     Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                                     startActivity(it);
@@ -67,8 +67,8 @@ public class CarretaActivity extends ActivityGeneric {
                                     InfBoletimTO infBoletimTO = new InfBoletimTO();
                                     List lTurno = infBoletimTO.all();
                                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                                    if(infBoletimTO.getCarr1() != carretaTOBD.getIdCarreta()){
-                                        infBoletimTO.setCarr2(carretaTOBD.getIdCarreta());
+                                    if(infBoletimTO.getCarr1() != carretaTOBD.getCodCarreta()){
+                                        infBoletimTO.setCarr2(carretaTOBD.getCodCarreta());
                                         infBoletimTO.update();
                                         Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                                         startActivity(it);
@@ -91,9 +91,9 @@ public class CarretaActivity extends ActivityGeneric {
                                     InfBoletimTO infBoletimTO = new InfBoletimTO();
                                     List lTurno = infBoletimTO.all();
                                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                                    if((infBoletimTO.getCarr1() != carretaTOBD.getIdCarreta())
-                                            && (infBoletimTO.getCarr2() != carretaTOBD.getIdCarreta())){
-                                        infBoletimTO.setCarr3(carretaTOBD.getIdCarreta());
+                                    if((infBoletimTO.getCarr1() != carretaTOBD.getCodCarreta())
+                                            && (infBoletimTO.getCarr2() != carretaTOBD.getCodCarreta())){
+                                        infBoletimTO.setCarr3(carretaTOBD.getCodCarreta());
                                         infBoletimTO.update();
                                         Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                                         startActivity(it);
@@ -127,7 +127,7 @@ public class CarretaActivity extends ActivityGeneric {
                             }
 
                         }
-                        else if(caminhaoTOBD.getTipoCaminhao() == 6){
+                        else if(caminhaoTO.getTipoCaminhao() == 6){
                             if(carretaTOBD.getTipoCarreta() == 4){
                                 if(ecmContext.getNumCarreta() == 1){
                                     AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaActivity.this);
@@ -145,7 +145,7 @@ public class CarretaActivity extends ActivityGeneric {
                                     InfBoletimTO infBoletimTO = new InfBoletimTO();
                                     List lTurno = infBoletimTO.all();
                                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                                    infBoletimTO.setCarr2(carretaTOBD.getIdCarreta());
+                                    infBoletimTO.setCarr2(carretaTOBD.getCodCarreta());
                                     infBoletimTO.update();
                                     Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                                     startActivity(it);
@@ -155,8 +155,8 @@ public class CarretaActivity extends ActivityGeneric {
                                     InfBoletimTO infBoletimTO = new InfBoletimTO();
                                     List lTurno = infBoletimTO.all();
                                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                                    if(infBoletimTO.getCarr2() != carretaTOBD.getIdCarreta()){
-                                        infBoletimTO.setCarr3(carretaTOBD.getIdCarreta());
+                                    if(infBoletimTO.getCarr2() != carretaTOBD.getCodCarreta()){
+                                        infBoletimTO.setCarr3(carretaTOBD.getCodCarreta());
                                         infBoletimTO.update();
                                         Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                                         startActivity(it);
@@ -181,7 +181,7 @@ public class CarretaActivity extends ActivityGeneric {
                                     InfBoletimTO infBoletimTO = new InfBoletimTO();
                                     List lTurno = infBoletimTO.all();
                                     infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                                    infBoletimTO.setCarr1(carretaTOBD.getIdCarreta());
+                                    infBoletimTO.setCarr1(carretaTOBD.getCodCarreta());
                                     infBoletimTO.update();
                                     Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                                     startActivity(it);
