@@ -27,6 +27,8 @@ public class CaminhaoTO extends Entidade {
     private Long tipoCaminhao;
     @DatabaseField
     private Long idChecklist;
+    @DatabaseField
+    private Long codTurno;
 
     public CaminhaoTO() {
     }
@@ -61,5 +63,13 @@ public class CaminhaoTO extends Entidade {
 
     public void setIdChecklist(Long idChecklist) {
         this.idChecklist = idChecklist;
+    }
+
+    public Long getCodTurno() {
+        return codTurno;
+    }
+
+    public void setCodTurno(Long codTurno) {
+        this.codTurno = codTurno;
     }
 }

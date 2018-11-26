@@ -2,17 +2,11 @@ package br.com.usinasantafe.ecm.conWEB;
 
 public class UrlsConexaoHttp {
 
-    private int tipoEnvio = 2;
-
     public static String datahorahttp = "http://www.usinasantafe.com.br/ecm/datahora.php";
 
     public static String urlPrincipal = "http://www.usinasantafe.com.br/ecmdev/";
-    //public static String urlPrincipal = "http://www.usinasantafe.com.br/ecmdesenv/";
-
     public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecmdev/";
-    //public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecmdesenv/";
 
-    //public static String localPSTVariavel = "br.com.usinasantafe.ecm.to.tb.variaveis.";
     public static String localPSTEstatica = "br.com.usinasantafe.ecm.to.tb.estaticas.";
     public static String localUrl = "br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp";
 

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
@@ -22,6 +23,8 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
     private ListView lista;
     private ECMContext ecmContext;
+    private ConfiguracaoTO configTO;
+    private List listTurno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,10 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
         ecmContext = (ECMContext) getApplication();
         Button buttonRetListaTurno = (Button) findViewById(R.id.buttonRetListaTurno);
+
+        configTO = new ConfiguracaoTO();
+        List configList = configTO.all();
+        configTO = (ConfiguracaoTO) configList.get(0);
 
         listarMenu();
 
@@ -49,13 +56,18 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
     public void listarMenu() {
 
-        TurnoTO turnoBD = new TurnoTO();
-        final List listaTurno = turnoBD.all();
+        CaminhaoTO caminhaoTO = new CaminhaoTO();
+        List caminhaoList = caminhaoTO.get("idCaminhao", configTO.getIdCamConfig());
+        caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
+
+        TurnoTO turnoTO = new TurnoTO();
+        listTurno = turnoTO.get("codTurno", caminhaoTO.getCodTurno());
+
         ArrayList<String> itens = new ArrayList<String>();
 
-        for (int i = 0; i < listaTurno.size(); i++) {
-            turnoBD = (TurnoTO) listaTurno.get(i);
-            itens.add(turnoBD.getDescTurno());
+        for(int i = 0; i < listTurno.size(); i++){
+            turnoTO = (TurnoTO) listTurno.get(i);
+            itens.add(turnoTO.getDescTurno());
         }
 
         AdapterList adapterList = new AdapterList(this, itens);
@@ -68,12 +80,12 @@ public class ListaTurnoActivity extends ActivityGeneric {
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
 
-                TurnoTO turnoTO = (TurnoTO) listaTurno.get(position);
+                TurnoTO turnoTO = (TurnoTO) listTurno.get(position);
 
                 InfBoletimTO infBoletimTO = new InfBoletimTO();
                 List lTurno = infBoletimTO.all();
                 infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                infBoletimTO.setTurno(turnoTO.getIdTurno());
+                infBoletimTO.setTurno(turnoTO.getNroTurno());
                 infBoletimTO.setTipoAtiv(1L);
                 infBoletimTO.update();
 
@@ -82,15 +94,14 @@ public class ListaTurnoActivity extends ActivityGeneric {
                 caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
                 caminhaoList.clear();
 
-                ConfiguracaoTO configTO = new ConfiguracaoTO();
-                List configList = configTO.all();
-                configTO = (ConfiguracaoTO) configList.get(0);
-
                 if ((caminhaoTO.getIdChecklist() > 0) && (configTO.getUltTurnoCLConfig() != turnoTO.getIdTurno())) {
 
                     ecmContext.setPosChecklist(1L);
 
                     if (ecmContext.getVerAtualCL().equals("N_AC")) {
+
+                        ecmContext.getApontMotoMecTO().setOpcor(180L);
+                        ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
                         Intent it = new Intent(ListaTurnoActivity.this, PergAtualCheckListActivity.class);
                         startActivity(it);
@@ -107,7 +118,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
                         cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
                         cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
                         cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
-                        cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
+                        cabecCheckListTO.setTurnoCabecCheckList(turnoTO.getCodTurno());
                         cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
                         cabecCheckListTO.setStatusCabecCheckList(1L);
                         cabecCheckListTO.setDtAtualCheckList("0");
@@ -115,6 +126,9 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
                         configTO.setUltTurnoCLConfig(turnoTO.getIdTurno());
                         configTO.update();
+
+                        ecmContext.getApontMotoMecTO().setOpcor(180L);
+                        ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
                         Intent it = new Intent(ListaTurnoActivity.this, ItemChecklistActivity.class);
                         startActivity(it);
