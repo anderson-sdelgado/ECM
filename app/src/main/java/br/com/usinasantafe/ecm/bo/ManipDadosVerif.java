@@ -292,7 +292,6 @@ public class ManipDadosVerif {
         cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
         cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
         cabecCheckListTO.setStatusCabecCheckList(1L);
-        cabecCheckListTO.setDtAtualCheckList("0");
         cabecCheckListTO.insert();
 
     }

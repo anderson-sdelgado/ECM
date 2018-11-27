@@ -62,7 +62,6 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
                 cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
                 cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
                 cabecCheckListTO.setStatusCabecCheckList(1L);
-                cabecCheckListTO.setDtAtualCheckList("0");
                 cabecCheckListTO.insert();
 
                 Intent it = new Intent(  PergAtualCheckListActivity.this, ItemChecklistActivity.class);

@@ -118,10 +118,9 @@ public class ListaTurnoActivity extends ActivityGeneric {
                         cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
                         cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
                         cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
-                        cabecCheckListTO.setTurnoCabecCheckList(turnoTO.getCodTurno());
+                        cabecCheckListTO.setTurnoCabecCheckList(turnoTO.getIdTurno());
                         cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
                         cabecCheckListTO.setStatusCabecCheckList(1L);
-                        cabecCheckListTO.setDtAtualCheckList("0");
                         cabecCheckListTO.insert();
 
                         configTO.setUltTurnoCLConfig(turnoTO.getIdTurno());

@@ -326,14 +326,17 @@ public class ManipDadosEnvio {
 
         ConexaoWeb conexaoWeb = new ConexaoWeb();
         if (conexaoWeb.verificaConexao(context)) {
-            delChecklist();
-            List viagemCana = verifDadosViagemCana();
-            if (viagemCana.size() > 0) {
-                envioViagemCana(viagemCana);
+            if (verifDadosChecklist()) {
+                enviarChecklist();
             } else {
-                List motoMec = verifDadosMotoMec();
-                if (motoMec.size() > 0) {
-                    envioMotoMec(motoMec);
+                List viagemCana = verifDadosViagemCana();
+                if (viagemCana.size() > 0) {
+                    envioViagemCana(viagemCana);
+                } else {
+                    List motoMec = verifDadosMotoMec();
+                    if (motoMec.size() > 0) {
+                        envioMotoMec(motoMec);
+                    }
                 }
             }
         }
@@ -344,17 +347,20 @@ public class ManipDadosEnvio {
     public boolean verifDadosEnvio() {
 
         if ((verifDadosViagemCana().size() == 0)
-                && (verifDadosMotoMec().size() == 0) && (verifDadosChecklist().size() == 0)) {
+                && (verifDadosMotoMec().size() == 0) && (!verifDadosChecklist())) {
             return false;
         } else {
             return true;
         }
     }
 
-    public List verifDadosChecklist() {
-        CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
-        return cabecCheckListTO.all();
+    public boolean verifDadosChecklist() {
+        return boletinsChecklist().size() > 0;
     }
 
+    public List boletinsChecklist(){
+        CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
+        return cabecCheckListTO.get("statusCabecCheckList", 2L);
+    }
 
 }

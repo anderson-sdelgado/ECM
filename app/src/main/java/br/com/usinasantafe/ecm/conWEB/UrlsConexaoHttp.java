@@ -4,8 +4,8 @@ public class UrlsConexaoHttp {
 
     public static String datahorahttp = "http://www.usinasantafe.com.br/ecm/datahora.php";
 
-    public static String urlPrincipal = "http://www.usinasantafe.com.br/ecmdev/";
-    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecmdev/";
+    public static String urlPrincipal = "http://www.usinasantafe.com.br/ecmqa/";
+    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/ecmqa/";
 
     public static String localPSTEstatica = "br.com.usinasantafe.ecm.to.tb.estaticas.";
     public static String localUrl = "br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp";

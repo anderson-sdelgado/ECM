@@ -27,8 +27,6 @@ public class CabecCheckListTO extends Entidade {
     private Long statusCabecCheckList;  //1 - Aberto; 2 - Encerrado
     @DatabaseField
     private Long qtdeItemCabecCheckList;
-    @DatabaseField
-    private String dtAtualCheckList;
 
     public CabecCheckListTO() {
     }
@@ -89,11 +87,4 @@ public class CabecCheckListTO extends Entidade {
         this.qtdeItemCabecCheckList = qtdeItemCabecCheckList;
     }
 
-    public String getDtAtualCheckList() {
-        return dtAtualCheckList;
-    }
-
-    public void setDtAtualCheckList(String dtAtualCheckList) {
-        this.dtAtualCheckList = dtAtualCheckList;
-    }
 }
