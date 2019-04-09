@@ -36,7 +36,6 @@ public class LiberacaoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-
                 if(!editTextPadrao.getText().toString().equals("")){
 
                     LiberacaoTO liberacaoTOBDPesq = new LiberacaoTO();

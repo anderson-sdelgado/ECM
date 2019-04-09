@@ -112,6 +112,32 @@ public class CarretaActivity extends ActivityGeneric {
                                         alerta.show();
                                     }
                                 }
+                                else if(ecmContext.getNumCarreta() == 4){
+                                    InfBoletimTO infBoletimTO = new InfBoletimTO();
+                                    List lTurno = infBoletimTO.all();
+                                    infBoletimTO = (InfBoletimTO) lTurno.get(0);
+                                    if((infBoletimTO.getCarr1() != carretaTOBD.getCodCarreta())
+                                            && (infBoletimTO.getCarr2() != carretaTOBD.getCodCarreta())
+                                            && (infBoletimTO.getCarr3() != carretaTOBD.getCodCarreta())){
+                                        infBoletimTO.setCarr4(carretaTOBD.getCodCarreta());
+                                        infBoletimTO.update();
+                                        Intent it = new Intent(CarretaActivity.this, OSActivity.class);
+                                        startActivity(it);
+                                        finish();
+                                    }
+                                    else{
+                                        AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaActivity.this);
+                                        alerta.setTitle("ATENÇÃO");
+                                        alerta.setMessage("ESSA CARRETA JÁ FOI INSERIDA. VERIFIQUE NOVAMENTE A NUMERAÇÃO DA CARRETA.");
+                                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                editTextPadrao.setText("");
+                                            }
+                                        });
+                                        alerta.show();
+                                    }
+                                }
                             }
                             else if(carretaTOBD.getTipoCarreta() == 8){
                                 AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaActivity.this);
@@ -175,6 +201,31 @@ public class CarretaActivity extends ActivityGeneric {
                                         alerta.show();
                                     }
                                 }
+                                else if(ecmContext.getNumCarreta() == 4){
+                                    InfBoletimTO infBoletimTO = new InfBoletimTO();
+                                    List lTurno = infBoletimTO.all();
+                                    infBoletimTO = (InfBoletimTO) lTurno.get(0);
+                                    if((infBoletimTO.getCarr2() != carretaTOBD.getCodCarreta())
+                                        && (infBoletimTO.getCarr3() != carretaTOBD.getCodCarreta())){
+                                        infBoletimTO.setCarr3(carretaTOBD.getCodCarreta());
+                                        infBoletimTO.update();
+                                        Intent it = new Intent(CarretaActivity.this, OSActivity.class);
+                                        startActivity(it);
+                                        finish();
+                                    }
+                                    else{
+                                        AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaActivity.this);
+                                        alerta.setTitle("ATENÇÃO");
+                                        alerta.setMessage("ESSA CARRETA JÁ FOI INSERIDA. VERIFIQUE NOVAMENTE A NUMERAÇÃO DA CARRETA.");
+                                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                editTextPadrao.setText("");
+                                            }
+                                        });
+                                        alerta.show();
+                                    }
+                                }
                             }
                             else if(carretaTOBD.getTipoCarreta() == 8){
                                 if(ecmContext.getNumCarreta() == 1){
@@ -187,19 +238,7 @@ public class CarretaActivity extends ActivityGeneric {
                                     startActivity(it);
                                     finish();
                                 }
-                                else if(ecmContext.getNumCarreta() == 2){
-                                    AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaActivity.this);
-                                    alerta.setTitle("ATENÇÃO");
-                                    alerta.setMessage("A NUMERAÇÃO DIGITADA NÃO CORRESPONDE DA CARRETA " + ecmContext.getNumCarreta() +". VERIFIQUE SE VOCÊ NÃO ESTA INVERTENDO AS CARRETAS.");
-                                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            editTextPadrao.setText("");
-                                        }
-                                    });
-                                    alerta.show();
-                                }
-                                else if(ecmContext.getNumCarreta() == 3){
+                                else if(ecmContext.getNumCarreta() > 1){
                                     AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaActivity.this);
                                     alerta.setTitle("ATENÇÃO");
                                     alerta.setMessage("A NUMERAÇÃO DIGITADA NÃO CORRESPONDE DA CARRETA " + ecmContext.getNumCarreta() +". VERIFIQUE SE VOCÊ NÃO ESTA INVERTENDO AS CARRETAS.");

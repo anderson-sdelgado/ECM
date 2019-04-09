@@ -78,6 +78,10 @@ public class MsgLiberacaoActivity extends ActivityGeneric {
                         infBoletimTO.setLibCarr3(codLiberacao);
                         ecmContext.setNumCarreta(4);
                         break;
+                    case 4:
+                        infBoletimTO.setLibCarr4(codLiberacao);
+                        ecmContext.setNumCarreta(5);
+                        break;
                 }
 
                 if((tipoLiberacao == 3) || (tipoLiberacao == 4)){
@@ -99,6 +103,10 @@ public class MsgLiberacaoActivity extends ActivityGeneric {
                         case 3:
                             infBoletimTO.setMaqCarr3((long) 0);
                             infBoletimTO.setOpCarr3((long) 0);
+                            break;
+                        case 4:
+                            infBoletimTO.setMaqCarr4((long) 0);
+                            infBoletimTO.setOpCarr4((long) 0);
                             break;
 
                     }

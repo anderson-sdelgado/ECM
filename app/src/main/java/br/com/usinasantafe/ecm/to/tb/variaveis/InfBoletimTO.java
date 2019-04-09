@@ -51,6 +51,14 @@ public class InfBoletimTO extends Entidade {
 	@DatabaseField
 	private Long opCarr3;
 	@DatabaseField
+	private Long carr4;
+	@DatabaseField
+	private Long libCarr4;
+	@DatabaseField
+	private Long maqCarr4;
+	@DatabaseField
+	private Long opCarr4;
+	@DatabaseField
 	private String dataChegCampo;
 	@DatabaseField
 	private String dataSaidaCampo;
@@ -216,6 +224,38 @@ public class InfBoletimTO extends Entidade {
 
 	public void setOpCarr3(Long opCarr3) {
 		this.opCarr3 = opCarr3;
+	}
+
+	public Long getCarr4() {
+		return carr4;
+	}
+
+	public void setCarr4(Long carr4) {
+		this.carr4 = carr4;
+	}
+
+	public Long getLibCarr4() {
+		return libCarr4;
+	}
+
+	public void setLibCarr4(Long libCarr4) {
+		this.libCarr4 = libCarr4;
+	}
+
+	public Long getMaqCarr4() {
+		return maqCarr4;
+	}
+
+	public void setMaqCarr4(Long maqCarr4) {
+		this.maqCarr4 = maqCarr4;
+	}
+
+	public Long getOpCarr4() {
+		return opCarr4;
+	}
+
+	public void setOpCarr4(Long opCarr4) {
+		this.opCarr4 = opCarr4;
 	}
 
 	public String getDataChegCampo() {

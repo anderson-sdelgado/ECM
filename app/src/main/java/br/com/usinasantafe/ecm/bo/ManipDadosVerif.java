@@ -23,6 +23,7 @@ import br.com.usinasantafe.ecm.conWEB.ConHttpPostCadGenerico;
 import br.com.usinasantafe.ecm.conWEB.ConHttpPostVerGenerico;
 import br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp;
 import br.com.usinasantafe.ecm.pst.GenericRecordable;
+import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
@@ -195,7 +196,8 @@ public class ManipDadosVerif {
                     this.principalActivity.startTimer(verAtualizacao);
                 }
 
-            }else if(this.tipo.equals("CheckList")) {
+            }
+            else if(this.tipo.equals("CheckList")) {
 
                 if (!result.contains("exceeded")) {
 
@@ -233,6 +235,21 @@ public class ManipDadosVerif {
 
                 }
 
+
+            }
+            else if(this.tipo.equals("AtividadeOSTO")) {
+
+                JSONObject jObj = new JSONObject(result);
+                JSONArray jsonArray = jObj.getJSONArray("dados");
+
+                JSONObject objeto = jsonArray.getJSONObject(0);
+                Gson gson = new Gson();
+                AtividadeOSTO atividadeOSTO = gson.fromJson(objeto.toString(), AtividadeOSTO.class);
+                atividadeOSTO.insert();
+
+                this.progressDialog.dismiss();
+                Intent it = new Intent(telaAtual, telaProx);
+                telaAtual.startActivity(it);
 
             }
 

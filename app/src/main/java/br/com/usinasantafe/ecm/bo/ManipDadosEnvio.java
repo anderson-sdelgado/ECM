@@ -67,6 +67,10 @@ public class ManipDadosEnvio {
         compVCanaTO.setLibCarr3(infBoletimTO.getLibCarr3());
         compVCanaTO.setMaqCarr3(infBoletimTO.getMaqCarr3());
         compVCanaTO.setOpCarr3(infBoletimTO.getOpCarr3());
+        compVCanaTO.setCarr4(infBoletimTO.getCarr4());
+        compVCanaTO.setLibCarr4(infBoletimTO.getLibCarr4());
+        compVCanaTO.setMaqCarr4(infBoletimTO.getMaqCarr4());
+        compVCanaTO.setOpCarr4(infBoletimTO.getOpCarr4());
         compVCanaTO.setDataChegCampo(infBoletimTO.getDataChegCampo());
         compVCanaTO.setDataSaidaCampo(infBoletimTO.getDataSaidaCampo());
         compVCanaTO.setDataSaidaUsina(infBoletimTO.getDataSaidaUsina());

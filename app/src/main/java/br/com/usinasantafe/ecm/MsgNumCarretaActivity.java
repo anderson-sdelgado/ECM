@@ -31,7 +31,7 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                if (ecmContext.getNumCarreta() < 4) {
+                if (ecmContext.getNumCarreta() < 5) {
                     Intent it = new Intent(MsgNumCarretaActivity.this, CarretaActivity.class);
                     startActivity(it);
                     finish();
@@ -39,13 +39,12 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
 
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MsgNumCarretaActivity.this);
                     alerta.setTitle("ATENÇÃO");
-                    alerta.setMessage("PROIBIDO A INSERÇÃO DE MAIS DE 3 CARRETAS.");
+                    alerta.setMessage("PROIBIDO A INSERÇÃO DE MAIS DE 4 CARRETAS.");
 
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            editTextPadrao.setText("");
                         }
                     });
 
