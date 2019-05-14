@@ -49,7 +49,6 @@ public class ConfiguracoesActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-
                 if(!editTextCamConfig.getText().toString().equals("") &&
                         !editTextSenhaConfig.getText().toString().equals("")){
 

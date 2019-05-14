@@ -106,15 +106,6 @@ public class ManipDadosEnvio {
 
     }
 
-    public void salvaViagemVinhaca(CompVVinhacaTO compVVinhacaTO) {
-
-        compVVinhacaTO.insert();
-
-        List viagemVinhaca = verifDadosViagemVinhaca();
-        envioViagemVinhaca(viagemVinhaca);
-
-    }
-
     public void salvaMotoMec(ApontMotoMecTO apontMotoMecTO) {
 
         InfBoletimTO infBoletimTO = new InfBoletimTO();
@@ -215,31 +206,6 @@ public class ManipDadosEnvio {
     public List verifDadosViagemVinhaca() {
         CompVVinhacaTO compVVinhacaTORec = new CompVVinhacaTO();
         return compVVinhacaTORec.all();
-    }
-
-    public void envioViagemVinhaca(List viagemVinhaca) {
-
-        JsonArray jsonArray = new JsonArray();
-
-        for (int i = 0; i < viagemVinhaca.size(); i++) {
-
-            CompVVinhacaTO compVVinhacaTON = (CompVVinhacaTO) viagemVinhaca.get(i);
-            Gson gson = new Gson();
-            jsonArray.add(gson.toJsonTree(compVVinhacaTON, compVVinhacaTON.getClass()));
-
-        }
-
-        JsonObject json = new JsonObject();
-        json.add("dados", jsonArray);
-
-        String[] url = {urlsConexaoHttp.getsApontVVinhaca()};
-        Map<String, Object> parametrosPost = new HashMap<String, Object>();
-        parametrosPost.put("dado", json.toString());
-
-        ConHttpPostCadGenerico conHttpPostCadGenerico = new ConHttpPostCadGenerico();
-        conHttpPostCadGenerico.setParametrosPost(parametrosPost);
-        conHttpPostCadGenerico.execute(url);
-
     }
 
     public List verifDadosMotoMec() {

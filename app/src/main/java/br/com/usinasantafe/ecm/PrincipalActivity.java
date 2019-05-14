@@ -23,6 +23,7 @@ import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
 
 public class PrincipalActivity extends ActivityGeneric {
@@ -36,6 +37,8 @@ public class PrincipalActivity extends ActivityGeneric {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+//        verif();
 
         ecmContext = (ECMContext) getApplication();
 
@@ -174,6 +177,50 @@ public class PrincipalActivity extends ActivityGeneric {
     public boolean checkPermission(String permission){
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
+    }
+
+    public void verif(){
+
+        CompVCanaTO compVCanaTO = new CompVCanaTO();
+        List compVCanaList = compVCanaTO.all();
+
+        Log.i("PMM", " ENTROU ");
+
+        for (int i = 0; i < compVCanaList.size(); i++) {
+
+            compVCanaTO = (CompVCanaTO) compVCanaList.get(i);
+            Log.i("PMM", " VIAGEM ");
+            Log.i("PMM", " idCompVCana " + compVCanaTO.getIdCompVCana());
+            Log.i("PMM", " cam " + compVCanaTO.getCam());
+            Log.i("PMM", " libCam " + compVCanaTO.getLibCam());
+            Log.i("PMM", " maqCam " + compVCanaTO.getMaqCam());
+            Log.i("PMM", " opCam " + compVCanaTO.getOpCam());
+            Log.i("PMM", " moto " + compVCanaTO.getMoto());
+            Log.i("PMM", " carr1 " + compVCanaTO.getCarr1());
+            Log.i("PMM", " libCarr1 " + compVCanaTO.getLibCarr1());
+            Log.i("PMM", " maqCarr1 " + compVCanaTO.getMaqCarr1());
+            Log.i("PMM", " opCarr1 " + compVCanaTO.getOpCarr1());
+            Log.i("PMM", " carr2 " + compVCanaTO.getCarr2());
+            Log.i("PMM", " libCarr2 " + compVCanaTO.getLibCarr1());
+            Log.i("PMM", " maqCarr2 " + compVCanaTO.getMaqCarr2());
+            Log.i("PMM", " opCarr2 " + compVCanaTO.getOpCarr2());
+            Log.i("PMM", " carr3 " + compVCanaTO.getCarr3());
+            Log.i("PMM", " libCarr3 " + compVCanaTO.getLibCarr3());
+            Log.i("PMM", " maqCarr3 " + compVCanaTO.getMaqCarr3());
+            Log.i("PMM", " opCarr3 " + compVCanaTO.getOpCarr3());
+            Log.i("PMM", " carr4 " + compVCanaTO.getIdCompVCana());
+            Log.i("PMM", " libCarr4 " + compVCanaTO.getIdCompVCana());
+            Log.i("PMM", " maqCarr4 " + compVCanaTO.getIdCompVCana());
+            Log.i("PMM", " opCarr4 " + compVCanaTO.getIdCompVCana());
+            Log.i("PMM", " dataChegCampo " + compVCanaTO.getDataChegCampo());
+            Log.i("PMM", " dataSaidaCampo " + compVCanaTO.getDataSaidaCampo());
+            Log.i("PMM", " dataSaidaUsina " + compVCanaTO.getDataSaidaUsina());
+            Log.i("PMM", " noteiro " + compVCanaTO.getNoteiro());
+            Log.i("PMM", " turno " + compVCanaTO.getTurno());
+
+
+        }
+
     }
 
 }

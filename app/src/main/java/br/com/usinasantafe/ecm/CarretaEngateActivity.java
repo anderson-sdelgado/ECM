@@ -42,19 +42,19 @@ public class CarretaEngateActivity extends ActivityGeneric {
                     List listaConfig = configTO.all();
                     configTO = (ConfiguracaoTO) listaConfig.get(0);
 
-                    CaminhaoTO caminhaoTOBDPesq = new CaminhaoTO();
-                    List listaCam = caminhaoTOBDPesq.get("idCaminhao", configTO.getCodCamConfig());
-                    CaminhaoTO caminhaoTOBD = (CaminhaoTO) listaCam.get(0);//
+                    CaminhaoTO caminhaoTOBD = new CaminhaoTO();
+                    List listaCam = caminhaoTOBD.get("idCaminhao", configTO.getIdCamConfig());
+                    caminhaoTOBD = (CaminhaoTO) listaCam.get(0);//
 
-                    CarretaTO carretaTOBDPesq = new CarretaTO();
-                    List listaCarreta = carretaTOBDPesq.get("idCarreta", carreta);
+                    CarretaTO carretaTOBD = new CarretaTO();
+                    List listaCarreta = carretaTOBD.get("codCarreta", carreta);
 
                     CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
                     List listaCarrEngDeseng = carretaEngDesengTO.all();
 
                     if(listaCarreta.size() > 0){
 
-                        CarretaTO carretaTOBD = (CarretaTO) listaCarreta.get(0);//
+                        carretaTOBD = (CarretaTO) listaCarreta.get(0);//
 
                         if(caminhaoTOBD.getTipoCaminhao() == 1){
                             if(carretaTOBD.getTipoCarreta() == 4){
@@ -97,7 +97,35 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                     List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
 
                                     if(carEngDesengTOPesq.size() == 0){
-//                                        ecmContext.getCompVCanaTO().setCarr3(carretaTOBDPesq.getIdCarreta());
+                                        carretaEngDesengTO.setNumCarreta(carreta);
+                                        carretaEngDesengTO.setPosCarreta((long) 3);
+                                        carretaEngDesengTO.insert();
+                                        Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
+                                        startActivity(it);
+                                        finish();
+                                    }
+                                    else{
+                                        AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaEngateActivity.this);
+                                        alerta.setTitle("ATENÇÃO");
+                                        alerta.setMessage("ESSA CARRETA JÁ FOI INSERIDA. VERIFIQUE NOVAMENTE A NUMERAÇÃO DA CARRETA.");
+                                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                editTextPadrao.setText("");
+                                            }
+                                        });
+                                        alerta.show();
+                                    }
+                                }
+                                else if(listaCarrEngDeseng.size() == 3){
+
+                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
+                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
+
+                                    if(carEngDesengTOPesq.size() == 0){
+                                        carretaEngDesengTO.setNumCarreta(carreta);
+                                        carretaEngDesengTO.setPosCarreta((long) 4);
+                                        carretaEngDesengTO.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);
                                         finish();
@@ -160,6 +188,32 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                     if(carEngDesengTOPesq.size() == 0){
                                         carretaEngDesengTO.setNumCarreta(carreta);
                                         carretaEngDesengTO.setPosCarreta((long) 3);
+                                        carretaEngDesengTO.insert();
+                                        Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
+                                        startActivity(it);
+                                        finish();
+                                    }
+                                    else{
+                                        AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaEngateActivity.this);
+                                        alerta.setTitle("ATENÇÃO");
+                                        alerta.setMessage("ESSA CARRETA JÁ FOI INSERIDA. VERIFIQUE NOVAMENTE A NUMERAÇÃO DA CARRETA.");
+                                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                editTextPadrao.setText("");
+                                            }
+                                        });
+                                        alerta.show();
+                                    }
+                                }
+                                else if(listaCarrEngDeseng.size() == 3){
+
+                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
+                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
+
+                                    if(carEngDesengTOPesq.size() == 0){
+                                        carretaEngDesengTO.setNumCarreta(carreta);
+                                        carretaEngDesengTO.setPosCarreta((long) 4);
                                         carretaEngDesengTO.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);

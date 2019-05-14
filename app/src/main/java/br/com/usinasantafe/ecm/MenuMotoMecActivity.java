@@ -18,6 +18,7 @@ import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
 import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.pst.EspecificaPesquisa;
+import br.com.usinasantafe.ecm.to.tb.estaticas.CarretaTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.MotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CarretaEngDesengTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
@@ -115,7 +116,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
             carreta = carreta + " - " + carretaEngDesengTO.getNumCarreta();
             textViewCarreta.setText(carreta);
         }
-        else{
+        else if(listCarreta.size() == 3){
             carreta = "CARRETA(S): ";
             carretaEngDesengTO = (CarretaEngDesengTO) listCarreta.get(0);
             carreta = carreta + carretaEngDesengTO.getNumCarreta();
@@ -125,6 +126,19 @@ public class MenuMotoMecActivity extends ActivityGeneric {
             carreta = carreta + " - " + carretaEngDesengTO.getNumCarreta();
             textViewCarreta.setText(carreta);
         }
+        else{
+            carreta = "CARRETA(S): ";
+            carretaEngDesengTO = (CarretaEngDesengTO) listCarreta.get(0);
+            carreta = carreta + carretaEngDesengTO.getNumCarreta();
+            carretaEngDesengTO = (CarretaEngDesengTO) listCarreta.get(1);
+            carreta = carreta + " - " + carretaEngDesengTO.getNumCarreta();
+            carretaEngDesengTO = (CarretaEngDesengTO) listCarreta.get(2);
+            carreta = carreta + " - " + carretaEngDesengTO.getNumCarreta();
+            carretaEngDesengTO = (CarretaEngDesengTO) listCarreta.get(3);
+            carreta = carreta + " - " + carretaEngDesengTO.getNumCarreta();
+            textViewCarreta.setText(carreta);
+        }
+
 
         CompVCanaBkpTO compVCanaBkpTO = new CompVCanaBkpTO();
         int qtdeCompVCanaTO = compVCanaBkpTO.count();
@@ -401,6 +415,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                         }
                         else if(motoMecBD.getFuncaoMotoMec() == 13) // HODOMETRO
                         {
+
+                            ecmContext.getApontMotoMecTO().setOpcor(motoMecBD.getOpcorMotoMec());
+                            ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
                             Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
                             startActivity(it);
                             finish();

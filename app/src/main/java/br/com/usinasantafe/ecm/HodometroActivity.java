@@ -42,8 +42,6 @@ public class HodometroActivity extends ActivityGeneric {
                     startActivity(it);
                     finish();
 
-                    ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
-
                 } else {
                     AlertDialog.Builder alerta = new AlertDialog.Builder(HodometroActivity.this);
                     alerta.setTitle("ATENÇÃO");

@@ -46,46 +46,23 @@ public class VerMotoristaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                if(infBoletimTO.getTipoAtiv() == 1){
-
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(VerMotoristaActivity.this);
-                    alerta.setTitle("ATENÇÃO");
-                    alerta.setMessage("A VIAGEM FOI FINALIZADA E SERÁ ENVIADA AUTOMATICAMENTE. FAVOR ENTREGAR O CELULAR PARA O MOTORISTA.");
-                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                AlertDialog.Builder alerta = new AlertDialog.Builder(VerMotoristaActivity.this);
+                alerta.setTitle("ATENÇÃO");
+                alerta.setMessage("A VIAGEM FOI FINALIZADA E SERÁ ENVIADA AUTOMATICAMENTE. FAVOR ENTREGAR O CELULAR PARA O MOTORISTA.");
+                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
 
-                            ManipDadosEnvio.getInstance().salvaViagemCana();
+                        ManipDadosEnvio.getInstance().salvaViagemCana();
 
-                            Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
-                            startActivity(it);
-                            finish();
+                        Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
+                        startActivity(it);
+                        finish();
 
-                        }
-                    });
-                    alerta.show();
-
-                }
-                else if(infBoletimTO.getTipoAtiv() == 2){
-
-                    ecmContext.getCompVVinhacaTO().setMoto(infBoletimTO.getCodigoMoto());
-                    ecmContext.getCompVVinhacaTO().setData(Tempo.getInstance().datahora());
-
-                    ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-                    List listConfig = configuracaoTO.all();
-
-                    configuracaoTO = (ConfiguracaoTO) listConfig.get(0);
-
-                    ecmContext.getCompVVinhacaTO().setCam(configuracaoTO.getCodCamConfig());
-
-                    Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
-                    startActivity(it);
-                    finish();
-
-                    ManipDadosEnvio.getInstance().salvaViagemVinhaca(ecmContext.getCompVVinhacaTO());
-
-                }
+                    }
+                });
+                alerta.show();
 
             }
         });
