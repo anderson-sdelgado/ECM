@@ -28,6 +28,10 @@ public class CompVCanaBkpTO extends Entidade{
 	public CompVCanaBkpTO() {
 	}
 
+	public Long getIdVCanaBkp() {
+		return idVCanaBkp;
+	}
+
 	public Long getMoto() {
 		return moto;
 	}

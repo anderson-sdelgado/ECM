@@ -149,7 +149,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         else{
             List lista = compVCanaBkpTO.all();
             compVCanaBkpTO = (CompVCanaBkpTO) lista.get(qtdeCompVCanaTO - 1);
-            textViewUltimaViagem.setText("ULT. VIAGEM: " + compVCanaBkpTO.getDataSaidaCampo());
+            textViewUltimaViagem.setText("ULT. VIAGEM: " + Tempo.getInstance().dataHoraCTZ(compVCanaBkpTO.getDataSaidaCampo()));
         }
 
 

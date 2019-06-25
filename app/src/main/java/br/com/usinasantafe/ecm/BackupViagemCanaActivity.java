@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
 
 public class BackupViagemCanaActivity extends ActivityGeneric {
@@ -101,7 +102,7 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
         if(compVCanaBkpTO.getCarr3() != 0){
             retorno = retorno + "CARRETA 3 = " + compVCanaBkpTO.getCarr3() + "\n";
         }
-        retorno = retorno + "SAÍDA DO CAMPO = " + compVCanaBkpTO.getDataSaidaCampo() + "\n";
+        retorno = retorno + "SAÍDA DO CAMPO = " + Tempo.getInstance().dataHoraCTZ(compVCanaBkpTO.getDataSaidaCampo()) + "\n";
 
         return retorno;
 

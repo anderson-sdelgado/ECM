@@ -29,8 +29,6 @@ public class ManipDadosEnvio {
 
     private static ManipDadosEnvio instance = null;
     private UrlsConexaoHttp urlsConexaoHttp;
-    private List listDatasFrenteTO;
-    private boolean envio;
 
     public ManipDadosEnvio() {
         urlsConexaoHttp = new UrlsConexaoHttp();
@@ -193,7 +191,7 @@ public class ManipDadosEnvio {
         Map<String, Object> parametrosPost = new HashMap<String, Object>();
         parametrosPost.put("dado", json.toString());
 
-        Log.i("ECM", "LISTA = " + json.toString());
+        Log.i("ECM", "DADOS VIAGEM = " + json.toString());
 
         ConHttpPostCadGenerico.getInstance().setParametrosPost(parametrosPost);
 
@@ -238,6 +236,8 @@ public class ManipDadosEnvio {
         String[] url = {urlsConexaoHttp.getsInsertMotoMec()};
         Map<String, Object> parametrosPost = new HashMap<String, Object>();
         parametrosPost.put("dado", json.toString());
+
+        Log.i("ECM", "DADOS MOTOMEC = " + json.toString());
 
         ConHttpPostCadGenerico conHttpPostCadGenerico = new ConHttpPostCadGenerico();
         conHttpPostCadGenerico.setParametrosPost(parametrosPost);
@@ -285,6 +285,9 @@ public class ManipDadosEnvio {
         String[] url = {urlsConexaoHttp.getsApontChecklist()};
         Map<String, Object> parametrosPost = new HashMap<String, Object>();
         parametrosPost.put("dado", dados);
+
+
+        Log.i("ECM", "DADOS VIAGEM = " + dados);
 
         ConHttpPostCadGenerico conHttpPostGenerico = new ConHttpPostCadGenerico();
         conHttpPostGenerico.setParametrosPost(parametrosPost);

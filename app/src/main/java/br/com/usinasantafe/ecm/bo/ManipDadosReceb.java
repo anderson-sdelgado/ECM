@@ -47,42 +47,33 @@ public class ManipDadosReceb {
 
 		if(!result.equals("")){
 
-			if(tipo.equals("datahorahttp")){
+			try{
+
 				Log.i("ECM", "TIPO -> " + tipo);
 				Log.i("ECM", "RESULT -> " + result);
-				Tempo.getInstance().manipDataHora(result);
+
+				JSONObject jObj = new JSONObject(result);
+				JSONArray jsonArray = jObj.getJSONArray("dados");
+				Class classe = Class.forName(manipLocalClasse(tipo));
+				genericRecordable.deleteAll(classe);
+
+				for(int i = 0; i < jsonArray.length(); i++){
+
+					JSONObject objeto = jsonArray.getJSONObject(i);
+					Gson gson = new Gson();
+					genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
+
+				}
+
+				Log.i("ECM", " SALVOU DADOS ");
+
+				if(contAtualizaBD > 0){
+					atualizandoBD();
+				}
+
 			}
-			else{
-
-				try{
-
-					Log.i("ECM", "TIPO -> " + tipo);
-					Log.i("ECM", "RESULT -> " + result);
-
-					JSONObject jObj = new JSONObject(result);
-					JSONArray jsonArray = jObj.getJSONArray("dados");
-					Class classe = Class.forName(manipLocalClasse(tipo));
-					genericRecordable.deleteAll(classe);
-
-					for(int i = 0; i < jsonArray.length(); i++){
-
-						JSONObject objeto = jsonArray.getJSONObject(i);
-						Gson gson = new Gson();
-						genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
-
-					}
-
-					Log.i("ECM", " SALVOU DADOS ");
-
-					if(contAtualizaBD > 0){
-						atualizandoBD();
-					}
-
-				}
-				catch (Exception e) {
-				Log.i("ERRO", "Erro Manip = " + e);
-				}
-
+			catch (Exception e) {
+			Log.i("ERRO", "Erro Manip = " + e);
 			}
 
 		}
@@ -91,40 +82,6 @@ public class ManipDadosReceb {
 		}
 
 	}
-
-//	public void tempo(){
-//
-//		try {
-//
-//			DataTO dataTO = new DataTO();
-//			dataTO.deleteAll();
-//
-//			Class<?> retClasse = Class.forName(urlsConexaoHttp.localUrl);
-//			tabelaAtualizar = new ArrayList();
-//
-//			for (Field field : retClasse.getDeclaredFields()) {
-//				String campo = field.getName();
-//				Log.i("ERRO", "Campo = " + campo);
-//				if (campo.equals("datahorahttp")) {
-//					Log.i("ERRO", "Campo = " + campo);
-//					tabelaAtualizar.add(campo);
-//				}
-//
-//			}
-//
-//			classe = (String) tabelaAtualizar.get(contAtualizaBD);
-//
-//			String[] url = {classe};
-//
-//			ConHttpGetBDGenerico conHttpGetBDGenerico = new ConHttpGetBDGenerico();
-//			conHttpGetBDGenerico.execute(url);
-//
-//		} catch (Exception e) {
-//			Log.i("ERRO", "Erro Manip2 = " + e);
-//		}
-//
-//	}
-
 
 	public void atualizarBD(ProgressDialog progressDialog){
 		

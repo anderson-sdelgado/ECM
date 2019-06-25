@@ -74,6 +74,10 @@ public class InfBoletimTO extends Entidade {
     public InfBoletimTO() {
 	}
 
+	public Long getIdInfBoletim() {
+		return idInfBoletim;
+	}
+
 	public Long getCodigoMoto() {
 		return codigoMoto;
 	}

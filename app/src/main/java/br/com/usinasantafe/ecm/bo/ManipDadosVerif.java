@@ -43,8 +43,6 @@ public class ManipDadosVerif {
     private UrlsConexaoHttp urlsConexaoHttp;
     private Context telaAtual;
     private Class telaProx;
-    private String variavel;
-    private int qtde;
     private ProgressDialog progressDialog;
     private String dado;
     private String tipo;
@@ -103,12 +101,11 @@ public class ManipDadosVerif {
     }
 
 
-    public void verDados(String dado, String tipo, Context telaAtual, Class telaProx, String variavel) {
+    public void verDados(String dado, String tipo, Context telaAtual, Class telaProx) {
 
         urlsConexaoHttp = new UrlsConexaoHttp();
         this.telaAtual = telaAtual;
         this.telaProx = telaProx;
-        this.variavel = variavel;
         this.dado = dado;
         this.tipo = tipo;
 
@@ -141,14 +138,14 @@ public class ManipDadosVerif {
             JsonObject json = new JsonObject();
             json.add("dados", jsonArray);
 
-            Log.i("ECM", "LISTA = " + json.toString());
-
             parametrosPost.put("dado", json.toString());
+            Log.i("ECM", "DADOS = " + json.toString());
             compVCanaTO.deleteAll();
 
         }
         else{
             parametrosPost.put("dado", String.valueOf(dado));
+            Log.i("ECM", "DADOS = " + String.valueOf(dado));
         }
 
 
@@ -157,9 +154,10 @@ public class ManipDadosVerif {
         if(this.tipo.equals("BoletimTOViagem")) {
             this.tipo = "BoletimTO";
         }
-        conHttpPostVerGenerico.setTipo(this.tipo);
+
         Log.i("ECM", "TIPO = " + tipo);
 
+        conHttpPostVerGenerico.setTipo(this.tipo);
         conHttpPostVerGenerico.execute(url);
 
     }

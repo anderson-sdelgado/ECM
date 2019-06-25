@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
 
@@ -99,7 +100,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
             retorno = retorno + "PARA ANALISE! \n";
             retorno = retorno + "PESO LIQ:  "  + boleto.getPesoLiquidoBoleto() + "\n";
             retorno = retorno + "---------------- \n";
-            retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+            retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
         }
         else if(analisar == 1){
@@ -113,7 +114,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado1Boleto() + "  " + boleto.getCecSorteado2Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
             else if((boleto.getUnidadeSorteada1Boleto() == 0) &&
@@ -125,7 +126,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado2Boleto() + "  " + boleto.getCecSorteado3Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
             else if((boleto.getUnidadeSorteada1Boleto() != 0) &&
@@ -137,7 +138,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado1Boleto() + "  " + boleto.getCecSorteado3Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
             else if((boleto.getUnidadeSorteada1Boleto() != 0) &&
@@ -149,7 +150,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado1Boleto() + "  " + boleto.getCecSorteado2Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
             else if((boleto.getUnidadeSorteada1Boleto() != 0) &&
@@ -161,7 +162,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado1Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
             else if((boleto.getUnidadeSorteada1Boleto() == 0) &&
@@ -173,7 +174,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado2Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
             else if((boleto.getUnidadeSorteada1Boleto() == 0) &&
@@ -185,7 +186,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
                 retorno = retorno + "CEC: " + boleto.getCecSorteado3Boleto() + " \n";
                 retorno = retorno + "Frente: " + boleto.getCdFrenteBoleto() + " \n";
                 retorno = retorno + "Peso Liq:  "  + boleto.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boleto.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + Tempo.getInstance().dataHoraCTZ(boleto.getDthrEntradaBoleto()) + " \n";
 
             }
 

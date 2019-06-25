@@ -74,7 +74,7 @@ public class LiberacaoActivity extends ActivityGeneric {
                         if (conexaoWeb.verificaConexao(LiberacaoActivity.this)) {
 
                         ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString() + "_" + ecmContext.getNroOS(), "LiberacaoTO"
-                                ,LiberacaoActivity.this ,MsgLiberacaoActivity.class, "LIBERAÇÃO");
+                                ,LiberacaoActivity.this ,MsgLiberacaoActivity.class);
 
                         } else {
                             AlertDialog.Builder alerta = new AlertDialog.Builder(LiberacaoActivity.this);

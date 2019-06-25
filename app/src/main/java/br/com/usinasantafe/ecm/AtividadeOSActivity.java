@@ -59,7 +59,7 @@ public class AtividadeOSActivity extends ActivityGeneric {
                         if (conexaoWeb.verificaConexao(AtividadeOSActivity.this)) {
 
                             ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "AtividadeOSTO",
-                                    AtividadeOSActivity.this, MsgAtividadeOSActivity.class, "ATIVIDADE");
+                                    AtividadeOSActivity.this, MsgAtividadeOSActivity.class);
 
                         } else {
                             AlertDialog.Builder alerta = new AlertDialog.Builder(AtividadeOSActivity.this);

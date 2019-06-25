@@ -21,10 +21,17 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimBkpTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
 public class PrincipalActivity extends ActivityGeneric {
 
@@ -38,7 +45,7 @@ public class PrincipalActivity extends ActivityGeneric {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-//        verif();
+        verif();
 
         ecmContext = (ECMContext) getApplication();
 
@@ -181,45 +188,207 @@ public class PrincipalActivity extends ActivityGeneric {
 
     public void verif(){
 
+        ApontMotoMecTO apontMotoMecTO = new ApontMotoMecTO();
+        List apontMotoMecList = apontMotoMecTO.all();
+
+        Log.i("PMM", "AKI");
+
+        Log.i("PMM", "ApontMotoMec");
+
+        for (int i = 0; i < apontMotoMecList.size(); i++) {
+
+            apontMotoMecTO = (ApontMotoMecTO) apontMotoMecList.get(i);
+            Log.i("PMM", "idApontMM = " + apontMotoMecTO.getIdApontMM());
+            Log.i("PMM", "veic = " + apontMotoMecTO.getVeic());
+            Log.i("PMM", "motorista = " + apontMotoMecTO.getMotorista());
+            Log.i("PMM", "opcor = " + apontMotoMecTO.getOpcor());
+            Log.i("PMM", "dihi = " + apontMotoMecTO.getDihi());
+            Log.i("PMM", "caux = " + apontMotoMecTO.getCaux());
+            Log.i("PMM", "tipoEngDeseng = " + apontMotoMecTO.getTipoEngDeseng());
+
+        }
+
+        BoletimBkpTO boletimBkpTO = new BoletimBkpTO();
+        List boletimBkpList = boletimBkpTO.all();
+
+        Log.i("PMM", "BoletimBkpTO");
+
+        for (int i = 0; i < boletimBkpList.size(); i++) {
+
+            boletimBkpTO = (BoletimBkpTO) boletimBkpList.get(i);
+            Log.i("PMM", "idBoleto = " + boletimBkpTO.getIdBoleto());
+            Log.i("PMM", "caminhaoBoleto = " + boletimBkpTO.getCaminhaoBoleto());
+            Log.i("PMM", "possuiSorteioBoleto = " + boletimBkpTO.getPossuiSorteioBoleto());
+            Log.i("PMM", "cecPaiBoleto = " + boletimBkpTO.getCecPaiBoleto());
+            Log.i("PMM", "cdFrenteBoleto = " + boletimBkpTO.getCdFrenteBoleto());
+            Log.i("PMM", "dthrEntradaBoleto = " + boletimBkpTO.getDthrEntradaBoleto());
+            Log.i("PMM", "cecSorteado1Boleto = " + boletimBkpTO.getCecSorteado1Boleto());
+            Log.i("PMM", "unidadeSorteada1Boleto = " + boletimBkpTO.getUnidadeSorteada1Boleto());
+            Log.i("PMM", "cecSorteado2Boleto = " + boletimBkpTO.getCecSorteado2Boleto());
+            Log.i("PMM", "unidadeSorteada2Boleto = " + boletimBkpTO.getUnidadeSorteada2Boleto());
+            Log.i("PMM", "cecSorteado3Boleto = " + boletimBkpTO.getCecSorteado3Boleto());
+            Log.i("PMM", "unidadeSorteada3Boleto = " + boletimBkpTO.getUnidadeSorteada3Boleto());
+            Log.i("PMM", "pesoLiquidoBoleto = " + boletimBkpTO.getPesoLiquidoBoleto());
+
+        }
+
+        BoletimTO boletimTO = new BoletimTO();
+        List boletimList = boletimTO.all();
+
+        Log.i("PMM", "BoletimBkpTO");
+
+        for (int i = 0; i < boletimList.size(); i++) {
+
+            boletimTO = (BoletimTO) boletimList.get(i);
+            Log.i("PMM", "idBoleto = " + boletimTO.getIdBoletim());
+            Log.i("PMM", "caminhaoBoleto = " + boletimTO.getCaminhaoBoleto());
+            Log.i("PMM", "possuiSorteioBoleto = " + boletimTO.getPossuiSorteioBoleto());
+            Log.i("PMM", "cecPaiBoleto = " + boletimTO.getCecPaiBoleto());
+            Log.i("PMM", "cdFrenteBoleto = " + boletimTO.getCdFrenteBoleto());
+            Log.i("PMM", "dthrEntradaBoleto = " + boletimTO.getDthrEntradaBoleto());
+            Log.i("PMM", "cecSorteado1Boleto = " + boletimTO.getCecSorteado1Boleto());
+            Log.i("PMM", "unidadeSorteada1Boleto = " + boletimTO.getUnidadeSorteada1Boleto());
+            Log.i("PMM", "cecSorteado2Boleto = " + boletimTO.getCecSorteado2Boleto());
+            Log.i("PMM", "unidadeSorteada2Boleto = " + boletimTO.getUnidadeSorteada2Boleto());
+            Log.i("PMM", "cecSorteado3Boleto = " + boletimTO.getCecSorteado3Boleto());
+            Log.i("PMM", "unidadeSorteada3Boleto = " + boletimTO.getUnidadeSorteada3Boleto());
+            Log.i("PMM", "pesoLiquidoBoleto = " + boletimTO.getPesoLiquidoBoleto());
+
+        }
+
         CompVCanaTO compVCanaTO = new CompVCanaTO();
         List compVCanaList = compVCanaTO.all();
 
-        Log.i("PMM", " ENTROU ");
+        Log.i("PMM", "CompVCanaTO");
 
         for (int i = 0; i < compVCanaList.size(); i++) {
 
             compVCanaTO = (CompVCanaTO) compVCanaList.get(i);
-            Log.i("PMM", " VIAGEM ");
-            Log.i("PMM", " idCompVCana " + compVCanaTO.getIdCompVCana());
-            Log.i("PMM", " cam " + compVCanaTO.getCam());
-            Log.i("PMM", " libCam " + compVCanaTO.getLibCam());
-            Log.i("PMM", " maqCam " + compVCanaTO.getMaqCam());
-            Log.i("PMM", " opCam " + compVCanaTO.getOpCam());
-            Log.i("PMM", " moto " + compVCanaTO.getMoto());
-            Log.i("PMM", " carr1 " + compVCanaTO.getCarr1());
-            Log.i("PMM", " libCarr1 " + compVCanaTO.getLibCarr1());
-            Log.i("PMM", " maqCarr1 " + compVCanaTO.getMaqCarr1());
-            Log.i("PMM", " opCarr1 " + compVCanaTO.getOpCarr1());
-            Log.i("PMM", " carr2 " + compVCanaTO.getCarr2());
-            Log.i("PMM", " libCarr2 " + compVCanaTO.getLibCarr1());
-            Log.i("PMM", " maqCarr2 " + compVCanaTO.getMaqCarr2());
-            Log.i("PMM", " opCarr2 " + compVCanaTO.getOpCarr2());
-            Log.i("PMM", " carr3 " + compVCanaTO.getCarr3());
-            Log.i("PMM", " libCarr3 " + compVCanaTO.getLibCarr3());
-            Log.i("PMM", " maqCarr3 " + compVCanaTO.getMaqCarr3());
-            Log.i("PMM", " opCarr3 " + compVCanaTO.getOpCarr3());
-            Log.i("PMM", " carr4 " + compVCanaTO.getIdCompVCana());
-            Log.i("PMM", " libCarr4 " + compVCanaTO.getIdCompVCana());
-            Log.i("PMM", " maqCarr4 " + compVCanaTO.getIdCompVCana());
-            Log.i("PMM", " opCarr4 " + compVCanaTO.getIdCompVCana());
-            Log.i("PMM", " dataChegCampo " + compVCanaTO.getDataChegCampo());
-            Log.i("PMM", " dataSaidaCampo " + compVCanaTO.getDataSaidaCampo());
-            Log.i("PMM", " dataSaidaUsina " + compVCanaTO.getDataSaidaUsina());
-            Log.i("PMM", " noteiro " + compVCanaTO.getNoteiro());
-            Log.i("PMM", " turno " + compVCanaTO.getTurno());
-
+            Log.i("PMM", "idCompVCana = " + compVCanaTO.getIdCompVCana());
+            Log.i("PMM", "cam = " + compVCanaTO.getCam());
+            Log.i("PMM", "libCam = " + compVCanaTO.getLibCam());
+            Log.i("PMM", "maqCam = " + compVCanaTO.getMaqCam());
+            Log.i("PMM", "opCam = " + compVCanaTO.getOpCam());
+            Log.i("PMM", "moto = " + compVCanaTO.getMoto());
+            Log.i("PMM", "carr1 = " + compVCanaTO.getCarr1());
+            Log.i("PMM", "libCarr1 = " + compVCanaTO.getLibCarr1());
+            Log.i("PMM", "maqCarr1 = " + compVCanaTO.getMaqCarr1());
+            Log.i("PMM", "opCarr1 = " + compVCanaTO.getOpCarr1());
+            Log.i("PMM", "carr2 = " + compVCanaTO.getCarr2());
+            Log.i("PMM", "libCarr2 = " + compVCanaTO.getLibCarr2());
+            Log.i("PMM", "maqCarr2 = " + compVCanaTO.getMaqCarr2());
+            Log.i("PMM", "opCarr2 = " + compVCanaTO.getOpCarr2());
+            Log.i("PMM", "carr3 = " + compVCanaTO.getCarr3());
+            Log.i("PMM", "libCarr3 = " + compVCanaTO.getLibCarr3());
+            Log.i("PMM", "maqCarr3 = " + compVCanaTO.getMaqCarr3());
+            Log.i("PMM", "opCarr3 = " + compVCanaTO.getOpCarr3());
+            Log.i("PMM", "carr4 = " + compVCanaTO.getCarr4());
+            Log.i("PMM", "libCarr4 = " + compVCanaTO.getLibCarr4());
+            Log.i("PMM", "maqCarr4 = " + compVCanaTO.getMaqCarr4());
+            Log.i("PMM", "opCarr4 = " + compVCanaTO.getOpCarr4());
+            Log.i("PMM", "dataChegCampo = " + compVCanaTO.getDataChegCampo());
+            Log.i("PMM", "dataSaidaCampo = " + compVCanaTO.getDataSaidaCampo());
+            Log.i("PMM", "dataSaidaUsina = " + compVCanaTO.getDataSaidaUsina());
+            Log.i("PMM", "noteiro = " + compVCanaTO.getNoteiro());
+            Log.i("PMM", "turno = " + compVCanaTO.getTurno());
 
         }
+
+
+        CompVCanaBkpTO compVCanaBkpTO = new CompVCanaBkpTO();
+        List compVCanaBkpList = compVCanaBkpTO.all();
+
+        Log.i("PMM", "CompVCanaBkpTO");
+
+        for (int i = 0; i < compVCanaBkpList.size(); i++) {
+
+            compVCanaBkpTO = (CompVCanaBkpTO) compVCanaBkpList.get(i);
+            Log.i("PMM", "idVCanaBkp = " + compVCanaBkpTO.getIdVCanaBkp());
+            Log.i("PMM", "moto = " + compVCanaBkpTO.getMoto());
+            Log.i("PMM", "carr1 = " + compVCanaBkpTO.getCarr1());
+            Log.i("PMM", "carr2 = " + compVCanaBkpTO.getCarr2());
+            Log.i("PMM", "carr3 = " + compVCanaBkpTO.getCarr3());
+            Log.i("PMM", "dataSaidaCampo = " + compVCanaBkpTO.getDataSaidaCampo());
+            Log.i("PMM", "noteiro = " + compVCanaBkpTO.getNoteiro());
+
+        }
+
+        InfBoletimTO infBoletimTO = new InfBoletimTO();
+        List infBoletimList = infBoletimTO.all();
+
+        Log.i("PMM", "InfBoletimTO");
+
+        for (int i = 0; i < infBoletimList.size(); i++) {
+
+            infBoletimTO = (InfBoletimTO) infBoletimList.get(i);
+            Log.i("PMM", "idInfBoletim = " + infBoletimTO.getIdInfBoletim());
+            Log.i("PMM", "cam = " + infBoletimTO.getCam());
+            Log.i("PMM", "codigoMoto = " + infBoletimTO.getCodigoMoto());
+            Log.i("PMM", "nomeMoto = " + infBoletimTO.getNomeMoto());
+            Log.i("PMM", "tipoAtiv = " + infBoletimTO.getTipoAtiv());
+            Log.i("PMM", "libCam = " + infBoletimTO.getLibCam());
+            Log.i("PMM", "maqCam = " + infBoletimTO.getMaqCam());
+            Log.i("PMM", "opCam = " + infBoletimTO.getOpCam());
+            Log.i("PMM", "carr1 = " + infBoletimTO.getCarr1());
+            Log.i("PMM", "libCarr1 = " + infBoletimTO.getLibCarr1());
+            Log.i("PMM", "maqCarr1 = " + infBoletimTO.getMaqCarr1());
+            Log.i("PMM", "opCarr1 = " + infBoletimTO.getOpCarr1());
+            Log.i("PMM", "carr2 = " + infBoletimTO.getCarr2());
+            Log.i("PMM", "libCarr2 = " + infBoletimTO.getLibCarr2());
+            Log.i("PMM", "maqCarr2 = " + infBoletimTO.getMaqCarr2());
+            Log.i("PMM", "opCarr2 = " + infBoletimTO.getOpCarr2());
+            Log.i("PMM", "carr3 = " + infBoletimTO.getCarr3());
+            Log.i("PMM", "libCarr3 = " + infBoletimTO.getLibCarr3());
+            Log.i("PMM", "maqCarr3 = " + infBoletimTO.getMaqCarr3());
+            Log.i("PMM", "opCarr3 = " + infBoletimTO.getOpCarr3());
+            Log.i("PMM", "carr4 = " + infBoletimTO.getCarr4());
+            Log.i("PMM", "libCarr4 = " + infBoletimTO.getLibCarr4());
+            Log.i("PMM", "maqCarr4 = " + infBoletimTO.getMaqCarr4());
+            Log.i("PMM", "opCarr4 = " + infBoletimTO.getOpCarr4());
+            Log.i("PMM", "dataChegCampo = " + infBoletimTO.getDataChegCampo());
+            Log.i("PMM", "dataSaidaCampo = " + infBoletimTO.getDataSaidaCampo());
+            Log.i("PMM", "dataSaidaUsina = " + infBoletimTO.getDataSaidaUsina());
+            Log.i("PMM", "noteiro = " + infBoletimTO.getNoteiro());
+            Log.i("PMM", "turno = " + infBoletimTO.getTurno());
+            Log.i("PMM", "frente = " + infBoletimTO.getFrente());
+
+        }
+
+        CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
+        List cabecList = cabecCheckListTO.all();
+
+        Log.i("PMM", "CabecCheckList");
+
+        for (int j = 0; j < cabecList.size(); j++) {
+
+            cabecCheckListTO = (CabecCheckListTO) cabecList.get(j);
+            Log.i("PMM", "IdCabecCheck = " + cabecCheckListTO.getIdCabecCheckList());
+            Log.i("PMM", "EquipCabecCheckList = " + cabecCheckListTO.getEquipCabecCheckList());
+            Log.i("PMM", "DtCabecCheckList = " + cabecCheckListTO.getDtCabecCheckList());
+            Log.i("PMM", "FuncCabecCheckList = " + cabecCheckListTO.getFuncCabecCheckList());
+            Log.i("PMM", "TurnoCabecCheckList = " + cabecCheckListTO.getTurnoCabecCheckList());
+            Log.i("PMM", "StatusCabecCheckList = " + cabecCheckListTO.getStatusCabecCheckList());
+            Log.i("PMM", "QtdeItemCabecCheckList = " + cabecCheckListTO.getQtdeItemCabecCheckList());
+            Log.i("PMM", "DtCabecCheckList = " + cabecCheckListTO.getDtCabecCheckList());
+
+        }
+
+        RespItemCheckListTO respItemCheckListTO = new RespItemCheckListTO();
+        List respItemList = respItemCheckListTO.all();
+
+        Log.i("PMM", "RespItemCheckList");
+
+        for (int j = 0; j < respItemList.size(); j++) {
+
+            respItemCheckListTO = (RespItemCheckListTO) respItemList.get(j);
+            Log.i("PMM", "IdItemCheckList = " + respItemCheckListTO.getIdItemCheckList());
+            Log.i("PMM", "IdItItemCheckList = " + respItemCheckListTO.getIdItItemCheckList());
+            Log.i("PMM", "IdCabecItemCheckList = " + respItemCheckListTO.getIdCabecItemCheckList());
+            Log.i("PMM", "OpcaoItemCheckList = " + respItemCheckListTO.getOpcaoItemCheckList());
+
+        }
+
+        Log.i("PMM", "versão = " + ECMContext.versaoAplic);
 
     }
 
