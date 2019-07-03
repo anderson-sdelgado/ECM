@@ -85,7 +85,7 @@ public class PrincipalActivity extends ActivityGeneric {
         configList.clear();
 
         CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
-        List cabecList = cabecCheckListTO.get("statusCab", 1L);
+        List cabecList = cabecCheckListTO.get("statusCabecCheckList", 1L);
 
         if (cabecList.size() > 0) {
 

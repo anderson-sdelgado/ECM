@@ -10,7 +10,6 @@ import android.widget.Button;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CabecalhoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class MotoristaActivity extends ActivityGeneric {

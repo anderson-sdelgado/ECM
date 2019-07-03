@@ -9,7 +9,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 
 public class MsgAtividadeOSActivity extends ActivityGeneric {

@@ -17,7 +17,6 @@ import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.OSTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.TurnoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
@@ -86,7 +85,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 			TableUtils.createTable(cs, ConfigTO.class);
 			TableUtils.createTable(cs, CarretaEngDesengTO.class);
-			TableUtils.createTable(cs, AtividadeOsTO.class);
 			TableUtils.createTable(cs, CompVCanaTO.class);
 			TableUtils.createTable(cs, ApontMotoMecTO.class);
 			TableUtils.createTable(cs, CompVCanaBkpTO.class);
@@ -94,7 +92,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, BoletimBkpTO.class);
 			TableUtils.createTable(cs, CompVVinhacaTO.class);
 			TableUtils.createTable(cs, HodometroTO.class);
-			TableUtils.createTable(cs, CabecalhoTO.class);
 			
 		}
 		catch(Exception e){

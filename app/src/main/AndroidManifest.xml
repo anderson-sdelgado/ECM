@@ -82,9 +82,6 @@
             android:name=".ListaTurnoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MaquinaActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MenuInicialApontActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -110,9 +107,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MsgSaidaCampoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".OperadorActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OSActivity"

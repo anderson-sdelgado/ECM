@@ -66,9 +66,6 @@ public class ConfiguracoesActivity extends ActivityGeneric {
                             configTO.setSenhaConfig(editTextSenhaConfig.getText().toString());
                             configTO.setUltTurnoCLConfig(0L);
                             configTO.setCrachaMotoConfig(0L);
-                            configTO.setDataSaidaUsina("");
-                            configTO.setDataChegCampo("");
-                            configTO.setDataSaidaCampo("");
                             configTO.deleteAll();
                             configTO.insert();
 

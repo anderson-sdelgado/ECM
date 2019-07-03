@@ -278,10 +278,6 @@ public class ManipDadosVerif {
 
     public void cabecCheckList(String data){
 
-        CabecalhoTO cabecalhoTO = new CabecalhoTO();
-        List lTurno = cabecalhoTO.all();
-        cabecalhoTO = (CabecalhoTO) lTurno.get(0);
-
         ConfigTO configTO = new ConfigTO();
         List listConfigTO = configTO.all();
         configTO = (ConfigTO) listConfigTO.get(0);
@@ -299,8 +295,8 @@ public class ManipDadosVerif {
         CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
         cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
         cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
-        cabecCheckListTO.setFuncCabecCheckList(cabecalhoTO.getCodigoMoto());
-        cabecCheckListTO.setTurnoCabecCheckList(cabecalhoTO.getTurno());
+        cabecCheckListTO.setFuncCabecCheckList(configTO.getCrachaMotoConfig());
+        cabecCheckListTO.setTurnoCabecCheckList(configTO.getNroTurnoConfig());
         cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
         cabecCheckListTO.setStatusCabecCheckList(1L);
         cabecCheckListTO.insert();

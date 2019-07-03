@@ -105,9 +105,6 @@ public class ConHttpPostCadGenerico extends AsyncTask<String, Void, String> {
 			else if(result.trim().equals("GRAVOU-CANA")){
 				ManipDadosEnvio.getInstance().delViagemCana();
 			}
-			else if(result.trim().equals("GRAVOU-VINHACA")){
-				ManipDadosEnvio.getInstance().delApontVinhaca();
-			}
 			else if(result.trim().equals("GRAVOU-CHECKLIST")){
 				ManipDadosEnvio.getInstance().delChecklist();
 			}

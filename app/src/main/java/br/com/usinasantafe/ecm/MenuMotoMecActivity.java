@@ -177,15 +177,15 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                 final int posicao = position;
 
-                MotoMecTO motoMecBD = (MotoMecTO) menuMotoMecList.get(position);
+                MotoMecTO motoMecTO = (MotoMecTO) menuMotoMecList.get(position);
 
-                if (motoMecBD.getFuncaoMotoMec() == 1) {  // ATIVIDADES NORMAIS
+                if (motoMecTO.getFuncaoMotoMec() == 1) {  // ATIVIDADES NORMAIS
 
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
                     alerta.setTitle("ATENÇÃO");
-                    alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBD.getNomeMotoMec());
+                    alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecTO.getNomeMotoMec());
 
-                    ecmContext.getApontMotoMecTO().setOpcor(motoMecBD.getOpcorMotoMec());
+                    ecmContext.getApontMotoMecTO().setOpcor(motoMecTO.getOpcorMotoMec());
                     ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -197,45 +197,35 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     alerta.show();
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 5) {  // MOTIVO DE PARADA
+                } else if (motoMecTO.getFuncaoMotoMec() == 5) {  // MOTIVO DE PARADA
 
-                    ecmContext.setCargoMotomec(motoMecBD.getCargoMotoMec());
+                    ecmContext.setCargoMotomec(motoMecTO.getCargoMotoMec());
                     ecmContext.setLugarMotivoParada(1L);
 
                     Intent it = new Intent(MenuMotoMecActivity.this, MotivoParadaActivity.class);
                     startActivity(it);
                     finish();
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 4) { // CERTIFICADO
+                } else if (motoMecTO.getFuncaoMotoMec() == 4) { // CERTIFICADO
 
 
                     Intent it = new Intent(MenuMotoMecActivity.this, MenuInicialApontActivity.class);
                     startActivity(it);
                     finish();
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 8) { // TROCAR MOTORISTA
+                } else if (motoMecTO.getFuncaoMotoMec() == 8) { // TROCAR MOTORISTA
 
                     ecmContext.setTelaAltMoto(3);
                     Intent it = new Intent(MenuMotoMecActivity.this, MotoristaActivity.class);
                     startActivity(it);
                     finish();
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 2) { // SAIDA DA USINA
+                } else if (motoMecTO.getFuncaoMotoMec() == 2) { // SAIDA DA USINA
 
                     CompVCanaTO compVCanaTO = new CompVCanaTO();
                     List compVCanaList = compVCanaTO.get("status", 1L);
 
                     if (compVCanaList.size() > 0) {
-
-                        compVCanaList.clear();
-
-                        ecmContext.getApontMotoMecTO().setOpcor(motoMecBD.getOpcorMotoMec());
-
-                        Intent it = new Intent(MenuMotoMecActivity.this, FrenteActivity.class);
-                        startActivity(it);
-                        finish();
-
-                    } else {
 
                         String mensagem = "O HORÁRIO DE SAÍDA DA USINA JÁ FOI INSERIDO ANTERIORMENTE. " +
                                 "POR FAVOR TERMINE DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.";
@@ -252,10 +242,20 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                         });
                         alerta.show();
 
+                    } else {
+
+                        compVCanaList.clear();
+
+                        ecmContext.getApontMotoMecTO().setOpcor(motoMecTO.getOpcorMotoMec());
+
+                        Intent it = new Intent(MenuMotoMecActivity.this, FrenteActivity.class);
+                        startActivity(it);
+                        finish();
+
                     }
 
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 3) { // CHEGADA CAMPO
+                } else if (motoMecTO.getFuncaoMotoMec() == 3) { // CHEGADA CAMPO
 
                     String mensagem = "";
 
@@ -282,9 +282,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                             compVCanaTO.setDataChegCampo(Tempo.getInstance().datahora());
                             compVCanaTO.update();
 
-                            mensagem = "FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBD.getNomeMotoMec();
+                            mensagem = "FOI DADO ENTRADA NA ATIVIDADE: " + motoMecTO.getNomeMotoMec();
 
-                            ecmContext.getApontMotoMecTO().setOpcor(motoMecBD.getOpcorMotoMec());
+                            ecmContext.getApontMotoMecTO().setOpcor(motoMecTO.getOpcorMotoMec());
 
                             ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
@@ -310,9 +310,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     alerta.show();
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 10) { // PESAGEM
+                } else if (motoMecTO.getFuncaoMotoMec() == 10) { // PESAGEM
 
-                    ecmContext.getApontMotoMecTO().setOpcor(motoMecBD.getOpcorMotoMec());
+                    ecmContext.getApontMotoMecTO().setOpcor(motoMecTO.getOpcorMotoMec());
                     ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
                     progressBar = new ProgressDialog(v.getContext());
@@ -334,7 +334,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     }
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 11) { // DESENGATE
+                } else if (motoMecTO.getFuncaoMotoMec() == 11) { // DESENGATE
 
                     CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
                     List listaCarreta = carretaEngDesengTO.all();
@@ -373,7 +373,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     }
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 12) { // ENGATE
+                } else if (motoMecTO.getFuncaoMotoMec() == 12) { // ENGATE
 
                     CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
                     List listaCarreta = carretaEngDesengTO.all();
@@ -413,9 +413,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     }
 
-                } else if (motoMecBD.getFuncaoMotoMec() == 13) { // HODOMETRO
+                } else if (motoMecTO.getFuncaoMotoMec() == 13) { // HODOMETRO
 
-                    ecmContext.getApontMotoMecTO().setOpcor(motoMecBD.getOpcorMotoMec());
+                    ecmContext.getApontMotoMecTO().setOpcor(motoMecTO.getOpcorMotoMec());
                     ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
                     Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
                     startActivity(it);
