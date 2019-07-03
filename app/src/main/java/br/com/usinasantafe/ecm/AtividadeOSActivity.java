@@ -10,12 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
 import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class AtividadeOSActivity extends ActivityGeneric {
 
@@ -41,11 +38,12 @@ public class AtividadeOSActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    AtividadeOSTO atividadeOsTOBD = new AtividadeOSTO();
+                    ecmContext.setCodigoAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
 
-                    if (atividadeOsTOBD.exists("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()))) {
+                    AtividadeOSTO atividadeOSTO = new AtividadeOSTO();
 
-                        ecmContext.setCodigoAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
+                    if (atividadeOSTO.exists("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()))) {
+
                         Intent it = new Intent(AtividadeOSActivity.this, MsgAtividadeOSActivity.class);
                         startActivity(it);
                         finish();
@@ -53,9 +51,6 @@ public class AtividadeOSActivity extends ActivityGeneric {
                     } else {
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
-
-                        ecmContext.setCodigoAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
-
                         if (conexaoWeb.verificaConexao(AtividadeOSActivity.this)) {
 
                             ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "AtividadeOSTO",
@@ -90,21 +85,9 @@ public class AtividadeOSActivity extends ActivityGeneric {
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 } else {
-
-                    InfBoletimTO infBoletimTO = new InfBoletimTO();
-                    List lTurno = infBoletimTO.all();
-                    infBoletimTO = (InfBoletimTO) lTurno.get(0);
-
-                    if (infBoletimTO.getTipoAtiv() == 1) {
-                        Intent it = new Intent(AtividadeOSActivity.this, MenuInicialApontActivity.class);
-                        startActivity(it);
-                        finish();
-                    } else if (infBoletimTO.getTipoAtiv() == 2) {
-                        Intent it = new Intent(AtividadeOSActivity.this, OSActivity.class);
-                        startActivity(it);
-                        finish();
-                    }
-
+                    Intent it = new Intent(AtividadeOSActivity.this, MenuInicialApontActivity.class);
+                    startActivity(it);
+                    finish();
                 }
             }
         });

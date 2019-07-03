@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class CaminhaoTurnoActivity extends ActivityGeneric {
 
@@ -27,9 +27,9 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
         Button buttonOkCaminhao = (Button) findViewById(R.id.buttonOkCaminhaoTurno);
         Button buttonCancCaminhao = (Button) findViewById(R.id.buttonCancCaminhaoTurno);
 
-        ConfiguracaoTO configTO = new ConfiguracaoTO();
+        ConfigTO configTO = new ConfigTO();
         List listConfigTO = configTO.all();
-        configTO = (ConfiguracaoTO) listConfigTO.get(0);
+        configTO = (ConfigTO) listConfigTO.get(0);
         textViewCodCaminhao.setText(String.valueOf(configTO.getCodCamConfig()));
 
         buttonOkCaminhao.setOnClickListener(new View.OnClickListener() {
@@ -37,15 +37,15 @@ public class CaminhaoTurnoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                if (ecmContext.getAltMotoL() == 1) {
+                if (ecmContext.getTelaAltMoto() == 1) {
                     Intent it = new Intent(CaminhaoTurnoActivity.this, ListaTurnoActivity.class);
                     startActivity(it);
                     finish();
-                } else if (ecmContext.getAltMotoL() == 2) {
+                } else if (ecmContext.getTelaAltMoto() == 2) {
                     Intent it = new Intent(CaminhaoTurnoActivity.this, VerMotoristaActivity.class);
                     startActivity(it);
                     finish();
-                } else if (ecmContext.getAltMotoL() == 3) {
+                } else if (ecmContext.getTelaAltMoto() == 3) {
                     ecmContext.setPosMenu(1);
                     Intent it = new Intent(CaminhaoTurnoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);

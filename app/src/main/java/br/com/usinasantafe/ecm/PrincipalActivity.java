@@ -22,22 +22,20 @@ import java.util.List;
 import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
 public class PrincipalActivity extends ActivityGeneric {
 
     private ListView lista;
     private ECMContext ecmContext;
-    private ConfiguracaoTO configTO;
+    private ConfigTO configTO;
     private ProgressDialog progressBar;
 
     @Override
@@ -55,7 +53,7 @@ public class PrincipalActivity extends ActivityGeneric {
         }
 
         ConexaoWeb conexaoWeb = new ConexaoWeb();
-        configTO = new ConfiguracaoTO();
+        configTO = new ConfigTO();
         List configList = configTO.all();
 
         progressBar = new ProgressDialog(this);
@@ -63,7 +61,7 @@ public class PrincipalActivity extends ActivityGeneric {
         if(conexaoWeb.verificaConexao(this))
         {
 
-            configTO = new ConfiguracaoTO();
+            configTO = new ConfigTO();
             configList = configTO.all();
 
             if(configList.size() > 0){
@@ -72,7 +70,7 @@ public class PrincipalActivity extends ActivityGeneric {
                 progressBar.setMessage("Buscando Atualização...");
                 progressBar.show();
 
-                configTO = (ConfiguracaoTO) configList.get(0);
+                configTO = (ConfigTO) configList.get(0);
                 AtualizaTO atualizaTO = new AtualizaTO();
                 atualizaTO.setIdEquipAtualizacao(configTO.getCodCamConfig());
                 atualizaTO.setVersaoAtual(ecmContext.versaoAplic);
@@ -85,6 +83,33 @@ public class PrincipalActivity extends ActivityGeneric {
         }
 
         configList.clear();
+
+        CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
+        List cabecList = cabecCheckListTO.get("statusCab", 1L);
+
+        if (cabecList.size() > 0) {
+
+            RespItemCheckListTO respItemCheckListTO = new RespItemCheckListTO();
+
+            if (respItemCheckListTO.hasElements()) {
+                cabecCheckListTO = (CabecCheckListTO) cabecList.get(0);
+                List respList = respItemCheckListTO.get("idCabecItemCheckList", cabecCheckListTO.getIdCabecCheckList());
+                for (int i = 0; i < respList.size(); i++) {
+                    respItemCheckListTO = (RespItemCheckListTO) respList.get(i);
+                    respItemCheckListTO.delete();
+                }
+            }
+
+            if (progressBar.isShowing()) {
+                progressBar.dismiss();
+            }
+
+            ecmContext.setPosChecklist(1L);
+            Intent it = new Intent(PrincipalActivity.this, ItemCheckListActivity.class);
+            startActivity(it);
+            finish();
+
+        }
 
         listarMenuInicial();
 
@@ -110,19 +135,9 @@ public class PrincipalActivity extends ActivityGeneric {
 
                 if (position == 0) {
 
-                    ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-
-                    if(configuracaoTO.hasElements()) {
-
-                        AtividadeOsTO atividadeOs = new AtividadeOsTO();
-
-                        if (atividadeOs.count() == 0) {
-                            atividadeOs.setAtivOS((long) 0);
-                            atividadeOs.setEstado((long) 0);
-                            atividadeOs.insert();
-                        }
-
-                        ecmContext.setAltMotoL(1);
+                    ConfigTO configTO = new ConfigTO();
+                    if(configTO.hasElements()) {
+                        ecmContext.setTelaAltMoto(1);
                         Intent it = new Intent(PrincipalActivity.this, MotoristaActivity.class);
                         startActivity(it);
                         finish();
@@ -267,29 +282,18 @@ public class PrincipalActivity extends ActivityGeneric {
             Log.i("PMM", "idCompVCana = " + compVCanaTO.getIdCompVCana());
             Log.i("PMM", "cam = " + compVCanaTO.getCam());
             Log.i("PMM", "libCam = " + compVCanaTO.getLibCam());
-            Log.i("PMM", "maqCam = " + compVCanaTO.getMaqCam());
-            Log.i("PMM", "opCam = " + compVCanaTO.getOpCam());
             Log.i("PMM", "moto = " + compVCanaTO.getMoto());
             Log.i("PMM", "carr1 = " + compVCanaTO.getCarr1());
             Log.i("PMM", "libCarr1 = " + compVCanaTO.getLibCarr1());
-            Log.i("PMM", "maqCarr1 = " + compVCanaTO.getMaqCarr1());
-            Log.i("PMM", "opCarr1 = " + compVCanaTO.getOpCarr1());
             Log.i("PMM", "carr2 = " + compVCanaTO.getCarr2());
             Log.i("PMM", "libCarr2 = " + compVCanaTO.getLibCarr2());
-            Log.i("PMM", "maqCarr2 = " + compVCanaTO.getMaqCarr2());
-            Log.i("PMM", "opCarr2 = " + compVCanaTO.getOpCarr2());
             Log.i("PMM", "carr3 = " + compVCanaTO.getCarr3());
             Log.i("PMM", "libCarr3 = " + compVCanaTO.getLibCarr3());
-            Log.i("PMM", "maqCarr3 = " + compVCanaTO.getMaqCarr3());
-            Log.i("PMM", "opCarr3 = " + compVCanaTO.getOpCarr3());
             Log.i("PMM", "carr4 = " + compVCanaTO.getCarr4());
             Log.i("PMM", "libCarr4 = " + compVCanaTO.getLibCarr4());
-            Log.i("PMM", "maqCarr4 = " + compVCanaTO.getMaqCarr4());
-            Log.i("PMM", "opCarr4 = " + compVCanaTO.getOpCarr4());
             Log.i("PMM", "dataChegCampo = " + compVCanaTO.getDataChegCampo());
             Log.i("PMM", "dataSaidaCampo = " + compVCanaTO.getDataSaidaCampo());
             Log.i("PMM", "dataSaidaUsina = " + compVCanaTO.getDataSaidaUsina());
-            Log.i("PMM", "noteiro = " + compVCanaTO.getNoteiro());
             Log.i("PMM", "turno = " + compVCanaTO.getTurno());
 
         }
@@ -310,47 +314,6 @@ public class PrincipalActivity extends ActivityGeneric {
             Log.i("PMM", "carr3 = " + compVCanaBkpTO.getCarr3());
             Log.i("PMM", "dataSaidaCampo = " + compVCanaBkpTO.getDataSaidaCampo());
             Log.i("PMM", "noteiro = " + compVCanaBkpTO.getNoteiro());
-
-        }
-
-        InfBoletimTO infBoletimTO = new InfBoletimTO();
-        List infBoletimList = infBoletimTO.all();
-
-        Log.i("PMM", "InfBoletimTO");
-
-        for (int i = 0; i < infBoletimList.size(); i++) {
-
-            infBoletimTO = (InfBoletimTO) infBoletimList.get(i);
-            Log.i("PMM", "idInfBoletim = " + infBoletimTO.getIdInfBoletim());
-            Log.i("PMM", "cam = " + infBoletimTO.getCam());
-            Log.i("PMM", "codigoMoto = " + infBoletimTO.getCodigoMoto());
-            Log.i("PMM", "nomeMoto = " + infBoletimTO.getNomeMoto());
-            Log.i("PMM", "tipoAtiv = " + infBoletimTO.getTipoAtiv());
-            Log.i("PMM", "libCam = " + infBoletimTO.getLibCam());
-            Log.i("PMM", "maqCam = " + infBoletimTO.getMaqCam());
-            Log.i("PMM", "opCam = " + infBoletimTO.getOpCam());
-            Log.i("PMM", "carr1 = " + infBoletimTO.getCarr1());
-            Log.i("PMM", "libCarr1 = " + infBoletimTO.getLibCarr1());
-            Log.i("PMM", "maqCarr1 = " + infBoletimTO.getMaqCarr1());
-            Log.i("PMM", "opCarr1 = " + infBoletimTO.getOpCarr1());
-            Log.i("PMM", "carr2 = " + infBoletimTO.getCarr2());
-            Log.i("PMM", "libCarr2 = " + infBoletimTO.getLibCarr2());
-            Log.i("PMM", "maqCarr2 = " + infBoletimTO.getMaqCarr2());
-            Log.i("PMM", "opCarr2 = " + infBoletimTO.getOpCarr2());
-            Log.i("PMM", "carr3 = " + infBoletimTO.getCarr3());
-            Log.i("PMM", "libCarr3 = " + infBoletimTO.getLibCarr3());
-            Log.i("PMM", "maqCarr3 = " + infBoletimTO.getMaqCarr3());
-            Log.i("PMM", "opCarr3 = " + infBoletimTO.getOpCarr3());
-            Log.i("PMM", "carr4 = " + infBoletimTO.getCarr4());
-            Log.i("PMM", "libCarr4 = " + infBoletimTO.getLibCarr4());
-            Log.i("PMM", "maqCarr4 = " + infBoletimTO.getMaqCarr4());
-            Log.i("PMM", "opCarr4 = " + infBoletimTO.getOpCarr4());
-            Log.i("PMM", "dataChegCampo = " + infBoletimTO.getDataChegCampo());
-            Log.i("PMM", "dataSaidaCampo = " + infBoletimTO.getDataSaidaCampo());
-            Log.i("PMM", "dataSaidaUsina = " + infBoletimTO.getDataSaidaUsina());
-            Log.i("PMM", "noteiro = " + infBoletimTO.getNoteiro());
-            Log.i("PMM", "turno = " + infBoletimTO.getTurno());
-            Log.i("PMM", "frente = " + infBoletimTO.getFrente());
 
         }
 

@@ -10,13 +10,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class CaminhaoActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private ConfiguracaoTO configTO;
+    private ConfigTO configTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,9 @@ public class CaminhaoActivity extends ActivityGeneric {
         ecmContext = (ECMContext) getApplication();
         TextView textViewCodCaminhaoTurno = (TextView) findViewById(R.id.textViewCodCaminhaoTurno);
 
-        configTO = new ConfiguracaoTO();
+        configTO = new ConfigTO();
         List lista = configTO.all();
-        configTO = (ConfiguracaoTO) lista.get(0);//
+        configTO = (ConfigTO) lista.get(0);//
 
         textViewCodCaminhaoTurno.setText(String.valueOf(configTO.getCodCamConfig()));
 
@@ -40,25 +40,25 @@ public class CaminhaoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                CaminhaoTO caminhaoTOBD = new CaminhaoTO();
-                List caminhaoList = caminhaoTOBD.get("idCaminhao", configTO.getIdCamConfig());
-                caminhaoTOBD = (CaminhaoTO) caminhaoList.get(0);
+                CaminhaoTO caminhaoTO = new CaminhaoTO();
+                List caminhaoList = caminhaoTO.get("idCaminhao", configTO.getIdCamConfig());
+                caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
 
-                if(caminhaoTOBD.getTipoCaminhao() == 1){
+                if(caminhaoTO.getTipoCaminhao() == 1){
                     ecmContext.setNumCarreta(0);
                     Intent it = new Intent(CaminhaoActivity.this, OSActivity.class);
                     startActivity(it);
                     finish();
                 }
-                else if(caminhaoTOBD.getTipoCaminhao() == 6){
+                else if(caminhaoTO.getTipoCaminhao() == 6){
                     ecmContext.setNumCarreta(1);
-                    InfBoletimTO infBoletimTO = new InfBoletimTO();
-                    List lTurno = infBoletimTO.all();
-                    infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                    infBoletimTO.setLibCam(0L);
-                    infBoletimTO.setMaqCam(0L);
-                    infBoletimTO.setOpCam(0L);
-                    infBoletimTO.update();
+
+                    CompVCanaTO compVCanaTO = new CompVCanaTO();
+                    List compVCanaList = compVCanaTO.get("status", 1L);
+                    compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
+                    compVCanaTO.setLibCam(0L);
+                    compVCanaTO.update();
+
                     Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
                     startActivity(it);
                     finish();

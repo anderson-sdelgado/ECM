@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 
 public class FrenteActivity extends ActivityGeneric {
 
@@ -39,19 +36,23 @@ public class FrenteActivity extends ActivityGeneric {
 
                     if (frente < 50) {
 
-                        InfBoletimTO infBoletimTO = new InfBoletimTO();
-                        List infBoletimTOList = infBoletimTO.all();
-                        infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
-
-                        infBoletimTO.setFrente(Long.parseLong(editTextPadrao.getText().toString()));
-                        infBoletimTO.setDataSaidaUsina(Tempo.getInstance().datahora());
-                        infBoletimTO.update();
-
-                        AtividadeOsTO atividadeOs = new AtividadeOsTO();
-                        atividadeOs.deleteAll();
-                        atividadeOs.setAtivOS((long) 0);
-                        atividadeOs.setEstado((long) 0);
-                        atividadeOs.insert();
+                        CompVCanaTO compVCanaTO = new CompVCanaTO();
+                        compVCanaTO.setDataSaidaUsina(Tempo.getInstance().datahora());
+                        compVCanaTO.setDataChegCampo("");
+                        compVCanaTO.setDataSaidaCampo("");
+                        compVCanaTO.setAtivOS(0L);
+                        compVCanaTO.setCam(0L);
+                        compVCanaTO.setLibCam(0L);
+                        compVCanaTO.setCarr1(0L);
+                        compVCanaTO.setLibCarr1(0L);
+                        compVCanaTO.setCarr2(0L);
+                        compVCanaTO.setLibCarr2(0L);
+                        compVCanaTO.setCarr3(0L);
+                        compVCanaTO.setLibCarr3(0L);
+                        compVCanaTO.setCarr4(0L);
+                        compVCanaTO.setLibCarr4(0L);
+                        compVCanaTO.setStatus(1L);
+                        compVCanaTO.insert();
 
                         ecmContext.setPosMenu(8);
                         ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());

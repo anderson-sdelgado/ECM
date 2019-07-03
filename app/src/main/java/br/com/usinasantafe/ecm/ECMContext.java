@@ -1,22 +1,10 @@
 package br.com.usinasantafe.ecm;
 
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
-import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVVinhacaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
-import android.app.AlarmManager;
 import android.app.Application;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ECMContext extends Application {
 
@@ -25,7 +13,7 @@ public class ECMContext extends Application {
 	private ApontMotoMecTO apontMotoMecTO;
 	
 	private int numCarreta;
-	private int altMotoL; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
+	private int telaAltMoto; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
 	private int posMenu;
 
 	private Long codigoAtivOS;
@@ -71,12 +59,12 @@ public class ECMContext extends Application {
 		this.numCarreta = numCarreta;
 	}
 
-	public int getAltMotoL() {
-		return altMotoL;
+	public int getTelaAltMoto() {
+		return telaAltMoto;
 	}
 
-	public void setAltMotoL(int altMotoL) {
-		this.altMotoL = altMotoL;
+	public void setTelaAltMoto(int telaAltMoto) {
+		this.telaAltMoto = telaAltMoto;
 	}
 
 	public int getPosMenu() {

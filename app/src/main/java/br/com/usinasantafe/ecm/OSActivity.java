@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class OSActivity extends ActivityGeneric {
 
@@ -32,44 +29,22 @@ public class OSActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    InfBoletimTO infBoletimTO = new InfBoletimTO();
-                    List lTurno = infBoletimTO.all();
-                    infBoletimTO = (InfBoletimTO) lTurno.get(0);
+                    AtividadeOSTO atividadeOSTO = new AtividadeOSTO();
 
-                    if(infBoletimTO.getTipoAtiv() == 1){
+                    if(atividadeOSTO.exists("nroOSAtivOS", Long.parseLong(editTextPadrao.getText().toString()))){
 
-                        AtividadeOSTO atividadeOsTOBD = new AtividadeOSTO();
+                        if(ecmContext.getNroOS() == Long.parseLong(editTextPadrao.getText().toString())) {
 
-                        if(atividadeOsTOBD.exists("nroOSAtivOS", Long.parseLong(editTextPadrao.getText().toString()))){
-
-                            if(ecmContext.getNroOS() == Long.parseLong(editTextPadrao.getText().toString())) {
-                                Intent it = new Intent(OSActivity.this, LiberacaoActivity.class);
-                                startActivity(it);
-                                finish();
-                            }
-                            else{
-
-                                AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
-                                alerta.setTitle("ATENÇÃO");
-                                alerta.setMessage("O.S. NÃO CORRESPONDENTE A ATIVIDADE ANTERIORMENTE DIGITADA. POR FAVOR, VERIFIQUE A O.S. DIGITE.");
-
-                                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                        editTextPadrao.setText("");
-                                    }
-                                });
-                                alerta.show();
-
-                            }
+                            Intent it = new Intent(OSActivity.this, LiberacaoActivity.class);
+                            startActivity(it);
+                            finish();
 
                         }
                         else{
 
                             AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
                             alerta.setTitle("ATENÇÃO");
-                            alerta.setMessage("O.S. INEXISTENTE NA BASE DE DADOS.");
+                            alerta.setMessage("O.S. NÃO CORRESPONDENTE A ATIVIDADE ANTERIORMENTE DIGITADA. POR FAVOR, VERIFIQUE A O.S. DIGITE.");
 
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
@@ -83,30 +58,20 @@ public class OSActivity extends ActivityGeneric {
                         }
 
                     }
-                    else if(infBoletimTO.getTipoAtiv() == 2){
+                    else{
 
-                        AtividadeOSTO atividadeOsTOBD = new AtividadeOSTO();
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage("O.S. INEXISTENTE NA BASE DE DADOS.");
 
-                        if(atividadeOsTOBD.exists("nroOSAtivOS", Long.parseLong(editTextPadrao.getText().toString()))){
-                            ecmContext.getCompVVinhacaTO().setOs(Long.parseLong(editTextPadrao.getText().toString()));
-                            Intent it = new Intent(OSActivity.this, AtividadeOSActivity.class);
-                            startActivity(it);
-                            finish();
-                        }
-                        else{
-                            AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
-                            alerta.setTitle("ATENÇÃO");
-                            alerta.setMessage("O.S. INEXISTENTE NA BASE DE DADOS.");
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                            alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    editTextPadrao.setText("");
-                                }
-                            });
-                            alerta.show();
-                        }
+                                editTextPadrao.setText("");
+                            }
+                        });
+                        alerta.show();
 
                     }
 
@@ -124,30 +89,16 @@ public class OSActivity extends ActivityGeneric {
                 }
                 else{
 
-                    InfBoletimTO infBoletimTO = new InfBoletimTO();
-                    List lTurno = infBoletimTO.all();
-                    infBoletimTO = (InfBoletimTO) lTurno.get(0);
-
-                    if(infBoletimTO.getTipoAtiv() == 1){
-
-                        if(ecmContext.getNumCarreta() == 0){
-                            Intent it = new Intent(OSActivity.this, CaminhaoActivity.class);
-                            startActivity(it);
-                            finish();
-                        }
-                        else{
-                            Intent it = new Intent(OSActivity.this, CarretaActivity.class);
-                            startActivity(it);
-                            finish();
-                        }
-
-                    }
-                    else if(infBoletimTO.getTipoAtiv() == 2){
-                        Intent it = new Intent(OSActivity.this, ListaLocalActivity.class);
+                    if(ecmContext.getNumCarreta() == 0){
+                        Intent it = new Intent(OSActivity.this, CaminhaoActivity.class);
                         startActivity(it);
                         finish();
                     }
-
+                    else{
+                        Intent it = new Intent(OSActivity.this, CarretaActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
 
                 }
             }

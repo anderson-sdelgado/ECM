@@ -1,9 +1,7 @@
 package br.com.usinasantafe.ecm.bo;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 
@@ -19,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.usinasantafe.ecm.PrincipalActivity;
-import br.com.usinasantafe.ecm.conWEB.ConHttpPostCadGenerico;
 import br.com.usinasantafe.ecm.conWEB.ConHttpPostVerGenerico;
 import br.com.usinasantafe.ecm.conWEB.UrlsConexaoHttp;
 import br.com.usinasantafe.ecm.pst.GenericRecordable;
@@ -30,8 +27,7 @@ import br.com.usinasantafe.ecm.to.tb.variaveis.AtualizaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 /**
  * Created by anderson on 16/11/2015.
@@ -282,13 +278,13 @@ public class ManipDadosVerif {
 
     public void cabecCheckList(String data){
 
-        InfBoletimTO infBoletimTO = new InfBoletimTO();
-        List lTurno = infBoletimTO.all();
-        infBoletimTO = (InfBoletimTO) lTurno.get(0);
+        CabecalhoTO cabecalhoTO = new CabecalhoTO();
+        List lTurno = cabecalhoTO.all();
+        cabecalhoTO = (CabecalhoTO) lTurno.get(0);
 
-        ConfiguracaoTO configTO = new ConfiguracaoTO();
+        ConfigTO configTO = new ConfigTO();
         List listConfigTO = configTO.all();
-        configTO = (ConfiguracaoTO) listConfigTO.get(0);
+        configTO = (ConfigTO) listConfigTO.get(0);
 
         CaminhaoTO caminhaoTO = new CaminhaoTO();
         List caminhaoList = caminhaoTO.get("idCaminhao", configTO.getIdCamConfig());
@@ -303,8 +299,8 @@ public class ManipDadosVerif {
         CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
         cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
         cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
-        cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
-        cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
+        cabecCheckListTO.setFuncCabecCheckList(cabecalhoTO.getCodigoMoto());
+        cabecCheckListTO.setTurnoCabecCheckList(cabecalhoTO.getTurno());
         cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
         cabecCheckListTO.setStatusCabecCheckList(1L);
         cabecCheckListTO.insert();

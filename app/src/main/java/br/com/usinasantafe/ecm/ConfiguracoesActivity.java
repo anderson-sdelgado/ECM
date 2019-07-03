@@ -15,8 +15,7 @@ import java.util.List;
 import br.com.usinasantafe.ecm.bo.ConexaoWeb;
 import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class ConfiguracoesActivity extends ActivityGeneric {
 
@@ -61,21 +60,17 @@ public class ConfiguracoesActivity extends ActivityGeneric {
                         if(caminhaoList.size() > 0){
 
                             caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
-                            ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-                            configuracaoTO.setIdCamConfig(caminhaoTO.getIdCaminhao());
-                            configuracaoTO.setCodCamConfig(Long.valueOf(editTextCamConfig.getText().toString()));
-                            configuracaoTO.setSenhaConfig(editTextSenhaConfig.getText().toString());
-                            configuracaoTO.setUltTurnoCLConfig(0L);
-                            configuracaoTO.deleteAll();
-                            configuracaoTO.insert();
-
-                            InfBoletimTO infBoletimTO = new InfBoletimTO();
-                            infBoletimTO.setCam(Long.valueOf(editTextCamConfig.getText().toString()));
-                            infBoletimTO.setDataSaidaUsina("");
-                            infBoletimTO.setDataChegCampo("");
-                            infBoletimTO.setDataSaidaCampo("");
-                            infBoletimTO.deleteAll();
-                            infBoletimTO.insert();
+                            ConfigTO configTO = new ConfigTO();
+                            configTO.setIdCamConfig(caminhaoTO.getIdCaminhao());
+                            configTO.setCodCamConfig(Long.valueOf(editTextCamConfig.getText().toString()));
+                            configTO.setSenhaConfig(editTextSenhaConfig.getText().toString());
+                            configTO.setUltTurnoCLConfig(0L);
+                            configTO.setCrachaMotoConfig(0L);
+                            configTO.setDataSaidaUsina("");
+                            configTO.setDataChegCampo("");
+                            configTO.setDataSaidaCampo("");
+                            configTO.deleteAll();
+                            configTO.insert();
 
                             Intent it = new Intent(ConfiguracoesActivity.this, PrincipalActivity.class);
                             startActivity(it);

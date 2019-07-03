@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="tbconfigvar")
-public class ConfiguracaoTO extends Entidade {
+public class ConfigTO extends Entidade {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -18,8 +18,12 @@ public class ConfiguracaoTO extends Entidade {
 	private String senhaConfig;
 	@DatabaseField
 	private Long ultTurnoCLConfig;
+	@DatabaseField
+	private Long crachaMotoConfig;
+	@DatabaseField
+	private Long nroTurnoConfig;
 	
-	public ConfiguracaoTO() {
+	public ConfigTO() {
 	}
 
 	public Long getIdCamConfig() {
@@ -52,6 +56,22 @@ public class ConfiguracaoTO extends Entidade {
 
 	public void setUltTurnoCLConfig(Long ultTurnoCLConfig) {
 		this.ultTurnoCLConfig = ultTurnoCLConfig;
+	}
+
+	public Long getCrachaMotoConfig() {
+		return crachaMotoConfig;
+	}
+
+	public void setCrachaMotoConfig(Long crachaMotoConfig) {
+		this.crachaMotoConfig = crachaMotoConfig;
+	}
+
+	public Long getNroTurnoConfig() {
+		return nroTurnoConfig;
+	}
+
+	public void setNroTurnoConfig(Long nroTurnoConfig) {
+		this.nroTurnoConfig = nroTurnoConfig;
 	}
 
 }

@@ -16,14 +16,13 @@ import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.TurnoTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class ListaTurnoActivity extends ActivityGeneric {
 
     private ListView lista;
     private ECMContext ecmContext;
-    private ConfiguracaoTO configTO;
+    private ConfigTO configTO;
     private List listTurno;
 
     @Override
@@ -34,9 +33,9 @@ public class ListaTurnoActivity extends ActivityGeneric {
         ecmContext = (ECMContext) getApplication();
         Button buttonRetListaTurno = (Button) findViewById(R.id.buttonRetListaTurno);
 
-        configTO = new ConfiguracaoTO();
+        configTO = new ConfigTO();
         List configList = configTO.all();
-        configTO = (ConfiguracaoTO) configList.get(0);
+        configTO = (ConfigTO) configList.get(0);
 
         listarMenu();
 
@@ -82,15 +81,11 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
                 TurnoTO turnoTO = (TurnoTO) listTurno.get(position);
 
-                InfBoletimTO infBoletimTO = new InfBoletimTO();
-                List lTurno = infBoletimTO.all();
-                infBoletimTO = (InfBoletimTO) lTurno.get(0);
-                infBoletimTO.setTurno(turnoTO.getNroTurno());
-                infBoletimTO.setTipoAtiv(1L);
-                infBoletimTO.update();
+                configTO.setNroTurnoConfig(turnoTO.getNroTurno());
+                configTO.update();
 
                 CaminhaoTO caminhaoTO = new CaminhaoTO();
-                List caminhaoList = caminhaoTO.get("codCaminhao", infBoletimTO.getCam());
+                List caminhaoList = caminhaoTO.get("codCaminhao", configTO.getCodCamConfig());
                 caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
                 caminhaoList.clear();
 
@@ -117,7 +112,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
                         CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
                         cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
                         cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
-                        cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
+                        cabecCheckListTO.setFuncCabecCheckList(configTO.getCrachaMotoConfig());
                         cabecCheckListTO.setTurnoCabecCheckList(turnoTO.getIdTurno());
                         cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
                         cabecCheckListTO.setStatusCabecCheckList(1L);
@@ -129,7 +124,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
                         ecmContext.getApontMotoMecTO().setOpcor(180L);
                         ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
-                        Intent it = new Intent(ListaTurnoActivity.this, ItemChecklistActivity.class);
+                        Intent it = new Intent(ListaTurnoActivity.this, ItemCheckListActivity.class);
                         startActivity(it);
                         finish();
 

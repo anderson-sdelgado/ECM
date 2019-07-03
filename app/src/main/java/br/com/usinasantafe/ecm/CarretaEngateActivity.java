@@ -13,7 +13,7 @@ import java.util.List;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CarretaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CarretaEngDesengTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class CarretaEngateActivity extends ActivityGeneric {
 
@@ -38,9 +38,9 @@ public class CarretaEngateActivity extends ActivityGeneric {
 
                     Long carreta = Long.parseLong(editTextPadrao.getText().toString());
 
-                    ConfiguracaoTO configTO = new ConfiguracaoTO();
+                    ConfigTO configTO = new ConfigTO();
                     List listaConfig = configTO.all();
-                    configTO = (ConfiguracaoTO) listaConfig.get(0);
+                    configTO = (ConfigTO) listaConfig.get(0);
 
                     CaminhaoTO caminhaoTOBD = new CaminhaoTO();
                     List listaCam = caminhaoTOBD.get("idCaminhao", configTO.getIdCamConfig());

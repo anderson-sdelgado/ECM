@@ -9,7 +9,7 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 
 public class MsgSaidaCampoActivity extends ActivityGeneric {
 
@@ -28,15 +28,17 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
+                CompVCanaTO compVCanaTO = new CompVCanaTO();
+                List compVCanaList = compVCanaTO.get("status", 1L);
+                compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
+                compVCanaList.clear();
 
-                InfBoletimTO infBoletimTO = new InfBoletimTO();
-                List infBoletimTOList = infBoletimTO.all();
-                infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
-                infBoletimTO.setDataSaidaCampo(Tempo.getInstance().datahora());
-                infBoletimTO.update();
+                compVCanaTO.setDataSaidaCampo(Tempo.getInstance().datahora());
+                compVCanaTO.update();
 
                 ecmContext.getApontMotoMecTO().setOpcor((long) 437);
                 ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
+
                 Intent it = new Intent(MsgSaidaCampoActivity.this, VerMotoristaActivity.class);
                 startActivity(it);
                 finish();

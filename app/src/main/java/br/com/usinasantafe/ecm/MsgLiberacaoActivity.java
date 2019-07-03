@@ -11,12 +11,12 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.to.tb.estaticas.LiberacaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 
 public class MsgLiberacaoActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private LiberacaoTO liberacaoTOBD;
+    private LiberacaoTO liberacaoTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,11 @@ public class MsgLiberacaoActivity extends ActivityGeneric {
 
         ArrayList arrayList = new ArrayList();
 
-        EspecificaPesquisa pesquisa = new EspecificaPesquisa();
-        pesquisa.setCampo("codigoLiberacao");
-        pesquisa.setValor(ecmContext.getLiberacaoOS());
+        EspecificaPesquisa pesquisa1 = new EspecificaPesquisa();
+        pesquisa1.setCampo("codigoLiberacao");
+        pesquisa1.setValor(ecmContext.getLiberacaoOS());
 
-        arrayList.add(pesquisa);
+        arrayList.add(pesquisa1);
 
         EspecificaPesquisa pesquisa2 = new EspecificaPesquisa();
         pesquisa2.setCampo("nroOSLiberacao");
@@ -45,82 +45,52 @@ public class MsgLiberacaoActivity extends ActivityGeneric {
         arrayList.add(pesquisa2);
 
         List lista = liberacaoTOBDPesq.get(arrayList);
-        liberacaoTOBD = (LiberacaoTO) lista.get(0);
+        liberacaoTO = (LiberacaoTO) lista.get(0);
 
-        textViewMsgLiberacao.setText(liberacaoTOBD.getCodFazendaLiberacao() + " - " + liberacaoTOBD.getNomeFazendaLiberacao());
+        textViewMsgLiberacao.setText(liberacaoTO.getCodFazendaLiberacao() + " - " + liberacaoTO.getNomeFazendaLiberacao());
 
         buttonOkMsgLiberacao.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                Long tipoLiberacao = liberacaoTOBD.getTipoLiberacao();
-                Long codLiberacao = liberacaoTOBD.getCodigoLiberacao();
+                Long codLib = liberacaoTO.getCodigoLiberacao();
 
-                InfBoletimTO infBoletimTO = new InfBoletimTO();
-                List infBoletimTOList = infBoletimTO.all();
-                infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
+                CompVCanaTO compVCanaTO = new CompVCanaTO();
+                List compVCanaList = compVCanaTO.get("status", 1L);
+                compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
+                compVCanaList.clear();
 
                 switch(ecmContext.getNumCarreta()){
                     case 0:
-                        infBoletimTO.setLibCam(codLiberacao);
+                        compVCanaTO.setLibCam(codLib);
                         ecmContext.setNumCarreta(1);
                         break;
                     case 1:
-                        infBoletimTO.setLibCarr1(codLiberacao);
+                        compVCanaTO.setLibCarr1(codLib);
                         ecmContext.setNumCarreta(2);
                         break;
                     case 2:
-                        infBoletimTO.setLibCarr2(codLiberacao);
+                        compVCanaTO.setLibCarr2(codLib);
                         ecmContext.setNumCarreta(3);
                         break;
                     case 3:
-                        infBoletimTO.setLibCarr3(codLiberacao);
+                        compVCanaTO.setLibCarr3(codLib);
                         ecmContext.setNumCarreta(4);
                         break;
                     case 4:
-                        infBoletimTO.setLibCarr4(codLiberacao);
+                        compVCanaTO.setLibCarr4(codLib);
                         ecmContext.setNumCarreta(5);
                         break;
                 }
 
-                if((tipoLiberacao == 3) || (tipoLiberacao == 4)){
+                compVCanaTO.update();
 
-                    switch(ecmContext.getNumCarreta() - 1){
 
-                        case 0:
-                            infBoletimTO.setMaqCam((long) 0);
-                            infBoletimTO.setOpCam((long) 0);
-                            break;
-                        case 1:
-                            infBoletimTO.setMaqCarr1((long) 0);
-                            infBoletimTO.setOpCarr1((long) 0);
-                            break;
-                        case 2:
-                            infBoletimTO.setMaqCarr2((long) 0);
-                            infBoletimTO.setOpCarr2((long) 0);
-                            break;
-                        case 3:
-                            infBoletimTO.setMaqCarr3((long) 0);
-                            infBoletimTO.setOpCarr3((long) 0);
-                            break;
-                        case 4:
-                            infBoletimTO.setMaqCarr4((long) 0);
-                            infBoletimTO.setOpCarr4((long) 0);
-                            break;
+                Intent it = new Intent(MsgLiberacaoActivity.this, MsgNumCarretaActivity.class);
+                startActivity(it);
+                finish();
 
-                    }
-
-                    infBoletimTO.update();
-                    Intent it = new Intent(MsgLiberacaoActivity.this, MsgNumCarretaActivity.class);
-                    startActivity(it);
-                    finish();
-                }
-                else if((tipoLiberacao == 1) || (tipoLiberacao == 2)){
-                    Intent it = new Intent(MsgLiberacaoActivity.this, MaquinaActivity.class);
-                    startActivity(it);
-                    finish();
-                }
 
             }
         });

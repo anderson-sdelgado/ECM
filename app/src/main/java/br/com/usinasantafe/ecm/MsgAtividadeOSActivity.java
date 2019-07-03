@@ -10,11 +10,11 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.AtividadeOsTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 
 public class MsgAtividadeOSActivity extends ActivityGeneric {
 
-    private Long codigoativos;
+    private Long codAtivOS;
     private String descAtividade;
     private ECMContext ecmContext;
 
@@ -35,7 +35,7 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
         AtividadeOSTO atividadeOsTO = (AtividadeOSTO) lista.get(0);
 
         descAtividade = atividadeOsTO.getCodFazendaAtivOS() + " - " + atividadeOsTO.getNomeFazendaAtivOS();
-        codigoativos = atividadeOsTO.getCodigoAtivOS();
+        codAtivOS = atividadeOsTO.getCodigoAtivOS();
         ecmContext.setNroOS(atividadeOsTO.getNroOSAtivOS());
 
         textViewNomeAtividade.setText(descAtividade);
@@ -45,26 +45,16 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
+                CompVCanaTO compVCanaTO = new CompVCanaTO();
+                List compVCanaList = compVCanaTO.get("status", 1L);
+                compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
+                compVCanaTO.setAtivOS(codAtivOS);
+                compVCanaTO.update();
 
-                AtividadeOsTO atividadeOs = new AtividadeOsTO();
-                atividadeOs.deleteAll();
-                atividadeOs.setAtivOS(codigoativos);
-                atividadeOs.estado = 1L;
-                atividadeOs.insert();
+                Intent it = new Intent(MsgAtividadeOSActivity.this, CertificadoActivity.class);
+                startActivity(it);
+                finish();
 
-                InfBoletimTO infBoletimTO = new InfBoletimTO();
-                List lTurno = infBoletimTO.all();
-                infBoletimTO = (InfBoletimTO) lTurno.get(0);
-
-                if (infBoletimTO.getTipoAtiv() == 1) {
-                    Intent it = new Intent(MsgAtividadeOSActivity.this, CertificadoActivity.class);
-                    startActivity(it);
-                    finish();
-                } else if (infBoletimTO.getTipoAtiv() == 2) {
-                    Intent it = new Intent(MsgAtividadeOSActivity.this, VerMotoristaActivity.class);
-                    startActivity(it);
-                    finish();
-                }
             }
 
         });

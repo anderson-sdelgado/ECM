@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,18 +18,23 @@ import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
 import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
-public class MenuInicialApontActivity extends ActivityGeneric{
+public class MenuInicialApontActivity extends ActivityGeneric {
 
     private ProgressDialog progressBar;
     private ListView lista;
-    private InfBoletimTO infBoletimTO;
+    private ConfigTO configTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_inicial_apont);
+
+        configTO = new ConfigTO();
+        List configList = configTO.all();
+        configTO = (ConfigTO) configList.get(0);
+        configList.clear();
 
         listarMenu();
 
@@ -39,7 +43,6 @@ public class MenuInicialApontActivity extends ActivityGeneric{
         buttonRetMenuInicialApont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
@@ -64,10 +67,6 @@ public class MenuInicialApontActivity extends ActivityGeneric{
         lista = (ListView) findViewById(R.id.listViewMenuInicialApont);
         lista.setAdapter(adapterList);
 
-        infBoletimTO = new InfBoletimTO();
-        List lTurno = infBoletimTO.all();
-        infBoletimTO = (InfBoletimTO) lTurno.get(0);
-
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @SuppressWarnings("rawtypes")
@@ -75,66 +74,27 @@ public class MenuInicialApontActivity extends ActivityGeneric{
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
 
-
                 if (position == 0) {
 
-                    if (infBoletimTO.getTipoAtiv() == 1) {
+                    CompVCanaTO compVCanaTO = new CompVCanaTO();
+                    List compVCanaList = compVCanaTO.get("status", 1L);
 
-                        CompVCanaTO compVCanaTO = new CompVCanaTO();
+                    if (compVCanaList.size() > 0) {
 
-                        if(!compVCanaTO.hasElements()) {
+                        compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
+                        compVCanaList.clear();
 
-                            InfBoletimTO infBoletimTO = new InfBoletimTO();
-                            List infBoletimTOList = infBoletimTO.all();
-                            infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
+                        if ((!compVCanaTO.getDataSaidaUsina().equals("")) && (!compVCanaTO.getDataChegCampo().equals(""))) {
 
-                            if ((!infBoletimTO.getDataSaidaUsina().equals("")) && (!infBoletimTO.getDataChegCampo().equals(""))) {
+                            Intent it = new Intent(MenuInicialApontActivity.this, AtividadeOSActivity.class);
+                            startActivity(it);
+                            finish();
 
-                                infBoletimTO.setLibCam((long) 0);
-                                infBoletimTO.setMaqCam((long) 0);
-                                infBoletimTO.setOpCam((long) 0);
-                                infBoletimTO.setCarr1((long) 0);
-                                infBoletimTO.setLibCarr1((long) 0);
-                                infBoletimTO.setMaqCarr1((long) 0);
-                                infBoletimTO.setOpCarr1((long) 0);
-                                infBoletimTO.setCarr2((long) 0);
-                                infBoletimTO.setLibCarr2((long) 0);
-                                infBoletimTO.setMaqCarr2((long) 0);
-                                infBoletimTO.setOpCarr2((long) 0);
-                                infBoletimTO.setCarr3((long) 0);
-                                infBoletimTO.setLibCarr3((long) 0);
-                                infBoletimTO.setMaqCarr3((long) 0);
-                                infBoletimTO.setOpCarr3((long) 0);
-                                infBoletimTO.setNoteiro(19085L);
-                                infBoletimTO.update();
-                                Intent it = new Intent(MenuInicialApontActivity.this, AtividadeOSActivity.class);
-                                startActivity(it);
-                                finish();
-
-                            } else {
-
-                                AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
-                                alerta.setTitle("ATENÇÃO");
-                                alerta.setMessage("É NECESSÁRIO A INSERÇÃO DO HORARIO DE SAÍDA DA USINA E/OU DE CHEGADA AO CAMPO.");
-                                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
-                                        startActivity(it);
-                                        finish();
-                                    }
-                                });
-
-                                alerta.show();
-
-                            }
-                        }
-                        else{
+                        } else {
 
                             AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
                             alerta.setTitle("ATENÇÃO");
-                            alerta.setMessage("POR FAVOR TERMINEI DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.");
-
+                            alerta.setMessage("É NECESSÁRIO A INSERÇÃO DO HORARIO DE SAÍDA DA USINA E/OU DE CHEGADA AO CAMPO.");
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -143,15 +103,40 @@ public class MenuInicialApontActivity extends ActivityGeneric{
                                     finish();
                                 }
                             });
+
                             alerta.show();
 
                         }
+                    }
+                    else {
 
-                    } else if (infBoletimTO.getTipoAtiv() == 2) {
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage("É NECESSÁRIO A INSERÇÃO DO HORARIO DE SAÍDA DA USINA E/OU DE CHEGADA AO CAMPO.");
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
+                                startActivity(it);
+                                finish();
+                            }
+                        });
 
-//                        ecmContext.getCompVCanaTO();
-//                        Intent it = new Intent(MenuInicialApontActivity.this, MsgNoteiroActivity.class);
-//                        startActivity(it);
+                        alerta.show();
+
+//                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+//                        alerta.setTitle("ATENÇÃO");
+//                        alerta.setMessage("POR FAVOR TERMINEI DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.");
+//
+//                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
+//                                startActivity(it);
+//                                finish();
+//                            }
+//                        });
+//                        alerta.show();
 
                     }
 
@@ -238,7 +223,7 @@ public class MenuInicialApontActivity extends ActivityGeneric{
 
     }
 
-    public void onBackPressed()  {
+    public void onBackPressed() {
     }
 
 

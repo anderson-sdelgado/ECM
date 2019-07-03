@@ -38,25 +38,25 @@ public class LiberacaoActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    LiberacaoTO liberacaoTOBDPesq = new LiberacaoTO();
+                    LiberacaoTO liberacaoTO = new LiberacaoTO();
 
-                    ArrayList arrayList = new ArrayList();
+                    ArrayList libPesqArrayList = new ArrayList();
 
-                    EspecificaPesquisa pesquisa = new EspecificaPesquisa();
-                    pesquisa.setCampo("codigoLiberacao");
-                    pesquisa.setValor(Long.parseLong(editTextPadrao.getText().toString()));
+                    EspecificaPesquisa pesquisa1 = new EspecificaPesquisa();
+                    pesquisa1.setCampo("codigoLiberacao");
+                    pesquisa1.setValor(Long.parseLong(editTextPadrao.getText().toString()));
 
-                    arrayList.add(pesquisa);
+                    libPesqArrayList.add(pesquisa1);
 
                     EspecificaPesquisa pesquisa2 = new EspecificaPesquisa();
                     pesquisa2.setCampo("nroOSLiberacao");
                     pesquisa2.setValor(ecmContext.getNroOS());
 
-                    arrayList.add(pesquisa2);
+                    libPesqArrayList.add(pesquisa2);
 
-                    List lista = liberacaoTOBDPesq.get(arrayList);
+                    List liberacaoList = liberacaoTO.get(libPesqArrayList);
 
-                    if(lista.size() > 0){
+                    if(liberacaoList.size() > 0){
 
                         ecmContext.setLiberacaoOS(Long.parseLong(editTextPadrao.getText().toString()));
                         Intent it = new Intent(LiberacaoActivity.this, MsgLiberacaoActivity.class);

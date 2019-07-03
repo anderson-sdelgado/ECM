@@ -17,8 +17,7 @@ import br.com.usinasantafe.ecm.bo.Tempo;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class PergAtualCheckListActivity extends AppCompatActivity {
 
@@ -37,13 +36,9 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                InfBoletimTO infBoletimTO = new InfBoletimTO();
-                List lTurno = infBoletimTO.all();
-                infBoletimTO = (InfBoletimTO) lTurno.get(0);
-
-                ConfiguracaoTO configTO = new ConfiguracaoTO();
+                ConfigTO configTO = new ConfigTO();
                 List listConfigTO = configTO.all();
-                configTO = (ConfiguracaoTO) listConfigTO.get(0);
+                configTO = (ConfigTO) listConfigTO.get(0);
 
                 CaminhaoTO caminhaoTO = new CaminhaoTO();
                 List caminhaoList = caminhaoTO.get("idCaminhao", configTO.getIdCamConfig());
@@ -58,13 +53,13 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
                 CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
                 cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
                 cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
-                cabecCheckListTO.setFuncCabecCheckList(infBoletimTO.getCodigoMoto());
-                cabecCheckListTO.setTurnoCabecCheckList(infBoletimTO.getTurno());
+                cabecCheckListTO.setFuncCabecCheckList(configTO.getCrachaMotoConfig());
+                cabecCheckListTO.setTurnoCabecCheckList(configTO.getNroTurnoConfig());
                 cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
                 cabecCheckListTO.setStatusCabecCheckList(1L);
                 cabecCheckListTO.insert();
 
-                Intent it = new Intent(  PergAtualCheckListActivity.this, ItemChecklistActivity.class);
+                Intent it = new Intent(  PergAtualCheckListActivity.this, ItemCheckListActivity.class);
                 startActivity(it);
                 finish();
 
@@ -86,7 +81,7 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
                     progressBar.show();
 
                     ManipDadosVerif.getInstance().verDados("", "CheckList"
-                            , PergAtualCheckListActivity.this, ItemChecklistActivity.class, progressBar);
+                            , PergAtualCheckListActivity.this, ItemCheckListActivity.class, progressBar);
 
                 } else {
 

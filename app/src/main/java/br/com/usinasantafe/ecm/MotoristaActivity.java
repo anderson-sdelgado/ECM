@@ -10,7 +10,8 @@ import android.widget.Button;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.CabecalhoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class MotoristaActivity extends ActivityGeneric {
 
@@ -31,23 +32,20 @@ public class MotoristaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    MotoristaTO motoristaBDPesq = new MotoristaTO();
-                    List listaMotorista = motoristaBDPesq.get("codMotorista", Long.parseLong(editTextPadrao.getText().toString()));
+                    MotoristaTO motoristaTO = new MotoristaTO();
+                    List motoristaList = motoristaTO.get("codMotorista", Long.parseLong(editTextPadrao.getText().toString()));
 
-                    if (listaMotorista.size() > 0) {
+                    if (motoristaList.size() > 0) {
 
-                        MotoristaTO motoristaBD = (MotoristaTO) listaMotorista.get(0);
+                        ConfigTO configTO = new ConfigTO();
+                        List configList = configTO.all();
+                        configTO = (ConfigTO) configList.get(0);
+                        configList.clear();
 
-                        InfBoletimTO infBoletimTO = new InfBoletimTO();
-                        List lInfBol = infBoletimTO.all();
-                        infBoletimTO = (InfBoletimTO) lInfBol.get(0);
-                        infBoletimTO.setCodigoMoto(motoristaBD.getCodMotorista());
-                        infBoletimTO.setNomeMoto(motoristaBD.getNomeMotorista());
-                        infBoletimTO.setTipoAtiv(1L);
-                        infBoletimTO.update();
+                        configTO.setCrachaMotoConfig(Long.parseLong(editTextPadrao.getText().toString()));
+                        configTO.update();
 
                         Intent it = new Intent(MotoristaActivity.this, CaminhaoTurnoActivity.class);
                         startActivity(it);

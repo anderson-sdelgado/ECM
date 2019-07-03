@@ -11,7 +11,6 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CarretaEngDesengTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class DesengateCarretaActivity extends ActivityGeneric {
 

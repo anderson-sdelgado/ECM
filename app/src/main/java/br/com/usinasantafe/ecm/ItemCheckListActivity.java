@@ -14,10 +14,10 @@ import br.com.usinasantafe.ecm.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
 import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
-public class ItemChecklistActivity extends ActivityGeneric {
+public class ItemCheckListActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
     private RespItemCheckListTO respItemCheckListTO;
@@ -42,12 +42,13 @@ public class ItemChecklistActivity extends ActivityGeneric {
         cabecCheckListTO = (CabecCheckListTO) cabecCheckListLista.get(0);
         cabecCheckListLista.clear();
 
-        InfBoletimTO infBoletimTO = new InfBoletimTO();
-        List lTurno = infBoletimTO.all();
-        infBoletimTO = (InfBoletimTO) lTurno.get(0);
+        ConfigTO configTO = new ConfigTO();
+        List configList = configTO.all();
+        configTO = (ConfigTO) configList.get(0);
+        configList.clear();
 
         CaminhaoTO caminhaoTO = new CaminhaoTO();
-        List caminhaoList = caminhaoTO.get("codCaminhao", infBoletimTO.getCam());
+        List caminhaoList = caminhaoTO.get("codCaminhao", configTO.getCodCamConfig());
         caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
         caminhaoList.clear();
 
@@ -89,40 +90,31 @@ public class ItemChecklistActivity extends ActivityGeneric {
         textViewItemChecklist.setText(itemCheckListTO.getSeqItemCheckList() + " - " + itemCheckListTO.getDescrItemCheckList());
 
         buttonConforme.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 proximaTela(1L);
-
             }
-
         });
 
         buttonNaoConforme.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 proximaTela(2L);
             }
-
         });
 
         buttonReparo.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 proximaTela(3L);
             }
-
         });
 
         buttonCancChecklist.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 retornoTela();
             }
-
         });
 
 
@@ -137,29 +129,27 @@ public class ItemChecklistActivity extends ActivityGeneric {
 
         if(cabecCheckListTO.getQtdeItemCabecCheckList() == ecmContext.getPosChecklist()){
 
-            Intent it = new Intent(ItemChecklistActivity.this, MenuMotoMecActivity.class);
+            ManipDadosEnvio.getInstance().salvaCheckList();
+
+            Intent it = new Intent(ItemCheckListActivity.this, MenuMotoMecActivity.class);
             startActivity(it);
             finish();
-
-            ManipDadosEnvio.getInstance().salvaCheckList();
 
         }
         else{
-
             ecmContext.setPosChecklist(ecmContext.getPosChecklist() + 1);
-            Intent it = new Intent(ItemChecklistActivity.this, ItemChecklistActivity.class);
+            Intent it = new Intent(ItemCheckListActivity.this, ItemCheckListActivity.class);
             startActivity(it);
             finish();
-
         }
 
     }
 
     public void retornoTela(){
 
-        if(ecmContext.getPosChecklist() != 0){
+        if(ecmContext.getPosChecklist() > 1){
             ecmContext.setPosChecklist(ecmContext.getPosChecklist() - 1);
-            Intent it = new Intent(ItemChecklistActivity.this, ItemChecklistActivity.class);
+            Intent it = new Intent(ItemCheckListActivity.this, ItemCheckListActivity.class);
             startActivity(it);
             finish();
         }

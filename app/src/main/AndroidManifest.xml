@@ -106,16 +106,10 @@
             android:name=".MsgLiberacaoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgNoteiroActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MsgNumCarretaActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MsgSaidaCampoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NoteiroActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OperadorActivity"
@@ -130,7 +124,7 @@
             android:name=".VerMotoristaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ItemChecklistActivity"
+            android:name=".ItemCheckListActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".ReceberAlarme">

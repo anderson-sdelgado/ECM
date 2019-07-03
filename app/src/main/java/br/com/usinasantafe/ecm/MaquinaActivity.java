@@ -11,7 +11,6 @@ import android.widget.Button;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.CarregadeiraTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class MaquinaActivity extends ActivityGeneric {
 
@@ -39,26 +38,26 @@ public class MaquinaActivity extends ActivityGeneric {
 
                     if(lista.size() > 0){
 
-                        InfBoletimTO infBoletimTO = new InfBoletimTO();
-                        List infBoletimTOList = infBoletimTO.all();
-                        infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
+                        CabecalhoTO cabecalhoTO = new CabecalhoTO();
+                        List infBoletimTOList = cabecalhoTO.all();
+                        cabecalhoTO = (CabecalhoTO) infBoletimTOList.get(0);
 
                         switch(ecmContext.getNumCarreta()){
                             case 0:
-                                infBoletimTO.setMaqCam(carregadeiraTOBD.getIdCarregadeira());
+                                cabecalhoTO.setMaqCam(carregadeiraTOBD.getIdCarregadeira());
                                 break;
                             case 1:
-                                infBoletimTO.setMaqCarr1(carregadeiraTOBD.getIdCarregadeira());
+                                cabecalhoTO.setMaqCarr1(carregadeiraTOBD.getIdCarregadeira());
                                 break;
                             case 2:
-                                infBoletimTO.setMaqCarr2(carregadeiraTOBD.getIdCarregadeira());
+                                cabecalhoTO.setMaqCarr2(carregadeiraTOBD.getIdCarregadeira());
                                 break;
                             case 3:
-                                infBoletimTO.setMaqCarr3(carregadeiraTOBD.getIdCarregadeira());
+                                cabecalhoTO.setMaqCarr3(carregadeiraTOBD.getIdCarregadeira());
                                 break;
                         }
 
-                        infBoletimTO.update();
+                        cabecalhoTO.update();
                         Intent it = new Intent(MaquinaActivity.this, OperadorActivity.class);
                         startActivity(it);
                         finish();

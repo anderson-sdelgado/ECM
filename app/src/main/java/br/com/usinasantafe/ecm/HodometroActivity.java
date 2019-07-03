@@ -8,11 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.to.tb.variaveis.HodometroTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class HodometroActivity extends ActivityGeneric {
 

@@ -25,9 +25,8 @@ import br.com.usinasantafe.ecm.to.tb.variaveis.CarretaEngDesengTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.CompVVinhacaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.HodometroTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -85,7 +84,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, RespItemCheckListTO.class);
 			TableUtils.createTable(cs, DataTO.class);
 
-			TableUtils.createTable(cs, ConfiguracaoTO.class);
+			TableUtils.createTable(cs, ConfigTO.class);
 			TableUtils.createTable(cs, CarretaEngDesengTO.class);
 			TableUtils.createTable(cs, AtividadeOsTO.class);
 			TableUtils.createTable(cs, CompVCanaTO.class);
@@ -95,7 +94,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, BoletimBkpTO.class);
 			TableUtils.createTable(cs, CompVVinhacaTO.class);
 			TableUtils.createTable(cs, HodometroTO.class);
-			TableUtils.createTable(cs, InfBoletimTO.class);
+			TableUtils.createTable(cs, CabecalhoTO.class);
 			
 		}
 		catch(Exception e){
@@ -115,7 +114,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			
 			if(oldVersion == 1 && newVersion == 2){
-				TableUtils.createTable(cs, ConfiguracaoTO.class);
+				TableUtils.createTable(cs, ConfigTO.class);
 				oldVersion = 2;
 			}
 			

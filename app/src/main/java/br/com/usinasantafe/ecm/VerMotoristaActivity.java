@@ -12,15 +12,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
+import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class VerMotoristaActivity extends ActivityGeneric {
 
     private ListView lista;
     private ECMContext ecmContext;
-    private InfBoletimTO infBoletimTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +33,18 @@ public class VerMotoristaActivity extends ActivityGeneric {
         TextView textViewCodMotorista = (TextView) findViewById(R.id.textViewCodMotorista);
         TextView textViewNomeMotorista = (TextView) findViewById(R.id.textViewNomeMotorista);
 
-        infBoletimTO = new InfBoletimTO();
-        List lTurno = infBoletimTO.all();
-        infBoletimTO = (InfBoletimTO) lTurno.get(0);
+        ConfigTO configTO = new ConfigTO();
+        List configList = configTO.all();
+        configTO = (ConfigTO) configList.get(0);
+        configList.clear();
 
-        textViewCodMotorista.setText(String.valueOf(infBoletimTO.getCodigoMoto()));
-        textViewNomeMotorista.setText(String.valueOf(infBoletimTO.getNomeMoto()));
+        MotoristaTO motoristaTO = new MotoristaTO();
+        List motoristaList = motoristaTO.get("codMotorista", configTO.getCrachaMotoConfig());
+        motoristaTO = (MotoristaTO) motoristaList.get(0);
+        motoristaList.clear();
+
+        textViewCodMotorista.setText(String.valueOf(motoristaTO.getCodMotorista()));
+        textViewNomeMotorista.setText(motoristaTO.getNomeMotorista());
 
         buttonManterMotorista.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +56,6 @@ public class VerMotoristaActivity extends ActivityGeneric {
                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 
                         ManipDadosEnvio.getInstance().salvaViagemCana();
 
@@ -71,7 +74,7 @@ public class VerMotoristaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                ecmContext.setAltMotoL(2);
+                ecmContext.setTelaAltMoto(2);
                 Intent it = new Intent(VerMotoristaActivity.this, MotoristaActivity.class);
                 startActivity(it);
                 finish();

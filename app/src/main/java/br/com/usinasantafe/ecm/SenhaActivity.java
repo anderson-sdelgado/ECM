@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
 
 public class SenhaActivity extends ActivityGeneric {
 
@@ -33,9 +33,9 @@ public class SenhaActivity extends ActivityGeneric {
             public void onClick(View v) {
 
 
-                ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
+                ConfigTO configTO = new ConfigTO();
 
-                if (!configuracaoTO.hasElements()) {
+                if (!configTO.hasElements()) {
 
                     ecmContext.setVerTabelaConfig(false);
 
@@ -45,14 +45,14 @@ public class SenhaActivity extends ActivityGeneric {
 
                 } else {
 
-                    List<ConfiguracaoTO> lista = configuracaoTO.get("senhaConfig", editTextSenha.getText().toString());
+                    List<ConfigTO> lista = configTO.get("senhaConfig", editTextSenha.getText().toString());
 
                     if (lista.size() > 0) {
 
-                        configuracaoTO.setCodCamConfig(((ConfiguracaoTO) lista.get(0)).getCodCamConfig());
+                        configTO.setCodCamConfig(((ConfigTO) lista.get(0)).getCodCamConfig());
 
                         ecmContext.setVerTabelaConfig(true);
-                        ecmContext.setEquipConfig(configuracaoTO.getCodCamConfig());
+                        ecmContext.setEquipConfig(configTO.getCodCamConfig());
                         ecmContext.setSenhaConfig(editTextSenha.getText().toString());
 
                         Intent it = new Intent(SenhaActivity.this, ConfiguracoesActivity.class);

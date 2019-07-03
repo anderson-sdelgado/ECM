@@ -10,7 +10,6 @@ import android.widget.Button;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.InfBoletimTO;
 
 public class OperadorActivity extends ActivityGeneric {
 
@@ -37,26 +36,26 @@ public class OperadorActivity extends ActivityGeneric {
 
                     if(motoristaTO.exists("codMotorista", Long.parseLong(editTextPadrao.getText().toString()))){
 
-                        InfBoletimTO infBoletimTO = new InfBoletimTO();
-                        List infBoletimTOList = infBoletimTO.all();
-                        infBoletimTO = (InfBoletimTO) infBoletimTOList.get(0);
+                        CabecalhoTO cabecalhoTO = new CabecalhoTO();
+                        List infBoletimTOList = cabecalhoTO.all();
+                        cabecalhoTO = (CabecalhoTO) infBoletimTOList.get(0);
 
                         switch(ecmContext.getNumCarreta()){
                             case 0:
-                                infBoletimTO.setOpCam(motoristaTO.getCodMotorista());
+                                cabecalhoTO.setOpCam(motoristaTO.getCodMotorista());
                                 break;
                             case 1:
-                                infBoletimTO.setOpCarr1(motoristaTO.getCodMotorista());
+                                cabecalhoTO.setOpCarr1(motoristaTO.getCodMotorista());
                                 break;
                             case 2:
-                                infBoletimTO.setOpCarr2(motoristaTO.getCodMotorista());
+                                cabecalhoTO.setOpCarr2(motoristaTO.getCodMotorista());
                                 break;
                             case 3:
-                                infBoletimTO.setOpCarr3(motoristaTO.getCodMotorista());
+                                cabecalhoTO.setOpCarr3(motoristaTO.getCodMotorista());
                                 break;
                         }
 
-                        infBoletimTO.update();
+                        cabecalhoTO.update();
 
                         Intent it = new Intent(OperadorActivity.this, MsgNumCarretaActivity.class);
                         startActivity(it);
