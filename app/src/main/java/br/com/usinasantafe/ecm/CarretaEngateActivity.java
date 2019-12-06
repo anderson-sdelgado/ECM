@@ -10,10 +10,10 @@ import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
-import br.com.usinasantafe.ecm.to.tb.estaticas.CarretaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CarretaEngDesengTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
+import br.com.usinasantafe.ecm.model.bean.estaticas.CaminhaoBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.CarretaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaEngDesengBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class CarretaEngateActivity extends ActivityGeneric {
 
@@ -38,42 +38,42 @@ public class CarretaEngateActivity extends ActivityGeneric {
 
                     Long carreta = Long.parseLong(editTextPadrao.getText().toString());
 
-                    ConfigTO configTO = new ConfigTO();
-                    List listaConfig = configTO.all();
-                    configTO = (ConfigTO) listaConfig.get(0);
+                    ConfigBean configBean = new ConfigBean();
+                    List listaConfig = configBean.all();
+                    configBean = (ConfigBean) listaConfig.get(0);
 
-                    CaminhaoTO caminhaoTOBD = new CaminhaoTO();
-                    List listaCam = caminhaoTOBD.get("idCaminhao", configTO.getIdCamConfig());
-                    caminhaoTOBD = (CaminhaoTO) listaCam.get(0);//
+                    CaminhaoBean caminhaoBeanBD = new CaminhaoBean();
+                    List listaCam = caminhaoBeanBD.get("idCaminhao", configBean.getIdEquipConfig());
+                    caminhaoBeanBD = (CaminhaoBean) listaCam.get(0);//
 
-                    CarretaTO carretaTOBD = new CarretaTO();
-                    List listaCarreta = carretaTOBD.get("codCarreta", carreta);
+                    CarretaBean carretaBeanBD = new CarretaBean();
+                    List listaCarreta = carretaBeanBD.get("codCarreta", carreta);
 
-                    CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
-                    List listaCarrEngDeseng = carretaEngDesengTO.all();
+                    CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
+                    List listaCarrEngDeseng = carretaEngDesengBean.all();
 
                     if(listaCarreta.size() > 0){
 
-                        carretaTOBD = (CarretaTO) listaCarreta.get(0);//
+                        carretaBeanBD = (CarretaBean) listaCarreta.get(0);//
 
-                        if(caminhaoTOBD.getTipoCaminhao() == 1){
-                            if(carretaTOBD.getTipoCarreta() == 4){
+                        if(caminhaoBeanBD.getTipoCaminhao() == 1){
+                            if(carretaBeanBD.getTipoCarreta() == 4){
                                 if(listaCarrEngDeseng.size() == 0){
-                                    carretaEngDesengTO.setNumCarreta(carreta);
-                                    carretaEngDesengTO.setPosCarreta((long) 1);
-                                    carretaEngDesengTO.insert();
+                                    carretaEngDesengBean.setNumCarreta(carreta);
+                                    carretaEngDesengBean.setPosCarreta((long) 1);
+                                    carretaEngDesengBean.insert();
                                     Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                     startActivity(it);
                                     finish();
                                 }
                                 else if(listaCarrEngDeseng.size() == 1){
-                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
-                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("posCarreta", (long) 1);
-                                    carretaEngDesengTOPesq =  (CarretaEngDesengTO) carEngDesengTOPesq.get(0);
-                                    if(carretaEngDesengTOPesq.getNumCarreta() != carreta){
-                                        carretaEngDesengTO.setNumCarreta(carreta);
-                                        carretaEngDesengTO.setPosCarreta((long) 2);
-                                        carretaEngDesengTO.insert();
+                                    CarretaEngDesengBean carretaEngDesengBeanPesq = new CarretaEngDesengBean();
+                                    List carEngDesengTOPesq = carretaEngDesengBeanPesq.get("posCarreta", (long) 1);
+                                    carretaEngDesengBeanPesq =  (CarretaEngDesengBean) carEngDesengTOPesq.get(0);
+                                    if(carretaEngDesengBeanPesq.getNumCarreta() != carreta){
+                                        carretaEngDesengBean.setNumCarreta(carreta);
+                                        carretaEngDesengBean.setPosCarreta((long) 2);
+                                        carretaEngDesengBean.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);
                                         finish();
@@ -93,13 +93,13 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                 }
                                 else if(listaCarrEngDeseng.size() == 2){
 
-                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
-                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
+                                    CarretaEngDesengBean carretaEngDesengBeanPesq = new CarretaEngDesengBean();
+                                    List carEngDesengTOPesq = carretaEngDesengBeanPesq.get("numCarreta", carreta);
 
                                     if(carEngDesengTOPesq.size() == 0){
-                                        carretaEngDesengTO.setNumCarreta(carreta);
-                                        carretaEngDesengTO.setPosCarreta((long) 3);
-                                        carretaEngDesengTO.insert();
+                                        carretaEngDesengBean.setNumCarreta(carreta);
+                                        carretaEngDesengBean.setPosCarreta((long) 3);
+                                        carretaEngDesengBean.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);
                                         finish();
@@ -119,13 +119,13 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                 }
                                 else if(listaCarrEngDeseng.size() == 3){
 
-                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
-                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
+                                    CarretaEngDesengBean carretaEngDesengBeanPesq = new CarretaEngDesengBean();
+                                    List carEngDesengTOPesq = carretaEngDesengBeanPesq.get("numCarreta", carreta);
 
                                     if(carEngDesengTOPesq.size() == 0){
-                                        carretaEngDesengTO.setNumCarreta(carreta);
-                                        carretaEngDesengTO.setPosCarreta((long) 4);
-                                        carretaEngDesengTO.insert();
+                                        carretaEngDesengBean.setNumCarreta(carreta);
+                                        carretaEngDesengBean.setPosCarreta((long) 4);
+                                        carretaEngDesengBean.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);
                                         finish();
@@ -144,7 +144,7 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                     }
                                 }
                             }
-                            else if(carretaTOBD.getTipoCarreta() == 8){
+                            else if(carretaBeanBD.getTipoCarreta() == 8){
                                 AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaEngateActivity.this);
                                 alerta.setTitle("ATENÇÃO");
                                 alerta.setMessage("A NUMERAÇÃO DIGITADA NÃO CORRESPONDE DA CARRETA " + ecmContext.getNumCarreta() +". VERIFIQUE SE VOCÊ NÃO ESTA INVERTENDO AS CARRETAS.");
@@ -158,8 +158,8 @@ public class CarretaEngateActivity extends ActivityGeneric {
                             }
 
                         }
-                        else if(caminhaoTOBD.getTipoCaminhao() == 6){
-                            if(carretaTOBD.getTipoCarreta() == 4){
+                        else if(caminhaoBeanBD.getTipoCaminhao() == 6){
+                            if(carretaBeanBD.getTipoCarreta() == 4){
                                 if(listaCarrEngDeseng.size() == 0){
                                     AlertDialog.Builder alerta = new AlertDialog.Builder(CarretaEngateActivity.this);
                                     alerta.setTitle("ATENÇÃO");
@@ -173,22 +173,22 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                     alerta.show();
                                 }
                                 else if(listaCarrEngDeseng.size() == 1){
-                                    carretaEngDesengTO.setNumCarreta(carreta);
-                                    carretaEngDesengTO.setPosCarreta((long) 2);
-                                    carretaEngDesengTO.insert();
+                                    carretaEngDesengBean.setNumCarreta(carreta);
+                                    carretaEngDesengBean.setPosCarreta((long) 2);
+                                    carretaEngDesengBean.insert();
                                     Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                     startActivity(it);
                                     finish();
                                 }
                                 else if(listaCarrEngDeseng.size() == 2){
 
-                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
-                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
+                                    CarretaEngDesengBean carretaEngDesengBeanPesq = new CarretaEngDesengBean();
+                                    List carEngDesengTOPesq = carretaEngDesengBeanPesq.get("numCarreta", carreta);
 
                                     if(carEngDesengTOPesq.size() == 0){
-                                        carretaEngDesengTO.setNumCarreta(carreta);
-                                        carretaEngDesengTO.setPosCarreta((long) 3);
-                                        carretaEngDesengTO.insert();
+                                        carretaEngDesengBean.setNumCarreta(carreta);
+                                        carretaEngDesengBean.setPosCarreta((long) 3);
+                                        carretaEngDesengBean.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);
                                         finish();
@@ -208,13 +208,13 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                 }
                                 else if(listaCarrEngDeseng.size() == 3){
 
-                                    CarretaEngDesengTO carretaEngDesengTOPesq = new CarretaEngDesengTO();
-                                    List carEngDesengTOPesq = carretaEngDesengTOPesq.get("numCarreta", carreta);
+                                    CarretaEngDesengBean carretaEngDesengBeanPesq = new CarretaEngDesengBean();
+                                    List carEngDesengTOPesq = carretaEngDesengBeanPesq.get("numCarreta", carreta);
 
                                     if(carEngDesengTOPesq.size() == 0){
-                                        carretaEngDesengTO.setNumCarreta(carreta);
-                                        carretaEngDesengTO.setPosCarreta((long) 4);
-                                        carretaEngDesengTO.insert();
+                                        carretaEngDesengBean.setNumCarreta(carreta);
+                                        carretaEngDesengBean.setPosCarreta((long) 4);
+                                        carretaEngDesengBean.insert();
                                         Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                         startActivity(it);
                                         finish();
@@ -233,11 +233,11 @@ public class CarretaEngateActivity extends ActivityGeneric {
                                     }
                                 }
                             }
-                            else if(carretaTOBD.getTipoCarreta() == 8){
+                            else if(carretaBeanBD.getTipoCarreta() == 8){
                                 if(listaCarrEngDeseng.size() == 0){
-                                    carretaEngDesengTO.setNumCarreta(carreta);
-                                    carretaEngDesengTO.setPosCarreta((long) 1);
-                                    carretaEngDesengTO.insert();
+                                    carretaEngDesengBean.setNumCarreta(carreta);
+                                    carretaEngDesengBean.setPosCarreta((long) 1);
+                                    carretaEngDesengBean.insert();
                                     Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
                                     startActivity(it);
                                     finish();
@@ -278,17 +278,9 @@ public class CarretaEngateActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-
-
                 if(editTextPadrao.getText().toString().length() > 0){
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }
-                else{
-                    Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
-                    startActivity(it);
-                    finish();
-                }
-
             }
         });
 
@@ -296,6 +288,9 @@ public class CarretaEngateActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
+        Intent it = new Intent(CarretaEngateActivity.this, MsgCarretaEngateActivity.class);
+        startActivity(it);
+        finish();
     }
 
 }

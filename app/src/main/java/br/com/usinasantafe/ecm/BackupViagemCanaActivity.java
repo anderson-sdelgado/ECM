@@ -1,6 +1,5 @@
 package br.com.usinasantafe.ecm;
 
-import android.app.Activity;
 //import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
+import br.com.usinasantafe.ecm.util.Tempo;
 
 public class BackupViagemCanaActivity extends ActivityGeneric {
 
@@ -32,13 +31,13 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
         Button buttonProxBkpViagemCana = (Button) findViewById(R.id.buttonProxBkpViagemCana);
         Button buttonRetornarBkpViagemCana = (Button) findViewById(R.id.buttonRetornarBkpViagemCana);
 
-        CompVCanaBkpTO compVCanaBkpTO = new CompVCanaBkpTO();
-        listViagemCana = compVCanaBkpTO.all();
+        CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
+        listViagemCana = certifCanaBkpBean.all();
 
         contador = listViagemCana.size() - 1;
 
-        compVCanaBkpTO = (CompVCanaBkpTO) listViagemCana.get(contador);
-        textViewBkpViagemCana.setText(visViagemCana(compVCanaBkpTO));
+        certifCanaBkpBean = (CertifCanaBkpBean) listViagemCana.get(contador);
+        textViewBkpViagemCana.setText(visViagemCana(certifCanaBkpBean));
 
         buttonAntBkpViagemCana.setOnClickListener(new View.OnClickListener() {
 
@@ -49,9 +48,9 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
                     contador = contador + 1;
                 }
 
-                CompVCanaBkpTO compVCanaBkpTO = new CompVCanaBkpTO();
-                compVCanaBkpTO = (CompVCanaBkpTO) listViagemCana.get(contador);
-                textViewBkpViagemCana.setText(visViagemCana(compVCanaBkpTO));
+                CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
+                certifCanaBkpBean = (CertifCanaBkpBean) listViagemCana.get(contador);
+                textViewBkpViagemCana.setText(visViagemCana(certifCanaBkpBean));
 
             }
         });
@@ -65,9 +64,9 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
                     contador = contador - 1;
                 }
 
-                CompVCanaBkpTO compVCanaBkpTO = new CompVCanaBkpTO();
-                compVCanaBkpTO = (CompVCanaBkpTO) listViagemCana.get(contador);
-                textViewBkpViagemCana.setText(visViagemCana(compVCanaBkpTO));
+                CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
+                certifCanaBkpBean = (CertifCanaBkpBean) listViagemCana.get(contador);
+                textViewBkpViagemCana.setText(visViagemCana(certifCanaBkpBean));
 
             }
         });
@@ -87,22 +86,22 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
 
     }
 
-    public String visViagemCana(CompVCanaBkpTO compVCanaBkpTO){
+    public String visViagemCana(CertifCanaBkpBean certifCanaBkpBean){
 
         String retorno = "";
 
         retorno = retorno + "    VIAGEM    \n";
-        retorno = retorno + "MOTORISTA = " + compVCanaBkpTO.getMoto() + "\n";
-        if(compVCanaBkpTO.getCarr1() != 0){
-            retorno = retorno + "CARRETA 1 = " + compVCanaBkpTO.getCarr1() + "\n";
+        retorno = retorno + "MOTORISTA = " + certifCanaBkpBean.getMoto() + "\n";
+        if(certifCanaBkpBean.getCarr1() != 0){
+            retorno = retorno + "CARRETA 1 = " + certifCanaBkpBean.getCarr1() + "\n";
         }
-        if(compVCanaBkpTO.getCarr2() != 0){
-            retorno = retorno + "CARRETA 2 = " + compVCanaBkpTO.getCarr2() + "\n";
+        if(certifCanaBkpBean.getCarr2() != 0){
+            retorno = retorno + "CARRETA 2 = " + certifCanaBkpBean.getCarr2() + "\n";
         }
-        if(compVCanaBkpTO.getCarr3() != 0){
-            retorno = retorno + "CARRETA 3 = " + compVCanaBkpTO.getCarr3() + "\n";
+        if(certifCanaBkpBean.getCarr3() != 0){
+            retorno = retorno + "CARRETA 3 = " + certifCanaBkpBean.getCarr3() + "\n";
         }
-        retorno = retorno + "SAÍDA DO CAMPO = " + Tempo.getInstance().dataHoraCTZ(compVCanaBkpTO.getDataSaidaCampo()) + "\n";
+        retorno = retorno + "SAÍDA DO CAMPO = " + Tempo.getInstance().dataHoraCTZ(certifCanaBkpBean.getDataSaidaCampo()) + "\n";
 
         return retorno;
 

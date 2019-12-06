@@ -8,10 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
-
 public class FrenteActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
@@ -36,28 +32,12 @@ public class FrenteActivity extends ActivityGeneric {
 
                     if (frente < 50) {
 
-                        CompVCanaTO compVCanaTO = new CompVCanaTO();
-                        compVCanaTO.setDataSaidaUsina(Tempo.getInstance().datahora());
-                        compVCanaTO.setDataChegCampo("");
-                        compVCanaTO.setDataSaidaCampo("");
-                        compVCanaTO.setAtivOS(0L);
-                        compVCanaTO.setCam(0L);
-                        compVCanaTO.setLibCam(0L);
-                        compVCanaTO.setCarr1(0L);
-                        compVCanaTO.setLibCarr1(0L);
-                        compVCanaTO.setCarr2(0L);
-                        compVCanaTO.setLibCarr2(0L);
-                        compVCanaTO.setCarr3(0L);
-                        compVCanaTO.setLibCarr3(0L);
-                        compVCanaTO.setCarr4(0L);
-                        compVCanaTO.setLibCarr4(0L);
-                        compVCanaTO.setStatus(1L);
-                        compVCanaTO.insert();
+                        ecmContext.getCertifCanaCTR().salvarCertifAberto();
+                        ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getOpCorSaidaUsina());
 
                         ecmContext.setPosMenu(8);
-                        ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
 
-                        Intent it = new Intent(FrenteActivity.this, MenuMotoMecActivity.class);
+                        Intent it = new Intent(FrenteActivity.this, ListaMotoMecActivity.class);
                         startActivity(it);
                         finish();
 
@@ -90,10 +70,6 @@ public class FrenteActivity extends ActivityGeneric {
             public void onClick(View v) {
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
-                } else {
-                    Intent it = new Intent(FrenteActivity.this, MenuMotoMecActivity.class);
-                    startActivity(it);
-                    finish();
                 }
             }
         });
@@ -102,6 +78,9 @@ public class FrenteActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
+        Intent it = new Intent(FrenteActivity.this, ListaMotoMecActivity.class);
+        startActivity(it);
+        finish();
     }
 
 }

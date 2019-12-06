@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import br.com.usinasantafe.ecm.to.tb.variaveis.HodometroTO;
+import br.com.usinasantafe.ecm.model.bean.variaveis.HodometroBean;
 
 public class HodometroActivity extends ActivityGeneric {
 
@@ -29,12 +29,13 @@ public class HodometroActivity extends ActivityGeneric {
             public void onClick(View v) {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
-                    HodometroTO hodometroTO = new HodometroTO();
-                    hodometroTO.setHodometro(Long.parseLong(editTextPadrao.getText().toString()));
-                    hodometroTO.deleteAll();
-                    hodometroTO.insert();
 
-                    Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
+                    HodometroBean hodometroBean = new HodometroBean();
+                    hodometroBean.setHodometro(Long.parseLong(editTextPadrao.getText().toString()));
+                    hodometroBean.deleteAll();
+                    hodometroBean.insert();
+
+                    Intent it = new Intent(HodometroActivity.this, ListaMotoMecActivity.class);
                     startActivity(it);
                     finish();
 
@@ -61,7 +62,7 @@ public class HodometroActivity extends ActivityGeneric {
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 } else {
-                    Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
+                    Intent it = new Intent(HodometroActivity.this, ListaMotoMecActivity.class);
                     startActivity(it);
                     finish();
                 }

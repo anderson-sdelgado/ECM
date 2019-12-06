@@ -11,17 +11,18 @@ import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.ConexaoWeb;
-import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
-import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.ManipDadosVerif;
+import br.com.usinasantafe.ecm.util.Tempo;
+import br.com.usinasantafe.ecm.model.bean.estaticas.CaminhaoBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCheckListBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class PergAtualCheckListActivity extends AppCompatActivity {
 
     private ProgressDialog progressBar;
+    private ECMContext ecmContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +37,7 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ConfigTO configTO = new ConfigTO();
-                List listConfigTO = configTO.all();
-                configTO = (ConfigTO) listConfigTO.get(0);
-
-                CaminhaoTO caminhaoTO = new CaminhaoTO();
-                List caminhaoList = caminhaoTO.get("idCaminhao", configTO.getIdCamConfig());
-                caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
-                caminhaoList.clear();
-
-                ItemCheckListTO itemCheckListTO = new ItemCheckListTO();
-                List itemCheckList =  itemCheckListTO.get("idChecklist", caminhaoTO.getIdChecklist());
-                Long qtde = (long) itemCheckList.size();
-                itemCheckList.clear();
-
-                CabecCheckListTO cabecCheckListTO = new CabecCheckListTO();
-                cabecCheckListTO.setDtCabecCheckList(Tempo.getInstance().datahora());
-                cabecCheckListTO.setEquipCabecCheckList(configTO.getCodCamConfig());
-                cabecCheckListTO.setFuncCabecCheckList(configTO.getCrachaMotoConfig());
-                cabecCheckListTO.setTurnoCabecCheckList(configTO.getNroTurnoConfig());
-                cabecCheckListTO.setQtdeItemCabecCheckList(qtde);
-                cabecCheckListTO.setStatusCabecCheckList(1L);
-                cabecCheckListTO.insert();
+                ecmContext.getCheckListCTR().insCabec();
 
                 Intent it = new Intent(  PergAtualCheckListActivity.this, ItemCheckListActivity.class);
                 startActivity(it);

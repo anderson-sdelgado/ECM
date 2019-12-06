@@ -7,10 +7,7 @@ import android.widget.EditText;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-import java.util.List;
-
-import br.com.usinasantafe.ecm.pst.DatabaseHelper;
-import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
+import br.com.usinasantafe.ecm.model.bean.pst.DatabaseHelper;
 
 /**
  * Created by anderson on 01/10/2015.

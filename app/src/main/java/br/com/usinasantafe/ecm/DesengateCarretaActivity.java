@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CarretaEngDesengTO;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaEngDesengBean;
 
 public class DesengateCarretaActivity extends ActivityGeneric {
 
@@ -29,13 +28,13 @@ public class DesengateCarretaActivity extends ActivityGeneric {
         Button buttonSimDesengate = (Button) findViewById(R.id.buttonSimDesengate);
         Button buttonNaoDesengate = (Button) findViewById(R.id.buttonNaoDesengate);
 
-        CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
+        CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
         String mensagem = "DESEJA DESENGATAR A(S) CARRETA(S):";
-        List listCarreta = carretaEngDesengTO.all();
+        List carretaList = carretaEngDesengBean.all();
 
-        for(int i = 0; i < listCarreta.size(); i++){
-            carretaEngDesengTO = (CarretaEngDesengTO) listCarreta.get(i);
-            mensagem = mensagem + "\nCAR " + carretaEngDesengTO.getPosCarreta() + ": " + carretaEngDesengTO.getNumCarreta();
+        for(int i = 0; i < carretaList.size(); i++){
+            carretaEngDesengBean = (CarretaEngDesengBean) carretaList.get(i);
+            mensagem = mensagem + "\nCAR " + carretaEngDesengBean.getPosCarreta() + ": " + carretaEngDesengBean.getNumCarreta();
         }
 
         textViewMsgDesengCarreta.setText(mensagem);
@@ -43,22 +42,22 @@ public class DesengateCarretaActivity extends ActivityGeneric {
         buttonSimDesengate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CarretaEngDesengTO carretaEngDesengTO = new CarretaEngDesengTO();
-                carretaEngDesengTO.deleteAll();
-                if (ecmContext.getApontMotoMecTO().getTipoEngDeseng() < 5){
-                    Intent it = new Intent(DesengateCarretaActivity.this, MenuMotoMecActivity.class);
+
+                CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
+                carretaEngDesengBean.deleteAll();
+
+                if (ecmContext.getVerPosTela() == 3){
+                    Intent it = new Intent(DesengateCarretaActivity.this, ListaMotoMecActivity.class);
                     startActivity(it);
                     finish();
                 }
-                else
-                {
-                    Intent it = new Intent(DesengateCarretaActivity.this, MotivoParadaActivity.class);
+                else if(ecmContext.getVerPosTela() == 6){
+                    Intent it = new Intent(DesengateCarretaActivity.this, ListaParadaActivity.class);
                     startActivity(it);
                     finish();
                 }
 
-
-                ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecTO());
+                ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getDesengateCarreta());
 
             }
         });
@@ -66,20 +65,18 @@ public class DesengateCarretaActivity extends ActivityGeneric {
         buttonNaoDesengate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ecmContext.getApontMotoMecTO().getTipoEngDeseng() < 5){
-                    Intent it = new Intent(DesengateCarretaActivity.this, MenuMotoMecActivity.class);
+                if (ecmContext.getVerPosTela() == 3){
+                    Intent it = new Intent(DesengateCarretaActivity.this, ListaMotoMecActivity.class);
                     startActivity(it);
                     finish();
                 }
-                else
-                {
-                    Intent it = new Intent(DesengateCarretaActivity.this, MotivoParadaActivity.class);
+                else if(ecmContext.getVerPosTela() == 6){
+                    Intent it = new Intent(DesengateCarretaActivity.this, ListaParadaActivity.class);
                     startActivity(it);
                     finish();
                 }
             }
         });
-
 
     }
 

@@ -13,8 +13,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import br.com.usinasantafe.ecm.bo.ConexaoWeb;
-import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.ManipDadosReceb;
 
 public class CertificadoActivity extends ActivityGeneric {
 

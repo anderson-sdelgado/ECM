@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import br.com.usinasantafe.ecm.bo.ConexaoWeb;
-import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
-import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.ManipDadosVerif;
+import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
 
 public class AtividadeOSActivity extends ActivityGeneric {
 
@@ -40,9 +40,9 @@ public class AtividadeOSActivity extends ActivityGeneric {
 
                     ecmContext.setCodigoAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
 
-                    AtividadeOSTO atividadeOSTO = new AtividadeOSTO();
+                    AtividadeOSBean atividadeOSBean = new AtividadeOSBean();
 
-                    if (atividadeOSTO.exists("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()))) {
+                    if (atividadeOSBean.exists("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()))) {
 
                         Intent it = new Intent(AtividadeOSActivity.this, MsgAtividadeOSActivity.class);
                         startActivity(it);
@@ -53,7 +53,7 @@ public class AtividadeOSActivity extends ActivityGeneric {
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
                         if (conexaoWeb.verificaConexao(AtividadeOSActivity.this)) {
 
-                            ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "AtividadeOSTO",
+                            ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "AtividadeOSBean",
                                     AtividadeOSActivity.this, MsgAtividadeOSActivity.class);
 
                         } else {

@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
+import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
 
 public class MsgAtividadeOSActivity extends ActivityGeneric {
 
@@ -29,9 +29,9 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
 
         TextView textViewNomeAtividade = (TextView) findViewById(R.id.textViewNomeAtividade);
 
-        AtividadeOSTO atividadeOsTOBD = new AtividadeOSTO();
+        AtividadeOSBean atividadeOsTOBD = new AtividadeOSBean();
         List lista = atividadeOsTOBD.get("codigoAtivOS", ecmContext.getCodigoAtivOS());
-        AtividadeOSTO atividadeOsTO = (AtividadeOSTO) lista.get(0);
+        AtividadeOSBean atividadeOsTO = (AtividadeOSBean) lista.get(0);
 
         descAtividade = atividadeOsTO.getCodFazendaAtivOS() + " - " + atividadeOsTO.getNomeFazendaAtivOS();
         codAtivOS = atividadeOsTO.getCodigoAtivOS();
@@ -44,11 +44,11 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                CompVCanaTO compVCanaTO = new CompVCanaTO();
-                List compVCanaList = compVCanaTO.get("status", 1L);
-                compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
-                compVCanaTO.setAtivOS(codAtivOS);
-                compVCanaTO.update();
+                CertifCanaBean certifCanaBean = new CertifCanaBean();
+                List compVCanaList = certifCanaBean.get("status", 1L);
+                certifCanaBean = (CertifCanaBean) compVCanaList.get(0);
+                certifCanaBean.setAtivOS(codAtivOS);
+                certifCanaBean.update();
 
                 Intent it = new Intent(MsgAtividadeOSActivity.this, CertificadoActivity.class);
                 startActivity(it);

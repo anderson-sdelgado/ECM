@@ -1,18 +1,16 @@
 package br.com.usinasantafe.ecm;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.estaticas.LocalTO;
+import br.com.usinasantafe.ecm.model.bean.estaticas.LocalBean;
 
 public class ListaLocalActivity extends ActivityGeneric {
 
@@ -45,12 +43,12 @@ public class ListaLocalActivity extends ActivityGeneric {
 
     public void listarMenu(){
 
-        LocalTO localBD = new LocalTO();
+        LocalBean localBD = new LocalBean();
         final List listaLocal =  localBD.all();
         ArrayList<String> itens = new ArrayList<String>();
 
         for(int i = 0; i < listaLocal.size(); i++){
-            localBD = (LocalTO) listaLocal.get(i);
+            localBD = (LocalBean) listaLocal.get(i);
             itens.add(localBD.getDescLocal());
         }
 
@@ -65,8 +63,8 @@ public class ListaLocalActivity extends ActivityGeneric {
                                     long id) {
 
 
-                LocalTO localBD = (LocalTO) listaLocal.get(position);
-                ecmContext.getCompVVinhacaTO().setLocal(localBD.getIdLocal());
+                LocalBean localBD = (LocalBean) listaLocal.get(position);
+                ecmContext.getCompVVinhacaBean().setLocal(localBD.getIdLocal());
                 Intent it = new Intent(ListaLocalActivity.this, OSActivity.class);
                 startActivity(it);
                 finish();

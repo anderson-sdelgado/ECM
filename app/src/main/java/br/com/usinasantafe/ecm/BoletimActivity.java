@@ -9,11 +9,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimBkpTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
+import br.com.usinasantafe.ecm.util.ManipDadosReceb;
+import br.com.usinasantafe.ecm.util.Tempo;
+import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
 
 public class BoletimActivity extends ActivityGeneric {
 
@@ -25,11 +24,11 @@ public class BoletimActivity extends ActivityGeneric {
         TextView textViewBoletim = (TextView) findViewById(R.id.textViewBoletim);
         Button buttonOkBoletim = (Button) findViewById(R.id.buttonOkBoletim);
 
-        BoletimTO boletimTO = new BoletimTO();
-        List listBoletim = boletimTO.all();
-        boletimTO = (BoletimTO) listBoletim.get(0);
+        BoletimBean boletimBean = new BoletimBean();
+        List listBoletim = boletimBean.all();
+        boletimBean = (BoletimBean) listBoletim.get(0);
 
-        String boletim = visBoletim(boletimTO);
+        String boletim = visBoletim(boletimBean);
 
         textViewBoletim.setText(boletim);
 
@@ -37,7 +36,7 @@ public class BoletimActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(BoletimActivity.this, MenuMotoMecActivity.class);
+                Intent it = new Intent(BoletimActivity.this, ListaMotoMecActivity.class);
                 startActivity(it);
 
                 ManipDadosReceb.getInstance().atualizarBD();
@@ -49,112 +48,112 @@ public class BoletimActivity extends ActivityGeneric {
 
     }
 
-    public String visBoletim(BoletimTO boletimTO){
+    public String visBoletim(BoletimBean boletimBean){
 
         String retorno = "";
 
-        int analisar = (int) boletimTO.getPossuiSorteioBoleto().longValue();
+        int analisar = (int) boletimBean.getPossuiSorteioBoleto().longValue();
 
         if(analisar == 0){
 
             retorno = retorno + "NÃO FOI SORTEADO \n";
             retorno = retorno + "PARA ANALISE! \n";
-            retorno = retorno + "PESO LIQ:  "  + boletimTO.getPesoLiquidoBoleto() + "\n";
+            retorno = retorno + "PESO LIQ:  "  + boletimBean.getPesoLiquidoBoleto() + "\n";
             retorno = retorno + "---------------- \n";
-            retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+            retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
         }
         else if(analisar == 1){
 
-            if((boletimTO.getUnidadeSorteada1Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() != 0)){
+            if((boletimBean.getUnidadeSorteada1Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() != 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + "" + boletimTO.getUnidadeSorteada1Boleto() + "       " + boletimTO.getUnidadeSorteada2Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado1Boleto() + "  " + boletimTO.getCecSorteado2Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getUnidadeSorteada1Boleto() + "       " + boletimBean.getUnidadeSorteada2Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado1Boleto() + "  " + boletimBean.getCecSorteado2Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
-            else if((boletimTO.getUnidadeSorteada1Boleto() == 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() != 0)){
+            else if((boletimBean.getUnidadeSorteada1Boleto() == 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() != 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + "" + boletimTO.getUnidadeSorteada2Boleto() + "       " + boletimTO.getUnidadeSorteada3Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado2Boleto() + "  " + boletimTO.getCecSorteado3Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getUnidadeSorteada2Boleto() + "       " + boletimBean.getUnidadeSorteada3Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado2Boleto() + "  " + boletimBean.getCecSorteado3Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
-            else if((boletimTO.getUnidadeSorteada1Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() == 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() != 0)){
+            else if((boletimBean.getUnidadeSorteada1Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() == 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() != 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + "" + boletimTO.getUnidadeSorteada1Boleto() + "       " + boletimTO.getUnidadeSorteada3Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado1Boleto() + "  " + boletimTO.getCecSorteado3Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getUnidadeSorteada1Boleto() + "       " + boletimBean.getUnidadeSorteada3Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado1Boleto() + "  " + boletimBean.getCecSorteado3Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
-            else if((boletimTO.getUnidadeSorteada1Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() == 0)){
+            else if((boletimBean.getUnidadeSorteada1Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() == 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + "" + boletimTO.getUnidadeSorteada1Boleto() + "       " + boletimTO.getUnidadeSorteada2Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado1Boleto() + "  " + boletimTO.getCecSorteado2Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getUnidadeSorteada1Boleto() + "       " + boletimBean.getUnidadeSorteada2Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado1Boleto() + "  " + boletimBean.getCecSorteado2Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
-            else if((boletimTO.getUnidadeSorteada1Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() == 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() == 0)){
+            else if((boletimBean.getUnidadeSorteada1Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() == 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() == 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + ""+ boletimTO.getUnidadeSorteada1Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado1Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + ""+ boletimBean.getUnidadeSorteada1Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado1Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
-            else if((boletimTO.getUnidadeSorteada1Boleto() == 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() != 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() == 0)){
+            else if((boletimBean.getUnidadeSorteada1Boleto() == 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() != 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() == 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + ""+ boletimTO.getUnidadeSorteada2Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado2Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + ""+ boletimBean.getUnidadeSorteada2Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado2Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
-            else if((boletimTO.getUnidadeSorteada1Boleto() == 0) &&
-                    (boletimTO.getUnidadeSorteada2Boleto() == 0) &&
-                    (boletimTO.getUnidadeSorteada3Boleto() != 0)){
+            else if((boletimBean.getUnidadeSorteada1Boleto() == 0) &&
+                    (boletimBean.getUnidadeSorteada2Boleto() == 0) &&
+                    (boletimBean.getUnidadeSorteada3Boleto() != 0)){
 
                 retorno = retorno + "Cargas Sorteadas \n";
-                retorno = retorno + ""+ boletimTO.getUnidadeSorteada3Boleto() + " \n";
-                retorno = retorno + "CEC: " + boletimTO.getCecSorteado3Boleto() + " \n";
-                retorno = retorno + "Frente: " + boletimTO.getCdFrenteBoleto() + " \n";
-                retorno = retorno + "Peso Liq:  "  + boletimTO.getPesoLiquidoBoleto() + " \n";
-                retorno = retorno + "" + boletimTO.getDthrEntradaBoleto() + " \n";
+                retorno = retorno + ""+ boletimBean.getUnidadeSorteada3Boleto() + " \n";
+                retorno = retorno + "CEC: " + boletimBean.getCecSorteado3Boleto() + " \n";
+                retorno = retorno + "Frente: " + boletimBean.getCdFrenteBoleto() + " \n";
+                retorno = retorno + "Peso Liq:  "  + boletimBean.getPesoLiquidoBoleto() + " \n";
+                retorno = retorno + "" + boletimBean.getDthrEntradaBoleto() + " \n";
 
             }
 
         }
 
-        salvarBkp(boletimTO);
-        boletimTO.deleteAll();
+        salvarBkp(boletimBean);
+        boletimBean.deleteAll();
         return retorno;
 
     }
@@ -162,31 +161,31 @@ public class BoletimActivity extends ActivityGeneric {
     public void onBackPressed()  {
     }
 
-    public void salvarBkp(BoletimTO boletimTO){
+    public void salvarBkp(BoletimBean boletimBean){
 
-        BoletimBkpTO boletimBkpTO = new BoletimBkpTO();
+        BoletimBkpBean boletimBkpBean = new BoletimBkpBean();
 
-        boletimBkpTO.setCaminhaoBoleto(boletimTO.getCaminhaoBoleto());
-        boletimBkpTO.setPossuiSorteioBoleto(boletimTO.getPossuiSorteioBoleto());
-        boletimBkpTO.setCecPaiBoleto(boletimTO.getCecPaiBoleto());
-        boletimBkpTO.setCdFrenteBoleto(boletimTO.getCdFrenteBoleto());
-        boletimBkpTO.setDthrEntradaBoleto(boletimTO.getDthrEntradaBoleto());
-        boletimBkpTO.setCecSorteado1Boleto(boletimTO.getCecSorteado1Boleto());
-        boletimBkpTO.setUnidadeSorteada1Boleto(boletimTO.getUnidadeSorteada1Boleto());
-        boletimBkpTO.setCecSorteado2Boleto(boletimTO.getCecSorteado2Boleto());
-        boletimBkpTO.setUnidadeSorteada2Boleto(boletimTO.getUnidadeSorteada2Boleto());
-        boletimBkpTO.setCecSorteado3Boleto(boletimTO.getCecSorteado3Boleto());
-        boletimBkpTO.setUnidadeSorteada3Boleto(boletimTO.getUnidadeSorteada3Boleto());
-        boletimBkpTO.setPesoLiquidoBoleto(boletimTO.getPesoLiquidoBoleto());
+        boletimBkpBean.setCaminhaoBoleto(boletimBean.getCaminhaoBoleto());
+        boletimBkpBean.setPossuiSorteioBoleto(boletimBean.getPossuiSorteioBoleto());
+        boletimBkpBean.setCecPaiBoleto(boletimBean.getCecPaiBoleto());
+        boletimBkpBean.setCdFrenteBoleto(boletimBean.getCdFrenteBoleto());
+        boletimBkpBean.setDthrEntradaBoleto(boletimBean.getDthrEntradaBoleto());
+        boletimBkpBean.setCecSorteado1Boleto(boletimBean.getCecSorteado1Boleto());
+        boletimBkpBean.setUnidadeSorteada1Boleto(boletimBean.getUnidadeSorteada1Boleto());
+        boletimBkpBean.setCecSorteado2Boleto(boletimBean.getCecSorteado2Boleto());
+        boletimBkpBean.setUnidadeSorteada2Boleto(boletimBean.getUnidadeSorteada2Boleto());
+        boletimBkpBean.setCecSorteado3Boleto(boletimBean.getCecSorteado3Boleto());
+        boletimBkpBean.setUnidadeSorteada3Boleto(boletimBean.getUnidadeSorteada3Boleto());
+        boletimBkpBean.setPesoLiquidoBoleto(boletimBean.getPesoLiquidoBoleto());
 
-        List listaBoleto =  boletimBkpTO.all();
+        List listaBoleto =  boletimBkpBean.all();
         int qtdeBoleto = listaBoleto.size();
         if (qtdeBoleto >= 10) {
-            BoletimBkpTO boletimBkpTODel = (BoletimBkpTO) listaBoleto.get(0);
-            boletimBkpTODel.delete();
+            BoletimBkpBean boletimBkpBeanDel = (BoletimBkpBean) listaBoleto.get(0);
+            boletimBkpBeanDel.delete();
         }
 
-        boletimBkpTO.insert();
+        boletimBkpBean.insert();
 
     }
 

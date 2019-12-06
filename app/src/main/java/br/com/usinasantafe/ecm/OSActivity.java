@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import br.com.usinasantafe.ecm.to.tb.estaticas.AtividadeOSTO;
+import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
 
 public class OSActivity extends ActivityGeneric {
 
@@ -29,9 +29,9 @@ public class OSActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    AtividadeOSTO atividadeOSTO = new AtividadeOSTO();
+                    AtividadeOSBean atividadeOSBean = new AtividadeOSBean();
 
-                    if(atividadeOSTO.exists("nroOSAtivOS", Long.parseLong(editTextPadrao.getText().toString()))){
+                    if(atividadeOSBean.exists("nroOSAtivOS", Long.parseLong(editTextPadrao.getText().toString()))){
 
                         if(ecmContext.getNroOS() == Long.parseLong(editTextPadrao.getText().toString())) {
 

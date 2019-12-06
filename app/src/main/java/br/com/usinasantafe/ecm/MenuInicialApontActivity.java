@@ -13,27 +13,27 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.ConexaoWeb;
-import br.com.usinasantafe.ecm.bo.ManipDadosReceb;
-import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaBkpTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.ManipDadosReceb;
+import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class MenuInicialApontActivity extends ActivityGeneric {
 
     private ProgressDialog progressBar;
     private ListView lista;
-    private ConfigTO configTO;
+    private ConfigBean configBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_inicial_apont);
 
-        configTO = new ConfigTO();
-        List configList = configTO.all();
-        configTO = (ConfigTO) configList.get(0);
+        configBean = new ConfigBean();
+        List configList = configBean.all();
+        configBean = (ConfigBean) configList.get(0);
         configList.clear();
 
         listarMenu();
@@ -44,7 +44,7 @@ public class MenuInicialApontActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
+                Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
                 startActivity(it);
                 finish();
 
@@ -76,15 +76,15 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 
                 if (position == 0) {
 
-                    CompVCanaTO compVCanaTO = new CompVCanaTO();
-                    List compVCanaList = compVCanaTO.get("status", 1L);
+                    CertifCanaBean certifCanaBean = new CertifCanaBean();
+                    List compVCanaList = certifCanaBean.get("status", 1L);
 
                     if (compVCanaList.size() > 0) {
 
-                        compVCanaTO = (CompVCanaTO) compVCanaList.get(0);
+                        certifCanaBean = (CertifCanaBean) compVCanaList.get(0);
                         compVCanaList.clear();
 
-                        if ((!compVCanaTO.getDataSaidaUsina().equals("")) && (!compVCanaTO.getDataChegCampo().equals(""))) {
+                        if ((!certifCanaBean.getDataSaidaUsina().equals("")) && (!certifCanaBean.getDataChegCampo().equals(""))) {
 
                             Intent it = new Intent(MenuInicialApontActivity.this, AtividadeOSActivity.class);
                             startActivity(it);
@@ -98,7 +98,7 @@ public class MenuInicialApontActivity extends ActivityGeneric {
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
+                                    Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
                                     startActivity(it);
                                     finish();
                                 }
@@ -116,7 +116,7 @@ public class MenuInicialApontActivity extends ActivityGeneric {
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
+                                Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
                                 startActivity(it);
                                 finish();
                             }
@@ -131,7 +131,7 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 //                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 //                            @Override
 //                            public void onClick(DialogInterface dialog, int which) {
-//                                Intent it = new Intent(MenuInicialApontActivity.this, MenuMotoMecActivity.class);
+//                                Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
 //                                startActivity(it);
 //                                finish();
 //                            }
@@ -172,10 +172,10 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 
                 } else if (position == 2) {
 
-                    CompVCanaBkpTO compVCanaBkpTO = new CompVCanaBkpTO();
-                    int qtdeCompVCanaTO = compVCanaBkpTO.count();
+                    CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
+                    int qtdeCompVCanaBean = certifCanaBkpBean.count();
 
-                    if (qtdeCompVCanaTO > 0) {
+                    if (qtdeCompVCanaBean > 0) {
                         Intent it = new Intent(MenuInicialApontActivity.this, BackupViagemCanaActivity.class);
                         startActivity(it);
                         finish();
@@ -194,8 +194,8 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 
                 } else if (position == 3) {
 
-                    BoletimTO boletimTO = new BoletimTO();
-                    int qtdeBoletim = boletimTO.count();
+                    BoletimBean boletimBean = new BoletimBean();
+                    int qtdeBoletim = boletimBean.count();
 
                     if (qtdeBoletim > 0) {
                         Intent it = new Intent(MenuInicialApontActivity.this, BackupBoletimActivity.class);

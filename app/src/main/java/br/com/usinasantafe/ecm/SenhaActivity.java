@@ -6,10 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.List;
-
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
-
 public class SenhaActivity extends ActivityGeneric {
 
     private EditText editTextSenha;
@@ -32,30 +28,17 @@ public class SenhaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
+                if (!ecmContext.getConfigCTR().hasElemConfig()) {
 
-                ConfigTO configTO = new ConfigTO();
-
-                if (!configTO.hasElements()) {
-
-                    ecmContext.setVerTabelaConfig(false);
-
-                    Intent it = new Intent(SenhaActivity.this, ConfiguracoesActivity.class);
+                    Intent it = new Intent(SenhaActivity.this, ConfigActivity.class);
                     startActivity(it);
                     finish();
 
                 } else {
 
-                    List<ConfigTO> lista = configTO.get("senhaConfig", editTextSenha.getText().toString());
+                    if (ecmContext.getConfigCTR().getConfigSenha(editTextSenha.getText().toString())) {
 
-                    if (lista.size() > 0) {
-
-                        configTO.setCodCamConfig(((ConfigTO) lista.get(0)).getCodCamConfig());
-
-                        ecmContext.setVerTabelaConfig(true);
-                        ecmContext.setEquipConfig(configTO.getCodCamConfig());
-                        ecmContext.setSenhaConfig(editTextSenha.getText().toString());
-
-                        Intent it = new Intent(SenhaActivity.this, ConfiguracoesActivity.class);
+                        Intent it = new Intent(SenhaActivity.this, ConfigActivity.class);
                         startActivity(it);
                         finish();
 
@@ -70,8 +53,7 @@ public class SenhaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-
-                Intent it = new Intent(SenhaActivity.this, PrincipalActivity.class);
+                Intent it = new Intent(SenhaActivity.this, MenuInicialActivity.class);
                 startActivity(it);
                 finish();
             }

@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
+import br.com.usinasantafe.ecm.util.ManipDadosEnvio;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class VerMotoristaActivity extends ActivityGeneric {
 
@@ -33,18 +33,18 @@ public class VerMotoristaActivity extends ActivityGeneric {
         TextView textViewCodMotorista = (TextView) findViewById(R.id.textViewCodMotorista);
         TextView textViewNomeMotorista = (TextView) findViewById(R.id.textViewNomeMotorista);
 
-        ConfigTO configTO = new ConfigTO();
-        List configList = configTO.all();
-        configTO = (ConfigTO) configList.get(0);
+        ConfigBean configBean = new ConfigBean();
+        List configList = configBean.all();
+        configBean = (ConfigBean) configList.get(0);
         configList.clear();
 
-        MotoristaTO motoristaTO = new MotoristaTO();
-        List motoristaList = motoristaTO.get("codMotorista", configTO.getCrachaMotoConfig());
-        motoristaTO = (MotoristaTO) motoristaList.get(0);
+        ColabBean colabBean = new ColabBean();
+        List motoristaList = colabBean.get("codMotorista", configBean.getMatricColabConfig());
+        colabBean = (ColabBean) motoristaList.get(0);
         motoristaList.clear();
 
-        textViewCodMotorista.setText(String.valueOf(motoristaTO.getCodMotorista()));
-        textViewNomeMotorista.setText(motoristaTO.getNomeMotorista());
+        textViewCodMotorista.setText(String.valueOf(colabBean.getMatricColab()));
+        textViewNomeMotorista.setText(colabBean.getNomeColab());
 
         buttonManterMotorista.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class VerMotoristaActivity extends ActivityGeneric {
 
                         ManipDadosEnvio.getInstance().salvaViagemCana();
 
-                        Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
+                        Intent it = new Intent(VerMotoristaActivity.this, ListaMotoMecActivity.class);
                         startActivity(it);
                         finish();
 

@@ -9,8 +9,8 @@ import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.to.tb.estaticas.MotoristaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class MotoristaActivity extends ActivityGeneric {
 
@@ -33,20 +33,13 @@ public class MotoristaActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    MotoristaTO motoristaTO = new MotoristaTO();
-                    List motoristaList = motoristaTO.get("codMotorista", Long.parseLong(editTextPadrao.getText().toString()));
+                    ColabBean colabBean = new ColabBean();
+                    List colabList = colabBean.get("matricColab", Long.parseLong(editTextPadrao.getText().toString()));
 
-                    if (motoristaList.size() > 0) {
+                    if (colabList.size() > 0) {
 
-                        ConfigTO configTO = new ConfigTO();
-                        List configList = configTO.all();
-                        configTO = (ConfigTO) configList.get(0);
-                        configList.clear();
-
-                        configTO.setCrachaMotoConfig(Long.parseLong(editTextPadrao.getText().toString()));
-                        configTO.update();
-
-                        Intent it = new Intent(MotoristaActivity.this, CaminhaoTurnoActivity.class);
+                        ecmContext.getConfigCTR().setMatricColabConfig(Long.parseLong(editTextPadrao.getText().toString()));
+                        Intent it = new Intent(MotoristaActivity.this, CaminhaoActivity.class);
                         startActivity(it);
                         finish();
 
@@ -65,7 +58,6 @@ public class MotoristaActivity extends ActivityGeneric {
                         alerta.show();
 
                     }
-
 
                 }
                 else{
@@ -91,13 +83,8 @@ public class MotoristaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
-                } else {
-                    Intent it = new Intent(MotoristaActivity.this, PrincipalActivity.class);
-                    startActivity(it);
-                    finish();
                 }
             }
         });
@@ -105,6 +92,9 @@ public class MotoristaActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
+        Intent it = new Intent(MotoristaActivity.this, MenuInicialActivity.class);
+        startActivity(it);
+        finish();
     }
 
 }

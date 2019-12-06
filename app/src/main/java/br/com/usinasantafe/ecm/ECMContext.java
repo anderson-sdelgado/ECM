@@ -1,54 +1,73 @@
 package br.com.usinasantafe.ecm;
 
-import br.com.usinasantafe.ecm.to.tb.variaveis.ApontMotoMecTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVCanaTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CompVVinhacaTO;
+import br.com.usinasantafe.ecm.control.CertifCanaCTR;
+import br.com.usinasantafe.ecm.control.CheckListCTR;
+import br.com.usinasantafe.ecm.control.ConfigCTR;
+import br.com.usinasantafe.ecm.control.MotoMecCTR;
 
 import android.app.Application;
 
 public class ECMContext extends Application {
 
-	private CompVCanaTO compVCanaTO;
-	private CompVVinhacaTO compVVinhacaTO;
-	private ApontMotoMecTO apontMotoMecTO;
-	
+	private CertifCanaCTR certifCanaCTR;
+	private ConfigCTR configCTR;
+	private MotoMecCTR motoMecCTR;
+	private CheckListCTR checkListCTR;
+
+	private int verPosTela;
+	// 1 - Inicio do Aplicativo;
+	// 2 - Troca Motorista no Menu Moto Mec;
+	// 3 - Desengate no Menu Moto Mec;
+	// 4 - Engate no Menu Moto Mec;
+	// 5 - Certificado;
+	// 6 - Desengate no Parada;
+	// 7 - Engate no Parada;
+
 	private int numCarreta;
-	private int telaAltMoto; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
+	//	private int telaAltMoto; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
 	private int posMenu;
 
 	private Long codigoAtivOS;
 	private Long nroOS;
 	private Long liberacaoOS;
 
-	private boolean verTabelaConfig;
-	private Long equipConfig;
-	private String senhaConfig;
-
 	private Long cargoMotomec;
 	private Long lugarMotivoParada;
 
 	private boolean verTimer;
 
-	public static String versaoAplic = "2.1";
+	public static String versaoAplic = "2.02";
 	private String verAtualCL;
 
-	private Long posChecklist;
+	private int posChecklist;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 	}
 
-    public CompVVinhacaTO getCompVVinhacaTO() {
-        if (compVVinhacaTO == null)
-        compVVinhacaTO = new CompVVinhacaTO();
-        return compVVinhacaTO;
+	public ConfigCTR getConfigCTR(){
+		if (configCTR == null)
+			configCTR = new ConfigCTR();
+		return configCTR;
+	}
+
+	public MotoMecCTR getMotoMecCTR(){
+		if (motoMecCTR == null)
+			motoMecCTR = new MotoMecCTR();
+		return motoMecCTR;
+	}
+
+    public CertifCanaCTR getCertifCanaCTR() {
+        if (certifCanaCTR == null)
+			certifCanaCTR = new CertifCanaCTR();
+        return certifCanaCTR;
     }
 
-    public ApontMotoMecTO getApontMotoMecTO() {
-        if (apontMotoMecTO == null)
-        apontMotoMecTO = new ApontMotoMecTO();
-        return apontMotoMecTO;
+    public CheckListCTR getCheckListCTR() {
+        if (checkListCTR == null)
+			checkListCTR = new CheckListCTR();
+        return checkListCTR;
     }
     
 	public int getNumCarreta() {
@@ -57,14 +76,6 @@ public class ECMContext extends Application {
 
 	public void setNumCarreta(int numCarreta) {
 		this.numCarreta = numCarreta;
-	}
-
-	public int getTelaAltMoto() {
-		return telaAltMoto;
-	}
-
-	public void setTelaAltMoto(int telaAltMoto) {
-		this.telaAltMoto = telaAltMoto;
 	}
 
 	public int getPosMenu() {
@@ -99,30 +110,6 @@ public class ECMContext extends Application {
 		this.liberacaoOS = liberacaoOS;
 	}
 
-	public boolean isVerTabelaConfig() {
-		return verTabelaConfig;
-	}
-
-	public void setVerTabelaConfig(boolean verTabelaConfig) {
-		this.verTabelaConfig = verTabelaConfig;
-	}
-
-	public Long getEquipConfig() {
-		return equipConfig;
-	}
-
-	public void setEquipConfig(Long equipConfig) {
-		this.equipConfig = equipConfig;
-	}
-
-	public String getSenhaConfig() {
-		return senhaConfig;
-	}
-
-	public void setSenhaConfig(String senhaConfig) {
-		this.senhaConfig = senhaConfig;
-	}
-
 	public Long getCargoMotomec() {
 		return cargoMotomec;
 	}
@@ -155,11 +142,19 @@ public class ECMContext extends Application {
 		this.verAtualCL = verAtualCL;
 	}
 
-	public Long getPosChecklist() {
+	public int getPosChecklist() {
 		return posChecklist;
 	}
 
-	public void setPosChecklist(Long posChecklist) {
+	public void setPosChecklist(int posChecklist) {
 		this.posChecklist = posChecklist;
+	}
+
+	public int getVerPosTela() {
+		return verPosTela;
+	}
+
+	public void setVerPosTela(int verPosTela) {
+		this.verPosTela = verPosTela;
 	}
 }

@@ -6,23 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.usinasantafe.ecm.bo.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.pst.EspecificaPesquisa;
-import br.com.usinasantafe.ecm.to.tb.estaticas.CaminhaoTO;
-import br.com.usinasantafe.ecm.to.tb.estaticas.ItemCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.CabecCheckListTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.ConfigTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.RespItemCheckListTO;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.RespCheckListBean;
 
 public class ItemCheckListActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private RespItemCheckListTO respItemCheckListTO;
-    private ItemCheckListTO itemCheckListTO;
-    private CabecCheckListTO cabecCheckListTO;
+    private ItemCLBean itemCLBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,57 +27,10 @@ public class ItemCheckListActivity extends ActivityGeneric {
         Button buttonReparo = (Button) findViewById(R.id.buttonReparo);
         Button buttonCancChecklist = (Button) findViewById(R.id.buttonCancChecklist);
 
-        cabecCheckListTO = new CabecCheckListTO();
-        List cabecCheckListLista = cabecCheckListTO.get("statusCabecCheckList", 1L);
-        cabecCheckListTO = (CabecCheckListTO) cabecCheckListLista.get(0);
-        cabecCheckListLista.clear();
+        ItemCLBean itemCLBean = new ItemCLBean();
+        itemCLBean = ecmContext.getCheckListCTR().getItemCheckList(ecmContext.getPosChecklist());
 
-        ConfigTO configTO = new ConfigTO();
-        List configList = configTO.all();
-        configTO = (ConfigTO) configList.get(0);
-        configList.clear();
-
-        CaminhaoTO caminhaoTO = new CaminhaoTO();
-        List caminhaoList = caminhaoTO.get("codCaminhao", configTO.getCodCamConfig());
-        caminhaoTO = (CaminhaoTO) caminhaoList.get(0);
-        caminhaoList.clear();
-
-        itemCheckListTO = new ItemCheckListTO();
-        ArrayList itemListPesq = new ArrayList();
-
-        EspecificaPesquisa pesq3 = new EspecificaPesquisa();
-        pesq3.setCampo("seqItemCheckList");
-        pesq3.setValor(ecmContext.getPosChecklist());
-        itemListPesq.add(pesq3);
-
-        EspecificaPesquisa pesq4 = new EspecificaPesquisa();
-        pesq4.setCampo("idCheckList");
-        pesq4.setValor(caminhaoTO.getIdChecklist());
-        itemListPesq.add(pesq4);
-
-        List itemCheckListLista = itemCheckListTO.get(itemListPesq);
-        itemCheckListTO = (ItemCheckListTO) itemCheckListLista.get(0);
-        itemCheckListLista.clear();
-
-        ArrayList respPesq = new ArrayList();
-        EspecificaPesquisa pesq1 = new EspecificaPesquisa();
-        pesq1.setCampo("idItItemCheckList");
-        pesq1.setValor(itemCheckListTO.getIdItemCheckList());
-        respPesq.add(pesq1);
-
-        EspecificaPesquisa pesq2 = new EspecificaPesquisa();
-        pesq2.setCampo("idCabecItemCheckList");
-        pesq2.setValor(cabecCheckListTO.getIdCabecCheckList());
-        respPesq.add(pesq2);
-
-        respItemCheckListTO = new RespItemCheckListTO();
-        List respList = respItemCheckListTO.get(respPesq);
-        if(respList.size() > 0){
-            respItemCheckListTO = (RespItemCheckListTO) respList.get(0);
-            respItemCheckListTO.delete();
-        }
-
-        textViewItemChecklist.setText(itemCheckListTO.getSeqItemCheckList() + " - " + itemCheckListTO.getDescrItemCheckList());
+        textViewItemChecklist.setText(itemCLBean.getSeqItemCheckList() + " - " + itemCLBean.getDescrItemCheckList());
 
         buttonConforme.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,19 +65,18 @@ public class ItemCheckListActivity extends ActivityGeneric {
 
     public void proximaTela(Long opcao){
 
-        respItemCheckListTO.setIdCabecItemCheckList(cabecCheckListTO.getIdCabecCheckList());
-        respItemCheckListTO.setIdItItemCheckList(itemCheckListTO.getIdItemCheckList());
-        respItemCheckListTO.setOpcaoItemCheckList(opcao);
-        respItemCheckListTO.insert();
+        RespCheckListBean respCheckListBean = new RespCheckListBean();
+        respCheckListBean.setIdItItemCheckList(itemCLBean.getIdItemCheckList());
+        respCheckListBean.setOpcaoItemCheckList(opcao);
+        ecmContext.getCheckListCTR().insResp(respCheckListBean);
 
-        if(cabecCheckListTO.getQtdeItemCabecCheckList() == ecmContext.getPosChecklist()){
-
-            ManipDadosEnvio.getInstance().salvaCheckList();
-
-            Intent it = new Intent(ItemCheckListActivity.this, MenuMotoMecActivity.class);
-            startActivity(it);
-            finish();
-
+        if(ecmContext.getCheckListCTR().getQtdeItemCabecAberto() == ecmContext.getPosChecklist()){
+            ecmContext.getCheckListCTR().fechaCabec();
+            if((ecmContext.getVerPosTela() == 1) || (ecmContext.getVerPosTela() == 2)){
+                Intent it = new Intent(ItemCheckListActivity.this, ListaMotoMecActivity.class);
+                startActivity(it);
+                finish();
+            }
         }
         else{
             ecmContext.setPosChecklist(ecmContext.getPosChecklist() + 1);
@@ -146,14 +88,12 @@ public class ItemCheckListActivity extends ActivityGeneric {
     }
 
     public void retornoTela(){
-
         if(ecmContext.getPosChecklist() > 1){
             ecmContext.setPosChecklist(ecmContext.getPosChecklist() - 1);
             Intent it = new Intent(ItemCheckListActivity.this, ItemCheckListActivity.class);
             startActivity(it);
             finish();
         }
-
     }
 
     public void onBackPressed()  {

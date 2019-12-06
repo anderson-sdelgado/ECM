@@ -1,6 +1,5 @@
 package br.com.usinasantafe.ecm;
 
-import android.app.Activity;
 //import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.Tempo;
-import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimBkpTO;
-import br.com.usinasantafe.ecm.to.tb.variaveis.BoletimTO;
+import br.com.usinasantafe.ecm.util.Tempo;
+import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 
 public class BackupBoletimActivity extends ActivityGeneric {
 
@@ -33,12 +31,12 @@ public class BackupBoletimActivity extends ActivityGeneric {
         Button buttonProxBkpBoletim = (Button) findViewById(R.id.buttonProxBkpBoletim);
         Button buttonRetornarBkpBoletim = (Button) findViewById(R.id.buttonRetornarBkpBoletim);
 
-        BoletimBkpTO boletimTO = new BoletimBkpTO();
+        BoletimBkpBean boletimTO = new BoletimBkpBean();
         listBoletim = boletimTO.all();
 
         contador = listBoletim.size() - 1;
 
-        boletimTO = (BoletimBkpTO) listBoletim.get(contador);
+        boletimTO = (BoletimBkpBean) listBoletim.get(contador);
         textViewBkpBoletim.setText(visBoletim(boletimTO));
 
         buttonAntBkpBoletim.setOnClickListener(new View.OnClickListener() {
@@ -50,8 +48,8 @@ public class BackupBoletimActivity extends ActivityGeneric {
                     contador = contador + 1;
                 }
 
-                BoletimBkpTO boletimTO = new BoletimBkpTO();
-                boletimTO = (BoletimBkpTO) listBoletim.get(contador);
+                BoletimBkpBean boletimTO = new BoletimBkpBean();
+                boletimTO = (BoletimBkpBean) listBoletim.get(contador);
                 textViewBkpBoletim.setText(visBoletim(boletimTO));
 
             }
@@ -66,8 +64,8 @@ public class BackupBoletimActivity extends ActivityGeneric {
                     contador = contador - 1;
                 }
 
-                BoletimBkpTO boletimTO = new BoletimBkpTO();
-                boletimTO = (BoletimBkpTO) listBoletim.get(contador);
+                BoletimBkpBean boletimTO = new BoletimBkpBean();
+                boletimTO = (BoletimBkpBean) listBoletim.get(contador);
                 textViewBkpBoletim.setText(visBoletim(boletimTO));
 
             }
@@ -88,7 +86,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
 
     }
 
-    public String visBoletim(BoletimBkpTO boleto){
+    public String visBoletim(BoletimBkpBean boleto){
 
         String retorno = "";
 
@@ -180,6 +178,8 @@ public class BackupBoletimActivity extends ActivityGeneric {
             else if((boleto.getUnidadeSorteada1Boleto() == 0) &&
                     (boleto.getUnidadeSorteada2Boleto() == 0) &&
                     (boleto.getUnidadeSorteada3Boleto() != 0)){
+
+
 
                 retorno = retorno + "Cargas Sorteadas \n";
                 retorno = retorno + ""+ boleto.getUnidadeSorteada3Boleto() + " \n";

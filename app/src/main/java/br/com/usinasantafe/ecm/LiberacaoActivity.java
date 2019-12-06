@@ -3,7 +3,6 @@ package br.com.usinasantafe.ecm;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +10,10 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.bo.ConexaoWeb;
-import br.com.usinasantafe.ecm.bo.ManipDadosVerif;
-import br.com.usinasantafe.ecm.pst.EspecificaPesquisa;
-import br.com.usinasantafe.ecm.to.tb.estaticas.LiberacaoTO;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.ManipDadosVerif;
+import br.com.usinasantafe.ecm.model.bean.pst.PesquisaBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.LiberacaoBean;
 
 public class LiberacaoActivity extends ActivityGeneric {
 
@@ -38,23 +37,23 @@ public class LiberacaoActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    LiberacaoTO liberacaoTO = new LiberacaoTO();
+                    LiberacaoBean liberacaoBean = new LiberacaoBean();
 
                     ArrayList libPesqArrayList = new ArrayList();
 
-                    EspecificaPesquisa pesquisa1 = new EspecificaPesquisa();
+                    PesquisaBean pesquisa1 = new PesquisaBean();
                     pesquisa1.setCampo("codigoLiberacao");
                     pesquisa1.setValor(Long.parseLong(editTextPadrao.getText().toString()));
 
                     libPesqArrayList.add(pesquisa1);
 
-                    EspecificaPesquisa pesquisa2 = new EspecificaPesquisa();
+                    PesquisaBean pesquisa2 = new PesquisaBean();
                     pesquisa2.setCampo("nroOSLiberacao");
                     pesquisa2.setValor(ecmContext.getNroOS());
 
                     libPesqArrayList.add(pesquisa2);
 
-                    List liberacaoList = liberacaoTO.get(libPesqArrayList);
+                    List liberacaoList = liberacaoBean.get(libPesqArrayList);
 
                     if(liberacaoList.size() > 0){
 
@@ -73,7 +72,7 @@ public class LiberacaoActivity extends ActivityGeneric {
 
                         if (conexaoWeb.verificaConexao(LiberacaoActivity.this)) {
 
-                        ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString() + "_" + ecmContext.getNroOS(), "LiberacaoTO"
+                        ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString() + "_" + ecmContext.getNroOS(), "LiberacaoBean"
                                 ,LiberacaoActivity.this ,MsgLiberacaoActivity.class);
 
                         } else {
