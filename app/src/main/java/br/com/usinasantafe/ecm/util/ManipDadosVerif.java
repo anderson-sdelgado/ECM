@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.usinasantafe.ecm.MenuInicialActivity;
+import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
 import br.com.usinasantafe.ecm.util.connection.ConHttpPostVerGenerico;
 import br.com.usinasantafe.ecm.model.bean.pst.GenericRecordable;
-import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.CaminhaoBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.AtualizaBean;
@@ -230,15 +230,15 @@ public class ManipDadosVerif {
 
 
             }
-            else if(this.tipo.equals("AtividadeOSBean")) {
+            else if(this.tipo.equals("RAtivOSBean")) {
 
                 JSONObject jObj = new JSONObject(result);
                 JSONArray jsonArray = jObj.getJSONArray("dados");
 
                 JSONObject objeto = jsonArray.getJSONObject(0);
                 Gson gson = new Gson();
-                AtividadeOSBean atividadeOSBean = gson.fromJson(objeto.toString(), AtividadeOSBean.class);
-                atividadeOSBean.insert();
+                RAtivOSBean RAtivOSBean = gson.fromJson(objeto.toString(), RAtivOSBean.class);
+                RAtivOSBean.insert();
 
                 this.progressDialog.dismiss();
                 Intent it = new Intent(telaAtual, telaProx);

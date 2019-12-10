@@ -8,19 +8,14 @@ public class UrlsConexaoHttp {
     public static String localPSTEstatica = "br.com.usinasantafe.ecm.model.bean.estaticas.";
     public static String localUrl = "br.com.usinasantafe.ecm.util.UrlsConexaoHttp";
 
-//    public static String AtividadeOSTO = urlPrincipal + "atividadeos2.php";
-//    public static String CaminhaoTO = urlPrincipal + "caminhao2.php";
-//    public static String CarregadeiraTO = urlPrincipal + "carregadeira2.php";
-//    public static String CarretaTO = urlPrincipal + "carreta2.php";
-    public static String MotoristaTO = urlPrincipal + "colab.php";
+    public static String ColabBean = urlPrincipal + "colab.php";
+    public static String EquipBean = urlPrincipal + "equip.php";
     public static String FrenteTO = urlPrincipal + "frente.php";
-    public static String ItemCheckListTO = urlPrincipal + "itemchecklist.php";
+    public static String ItemCLTO = urlPrincipal + "itemchecklist.php";
     public static String MotoMecTO = urlPrincipal + "motomec.php";
+    public static String RAtivOSTO = urlPrincipal + "rativos.php";
+    public static String RLibOSTO = urlPrincipal + "rlibos.php";
     public static String TurnoTO = urlPrincipal + "turno.php";
-//    public static String LiberacaoTO = urlPrincipal + "liberacao2.php";
-//    public static String OSTO = urlPrincipal + "os2.php";
-//    public static String LocalTO = urlPrincipal + "local.php";
-
 
     public UrlsConexaoHttp() {
     }
@@ -39,9 +34,9 @@ public class UrlsConexaoHttp {
 
     public String urlVerifica(String classe) {
         String retorno = "";
-        if (classe.equals("AtividadeOSBean")) {
+        if (classe.equals("RAtivOSBean")) {
             retorno = urlPrincipal + "verifativ2.php";
-        } else if (classe.equals("LiberacaoBean")) {
+        } else if (classe.equals("RLibOSBean")) {
             retorno = urlPrincipal + "veriflib2.php";
         } else if (classe.equals("BoletimBean")) {
             retorno = urlPrincEnvio + "buscabol2.php";

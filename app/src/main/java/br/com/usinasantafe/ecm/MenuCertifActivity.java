@@ -11,30 +11,24 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.ManipDadosReceb;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
-public class MenuInicialApontActivity extends ActivityGeneric {
+public class MenuCertifActivity extends ActivityGeneric {
 
     private ProgressDialog progressBar;
-    private ListView lista;
-    private ConfigBean configBean;
+    private ListView menuCertifListView;
+    private ECMContext ecmContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_inicial_apont);
+        setContentView(R.layout.activity_menu_certif);
 
-        configBean = new ConfigBean();
-        List configList = configBean.all();
-        configBean = (ConfigBean) configList.get(0);
-        configList.clear();
+        ecmContext = (ECMContext) getApplication();
 
         listarMenu();
 
@@ -44,7 +38,7 @@ public class MenuInicialApontActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
+                Intent it = new Intent(MenuCertifActivity.this, ListaMotoMecActivity.class);
                 startActivity(it);
                 finish();
 
@@ -64,10 +58,10 @@ public class MenuInicialApontActivity extends ActivityGeneric {
         itens.add("LOG BOLETIM");
 
         AdapterList adapterList = new AdapterList(this, itens);
-        lista = (ListView) findViewById(R.id.listViewMenuInicialApont);
-        lista.setAdapter(adapterList);
+        menuCertifListView = (ListView) findViewById(R.id.listViewMenuInicialApont);
+        menuCertifListView.setAdapter(adapterList);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        menuCertifListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @SuppressWarnings("rawtypes")
             @Override
@@ -76,29 +70,23 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 
                 if (position == 0) {
 
-                    CertifCanaBean certifCanaBean = new CertifCanaBean();
-                    List compVCanaList = certifCanaBean.get("status", 1L);
+                    if (ecmContext.getCertifCanaCTR().verCertifAberto()) {
 
-                    if (compVCanaList.size() > 0) {
+                        if (ecmContext.getCertifCanaCTR().verDataCertif()) {
 
-                        certifCanaBean = (CertifCanaBean) compVCanaList.get(0);
-                        compVCanaList.clear();
-
-                        if ((!certifCanaBean.getDataSaidaUsina().equals("")) && (!certifCanaBean.getDataChegCampo().equals(""))) {
-
-                            Intent it = new Intent(MenuInicialApontActivity.this, AtividadeOSActivity.class);
+                            Intent it = new Intent(MenuCertifActivity.this, AtivOSActivity.class);
                             startActivity(it);
                             finish();
 
                         } else {
 
-                            AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);
                             alerta.setTitle("ATENÇÃO");
                             alerta.setMessage("É NECESSÁRIO A INSERÇÃO DO HORARIO DE SAÍDA DA USINA E/OU DE CHEGADA AO CAMPO.");
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
+                                    Intent it = new Intent(MenuCertifActivity.this, ListaMotoMecActivity.class);
                                     startActivity(it);
                                     finish();
                                 }
@@ -110,13 +98,13 @@ public class MenuInicialApontActivity extends ActivityGeneric {
                     }
                     else {
 
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);
                         alerta.setTitle("ATENÇÃO");
                         alerta.setMessage("É NECESSÁRIO A INSERÇÃO DO HORARIO DE SAÍDA DA USINA E/OU DE CHEGADA AO CAMPO.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
+                                Intent it = new Intent(MenuCertifActivity.this, ListaMotoMecActivity.class);
                                 startActivity(it);
                                 finish();
                             }
@@ -124,19 +112,6 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 
                         alerta.show();
 
-//                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
-//                        alerta.setTitle("ATENÇÃO");
-//                        alerta.setMessage("POR FAVOR TERMINEI DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.");
-//
-//                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Intent it = new Intent(MenuInicialApontActivity.this, ListaMotoMecActivity.class);
-//                                startActivity(it);
-//                                finish();
-//                            }
-//                        });
-//                        alerta.show();
 
                     }
 
@@ -144,7 +119,7 @@ public class MenuInicialApontActivity extends ActivityGeneric {
 
                     ConexaoWeb conexaoWeb = new ConexaoWeb();
 
-                    if (conexaoWeb.verificaConexao(MenuInicialApontActivity.this)) {
+                    if (conexaoWeb.verificaConexao(MenuCertifActivity.this)) {
 
                         progressBar = new ProgressDialog(v.getContext());
                         progressBar.setCancelable(true);
@@ -154,10 +129,10 @@ public class MenuInicialApontActivity extends ActivityGeneric {
                         progressBar.setMax(100);
                         progressBar.show();
                         ManipDadosReceb.getInstance().atualizarBD(progressBar);
-                        ManipDadosReceb.getInstance().setContext(MenuInicialApontActivity.this);
+                        ManipDadosReceb.getInstance().setContext(MenuCertifActivity.this);
 
                     } else {
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);
                         alerta.setTitle("ATENÇÃO");
                         alerta.setMessage("FALHA NA CONEXÃO DE DADOS. O CELULAR ESTA SEM SINAL. POR FAVOR, TENTE NOVAMENTE QUANDO O CELULAR ESTIVE COM SINAL.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -176,11 +151,11 @@ public class MenuInicialApontActivity extends ActivityGeneric {
                     int qtdeCompVCanaBean = certifCanaBkpBean.count();
 
                     if (qtdeCompVCanaBean > 0) {
-                        Intent it = new Intent(MenuInicialApontActivity.this, BackupViagemCanaActivity.class);
+                        Intent it = new Intent(MenuCertifActivity.this, CertificadoBKPActivity.class);
                         startActivity(it);
                         finish();
                     } else {
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);
                         alerta.setTitle("ATENÇÃO");
                         alerta.setMessage("NÃO TEM NENHUMA VIAGEM SALVA NA BASE DE DADOS.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -198,11 +173,11 @@ public class MenuInicialApontActivity extends ActivityGeneric {
                     int qtdeBoletim = boletimBean.count();
 
                     if (qtdeBoletim > 0) {
-                        Intent it = new Intent(MenuInicialApontActivity.this, BackupBoletimActivity.class);
+                        Intent it = new Intent(MenuCertifActivity.this, BoletimBKPActivity.class);
                         startActivity(it);
                         finish();
                     } else {
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuInicialApontActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);
                         alerta.setTitle("ATENÇÃO");
                         alerta.setMessage("NÃO TEM NENHUM BOLETIM SALVO NA BASE DE DADOS.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {

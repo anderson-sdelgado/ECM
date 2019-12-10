@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.pst.DatabaseHelper;
-import br.com.usinasantafe.ecm.model.bean.pst.PesquisaBean;
+import br.com.usinasantafe.ecm.model.bean.pst.PesqBean;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -35,14 +35,14 @@ public class MotoMecPST {
 					this.dao.queryBuilder();
 			Where<String, Object> where = queryBuilder.where();
 
-			PesquisaBean pesquisa;
+			PesqBean pesquisa;
 
-			pesquisa = (PesquisaBean) lista.get(1);
+			pesquisa = (PesqBean) lista.get(1);
 			where.eq(pesquisa.getCampo(), pesquisa.getValor());
 			where.eq("cargoMotoMec", (long) 0);
 			where.or();
 
-			pesquisa = (PesquisaBean) lista.get(0);
+			pesquisa = (PesqBean) lista.get(0);
 			where.eq(pesquisa.getCampo(), pesquisa.getValor());
 			where.and(2);
 

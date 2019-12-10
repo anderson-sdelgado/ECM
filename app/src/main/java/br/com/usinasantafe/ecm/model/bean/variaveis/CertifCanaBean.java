@@ -13,9 +13,11 @@ public class CertifCanaBean extends Entidade{
 	@DatabaseField(generatedId=true)
 	private Long idCertifCana;
 	@DatabaseField
-    private Long cam;
-	@DatabaseField
 	private Long ativOS;
+	@DatabaseField
+	private Long nroOS;
+	@DatabaseField
+	private Long cam;
 	@DatabaseField
     private Long libCam;
 	@DatabaseField
@@ -45,7 +47,7 @@ public class CertifCanaBean extends Entidade{
 	@DatabaseField
     private Long turno;
 	@DatabaseField
-	private Long status; //1 - Aberto; 2 - Fechado
+	private Long status; //1 - Aberto; 2 - Fechado; 3 - Enviado
     
     public CertifCanaBean(){
     }
@@ -188,5 +190,13 @@ public class CertifCanaBean extends Entidade{
 
 	public void setStatus(Long status) {
 		this.status = status;
+	}
+
+	public Long getNroOS() {
+		return nroOS;
+	}
+
+	public void setNroOS(Long nroOS) {
+		this.nroOS = nroOS;
 	}
 }

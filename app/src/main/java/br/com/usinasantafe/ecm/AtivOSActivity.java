@@ -3,7 +3,6 @@ package br.com.usinasantafe.ecm;
 //import android.support.v7.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,19 +11,16 @@ import android.widget.Button;
 
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.ManipDadosVerif;
-import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
 
-public class AtividadeOSActivity extends ActivityGeneric {
+public class AtivOSActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atividade_os);
+        setContentView(R.layout.activity_ativ_os);
 
-        context = this;
         ecmContext = (ECMContext) getApplication();
 
         Button buttonOkAtivOS = (Button) findViewById(R.id.buttonOkPadrao);
@@ -38,26 +34,24 @@ public class AtividadeOSActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    ecmContext.setCodigoAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
+                    if (ecmContext.getCertifCanaCTR().verAtivOS(Long.parseLong(editTextPadrao.getText().toString()))) {
 
-                    AtividadeOSBean atividadeOSBean = new AtividadeOSBean();
+                        ecmContext.getCertifCanaCTR().setAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
 
-                    if (atividadeOSBean.exists("codigoAtivOS", Long.parseLong(editTextPadrao.getText().toString()))) {
-
-                        Intent it = new Intent(AtividadeOSActivity.this, MsgAtividadeOSActivity.class);
+                        Intent it = new Intent(AtivOSActivity.this, MsgAtivOSActivity.class);
                         startActivity(it);
                         finish();
 
                     } else {
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
-                        if (conexaoWeb.verificaConexao(AtividadeOSActivity.this)) {
+                        if (conexaoWeb.verificaConexao(AtivOSActivity.this)) {
 
-                            ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "AtividadeOSBean",
-                                    AtividadeOSActivity.this, MsgAtividadeOSActivity.class);
+                            ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "RAtivOSBean",
+                                    AtivOSActivity.this, MsgAtivOSActivity.class);
 
                         } else {
-                            AlertDialog.Builder alerta = new AlertDialog.Builder(AtividadeOSActivity.this);
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(AtivOSActivity.this);
                             alerta.setTitle("ATENÇÃO");
                             alerta.setMessage("FALHA NA CONEXÃO DE DADOS. O CELULAR ESTA SEM SINAL. POR FAVOR, TENTE NOVAMENTE QUANDO O CELULAR ESTIVER COM SINAL.");
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -85,7 +79,7 @@ public class AtividadeOSActivity extends ActivityGeneric {
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 } else {
-                    Intent it = new Intent(AtividadeOSActivity.this, MenuInicialApontActivity.class);
+                    Intent it = new Intent(AtivOSActivity.this, MenuCertifActivity.class);
                     startActivity(it);
                     finish();
                 }

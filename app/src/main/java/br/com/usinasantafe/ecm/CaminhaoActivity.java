@@ -33,45 +33,34 @@ public class CaminhaoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(CaminhaoActivity.this, ListaTurnoActivity.class);
-                startActivity(it);
-                finish();
+                if(ecmContext.getVerPosTela() == 5){
 
-//                else if (ecmContext.getTelaAltMoto() == 2) {
-//                    Intent it = new Intent(CaminhaoTurnoActivity.this, VerMotoristaActivity.class);
-//                    startActivity(it);
-//                    finish();
-//                }
-//                else if (ecmContext.getTelaAltMoto() == 3) {
-//                    ecmContext.setPosMenu(1);
-//                    Intent it = new Intent(CaminhaoTurnoActivity.this, ListaMotoMecActivity.class);
-//                    startActivity(it);
-//                    finish();
-//                }
 
-//                CaminhaoBean caminhaoBean = new CaminhaoBean();
-//                List caminhaoList = caminhaoBean.get("idCaminhao", configBean.getIdEquipConfig());
-//                caminhaoBean = (CaminhaoBean) caminhaoList.get(0);
-//
-//                if(caminhaoBean.getTipoCaminhao() == 1){
-//                    ecmContext.setNumCarreta(0);
-//                    Intent it = new Intent(CaminhaoActivity.this, OSActivity.class);
-//                    startActivity(it);
-//                    finish();
-//                }
-//                else if(caminhaoBean.getTipoCaminhao() == 6){
-//                    ecmContext.setNumCarreta(1);
-//
-//                    CertifCanaBean compVCanaBean = new CertifCanaBean();
-//                    List compVCanaList = compVCanaBean.get("status", 1L);
-//                    compVCanaBean = (CertifCanaBean) compVCanaList.get(0);
-//                    compVCanaBean.setLibCam(0L);
-//                    compVCanaBean.update();
-//
-//                    Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
-//                    startActivity(it);
-//                    finish();
-//                }
+                    if(ecmContext.getConfigCTR().getEquip().getClasseEquip() == 1){
+
+                        Intent it = new Intent(CaminhaoActivity.this, OSActivity.class);
+                        startActivity(it);
+                        finish();
+
+                    }
+                    else if(ecmContext.getConfigCTR().getEquip().getClasseEquip() == 6){
+
+                        ecmContext.getCertifCanaCTR().setLibCam(0L);
+
+                        Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+
+                }
+                else{
+                    Intent it = new Intent(CaminhaoActivity.this, ListaTurnoActivity.class);
+                    startActivity(it);
+                    finish();
+                }
+
+
+
 
             }
 

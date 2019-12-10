@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
 
-public class MsgAtividadeOSActivity extends ActivityGeneric {
+public class MsgAtivOSActivity extends ActivityGeneric {
 
-    private Long codAtivOS;
+    private RAtivOSBean rAtivOSBean;
     private String descAtividade;
     private ECMContext ecmContext;
 
@@ -29,28 +29,19 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
 
         TextView textViewNomeAtividade = (TextView) findViewById(R.id.textViewNomeAtividade);
 
-        AtividadeOSBean atividadeOsTOBD = new AtividadeOSBean();
-        List lista = atividadeOsTOBD.get("codigoAtivOS", ecmContext.getCodigoAtivOS());
-        AtividadeOSBean atividadeOsTO = (AtividadeOSBean) lista.get(0);
+        rAtivOSBean = ecmContext.getCertifCanaCTR().getAtivOS();
 
-        descAtividade = atividadeOsTO.getCodFazendaAtivOS() + " - " + atividadeOsTO.getNomeFazendaAtivOS();
-        codAtivOS = atividadeOsTO.getCodigoAtivOS();
-        ecmContext.setNroOS(atividadeOsTO.getNroOSAtivOS());
+//        codAtivOS = atividadeOsTO.getIdRAtivOS();
+//        ecmContext.setNroOS(atividadeOsTO.getNroOS());
 
-        textViewNomeAtividade.setText(descAtividade);
+        textViewNomeAtividade.setText(rAtivOSBean.getCodFazenda() + " - " + rAtivOSBean.getDescrFazenda());
 
         buttonOkMsgAtivOS.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                CertifCanaBean certifCanaBean = new CertifCanaBean();
-                List compVCanaList = certifCanaBean.get("status", 1L);
-                certifCanaBean = (CertifCanaBean) compVCanaList.get(0);
-                certifCanaBean.setAtivOS(codAtivOS);
-                certifCanaBean.update();
-
-                Intent it = new Intent(MsgAtividadeOSActivity.this, CertificadoActivity.class);
+                Intent it = new Intent(MsgAtivOSActivity.this, CaminhaoActivity.class);
                 startActivity(it);
                 finish();
 
@@ -63,7 +54,7 @@ public class MsgAtividadeOSActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(MsgAtividadeOSActivity.this, AtividadeOSActivity.class);
+                Intent it = new Intent(MsgAtivOSActivity.this, AtivOSActivity.class);
                 startActivity(it);
                 finish();
             }

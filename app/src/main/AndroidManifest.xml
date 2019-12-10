@@ -27,13 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AtividadeOSActivity"
+            android:name=".AtivOSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BackupBoletimActivity"
+            android:name=".BoletimBKPActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BackupViagemCanaActivity"
+            android:name=".CertificadoBKPActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BoletimActivity"
@@ -69,7 +69,7 @@
             android:name=".HodometroActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LiberacaoActivity"
+            android:name=".LibOSActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ListaFinalizaApontActivity"
@@ -81,7 +81,7 @@
             android:name=".ListaTurnoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MenuInicialApontActivity"
+            android:name=".MenuCertifActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ListaMotoMecActivity"
@@ -93,13 +93,13 @@
             android:name=".MotoristaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgAtividadeOSActivity"
+            android:name=".MsgAtivOSActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MsgCarretaEngateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgLiberacaoActivity"
+            android:name=".MsgLibOSActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MsgNumCarretaActivity"

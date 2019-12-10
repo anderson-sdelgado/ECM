@@ -12,13 +12,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.util.ManipDadosEnvio;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaEngDesengBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 
 public class ListaParadaActivity extends ActivityGeneric {
 
-    private ListView lista;
+    private ListView paradaListView;
     private ECMContext ecmContext;
     private List paradaList;
     private MotoMecBean motoMecBean;
@@ -43,10 +42,10 @@ public class ListaParadaActivity extends ActivityGeneric {
         }
 
         AdapterList adapterList = new AdapterList(this, itens);
-        lista = (ListView) findViewById(R.id.listViewMotParada);
-        lista.setAdapter(adapterList);
+        paradaListView = (ListView) findViewById(R.id.listViewMotParada);
+        paradaListView.setAdapter(adapterList);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        paradaListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
@@ -66,7 +65,7 @@ public class ListaParadaActivity extends ActivityGeneric {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
-                            lista.setSelection(posicao + 1);
+                            paradaListView.setSelection(posicao + 1);
                         }
                     });
 
@@ -75,9 +74,9 @@ public class ListaParadaActivity extends ActivityGeneric {
                 }
                 else if(motoMecBean.getCodFuncaoOperMotoMec() == 11) { //DESENGATE
 
-                    CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
+                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
 
-                    if (carretaEngDesengBean.hasElements()) {
+                    if (carretaUtilBean.hasElements()) {
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -110,10 +109,9 @@ public class ListaParadaActivity extends ActivityGeneric {
                 }
                 else if(motoMecBean.getCodFuncaoOperMotoMec() == 12){ //ENGATE
 
+                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
 
-                    CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
-
-                    if(!carretaEngDesengBean.hasElements()){
+                    if(!carretaUtilBean.hasElements()){
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -122,19 +120,16 @@ public class ListaParadaActivity extends ActivityGeneric {
                         alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-                                ecmContext.setVerPosTela(4);
+                                ecmContext.setVerPosTela(7);
                                 Intent it = new Intent(ListaParadaActivity.this, MsgNumCarretaActivity.class);
                                 startActivity(it);
                                 finish();
-
                             }
                         });
 
                         alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
 
@@ -152,12 +147,10 @@ public class ListaParadaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-
                 ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getVoltaTrabalho());
                 Intent it = new Intent(ListaParadaActivity.this, ListaMotoMecActivity.class);
                 startActivity(it);
                 finish();
-
             }
 
         });

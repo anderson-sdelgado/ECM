@@ -3,14 +3,15 @@ package br.com.usinasantafe.ecm.model.bean.pst;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeOSBean;
+
+import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.CaminhaoBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.CarregBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.CarretaBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.DataBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.FrenteBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.LiberacaoBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.LocalBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
@@ -20,7 +21,7 @@ import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCheckListBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaEngDesengBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CompVVinhacaBean;
@@ -67,12 +68,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		
 		try{
 			
-			TableUtils.createTable(cs, AtividadeOSBean.class);
+			TableUtils.createTable(cs, RAtivOSBean.class);
 			TableUtils.createTable(cs, CaminhaoBean.class);
 			TableUtils.createTable(cs, CarregBean.class);
 			TableUtils.createTable(cs, CarretaBean.class);
 			TableUtils.createTable(cs, FrenteBean.class);
-			TableUtils.createTable(cs, LiberacaoBean.class);
+			TableUtils.createTable(cs, RLibOSBean.class);
 			TableUtils.createTable(cs, MotoMecBean.class);
 			TableUtils.createTable(cs, ColabBean.class);
 			TableUtils.createTable(cs, OSBean.class);
@@ -84,7 +85,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, DataBean.class);
 
 			TableUtils.createTable(cs, ConfigBean.class);
-			TableUtils.createTable(cs, CarretaEngDesengBean.class);
+			TableUtils.createTable(cs, CarretaUtilBean.class);
 			TableUtils.createTable(cs, CertifCanaBean.class);
 			TableUtils.createTable(cs, ApontMotoMecBean.class);
 			TableUtils.createTable(cs, CertifCanaBkpBean.class);

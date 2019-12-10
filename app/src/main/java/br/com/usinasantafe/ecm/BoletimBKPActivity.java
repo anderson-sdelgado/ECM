@@ -12,7 +12,7 @@ import java.util.List;
 import br.com.usinasantafe.ecm.util.Tempo;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 
-public class BackupBoletimActivity extends ActivityGeneric {
+public class BoletimBKPActivity extends ActivityGeneric {
 
     private int contador;
     private List listBoletim;
@@ -22,7 +22,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_backup_boletim);
+        setContentView(R.layout.activity_boletim_bkp);
 
         ecmContext = (ECMContext) getApplication();
 
@@ -76,7 +76,7 @@ public class BackupBoletimActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(BackupBoletimActivity.this, MenuInicialApontActivity.class);
+                Intent it = new Intent(BoletimBKPActivity.this, MenuCertifActivity.class);
                 startActivity(it);
                 finish();
 

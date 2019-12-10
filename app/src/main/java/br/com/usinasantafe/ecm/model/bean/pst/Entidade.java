@@ -85,20 +85,16 @@ public abstract class Entidade implements Serializable {
 		}
 	}
 	
-	public List get(ArrayList<PesquisaBean> lista) {
+	public List get(ArrayList<PesqBean> pesquisaList) {
 		try {
 			QueryBuilder<String, Object> queryBuilder =
 					this.daoImpl().queryBuilder();
 			Where<String, Object> where = queryBuilder.where();
-			PesquisaBean pesquisa = (PesquisaBean) lista.get(0);
-			if(pesquisa.getTipo() == 1) {
-				where.eq(pesquisa.getCampo(), pesquisa.getValor());
-			}else {
-				where.ne(pesquisa.getCampo(), pesquisa.getValor());
-			}
-			for(int i = 1; i < lista.size(); i++){
-				pesquisa = (PesquisaBean) lista.get(i);
-				where.and();
+			for(int i = 0; i < pesquisaList.size(); i++) {
+				PesqBean pesquisa = pesquisaList.get(i);
+				if(i > 0){
+					where.and();
+				}
 				if(pesquisa.getTipo() == 1) {
 					where.eq(pesquisa.getCampo(), pesquisa.getValor());
 				}else {
@@ -111,22 +107,38 @@ public abstract class Entidade implements Serializable {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public List getAndOrderBy(ArrayList<PesquisaBean> lista, String campo, boolean order) {
+
+	public List getAndOrderBy(String campo, Object valor, String campOrder, boolean order) {
+
 		try {
 			QueryBuilder<String, Object> queryBuilder =
 					this.daoImpl().queryBuilder();
 			Where<String, Object> where = queryBuilder.where();
+			where.eq(campo, valor);
+			queryBuilder.orderBy(campOrder, order);
+			PreparedQuery preparedQuery = queryBuilder.prepare();
+			return this.daoImpl().query(preparedQuery);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-			PesquisaBean pesquisa = (PesquisaBean) lista.get(0);
-			where.eq(pesquisa.getCampo(), pesquisa.getValor());
-			
-			for(int i = 1; i < lista.size(); i++){
-				pesquisa = (PesquisaBean) lista.get(i);
-				where.and();
-				where.eq(pesquisa.getCampo(), pesquisa.getValor());
+	public List getAndOrderBy(ArrayList<PesqBean> pesquisaList, String campo, boolean order) {
+		try {
+			QueryBuilder<String, Object> queryBuilder =
+					this.daoImpl().queryBuilder();
+			Where<String, Object> where = queryBuilder.where();
+			for(int i = 0; i < pesquisaList.size(); i++) {
+				PesqBean pesquisa = pesquisaList.get(i);
+				if(i > 0){
+					where.and();
+				}
+				if(pesquisa.getTipo() == 1) {
+					where.eq(pesquisa.getCampo(), pesquisa.getValor());
+				}else {
+					where.ne(pesquisa.getCampo(), pesquisa.getValor());
+				}
 			}
-			
 			queryBuilder.orderBy(campo, order);
 			PreparedQuery preparedQuery = queryBuilder.prepare();
 			return this.daoImpl().query(preparedQuery);

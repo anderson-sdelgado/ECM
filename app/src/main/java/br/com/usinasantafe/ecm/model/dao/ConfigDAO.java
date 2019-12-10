@@ -2,6 +2,7 @@ package br.com.usinasantafe.ecm.model.dao;
 
 import java.util.List;
 
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class ConfigDAO {
@@ -62,6 +63,14 @@ public class ConfigDAO {
 
     public Long getIdTurnoConfig(){
         return getConfig().getIdTurnoConfig();
+    }
+
+    public EquipBean getEquip(Long idEquip){
+        EquipBean equipBean = new EquipBean();
+        List equipList = equipBean.get("idEquip", idEquip);
+        equipBean = (EquipBean) equipList.get(0);
+        equipList.clear();
+        return equipBean;
     }
 
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.pst.PesquisaBean;
+import br.com.usinasantafe.ecm.model.bean.pst.PesqBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.util.Tempo;
@@ -19,10 +19,10 @@ public class MotoMecDAO {
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
 
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanMotoMec());
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanMotoMec());
 
-        PesquisaBean pesqBean3 = new PesquisaBean();
+        PesqBean pesqBean3 = new PesqBean();
         pesqBean3.setCampo("codFuncaoOperMotoMec");
         pesqBean3.setValor(2L);
         pesqBean3.setTipo(1);
@@ -41,10 +41,10 @@ public class MotoMecDAO {
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
 
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanMotoMec());
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanMotoMec());
 
-        PesquisaBean pesqBean3 = new PesquisaBean();
+        PesqBean pesqBean3 = new PesqBean();
         pesqBean3.setCampo("codFuncaoOperMotoMec");
         pesqBean3.setValor(11L);
         pesqBean3.setTipo(1);
@@ -63,10 +63,10 @@ public class MotoMecDAO {
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
 
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanMotoMec());
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanMotoMec());
 
-        PesquisaBean pesqBean3 = new PesquisaBean();
+        PesqBean pesqBean3 = new PesqBean();
         pesqBean3.setCampo("codFuncaoOperMotoMec");
         pesqBean3.setValor(12L);
         pesqBean3.setTipo(1);
@@ -85,10 +85,10 @@ public class MotoMecDAO {
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
 
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanParada());
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanParada());
 
-        PesquisaBean pesqBean3 = new PesquisaBean();
+        PesqBean pesqBean3 = new PesqBean();
         pesqBean3.setCampo("codFuncaoOperMotoMec");
         pesqBean3.setValor(18L);
         pesqBean3.setTipo(1);
@@ -107,10 +107,10 @@ public class MotoMecDAO {
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
 
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanInvisivel());
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanInvisivel());
 
-        PesquisaBean pesqBean3 = new PesquisaBean();
+        PesqBean pesqBean3 = new PesqBean();
         pesqBean3.setCampo("codFuncaoOperMotoMec");
         pesqBean3.setValor(14L);
         pesqBean3.setTipo(1);
@@ -127,8 +127,8 @@ public class MotoMecDAO {
     public List getMotoMecList(){
 
         ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanMotoMec());
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanMotoMec());
 
         MotoMecBean motoMecBean = new MotoMecBean();
         return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
@@ -138,9 +138,8 @@ public class MotoMecDAO {
     public List getParadaList(){
 
         ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesquisaBeanAplic());
-        pesqArrayList.add(getPesquisaBeanParada());
-
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanParada());
         MotoMecBean motoMecBean = new MotoMecBean();
         return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
 
@@ -160,36 +159,36 @@ public class MotoMecDAO {
 
     }
 
-    private PesquisaBean getPesquisaBeanAplic(){
-        PesquisaBean pesquisaBean = new PesquisaBean();
-        pesquisaBean.setCampo("aplicOperMotoMec");
-        pesquisaBean.setValor(1L);
-        pesquisaBean.setTipo(1);
-        return pesquisaBean;
+    private PesqBean getPesqBeanAplic(){
+        PesqBean pesqBean = new PesqBean();
+        pesqBean.setCampo("aplicOperMotoMec");
+        pesqBean.setValor(1L);
+        pesqBean.setTipo(1);
+        return pesqBean;
     }
 
-    private PesquisaBean getPesquisaBeanMotoMec(){
-        PesquisaBean pesquisaBean = new PesquisaBean();
-        pesquisaBean.setCampo("tipoOperMotoMec");
-        pesquisaBean.setValor(1L);
-        pesquisaBean.setTipo(1);
-        return pesquisaBean;
+    private PesqBean getPesqBeanMotoMec(){
+        PesqBean pesqBean = new PesqBean();
+        pesqBean.setCampo("tipoOperMotoMec");
+        pesqBean.setValor(1L);
+        pesqBean.setTipo(1);
+        return pesqBean;
     }
 
-    private PesquisaBean getPesquisaBeanParada(){
-        PesquisaBean pesquisaBean = new PesquisaBean();
-        pesquisaBean.setCampo("tipoOperMotoMec");
-        pesquisaBean.setValor(2L);
-        pesquisaBean.setTipo(1);
-        return pesquisaBean;
+    private PesqBean getPesqBeanParada(){
+        PesqBean pesqBean = new PesqBean();
+        pesqBean.setCampo("tipoOperMotoMec");
+        pesqBean.setValor(2L);
+        pesqBean.setTipo(1);
+        return pesqBean;
     }
 
-    private PesquisaBean getPesquisaBeanInvisivel(){
-        PesquisaBean pesquisaBean = new PesquisaBean();
-        pesquisaBean.setCampo("tipoOperMotoMec");
-        pesquisaBean.setValor(0L);
-        pesquisaBean.setTipo(1);
-        return pesquisaBean;
+    private PesqBean getPesqBeanInvisivel(){
+        PesqBean pesqBean = new PesqBean();
+        pesqBean.setCampo("tipoOperMotoMec");
+        pesqBean.setValor(0L);
+        pesqBean.setTipo(1);
+        return pesqBean;
     }
 
 }

@@ -126,7 +126,7 @@ public class ManipDadosReceb {
 			for (Field field : retClasse.getDeclaredFields()) {
 				String campo = field.getName();
 				Log.i("ERRO", "Campo = " + campo);
-				if (campo.equals("CarretaBean") || campo.equals("AtividadeOSBean") || campo.equals("LiberacaoBean")) {
+				if (campo.equals("CarretaBean") || campo.equals("RAtivOSBean") || campo.equals("RLibOSBean")) {
 					tabelaAtualizar.add(campo);
 				}
 

@@ -3,9 +3,9 @@ package br.com.usinasantafe.ecm.control;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
 import br.com.usinasantafe.ecm.model.dao.ColabDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
-import br.com.usinasantafe.ecm.model.dao.EquipDAO;
 
 public class ConfigCTR {
 
@@ -43,14 +43,14 @@ public class ConfigCTR {
         return configDAO.getCodEquipConfig();
     }
 
-    public EquipBean getCaminhao(Long codEquip){
-        EquipDAO equipDAO = new EquipDAO();
-        return equipDAO.getCaminhao(codEquip);
+    public EquipBean getCaminhao(Long nroEquip){
+        CaminhaoDAO caminhaoDAO = new CaminhaoDAO();
+        return caminhaoDAO.getCaminhao(nroEquip);
     }
 
     public EquipBean getEquip(){
-        EquipDAO equipDAO = new EquipDAO();
-        return equipDAO.getEquip(getConfig().getIdEquipConfig());
+        ConfigDAO configDAO = new ConfigDAO();
+        return configDAO.getEquip(getConfig().getIdEquipConfig());
     }
 
     public ColabBean getColab(){
@@ -82,8 +82,8 @@ public class ConfigCTR {
     /////////////////////////////////////// VER CAMPOS ////////////////////////////////////////////
 
     public boolean verCaminhao(Long codEquip){
-        EquipDAO equipDAO = new EquipDAO();
-        return equipDAO.verCaminhao(codEquip);
+        CaminhaoDAO caminhaoDAO = new CaminhaoDAO();
+        return caminhaoDAO.verCaminhao(codEquip);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

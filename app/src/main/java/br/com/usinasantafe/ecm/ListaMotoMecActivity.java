@@ -18,7 +18,7 @@ import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.util.Tempo;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaEngDesengBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 
 public class ListaMotoMecActivity extends ActivityGeneric {
 
@@ -76,44 +76,7 @@ public class ListaMotoMecActivity extends ActivityGeneric {
         ColabBean colabBean = ecmContext.getConfigCTR().getColab();
         textViewMotorista.setText(colabBean.getMatricColab() + " - " + colabBean.getNomeColab());
 
-        CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
-        List listCarreta = carretaEngDesengBean.all();
-
-        String carreta = "";
-        if (listCarreta.size() == 0) {
-            textViewCarreta.setText("CARRETA(S): ");
-        } else if (listCarreta.size() == 1) {
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(0);
-            textViewCarreta.setText("CARRETA(S): " + carretaEngDesengBean.getNumCarreta());
-        } else if (listCarreta.size() == 2) {
-            carreta = "CARRETA(S): ";
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(0);
-            carreta = carreta + carretaEngDesengBean.getNumCarreta();
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(1);
-            carreta = carreta + " - " + carretaEngDesengBean.getNumCarreta();
-            textViewCarreta.setText(carreta);
-        } else if (listCarreta.size() == 3) {
-            carreta = "CARRETA(S): ";
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(0);
-            carreta = carreta + carretaEngDesengBean.getNumCarreta();
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(1);
-            carreta = carreta + " - " + carretaEngDesengBean.getNumCarreta();
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(2);
-            carreta = carreta + " - " + carretaEngDesengBean.getNumCarreta();
-            textViewCarreta.setText(carreta);
-        } else {
-            carreta = "CARRETA(S): ";
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(0);
-            carreta = carreta + carretaEngDesengBean.getNumCarreta();
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(1);
-            carreta = carreta + " - " + carretaEngDesengBean.getNumCarreta();
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(2);
-            carreta = carreta + " - " + carretaEngDesengBean.getNumCarreta();
-            carretaEngDesengBean = (CarretaEngDesengBean) listCarreta.get(3);
-            carreta = carreta + " - " + carretaEngDesengBean.getNumCarreta();
-            textViewCarreta.setText(carreta);
-        }
-
+        textViewCarreta.setText(ecmContext.getMotoMecCTR().textoCarreta());
 
         CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
         int qtdeCompVCanaBean = certifCanaBkpBean.count();
@@ -165,7 +128,7 @@ public class ListaMotoMecActivity extends ActivityGeneric {
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 4) { // CERTIFICADO
 
                     ecmContext.setVerPosTela(5);
-                    Intent it = new Intent(ListaMotoMecActivity.this, MenuInicialApontActivity.class);
+                    Intent it = new Intent(ListaMotoMecActivity.this, MenuCertifActivity.class);
                     startActivity(it);
                     finish();
 
@@ -203,11 +166,9 @@ public class ListaMotoMecActivity extends ActivityGeneric {
 
                     }
 
-
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 3) { // CHEGADA CAMPO
 
                     String mensagem = "";
-
 
                     if (ecmContext.getCertifCanaCTR().verCertifAberto()) {
                         mensagem = "É NECESSÁRIO A INSERÇÃO DO HORÁRIO DE SAÍDA DA USINA.";
@@ -247,18 +208,18 @@ public class ListaMotoMecActivity extends ActivityGeneric {
                     progressBar.show();
 
 //                    if (!ecmContext.getCertifCanaCTR().verCertifAberto()) {
-//                        ManipDadosVerif.getInstance().verDados(ecmContext.getApontMotoMecBean().getCodEquip().toString(), "BoletimBean",
+//                        ManipDadosVerif.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "BoletimBean",
 //                                ListaMotoMecActivity.this, BoletimActivity.class, progressBar);
 //                    } else {
-//                        ManipDadosVerif.getInstance().verDados(ecmContext.getApontMotoMecBean().getCodEquip().toString(), "BoletimTOViagem",
+//                        ManipDadosVerif.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "BoletimTOViagem",
 //                                ListaMotoMecActivity.this, BoletimActivity.class, progressBar);
 //                    }
 
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 11) { // DESENGATE
 
-                    CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
+                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
 
-                    if (carretaEngDesengBean.hasElements()) {
+                    if (carretaUtilBean.hasElements()) {
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(ListaMotoMecActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -287,9 +248,9 @@ public class ListaMotoMecActivity extends ActivityGeneric {
 
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 12) { // ENGATE
 
-                    CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
+                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
 
-                    if (!carretaEngDesengBean.hasElements()) {
+                    if (!carretaUtilBean.hasElements()) {
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(ListaMotoMecActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -299,6 +260,7 @@ public class ListaMotoMecActivity extends ActivityGeneric {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ecmContext.setVerPosTela(4);
+                                ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
                                 Intent it = new Intent(ListaMotoMecActivity.this, MsgNumCarretaActivity.class);
                                 startActivity(it);
                                 finish();

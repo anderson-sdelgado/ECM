@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaEngDesengBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 
 public class DesengateCarretaActivity extends ActivityGeneric {
 
@@ -28,13 +28,13 @@ public class DesengateCarretaActivity extends ActivityGeneric {
         Button buttonSimDesengate = (Button) findViewById(R.id.buttonSimDesengate);
         Button buttonNaoDesengate = (Button) findViewById(R.id.buttonNaoDesengate);
 
-        CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
+        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
         String mensagem = "DESEJA DESENGATAR A(S) CARRETA(S):";
-        List carretaList = carretaEngDesengBean.all();
+        List carretaList = carretaUtilBean.all();
 
         for(int i = 0; i < carretaList.size(); i++){
-            carretaEngDesengBean = (CarretaEngDesengBean) carretaList.get(i);
-            mensagem = mensagem + "\nCAR " + carretaEngDesengBean.getPosCarreta() + ": " + carretaEngDesengBean.getNumCarreta();
+            carretaUtilBean = (CarretaUtilBean) carretaList.get(i);
+            mensagem = mensagem + "\nCAR " + carretaUtilBean.getPosCarreta() + ": " + carretaUtilBean.getIdEquip();
         }
 
         textViewMsgDesengCarreta.setText(mensagem);
@@ -43,8 +43,8 @@ public class DesengateCarretaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                CarretaEngDesengBean carretaEngDesengBean = new CarretaEngDesengBean();
-                carretaEngDesengBean.deleteAll();
+                CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+                carretaUtilBean.deleteAll();
 
                 if (ecmContext.getVerPosTela() == 3){
                     Intent it = new Intent(DesengateCarretaActivity.this, ListaMotoMecActivity.class);

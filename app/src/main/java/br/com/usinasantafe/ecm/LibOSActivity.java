@@ -8,56 +8,64 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class OSActivity extends ActivityGeneric {
+public class LibOSActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_os);
+        setContentView(R.layout.activity_liberacao);
 
         ecmContext = (ECMContext) getApplication();
 
-        Button buttonOkOS = (Button) findViewById(R.id.buttonOkPadrao);
-        Button buttonCancOS = (Button) findViewById(R.id.buttonCancPadrao);
+        Button buttonOkLiberacao = (Button) findViewById(R.id.buttonOkPadrao);
+        Button buttonCancLiberacao = (Button) findViewById(R.id.buttonCancPadrao);
 
-        buttonOkOS.setOnClickListener(new View.OnClickListener() {
+        buttonOkLiberacao.setOnClickListener(new View.OnClickListener() {
+
+            @SuppressWarnings({ "rawtypes", "unchecked" })
             @Override
             public void onClick(View v) {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    if(ecmContext.getCertifCanaCTR().verNroOS(Long.parseLong(editTextPadrao.getText().toString()))){
+                    if(ecmContext.getCertifCanaCTR().verLibOS(Long.parseLong(editTextPadrao.getText().toString()))){
 
-                        ecmContext.getCertifCanaCTR().setNroOS(Long.parseLong(editTextPadrao.getText().toString()));
-                        Intent it = new Intent(OSActivity.this, LibOSActivity.class);
+                        if(!ecmContext.getCertifCanaCTR().verQtdeCarreta(1L)){
+                            ecmContext.getCertifCanaCTR().setLibCam(Long.parseLong(editTextPadrao.getText().toString()));
+                        }
+                        else{
+
+                        }
+                        Intent it = new Intent(LibOSActivity.this, MsgLibOSActivity.class);
                         startActivity(it);
                         finish();
 
                     }
                     else{
 
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(LibOSActivity.this);
                         alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("O.S. NÃO CORRESPONDENTE A ATIVIDADE ANTERIORMENTE DIGITADA. POR FAVOR, DIGITE A O.S. CORRESPONDE A MESMA.");
-
+                        alerta.setMessage("LIBERAÇÃO INEXISTENTE NA BASE DE DADOS OU LIBERAÇÃO NÃO CORRESPONDE A O.S. DIGITADA! POR FAVOR, VERIFIQUE A NUMERAÇÃO DIGITADA.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                editTextPadrao.setText("");
                             }
                         });
+
                         alerta.show();
 
                     }
 
+
                 }
+
             }
         });
 
-        buttonCancOS.setOnClickListener(new View.OnClickListener() {
+        buttonCancLiberacao.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -67,19 +75,13 @@ public class OSActivity extends ActivityGeneric {
             }
         });
 
+
     }
 
     public void onBackPressed()  {
-        if(!ecmContext.getCertifCanaCTR().verQtdeCarreta(1L)){
-            Intent it = new Intent(OSActivity.this, CaminhaoActivity.class);
-            startActivity(it);
-            finish();
-        }
-        else{
-            Intent it = new Intent(OSActivity.this, CarretaActivity.class);
-            startActivity(it);
-            finish();
-        }
+        Intent it = new Intent(LibOSActivity.this, OSActivity.class);
+        startActivity(it);
+        finish();
     }
 
 }

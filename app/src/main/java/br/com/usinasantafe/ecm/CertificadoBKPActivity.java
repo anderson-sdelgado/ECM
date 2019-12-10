@@ -12,7 +12,7 @@ import java.util.List;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.util.Tempo;
 
-public class BackupViagemCanaActivity extends ActivityGeneric {
+public class CertificadoBKPActivity extends ActivityGeneric {
 
     private int contador;
     private List listViagemCana;
@@ -22,7 +22,7 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_backup_viagem_cana);
+        setContentView(R.layout.activity_certificado_bkp);
 
         ecmContext = (ECMContext) getApplication();
 
@@ -76,7 +76,7 @@ public class BackupViagemCanaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(BackupViagemCanaActivity.this, MenuInicialApontActivity.class);
+                Intent it = new Intent(CertificadoBKPActivity.this, MenuCertifActivity.class);
                 startActivity(it);
                 finish();
 

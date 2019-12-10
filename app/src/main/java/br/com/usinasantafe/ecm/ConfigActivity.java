@@ -60,7 +60,7 @@ public class ConfigActivity extends ActivityGeneric {
 
                             ConfigBean configBean = new ConfigBean();
                             configBean.setIdEquipConfig(equipBean.getIdEquip());
-                            configBean.setCodEquipConfig(equipBean.getCodEquip());
+                            configBean.setCodEquipConfig(equipBean.getNroEquip());
                             configBean.setSenhaConfig(editTextSenhaConfig.getText().toString());
 
                             ecmContext.getConfigCTR().insConfig(configBean);

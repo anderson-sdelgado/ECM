@@ -1,12 +1,12 @@
 package br.com.usinasantafe.ecm.model.bean.pst;
 
-public class PesquisaBean {
+public class PesqBean {
 
 	private String campo;
 	private Object valor;
 	private int tipo;
 	
-	public PesquisaBean() {
+	public PesqBean() {
 	}
 
 	public String getCampo() {

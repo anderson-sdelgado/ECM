@@ -12,26 +12,6 @@ public class CertifCanaDAO {
 
     ///////////////////////////////////CERTIFICADO ABERTO//////////////////////////////////////////
 
-    public boolean verCertifAberto(){
-        List certifAbertoList = certifAbertoList();
-        boolean retorno = certifAbertoList.size() > 0;
-        certifAbertoList.clear();
-        return retorno;
-    }
-
-    public List certifAbertoList(){
-        CertifCanaBean certifCanaBean = new CertifCanaBean();
-        List equipList = certifCanaBean.get("status", 1L);
-        return equipList;
-    }
-
-    public CertifCanaBean getCertifAberto(){
-        List certifCanaList = certifAbertoList();
-        CertifCanaBean certifCanaBean = (CertifCanaBean) certifCanaList.get(0);
-        certifCanaList.clear();
-        return certifCanaBean;
-    }
-
     public void salvarCertifAberto(){
         CertifCanaBean certifCanaBean = new CertifCanaBean();
         certifCanaBean.setDataSaidaUsina(Tempo.getInstance().dataComHora());
@@ -52,10 +32,32 @@ public class CertifCanaDAO {
         certifCanaBean.insert();
     }
 
-    public String getDataChegCampo(){
-        CertifCanaBean certifCanaBean = getCertifAberto();
-        return certifCanaBean.getDataChegCampo();
+    private List certifAbertoList(){
+        CertifCanaBean certifCanaBean = new CertifCanaBean();
+        List equipList = certifCanaBean.get("status", 1L);
+        return equipList;
     }
+
+    /////////////////////////////VERIFICAR DADOS////////////////////////////////
+
+    public boolean verCertifAberto(){
+        List certifAbertoList = certifAbertoList();
+        boolean retorno = certifAbertoList.size() > 0;
+        certifAbertoList.clear();
+        return retorno;
+    }
+
+    public boolean verDataCertif(){
+        List certifCanaList = certifAbertoList();
+        CertifCanaBean certifCanaBean = (CertifCanaBean) certifCanaList.get(0);
+        certifCanaList.clear();
+        boolean retorno = ((!certifCanaBean.getDataSaidaUsina().equals("")) && (!certifCanaBean.getDataChegCampo().equals("")));
+        return retorno;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////SET DADOS////////////////////////////////
 
     public void setDataChegCampo(){
         CertifCanaBean certifCanaBean = getCertifAberto();
@@ -63,9 +65,45 @@ public class CertifCanaDAO {
         certifCanaBean.update();
     }
 
+    public void setAtivOS(Long ativOS){
+        CertifCanaBean certifCanaBean = getCertifAberto();
+        certifCanaBean.setAtivOS(ativOS);
+        certifCanaBean.update();
+    }
+
+    public void setLibCam(Long libCam){
+        CertifCanaBean certifCanaBean = getCertifAberto();
+        certifCanaBean.setLibCam(libCam);
+        certifCanaBean.update();
+    }
+
+    public void setNroOS(Long nroOS){
+        CertifCanaBean certifCanaBean = getCertifAberto();
+        certifCanaBean.setNroOS(nroOS);
+        certifCanaBean.update();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////GET DADOS/////////////////////////////////
+
+    public CertifCanaBean getCertifAberto(){
+        List certifCanaList = certifAbertoList();
+        CertifCanaBean certifCanaBean = (CertifCanaBean) certifCanaList.get(0);
+        certifCanaList.clear();
+        return certifCanaBean;
+    }
+
+    public String getDataChegCampo(){
+        CertifCanaBean certifCanaBean = getCertifAberto();
+        return certifCanaBean.getDataChegCampo();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////CERTIFICADO ABERTO//////////////////////////////////////////
+    ///////////////////////////////////CERTIFICADO FECHADO/////////////////////////////////////////
 
     public boolean verCertifFechado(){
         List certifFechadoList = certifFechadoList();
