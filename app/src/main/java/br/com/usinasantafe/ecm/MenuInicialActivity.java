@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -14,27 +16,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.usinasantafe.ecm.control.CheckListCTR;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
-import br.com.usinasantafe.ecm.util.ManipDadosVerif;
+import br.com.usinasantafe.ecm.util.EnvioDadosServ;
+import br.com.usinasantafe.ecm.util.VerifDadosServ;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.AtualizaBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCheckListBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespCheckListBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class MenuInicialActivity extends ActivityGeneric {
 
     private ListView menuInicialListView;
     private ECMContext ecmContext;
     private ProgressDialog progressBar;
+
+    private TextView textViewProcesso;
+    private Handler customHandler = new Handler();
+    private boolean verTela;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,53 +60,35 @@ public class MenuInicialActivity extends ActivityGeneric {
         }
 
         progressBar = new ProgressDialog(this);
+        CheckListCTR checkListCTR = new CheckListCTR();
 
-        ConexaoWeb conexaoWeb = new ConexaoWeb();
-        if(conexaoWeb.verificaConexao(this)) {
-
-            if(ecmContext.getConfigCTR().hasElemConfig()){
-
-                progressBar.setCancelable(true);
-                progressBar.setMessage("Buscando Atualização...");
-                progressBar.show();
-
-                AtualizaBean atualizaBean = new AtualizaBean();
-                atualizaBean.setIdEquipAtualizacao(ecmContext.getConfigCTR().getConfig().getCodEquipConfig());
-                atualizaBean.setVersaoAtual(ecmContext.versaoAplic);
-                ManipDadosVerif.getInstance().verAtualizacao(atualizaBean, this, progressBar);
+        if(ecmContext.getMotoMecCTR().verBolAberto()){
+            if(checkListCTR.verCabecAberto()){
+                startTimer("N_NAC");
+                checkListCTR.clearRespCabecAberto();
+                ecmContext.setPosCheckList(1);
+                Intent it = new Intent(MenuInicialActivity.this, ItemCheckListActivity.class);
+                startActivity(it);
+                finish();
             }
-
-        }
-        else{
-            startTimer("N_NAC");
-        }
-
-        CabecCheckListBean cabecCheckListBean = new CabecCheckListBean();
-        List cabecList = cabecCheckListBean.get("statusCabecCheckList", 1L);
-
-        if (cabecList.size() > 0) {
-
-            RespCheckListBean respCheckListBean = new RespCheckListBean();
-
-            if (respCheckListBean.hasElements()) {
-                cabecCheckListBean = (CabecCheckListBean) cabecList.get(0);
-                List respList = respCheckListBean.get("idCabecItemCheckList", cabecCheckListBean.getIdCabecCheckList());
-                for (int i = 0; i < respList.size(); i++) {
-                    respCheckListBean = (RespCheckListBean) respList.get(i);
-                    respCheckListBean.delete();
+            else{
+                if(ecmContext.getPneuCTR().verCalibAberto()){
+                    startTimer("N_NAC");
+                    Intent it = new Intent(MenuInicialActivity.this, ListaPosPneuActivity.class);
+                    startActivity(it);
+                    finish();
+                }
+                else {
+                    verTela = true;
+                    atualizarAplic();
                 }
             }
-
-            if (progressBar.isShowing()) {
-                progressBar.dismiss();
-            }
-
-            ecmContext.setPosChecklist(1);
-            Intent it = new Intent(MenuInicialActivity.this, ItemCheckListActivity.class);
-            startActivity(it);
-            finish();
-
         }
+        else{
+            verTela = false;
+            atualizarAplic();
+        }
+
 
         listarMenuInicial();
 
@@ -121,22 +112,27 @@ public class MenuInicialActivity extends ActivityGeneric {
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
 
-                if (position == 0) {
+                TextView textView = v.findViewById(R.id.textViewItemList);
+                String text = textView.getText().toString();
 
-                    if(ecmContext.getConfigCTR().hasElemConfig()) {
+                if (text.equals("APONTAMENTO")) {
+
+                    ColabBean colabBean = new ColabBean();
+                    if(colabBean.hasElements() && ecmContext.getConfigCTR().hasElements()) {
                         ecmContext.setVerPosTela(1);
+                        customHandler.removeCallbacks(updateTimerThread);
                         Intent it = new Intent(MenuInicialActivity.this, MotoristaActivity.class);
                         startActivity(it);
                         finish();
                     }
 
-                } else if (position == 1) {
+                } else if (text.equals("CONFIGURAÇÃO")) {
 
                     Intent it = new Intent(MenuInicialActivity.this, SenhaActivity.class);
                     startActivity(it);
                     finish();
 
-                } else if (position == 2) {
+                } else if (text.equals("SAIR")) {
 
                     Intent intent = new Intent(Intent.ACTION_MAIN);
                     intent.addCategory(Intent.CATEGORY_HOME);
@@ -152,6 +148,38 @@ public class MenuInicialActivity extends ActivityGeneric {
 
     public void onBackPressed()  {
     }
+
+    private Runnable updateTimerThread = new Runnable() {
+
+        public void run() {
+            if (ecmContext.getConfigCTR().hasElements()) {
+                if (EnvioDadosServ.getInstance().getStatusEnvio() == 1) {
+                    textViewProcesso.setTextColor(Color.YELLOW);
+                    textViewProcesso.setText("Enviando Dados...");
+                } else if (EnvioDadosServ.getInstance().getStatusEnvio() == 2) {
+                    textViewProcesso.setTextColor(Color.RED);
+                    textViewProcesso.setText("Existem Dados para serem Enviados");
+                } else if (EnvioDadosServ.getInstance().getStatusEnvio() == 3) {
+                    textViewProcesso.setTextColor(Color.GREEN);
+                    textViewProcesso.setText("Todos os Dados já foram Enviados");
+                }
+            } else {
+                textViewProcesso.setTextColor(Color.RED);
+                textViewProcesso.setText("Aparelho sem Equipamento");
+            }
+            customHandler.postDelayed(this, 10000);
+        }
+    };
+
+//    public void clearBD() {
+//
+//        OSBean osTO = new OSBean();
+//        osTO.deleteAll();
+//
+//        ROSAtivBean rosAtivBean = new ROSAtivBean();
+//        rosAtivBean.deleteAll();
+//
+//    }
 
     public void startTimer(String verAtualizacao) {
 
@@ -181,11 +209,32 @@ public class MenuInicialActivity extends ActivityGeneric {
         else{
             Log.i("PMM", "TIMER já ativo");
         }
+
+        if(verTela){
+            Intent it = new Intent(MenuInicialActivity.this, MenuMotoMecActivity.class);
+            startActivity(it);
+            finish();
+        }
+
     }
 
     public boolean checkPermission(String permission){
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
+    }
+
+    public void atualizarAplic(){
+        ConexaoWeb conexaoWeb = new ConexaoWeb();
+        if (conexaoWeb.verificaConexao(this)) {
+            if (ecmContext.getConfigCTR().hasElements()) {
+                progressBar.setCancelable(true);
+                progressBar.setMessage("Buscando Atualização...");
+                progressBar.show();
+                VerifDadosServ.getInstance().verAtualAplic(ecmContext.versaoAplic, this, progressBar);
+            }
+        } else {
+            startTimer("N_NAC");
+        }
     }
 
     public void verif(){
@@ -304,37 +353,36 @@ public class MenuInicialActivity extends ActivityGeneric {
 
         }
 
-        CabecCheckListBean cabecCheckListBean = new CabecCheckListBean();
-        List cabecList = cabecCheckListBean.all();
+        CabecCLBean cabecCLBean = new CabecCLBean();
+        List cabecList = cabecCLBean.all();
 
         Log.i("PMM", "CabecCheckList");
 
         for (int j = 0; j < cabecList.size(); j++) {
 
-            cabecCheckListBean = (CabecCheckListBean) cabecList.get(j);
-            Log.i("PMM", "IdCabecCheck = " + cabecCheckListBean.getIdCabecCheckList());
-            Log.i("PMM", "EquipCabecCheckList = " + cabecCheckListBean.getEquipCabecCheckList());
-            Log.i("PMM", "DtCabecCheckList = " + cabecCheckListBean.getDtCabecCheckList());
-            Log.i("PMM", "FuncCabecCheckList = " + cabecCheckListBean.getFuncCabecCheckList());
-            Log.i("PMM", "TurnoCabecCheckList = " + cabecCheckListBean.getTurnoCabecCheckList());
-            Log.i("PMM", "StatusCabecCheckList = " + cabecCheckListBean.getStatusCabecCheckList());
-            Log.i("PMM", "QtdeItemCabecCheckList = " + cabecCheckListBean.getQtdeItemCabecCheckList());
-            Log.i("PMM", "DtCabecCheckList = " + cabecCheckListBean.getDtCabecCheckList());
+            cabecCLBean = (CabecCLBean) cabecList.get(j);
+            Log.i("PMM", "IdCabecCheck = " + cabecCLBean.getIdCabCL());
+            Log.i("PMM", "EquipCabecCheckList = " + cabecCLBean.getEquipCabCL());
+            Log.i("PMM", "DtCabecCheckList = " + cabecCLBean.getDtCabCL());
+            Log.i("PMM", "FuncCabecCheckList = " + cabecCLBean.getFuncCabCL());
+            Log.i("PMM", "TurnoCabecCheckList = " + cabecCLBean.getTurnoCabCL());
+            Log.i("PMM", "StatusCabecCheckList = " + cabecCLBean.getStatusCabCL());
+            Log.i("PMM", "DtCabecCheckList = " + cabecCLBean.getDtCabCL());
 
         }
 
-        RespCheckListBean respCheckListBean = new RespCheckListBean();
-        List respItemList = respCheckListBean.all();
+        RespItemCLBean respItemCLBean = new RespItemCLBean();
+        List respItemList = respItemCLBean.all();
 
         Log.i("PMM", "RespItemCheckList");
 
         for (int j = 0; j < respItemList.size(); j++) {
 
-            respCheckListBean = (RespCheckListBean) respItemList.get(j);
-            Log.i("PMM", "IdItemCheckList = " + respCheckListBean.getIdItemCheckList());
-            Log.i("PMM", "IdItItemCheckList = " + respCheckListBean.getIdItItemCheckList());
-            Log.i("PMM", "IdCabecItemCheckList = " + respCheckListBean.getIdCabecItemCheckList());
-            Log.i("PMM", "OpcaoItemCheckList = " + respCheckListBean.getOpcaoItemCheckList());
+            respItemCLBean = (RespItemCLBean) respItemList.get(j);
+            Log.i("PMM", "IdItemCheckList = " + respItemCLBean.getIdItCL());
+            Log.i("PMM", "IdItItemCheckList = " + respItemCLBean.getIdItBDItCL());
+            Log.i("PMM", "IdCabecItemCheckList = " + respItemCLBean.getIdCabItCL());
+            Log.i("PMM", "OpcaoItemCheckList = " + respItemCLBean.getOpItCL());
 
         }
 

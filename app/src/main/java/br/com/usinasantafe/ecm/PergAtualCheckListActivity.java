@@ -9,15 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
-import br.com.usinasantafe.ecm.util.ManipDadosVerif;
-import br.com.usinasantafe.ecm.util.Tempo;
-import br.com.usinasantafe.ecm.model.bean.estaticas.CaminhaoBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCheckListBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
 public class PergAtualCheckListActivity extends AppCompatActivity {
 
@@ -60,7 +53,7 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
                     progressBar.setMessage("Atualizando CheckList...");
                     progressBar.show();
 
-                    ManipDadosVerif.getInstance().verDados("", "CheckList"
+                    VerifDadosServ.getInstance().verDados("", "CheckList"
                             , PergAtualCheckListActivity.this, ItemCheckListActivity.class, progressBar);
 
                 } else {

@@ -10,13 +10,15 @@ import java.util.ArrayList;
 
 public class ListaFinalizaApontActivity extends ActivityGeneric {
 
-    private ListView lista;
+    private ListView finalizarListView;
+    private ECMContext ecmContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_finaliza_apont);
 
+        ecmContext = (ECMContext) getApplication();
         listarMenu();
 
     }
@@ -25,27 +27,27 @@ public class ListaFinalizaApontActivity extends ActivityGeneric {
 
         ArrayList<String> itens = new ArrayList<String>();
 
-        itens.add("FINALIZAR APONTAMENTO");
-        itens.add("DESFAZER APONTAMENTO");
+        itens.add("FINALIZAR CERTIFICADO");
+        itens.add("DESFAZER CERTIFICADO");
 
         AdapterList adapterList = new AdapterList(this, itens);
-        lista = (ListView) findViewById(R.id.listViewFinalizaApont);
-        lista.setAdapter(adapterList);
+        finalizarListView = (ListView) findViewById(R.id.listViewFinalizaApont);
+        finalizarListView.setAdapter(adapterList);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        finalizarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-
 
                 if(position == 0){
                     Intent it = new Intent(ListaFinalizaApontActivity.this, MsgSaidaCampoActivity.class);
                     startActivity(it);
                     finish();
                 }
-
                 else if(position == 1){
+
+                    ecmContext.getCertifCanaCTR().delCertifAberto();
                     Intent it = new Intent(ListaFinalizaApontActivity.this, MenuCertifActivity.class);
                     startActivity(it);
                     finish();

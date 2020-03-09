@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.util.ManipDadosReceb;
+import br.com.usinasantafe.ecm.util.AtualDadosServ;
 import br.com.usinasantafe.ecm.util.Tempo;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
@@ -36,10 +36,10 @@ public class BoletimActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(BoletimActivity.this, ListaMotoMecActivity.class);
+                Intent it = new Intent(BoletimActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
 
-                ManipDadosReceb.getInstance().atualizarBD();
+                AtualDadosServ.getInstance().atualTodasTabBD();
                 Tempo.getInstance().setEnvioDado(true);
 
             }

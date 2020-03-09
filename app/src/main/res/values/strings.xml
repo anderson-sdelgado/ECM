@@ -105,4 +105,10 @@
     <string name="texto_titulo_checklist">CHECKLIST</string>
     <string name="texto_cancelar">CANCELAR</string>
     <string name="texto_atual_checklist">ATENÇÃO! HÁ NOVAS ATUALIZAÇÕES PARA QUESTÕES DE CHECKLIST. DESEJA ATUALIZÁ-LAS?</string>
+    <string name="texto_pos_pneu">POSIÇÃO PNEU</string>
+    <string name="texto_pneu">NUM. DO PNEU:</string>
+    <string name="texto_pressao_enc">PRESSÃO ENCONTRADA:</string>
+    <string name="texto_pressao_col">PRESSÃO COLOCADA:</string>
+    <string name="texto_msg_data_hora">POR FAVOR, DIGITE O DIA, MÊS, ANO, HORA E MINUTO ATUAL NAS PRÓXIMAS TELAS.</string>
+    <string name="texto_data_hora">DIA:</string>
 </resources>

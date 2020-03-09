@@ -34,8 +34,14 @@ public class CertifCanaDAO {
 
     private List certifAbertoList(){
         CertifCanaBean certifCanaBean = new CertifCanaBean();
-        List equipList = certifCanaBean.get("status", 1L);
-        return equipList;
+        List certifCanaList = certifCanaBean.get("status", 1L);
+        return certifCanaList;
+    }
+
+    public void delCertifAberto(){
+        List certifCanaList = certifAbertoList();
+        CertifCanaBean certifCanaBean = (CertifCanaBean)  certifCanaList.get(0);
+        certifCanaBean.delete();
     }
 
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
@@ -62,6 +68,12 @@ public class CertifCanaDAO {
     public void setDataChegCampo(){
         CertifCanaBean certifCanaBean = getCertifAberto();
         certifCanaBean.setDataChegCampo(Tempo.getInstance().dataComHora());
+        certifCanaBean.update();
+    }
+
+    public void setDataSaidaCampo(){
+        CertifCanaBean certifCanaBean = getCertifAberto();
+        certifCanaBean.setDataSaidaCampo(Tempo.getInstance().dataComHora());
         certifCanaBean.update();
     }
 

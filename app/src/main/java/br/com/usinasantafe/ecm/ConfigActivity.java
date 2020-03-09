@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
-import br.com.usinasantafe.ecm.util.ManipDadosReceb;
+import br.com.usinasantafe.ecm.util.AtualDadosServ;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
 public class ConfigActivity extends ActivityGeneric {
@@ -34,7 +34,7 @@ public class ConfigActivity extends ActivityGeneric {
         editTextCamConfig = (EditText)  findViewById(R.id.editTextCamConfig );
         editTextSenhaConfig = (EditText)  findViewById(R.id.editTextSenhaConfig);
 
-        if(ecmContext.getConfigCTR().hasElemConfig()){
+        if(ecmContext.getConfigCTR().hasElements()){
 
             ConfigBean configBean = ecmContext.getConfigCTR().getConfig();
 
@@ -104,8 +104,8 @@ public class ConfigActivity extends ActivityGeneric {
                     progressBar.setProgress(0);
                     progressBar.setMax(100);
                     progressBar.show();
-                    ManipDadosReceb.getInstance().atualizarBD(progressBar);
-                    ManipDadosReceb.getInstance().setContext(ConfigActivity.this);
+                    AtualDadosServ.getInstance().atualTodasTabBD(progressBar);
+                    AtualDadosServ.getInstance().setContext(ConfigActivity.this);
                 }
                 else{
                     AlertDialog.Builder alerta = new AlertDialog.Builder(ConfigActivity.this);

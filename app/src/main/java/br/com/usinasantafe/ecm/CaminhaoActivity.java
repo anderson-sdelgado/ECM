@@ -35,7 +35,6 @@ public class CaminhaoActivity extends ActivityGeneric {
 
                 if(ecmContext.getVerPosTela() == 5){
 
-
                     if(ecmContext.getConfigCTR().getEquip().getClasseEquip() == 1){
 
                         Intent it = new Intent(CaminhaoActivity.this, OSActivity.class);
@@ -54,6 +53,9 @@ public class CaminhaoActivity extends ActivityGeneric {
 
                 }
                 else{
+
+                    ecmContext.getMotoMecCTR().setEquipBol();
+
                     Intent it = new Intent(CaminhaoActivity.this, ListaTurnoActivity.class);
                     startActivity(it);
                     finish();
@@ -76,10 +78,6 @@ public class CaminhaoActivity extends ActivityGeneric {
                     startActivity(it);
                     finish();
                 }
-
-//                Intent it = new Intent(CaminhaoActivity.this, CertificadoActivity.class);
-//                startActivity(it);
-//                finish();
 
             }
 

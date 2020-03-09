@@ -5,12 +5,24 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
-import br.com.usinasantafe.ecm.model.bean.pst.PesqBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespCheckListBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
+import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 
 public class RespCheckListDAO {
 
     public RespCheckListDAO() {
+    }
+
+    public void clearRespItem(Long idCabCL){
+        RespItemCLBean respItemCLTO = new RespItemCLBean();
+        if (respItemCLTO.hasElements()) {
+            List respList = respItemCLTO.get("idCabecItemCheckList", idCabCL);
+            for (int i = 0; i < respList.size(); i++) {
+                respItemCLTO = (RespItemCLBean) respList.get(i);
+                respItemCLTO.delete();
+            }
+            respList.clear();
+        }
     }
 
     public ItemCLBean getItemCheckList(int pos, EquipBean equipBean){
@@ -24,31 +36,31 @@ public class RespCheckListDAO {
 
     }
 
-    public void salvarRespCheckList(Long idCabCL, RespCheckListBean respCheckListBean){
+    public void salvarRespCheckList(Long idCabCL, RespItemCLBean respItemCLBean){
 
         ArrayList pesqArrayList = new ArrayList();
-        PesqBean pesquisa1 = new PesqBean();
+        EspecificaPesquisa pesquisa1 = new EspecificaPesquisa();
         pesquisa1.setCampo("idCabItCL");
         pesquisa1.setValor(idCabCL);
         pesquisa1.setTipo(1);
         pesqArrayList.add(pesquisa1);
 
-        PesqBean pesquisa2 = new PesqBean();
+        EspecificaPesquisa pesquisa2 = new EspecificaPesquisa();
         pesquisa2.setCampo("idItBDItCL");
-        pesquisa2.setValor(respCheckListBean.getIdItItemCheckList());
+        pesquisa2.setValor(respItemCLBean.getIdItBDItCL());
         pesquisa2.setTipo(1);
         pesqArrayList.add(pesquisa2);
 
-        List respList = respCheckListBean.get(pesqArrayList);
+        List respList = respItemCLBean.get(pesqArrayList);
         if(respList.size() > 0) {
-            Long opcao = respCheckListBean.getOpcaoItemCheckList();
-            respCheckListBean = (RespCheckListBean) respList.get(0);
-            respCheckListBean.setOpcaoItemCheckList(opcao);
-            respCheckListBean.update();
+            Long opcao = respItemCLBean.getOpItCL();
+            respItemCLBean = (RespItemCLBean) respList.get(0);
+            respItemCLBean.setOpItCL(opcao);
+            respItemCLBean.update();
         }
         else{
-            respCheckListBean.setIdCabecItemCheckList(idCabCL);
-            respCheckListBean.insert();
+            respItemCLBean.setIdCabItCL(idCabCL);
+            respItemCLBean.insert();
         }
         respList.clear();
     }

@@ -4,6 +4,7 @@ import br.com.usinasantafe.ecm.control.CertifCanaCTR;
 import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
+import br.com.usinasantafe.ecm.control.PneuCTR;
 
 import android.app.Application;
 
@@ -13,6 +14,7 @@ public class ECMContext extends Application {
 	private ConfigCTR configCTR;
 	private MotoMecCTR motoMecCTR;
 	private CheckListCTR checkListCTR;
+	private PneuCTR pneuCTR;
 
 	private int verPosTela;
 	// 1 - Inicio do Aplicativo;
@@ -26,6 +28,7 @@ public class ECMContext extends Application {
 	private int numCarreta;
 	//	private int telaAltMoto; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
 	private int posMenu;
+	private int contDataHora;
 
 	private Long codigoAtivOS;
 	private Long nroOS;
@@ -36,10 +39,16 @@ public class ECMContext extends Application {
 
 	private boolean verTimer;
 
-	public static String versaoAplic = "2.02";
+	public static String versaoAplic = "2.03";
 	private String verAtualCL;
 
-	private int posChecklist;
+	private int posCheckList;
+
+	private int dia;
+	private int mes;
+	private int ano;
+	private int hora;
+	private int minuto;
 
 	@Override
 	public void onCreate() {
@@ -69,6 +78,12 @@ public class ECMContext extends Application {
 			checkListCTR = new CheckListCTR();
         return checkListCTR;
     }
+
+	public PneuCTR getPneuCTR(){
+		if (pneuCTR == null)
+			pneuCTR = new PneuCTR();
+		return pneuCTR;
+	}
     
 	public int getNumCarreta() {
 		return numCarreta;
@@ -142,12 +157,12 @@ public class ECMContext extends Application {
 		this.verAtualCL = verAtualCL;
 	}
 
-	public int getPosChecklist() {
-		return posChecklist;
+	public int getPosCheckList() {
+		return posCheckList;
 	}
 
-	public void setPosChecklist(int posChecklist) {
-		this.posChecklist = posChecklist;
+	public void setPosCheckList(int posCheckList) {
+		this.posCheckList = posCheckList;
 	}
 
 	public int getVerPosTela() {
@@ -156,5 +171,53 @@ public class ECMContext extends Application {
 
 	public void setVerPosTela(int verPosTela) {
 		this.verPosTela = verPosTela;
+	}
+
+	public int getContDataHora() {
+		return contDataHora;
+	}
+
+	public void setContDataHora(int contDataHora) {
+		this.contDataHora = contDataHora;
+	}
+
+	public int getDia() {
+		return dia;
+	}
+
+	public void setDia(int dia) {
+		this.dia = dia;
+	}
+
+	public int getMes() {
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public int getHora() {
+		return hora;
+	}
+
+	public void setHora(int hora) {
+		this.hora = hora;
+	}
+
+	public int getMinuto() {
+		return minuto;
+	}
+
+	public void setMinuto(int minuto) {
+		this.minuto = minuto;
 	}
 }

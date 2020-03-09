@@ -23,4 +23,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/textViewProcesso"
+        style="@style/TextViewItemList"
+        android:text="@string/texto_item_list" />
+
 </LinearLayout>

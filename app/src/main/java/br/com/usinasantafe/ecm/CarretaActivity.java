@@ -27,9 +27,19 @@ public class CarretaActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    int verCarreta = ecmContext.getCertifCanaCTR().verCarreta(Long.parseLong(editTextPadrao.getText().toString()),2L);
+                    int verCarreta;
+                    Long tipo;
+                    if (ecmContext.getVerPosTela() == 5) {
+                        tipo = 1L;
+                    }
+                    else{
+                        tipo = 2L;
+                    }
+
+                    verCarreta = ecmContext.getCertifCanaCTR().verCarreta(Long.parseLong(editTextPadrao.getText().toString()), tipo);
 
                     if(verCarreta == 1) {
+                        ecmContext.getCertifCanaCTR().insCarreta(Long.parseLong(editTextPadrao.getText().toString()), tipo);
                         if (ecmContext.getVerPosTela() == 5){
                             Intent it = new Intent(CarretaActivity.this, OSActivity.class);
                             startActivity(it);
@@ -43,8 +53,8 @@ public class CarretaActivity extends ActivityGeneric {
                     }
                     else{
                         String msg = "";
-                        Long numCarreta = ecmContext.getCertifCanaCTR().getPosCarreta(2L) + 1;
-                        switch(ecmContext.getCertifCanaCTR().verCarreta(Long.parseLong(editTextPadrao.getText().toString()),2L)){
+                        Long numCarreta = ecmContext.getCertifCanaCTR().getPosCarreta(tipo) + 1;
+                        switch(ecmContext.getCertifCanaCTR().verCarreta(Long.parseLong(editTextPadrao.getText().toString()), tipo)){
                             case 2:
                                 msg = "CARRETA INEXISTENTE NA BASE DE DADOS! POR FAVOR, ATUALIZE OS DADOS.";
                                 break;

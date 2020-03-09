@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
-import br.com.usinasantafe.ecm.model.bean.pst.PesqBean;
+import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 
 public class RLibOSDAO {
 
@@ -33,20 +33,20 @@ public class RLibOSDAO {
         return rLibOSBean.get(pesqArrayList);
     }
 
-    private PesqBean getPesqBeanLib(Long codLib){
-        PesqBean pesqBean = new PesqBean();
-        pesqBean.setCampo("codLib");
-        pesqBean.setValor(codLib);
-        pesqBean.setTipo(1);
-        return pesqBean;
+    private EspecificaPesquisa getPesqBeanLib(Long codLib){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("codLib");
+        especificaPesquisa.setValor(codLib);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
     }
 
-    private PesqBean getPesqNroOS(Long nroOS){
-        PesqBean pesqBean = new PesqBean();
-        pesqBean.setCampo("nroOS");
-        pesqBean.setValor(nroOS);
-        pesqBean.setTipo(1);
-        return pesqBean;
+    private EspecificaPesquisa getPesqNroOS(Long nroOS){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("nroOS");
+        especificaPesquisa.setValor(nroOS);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
     }
 
 }

@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import br.com.usinasantafe.ecm.util.ManipDadosEnvio;
+import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 import br.com.usinasantafe.ecm.util.Tempo;
-import br.com.usinasantafe.ecm.model.bean.pst.DatabaseHelper;
+import br.com.usinasantafe.ecm.model.pst.DatabaseHelper;
 
 /**
  * BroadcastReceiver para receber o alarme depois do tempo especificado
@@ -31,9 +31,9 @@ public class ReceberAlarme extends BroadcastReceiver {
 		}
 
 		Log.i("ECM", "DATA HORA = " + Tempo.getInstance().dataComHora());
-		if(ManipDadosEnvio.getInstance().verifDadosEnvio()){
+		if(EnvioDadosServ.getInstance().verifDadosEnvio()){
 			Log.i("ECM", "ENVIANDO");
-			ManipDadosEnvio.getInstance().envioDados(context);
+			EnvioDadosServ.getInstance().envioDados(context);
 		}
 
 	}

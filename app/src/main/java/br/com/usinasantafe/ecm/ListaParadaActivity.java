@@ -87,7 +87,7 @@ public class ListaParadaActivity extends ActivityGeneric {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 ecmContext.setVerPosTela(6);
-                                Intent it = new Intent(ListaParadaActivity.this, DesengateCarretaActivity.class);
+                                Intent it = new Intent(ListaParadaActivity.this, DesengCarretaActivity.class);
                                 MotoMecBean motoMec = (MotoMecBean) paradaList.get(posicao);
                                 startActivity(it);
                                 finish();
@@ -148,7 +148,7 @@ public class ListaParadaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getVoltaTrabalho());
-                Intent it = new Intent(ListaParadaActivity.this, ListaMotoMecActivity.class);
+                Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();
             }

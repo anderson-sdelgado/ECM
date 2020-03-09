@@ -28,7 +28,7 @@ public class SenhaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                if (!ecmContext.getConfigCTR().hasElemConfig()) {
+                if (!ecmContext.getConfigCTR().hasElements()) {
 
                     Intent it = new Intent(SenhaActivity.this, ConfigActivity.class);
                     startActivity(it);

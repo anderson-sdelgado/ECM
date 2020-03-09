@@ -26,15 +26,8 @@ public class ConfigDAO {
     public void insConfig(ConfigBean configBean){
         configBean.setIdTurnoConfig(0L);
         configBean.setUltTurnoCLConfig(0L);
-        configBean.setMatricColabConfig(0L);
         configBean.deleteAll();
         configBean.insert();
-    }
-
-    public void setMatricColabConfig(Long matricColab){
-        ConfigBean configBean = getConfig();
-        configBean.setMatricColabConfig(matricColab);
-        configBean.update();
     }
 
     public void setIdTurnoConfig(Long idTurnoConfig){
@@ -71,6 +64,17 @@ public class ConfigDAO {
         equipBean = (EquipBean) equipList.get(0);
         equipList.clear();
         return equipBean;
+    }
+
+    public Long getVerInforConfig(){
+        ConfigBean configBean = getConfig();
+        return configBean.getVerInforConfig();
+    }
+
+    public void setDifDthrConfig(Long status){
+        ConfigBean configBean = getConfig();
+        configBean.setDifDthrConfig(status);
+        configBean.update();
     }
 
 }

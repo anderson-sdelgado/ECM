@@ -9,12 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
-import br.com.usinasantafe.ecm.util.ManipDadosReceb;
+import br.com.usinasantafe.ecm.util.AtualDadosServ;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
 
 public class MenuCertifActivity extends ActivityGeneric {
@@ -38,7 +39,7 @@ public class MenuCertifActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(MenuCertifActivity.this, ListaMotoMecActivity.class);
+                Intent it = new Intent(MenuCertifActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();
 
@@ -68,7 +69,10 @@ public class MenuCertifActivity extends ActivityGeneric {
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
 
-                if (position == 0) {
+                TextView textView = v.findViewById(R.id.textViewItemList);
+                String text = textView.getText().toString();
+
+                if (text.equals("APONTAMENTO")) {
 
                     if (ecmContext.getCertifCanaCTR().verCertifAberto()) {
 
@@ -86,7 +90,7 @@ public class MenuCertifActivity extends ActivityGeneric {
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent it = new Intent(MenuCertifActivity.this, ListaMotoMecActivity.class);
+                                    Intent it = new Intent(MenuCertifActivity.this, MenuMotoMecActivity.class);
                                     startActivity(it);
                                     finish();
                                 }
@@ -104,7 +108,7 @@ public class MenuCertifActivity extends ActivityGeneric {
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent it = new Intent(MenuCertifActivity.this, ListaMotoMecActivity.class);
+                                Intent it = new Intent(MenuCertifActivity.this, MenuMotoMecActivity.class);
                                 startActivity(it);
                                 finish();
                             }
@@ -115,7 +119,7 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                     }
 
-                } else if (position == 1) {
+                } else if (text.equals("ATUALIZAR")) {
 
                     ConexaoWeb conexaoWeb = new ConexaoWeb();
 
@@ -128,8 +132,8 @@ public class MenuCertifActivity extends ActivityGeneric {
                         progressBar.setProgress(0);
                         progressBar.setMax(100);
                         progressBar.show();
-                        ManipDadosReceb.getInstance().atualizarBD(progressBar);
-                        ManipDadosReceb.getInstance().setContext(MenuCertifActivity.this);
+                        AtualDadosServ.getInstance().atualTodasTabBD(progressBar);
+                        AtualDadosServ.getInstance().setContext(MenuCertifActivity.this);
 
                     } else {
                         AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);
@@ -145,7 +149,7 @@ public class MenuCertifActivity extends ActivityGeneric {
                         alerta.show();
                     }
 
-                } else if (position == 2) {
+                } else if (text.equals("LOG VIAGEM")) {
 
                     CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
                     int qtdeCompVCanaBean = certifCanaBkpBean.count();
@@ -167,7 +171,7 @@ public class MenuCertifActivity extends ActivityGeneric {
                         alerta.show();
                     }
 
-                } else if (position == 3) {
+                } else if (text.equals("LOG BOLETIM")) {
 
                     BoletimBean boletimBean = new BoletimBean();
                     int qtdeBoletim = boletimBean.count();

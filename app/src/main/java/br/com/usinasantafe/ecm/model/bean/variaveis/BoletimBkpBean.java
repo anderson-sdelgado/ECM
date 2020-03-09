@@ -3,7 +3,7 @@ package br.com.usinasantafe.ecm.model.bean.variaveis;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import br.com.usinasantafe.ecm.model.bean.pst.Entidade;
+import br.com.usinasantafe.ecm.model.pst.Entidade;
 
 @DatabaseTable(tableName="tbboletimbkpvar")
 public class BoletimBkpBean extends Entidade  {

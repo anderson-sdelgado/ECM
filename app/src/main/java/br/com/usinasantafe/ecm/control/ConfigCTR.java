@@ -4,7 +4,6 @@ import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
-import br.com.usinasantafe.ecm.model.dao.ColabDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
 
 public class ConfigCTR {
@@ -14,7 +13,7 @@ public class ConfigCTR {
 
     ///////////////////////////////////////// CONFIG //////////////////////////////////////////////
 
-    public boolean hasElemConfig(){
+    public boolean hasElements(){
         ConfigDAO configDAO = new ConfigDAO();
         return configDAO.hasElements();
     }
@@ -53,19 +52,14 @@ public class ConfigCTR {
         return configDAO.getEquip(getConfig().getIdEquipConfig());
     }
 
-    public ColabBean getColab(){
-        ColabDAO colabDAO = new ColabDAO();
-        return colabDAO.getColab(getConfig().getMatricColabConfig());
+    public Long getVerInforConfig(){
+        ConfigDAO configDAO = new ConfigDAO();
+        return configDAO.getVerInforConfig();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////// SET CAMPOS ////////////////////////////////////////////
-
-    public void setMatricColabConfig(Long matricColab){
-        ConfigDAO configDAO = new ConfigDAO();
-        configDAO.setMatricColabConfig(matricColab);
-    }
 
     public void setIdTurnoConfig(Long nroTurnoConfig){
         ConfigDAO configDAO = new ConfigDAO();
@@ -75,6 +69,11 @@ public class ConfigCTR {
     public void setUltTurnoCLConfig(){
         ConfigDAO configDAO = new ConfigDAO();
         configDAO.setUltTurnoCLConfig(configDAO.getIdTurnoConfig());
+    }
+
+    public void setDifDthrConfig(Long status){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setDifDthrConfig(status);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,5 +86,7 @@ public class ConfigCTR {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 }

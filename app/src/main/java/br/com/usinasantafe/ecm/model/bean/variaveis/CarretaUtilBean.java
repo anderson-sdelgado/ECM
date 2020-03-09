@@ -1,6 +1,6 @@
 package br.com.usinasantafe.ecm.model.bean.variaveis;
 
-import br.com.usinasantafe.ecm.model.bean.pst.Entidade;
+import br.com.usinasantafe.ecm.model.pst.Entidade;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -13,9 +13,11 @@ public class CarretaUtilBean extends Entidade {
 	@DatabaseField(generatedId=true)
 	private Long idCarretaUtil;
 	@DatabaseField
+	private Long idCertif;
+	@DatabaseField
 	private Long posCarreta;
 	@DatabaseField
-	private Long idEquip;
+	private Long nroEquip;
 	@DatabaseField
 	private Long tipoCarreta; //1 - Certificado; 2 - Engate e Desengate
 	@DatabaseField
@@ -40,12 +42,12 @@ public class CarretaUtilBean extends Entidade {
 		this.posCarreta = posCarreta;
 	}
 
-	public Long getIdEquip() {
-		return idEquip;
+	public Long getNroEquip() {
+		return nroEquip;
 	}
 
-	public void setIdEquip(Long idEquip) {
-		this.idEquip = idEquip;
+	public void setNroEquip(Long nroEquip) {
+		this.nroEquip = nroEquip;
 	}
 
 	public Long getTipoCarreta() {
@@ -62,5 +64,13 @@ public class CarretaUtilBean extends Entidade {
 
 	public void setLibCarreta(Long libCarreta) {
 		this.libCarreta = libCarreta;
+	}
+
+	public Long getIdCertif() {
+		return idCertif;
+	}
+
+	public void setIdCertif(Long idCertif) {
+		this.idCertif = idCertif;
 	}
 }

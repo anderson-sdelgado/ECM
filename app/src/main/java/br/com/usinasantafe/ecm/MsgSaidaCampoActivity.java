@@ -5,12 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
-import br.com.usinasantafe.ecm.util.ManipDadosEnvio;
-import br.com.usinasantafe.ecm.util.Tempo;
-
 public class MsgSaidaCampoActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
@@ -28,20 +22,12 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                CertifCanaBean certifCanaBean = new CertifCanaBean();
-                List compVCanaList = certifCanaBean.get("status", 1L);
-                certifCanaBean = (CertifCanaBean) compVCanaList.get(0);
-                compVCanaList.clear();
-
-                certifCanaBean.setDataSaidaCampo(Tempo.getInstance().dataComHora());
-                certifCanaBean.update();
-
-                ecmContext.getApontMotoMecBean().setOpCor((long) 437);
-                ManipDadosEnvio.getInstance().salvaMotoMec(ecmContext.getApontMotoMecBean());
+                ecmContext.getCertifCanaCTR().setDataSaidaCampo();
 
                 Intent it = new Intent(MsgSaidaCampoActivity.this, VerMotoristaActivity.class);
                 startActivity(it);
                 finish();
+
             }
         });
 

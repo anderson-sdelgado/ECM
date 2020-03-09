@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespCheckListBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class ItemCheckListActivity extends ActivityGeneric {
 
@@ -28,7 +28,7 @@ public class ItemCheckListActivity extends ActivityGeneric {
         Button buttonCancChecklist = (Button) findViewById(R.id.buttonCancChecklist);
 
         ItemCLBean itemCLBean = new ItemCLBean();
-        itemCLBean = ecmContext.getCheckListCTR().getItemCheckList(ecmContext.getPosChecklist());
+        itemCLBean = ecmContext.getCheckListCTR().getItemCheckList(ecmContext.getPosCheckList());
 
         textViewItemChecklist.setText(itemCLBean.getSeqItemCheckList() + " - " + itemCLBean.getDescrItemCheckList());
 
@@ -65,21 +65,21 @@ public class ItemCheckListActivity extends ActivityGeneric {
 
     public void proximaTela(Long opcao){
 
-        RespCheckListBean respCheckListBean = new RespCheckListBean();
-        respCheckListBean.setIdItItemCheckList(itemCLBean.getIdItemCheckList());
-        respCheckListBean.setOpcaoItemCheckList(opcao);
-        ecmContext.getCheckListCTR().insResp(respCheckListBean);
+        RespItemCLBean respItemCLBean = new RespItemCLBean();
+        respItemCLBean.setIdItBDItCL(itemCLBean.getIdItemCheckList());
+        respItemCLBean.setOpItCL(opcao);
+        ecmContext.getCheckListCTR().insResp(respItemCLBean);
 
-        if(ecmContext.getCheckListCTR().getQtdeItemCabecAberto() == ecmContext.getPosChecklist()){
+        if(ecmContext.getCheckListCTR().getQtdeItemCabecAberto() == ecmContext.getPosCheckList()){
             ecmContext.getCheckListCTR().fechaCabec();
             if((ecmContext.getVerPosTela() == 1) || (ecmContext.getVerPosTela() == 2)){
-                Intent it = new Intent(ItemCheckListActivity.this, ListaMotoMecActivity.class);
+                Intent it = new Intent(ItemCheckListActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();
             }
         }
         else{
-            ecmContext.setPosChecklist(ecmContext.getPosChecklist() + 1);
+            ecmContext.setPosCheckList(ecmContext.getPosCheckList() + 1);
             Intent it = new Intent(ItemCheckListActivity.this, ItemCheckListActivity.class);
             startActivity(it);
             finish();
@@ -88,8 +88,8 @@ public class ItemCheckListActivity extends ActivityGeneric {
     }
 
     public void retornoTela(){
-        if(ecmContext.getPosChecklist() > 1){
-            ecmContext.setPosChecklist(ecmContext.getPosChecklist() - 1);
+        if(ecmContext.getPosCheckList() > 1){
+            ecmContext.setPosCheckList(ecmContext.getPosCheckList() - 1);
             Intent it = new Intent(ItemCheckListActivity.this, ItemCheckListActivity.class);
             startActivity(it);
             finish();

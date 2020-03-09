@@ -36,7 +36,7 @@ public class LibOSActivity extends ActivityGeneric {
                             ecmContext.getCertifCanaCTR().setLibCam(Long.parseLong(editTextPadrao.getText().toString()));
                         }
                         else{
-
+                            ecmContext.getCertifCanaCTR().setLibCarreta(Long.parseLong(editTextPadrao.getText().toString()));
                         }
                         Intent it = new Intent(LibOSActivity.this, MsgLibOSActivity.class);
                         startActivity(it);

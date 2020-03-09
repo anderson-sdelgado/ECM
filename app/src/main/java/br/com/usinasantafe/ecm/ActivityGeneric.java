@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-import br.com.usinasantafe.ecm.model.bean.pst.DatabaseHelper;
+import br.com.usinasantafe.ecm.model.pst.DatabaseHelper;
 
 /**
  * Created by anderson on 01/10/2015.

@@ -3,7 +3,7 @@ package br.com.usinasantafe.ecm.model.bean.estaticas;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import br.com.usinasantafe.ecm.model.bean.pst.Entidade;
+import br.com.usinasantafe.ecm.model.pst.Entidade;
 
 /**
  * Created by anderson on 29/03/2017.

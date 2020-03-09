@@ -1,6 +1,6 @@
 package br.com.usinasantafe.ecm.model.bean.variaveis;
 
-import br.com.usinasantafe.ecm.model.bean.pst.Entidade;
+import br.com.usinasantafe.ecm.model.pst.Entidade;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -19,9 +19,13 @@ public class ConfigBean extends Entidade {
 	@DatabaseField
 	private Long ultTurnoCLConfig;
 	@DatabaseField
-	private Long matricColabConfig;
-	@DatabaseField
 	private Long idTurnoConfig;
+	@DatabaseField
+	private String dtServConfig;
+	@DatabaseField
+	private Long difDthrConfig;
+	@DatabaseField
+	private Long verInforConfig; //0 - Verificar Dados; 1- Dados Recebidos; 2 - Dados Visualizados
 	
 	public ConfigBean() {
 	}
@@ -58,14 +62,6 @@ public class ConfigBean extends Entidade {
 		this.ultTurnoCLConfig = ultTurnoCLConfig;
 	}
 
-	public Long getMatricColabConfig() {
-		return matricColabConfig;
-	}
-
-	public void setMatricColabConfig(Long matricColabConfig) {
-		this.matricColabConfig = matricColabConfig;
-	}
-
 	public Long getIdTurnoConfig() {
 		return idTurnoConfig;
 	}
@@ -74,4 +70,27 @@ public class ConfigBean extends Entidade {
 		this.idTurnoConfig = idTurnoConfig;
 	}
 
+	public Long getDifDthrConfig() {
+		return difDthrConfig;
+	}
+
+	public void setDifDthrConfig(Long difDthrConfig) {
+		this.difDthrConfig = difDthrConfig;
+	}
+
+	public Long getVerInforConfig() {
+		return verInforConfig;
+	}
+
+	public void setVerInforConfig(Long verInforConfig) {
+		this.verInforConfig = verInforConfig;
+	}
+
+	public String getDtServConfig() {
+		return dtServConfig;
+	}
+
+	public void setDtServConfig(String dtServConfig) {
+		this.dtServConfig = dtServConfig;
+	}
 }

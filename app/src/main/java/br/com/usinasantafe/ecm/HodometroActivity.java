@@ -35,7 +35,7 @@ public class HodometroActivity extends ActivityGeneric {
                     hodometroBean.deleteAll();
                     hodometroBean.insert();
 
-                    Intent it = new Intent(HodometroActivity.this, ListaMotoMecActivity.class);
+                    Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();
 
@@ -62,7 +62,7 @@ public class HodometroActivity extends ActivityGeneric {
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 } else {
-                    Intent it = new Intent(HodometroActivity.this, ListaMotoMecActivity.class);
+                    Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();
                 }

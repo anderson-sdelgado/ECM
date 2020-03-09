@@ -9,7 +9,7 @@ package br.com.usinasantafe.ecm.model.bean.estaticas;
  *
  * @author anderson
  */
-import br.com.usinasantafe.ecm.model.bean.pst.Entidade;
+import br.com.usinasantafe.ecm.model.pst.Entidade;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

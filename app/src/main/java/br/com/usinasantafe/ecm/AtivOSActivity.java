@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
-import br.com.usinasantafe.ecm.util.ManipDadosVerif;
+import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
 public class AtivOSActivity extends ActivityGeneric {
 
@@ -47,7 +47,7 @@ public class AtivOSActivity extends ActivityGeneric {
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
                         if (conexaoWeb.verificaConexao(AtivOSActivity.this)) {
 
-                            ManipDadosVerif.getInstance().verDados(editTextPadrao.getText().toString(), "RAtivOSBean",
+                            VerifDadosServ.getInstance().verDados(editTextPadrao.getText().toString(), "RAtivOSBean",
                                     AtivOSActivity.this, MsgAtivOSActivity.class);
 
                         } else {

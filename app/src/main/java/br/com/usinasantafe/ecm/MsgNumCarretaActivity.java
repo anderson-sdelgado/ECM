@@ -63,7 +63,7 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 if (ecmContext.getVerPosTela() == 4){
-                    Intent it = new Intent(MsgNumCarretaActivity.this, ListaMotoMecActivity.class);
+                    Intent it = new Intent(MsgNumCarretaActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();
                 }
@@ -77,7 +77,6 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
                     startActivity(it);
                     finish();
                 }
-
             }
         });
 

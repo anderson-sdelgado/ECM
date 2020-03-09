@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.util.ManipDadosEnvio;
+import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
@@ -57,9 +57,9 @@ public class VerMotoristaActivity extends ActivityGeneric {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        ManipDadosEnvio.getInstance().salvaViagemCana();
+                        EnvioDadosServ.getInstance().salvaViagemCana();
 
-                        Intent it = new Intent(VerMotoristaActivity.this, ListaMotoMecActivity.class);
+                        Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
                         startActivity(it);
                         finish();
 
@@ -74,7 +74,6 @@ public class VerMotoristaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                ecmContext.setTelaAltMoto(2);
                 Intent it = new Intent(VerMotoristaActivity.this, MotoristaActivity.class);
                 startActivity(it);
                 finish();

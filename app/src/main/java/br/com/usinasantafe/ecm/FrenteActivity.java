@@ -37,7 +37,7 @@ public class FrenteActivity extends ActivityGeneric {
 
                         ecmContext.setPosMenu(8);
 
-                        Intent it = new Intent(FrenteActivity.this, ListaMotoMecActivity.class);
+                        Intent it = new Intent(FrenteActivity.this, MenuMotoMecActivity.class);
                         startActivity(it);
                         finish();
 
@@ -78,7 +78,7 @@ public class FrenteActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
-        Intent it = new Intent(FrenteActivity.this, ListaMotoMecActivity.class);
+        Intent it = new Intent(FrenteActivity.this, MenuMotoMecActivity.class);
         startActivity(it);
         finish();
     }

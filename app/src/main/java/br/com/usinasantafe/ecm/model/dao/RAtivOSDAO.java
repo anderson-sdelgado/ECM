@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
-import br.com.usinasantafe.ecm.model.bean.pst.PesqBean;
+import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 
 public class RAtivOSDAO {
 
@@ -47,20 +47,20 @@ public class RAtivOSDAO {
         return retorno;
     }
 
-    private PesqBean getPesqRAtivOS(Long idRAtivOS){
-        PesqBean pesqBean = new PesqBean();
-        pesqBean.setCampo("idRAtivOS");
-        pesqBean.setValor(idRAtivOS);
-        pesqBean.setTipo(1);
-        return pesqBean;
+    private EspecificaPesquisa getPesqRAtivOS(Long idRAtivOS){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("idRAtivOS");
+        especificaPesquisa.setValor(idRAtivOS);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
     }
 
-    private PesqBean getPesqNroOS(Long nroOS){
-        PesqBean pesqBean = new PesqBean();
-        pesqBean.setCampo("nroOS");
-        pesqBean.setValor(nroOS);
-        pesqBean.setTipo(1);
-        return pesqBean;
+    private EspecificaPesquisa getPesqNroOS(Long nroOS){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("nroOS");
+        especificaPesquisa.setValor(nroOS);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
     }
 
 }

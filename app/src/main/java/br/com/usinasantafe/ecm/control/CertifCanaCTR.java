@@ -1,8 +1,11 @@
 package br.com.usinasantafe.ecm.control;
 
+import java.util.List;
+
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
 import br.com.usinasantafe.ecm.model.dao.CertifCanaDAO;
 import br.com.usinasantafe.ecm.model.dao.RAtivOSDAO;
@@ -13,12 +16,39 @@ public class CertifCanaCTR {
     public CertifCanaCTR() {
     }
 
-    /////////////////////////////////////CABECALHO ABERDO//////////////////////////////////////////
+    //////////////////////////////CABECALHO ABERTO//////////////////////////////////////////
 
     public void salvarCertifAberto(){
         CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
         certifCanaDAO.salvarCertifAberto();
     }
+
+    public void delCertifAberto(){
+        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        delCarretaCertif(certifCanaDAO.getCertifAberto().getIdCertifCana());
+        certifCanaDAO.delCertifAberto();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////CARRETA/////////////////////////////////////
+
+    public void delCarreta(Long tipo){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        carretaDAO.delCarreta(tipo);
+    }
+
+    private void delCarretaCertif(Long idCertif){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        carretaDAO.delCarretaCertif(idCertif);
+    }
+
+    public List carretaList(Long tipo){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        return carretaDAO.carretaList(tipo);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
 
@@ -48,7 +78,7 @@ public class CertifCanaCTR {
         CarretaDAO carretaDAO = new CarretaDAO();
         if(carretaDAO.verCarretaBD(nroCarreta)){
             EquipBean carretaBean = carretaDAO.getCarretaBD(nroCarreta);
-            if(!carretaDAO.verCarretaAlocada(carretaBean.getIdEquip(), tipo) ){
+            if(!carretaDAO.verCarreta(carretaBean.getIdEquip(), tipo) ){
                 Long posCarreta = carretaDAO.posCarreta(tipo) + 1;
                 ConfigCTR configCTR = new ConfigCTR();
                 EquipBean caminhaoBean = configCTR.getEquip();
@@ -102,6 +132,13 @@ public class CertifCanaCTR {
 
     ///////////////////////////////////SET DADOS////////////////////////////////
 
+    public void setDataSaidaCampo(){
+        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        certifCanaDAO.setDataSaidaCampo();
+        MotoMecCTR motoMecCTR = new MotoMecCTR();
+        motoMecCTR.salvaSaidaCampoMM();
+    }
+
     public void setDataChegCampo(){
         CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
         certifCanaDAO.setDataChegCampo();
@@ -120,6 +157,26 @@ public class CertifCanaCTR {
     public void setNroOS(Long nroOS){
         CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
         certifCanaDAO.setNroOS(nroOS);
+    }
+
+    public void insCarreta(Long nroCarreta, Long tipo){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        Long posCarreta = carretaDAO.posCarreta(tipo) + 1;
+        Long idCertif = 0L;
+        if(tipo == 1){
+            idCertif = certifCanaDAO.getCertifAberto().getIdCertifCana();
+        }
+        carretaDAO.insCarreta(idCertif, posCarreta, nroCarreta, tipo);
+    }
+
+    public void setLibCarreta(Long nroLib){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        Long posCarreta = carretaDAO.posCarreta(1L);
+        Long idCertif = certifCanaDAO.getCertifAberto().getIdCertifCana();
+        CarretaUtilBean carretaUtilBean = carretaDAO.getCarreta(idCertif, posCarreta);
+        carretaDAO.setLibCarreta(carretaUtilBean, nroLib);
     }
 
     /////////////////////////////////////////////////////////////////////////////
@@ -156,5 +213,4 @@ public class CertifCanaCTR {
 
     /////////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
 }
