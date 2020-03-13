@@ -193,12 +193,15 @@ public class CECCTR {
         return carretaDAO.posCarreta(tipo);
     }
 
-    public RAtivOSBean getAtivOS(){
-        RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
-        PreCECDAO preCECDAO = new PreCECDAO();
-        RAtivOSBean rAtivOSBean = rAtivOSDAO.getAtivOS(preCECDAO.getCertifAberto().getAtivOS());
-        return rAtivOSBean;
-    }
+
+
+
+//    public RAtivOSBean getAtivOS(){
+//        RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
+//        PreCECDAO preCECDAO = new PreCECDAO();
+//        RAtivOSBean rAtivOSBean = rAtivOSDAO.getAtivOS(preCECDAO.getCertifAberto().getAtivOS());
+//        return rAtivOSBean;
+//    }
 
     public RLibOSBean getRLibOSBean(){
         RLibOSDAO rLibOSDAO = new RLibOSDAO();
