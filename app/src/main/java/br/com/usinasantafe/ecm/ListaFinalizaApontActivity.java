@@ -47,7 +47,7 @@ public class ListaFinalizaApontActivity extends ActivityGeneric {
                 }
                 else if(position == 1){
 
-                    ecmContext.getCertifCanaCTR().delCertifAberto();
+                    ecmContext.getCECCTR().delCertifAberto();
                     Intent it = new Intent(ListaFinalizaApontActivity.this, MenuCertifActivity.class);
                     startActivity(it);
                     finish();

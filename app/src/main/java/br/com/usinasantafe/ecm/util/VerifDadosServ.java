@@ -26,7 +26,7 @@ import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ROSAtivBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.util.connHttp.PostVerGenerico;
 import br.com.usinasantafe.ecm.model.pst.GenericRecordable;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
@@ -146,15 +146,15 @@ public class VerifDadosServ {
         if(this.tipo.equals("BoletimBeanViagem")) {
 
             JsonArray jsonArray = new JsonArray();
-            CertifCanaBean certifCanaBean = new CertifCanaBean();
+            PreCECBean preCECBean = new PreCECBean();
 
-            List viagemCana = certifCanaBean.all();
+            List viagemCana = preCECBean.all();
 
             for (int i = 0; i < viagemCana.size(); i++) {
 
-                certifCanaBean = (CertifCanaBean) viagemCana.get(i);
+                preCECBean = (PreCECBean) viagemCana.get(i);
                 Gson gson = new Gson();
-                jsonArray.add(gson.toJsonTree(certifCanaBean, certifCanaBean.getClass()));
+                jsonArray.add(gson.toJsonTree(preCECBean, preCECBean.getClass()));
 
             }
 
@@ -163,7 +163,7 @@ public class VerifDadosServ {
 
             parametrosPost.put("dado", json.toString());
             Log.i("ECM", "DADOS = " + json.toString());
-            certifCanaBean.deleteAll();
+            preCECBean.deleteAll();
 
         }
         else{

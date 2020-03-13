@@ -6,10 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
-
 import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
 
 public class MsgAtivOSActivity extends ActivityGeneric {
 
@@ -29,7 +26,7 @@ public class MsgAtivOSActivity extends ActivityGeneric {
 
         TextView textViewNomeAtividade = (TextView) findViewById(R.id.textViewNomeAtividade);
 
-        rAtivOSBean = ecmContext.getCertifCanaCTR().getAtivOS();
+        rAtivOSBean = ecmContext.getCECCTR().getAtivOS();
 
 //        codAtivOS = atividadeOsTO.getIdRAtivOS();
 //        ecmContext.setNroOS(atividadeOsTO.getNroOS());

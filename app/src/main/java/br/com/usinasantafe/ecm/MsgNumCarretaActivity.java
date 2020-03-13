@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+
 public class MsgNumCarretaActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
@@ -22,11 +24,11 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
 
         TextView textViewMsgNumCarreta = (TextView) findViewById(R.id.textViewMsgNumCarreta);
         if (ecmContext.getVerPosTela() == 5){
-            numCarreta = ecmContext.getCertifCanaCTR().getPosCarreta(1L) + 1;
+            numCarreta = ecmContext.getCECCTR().getPosCarreta(1L) + 1;
             textViewMsgNumCarreta.setText("DESEJA INSERIR A CARRETA " + numCarreta +"?");
         }
         else{
-            numCarreta = ecmContext.getCertifCanaCTR().getPosCarreta(2L) + 1;
+            numCarreta = ecmContext.getCECCTR().getPosCarreta(2L) + 1;
             textViewMsgNumCarreta.setText("DESEJA ENGATAR A CARRETA " + numCarreta + "?");
         }
 
@@ -63,6 +65,17 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 if (ecmContext.getVerPosTela() == 4){
+                    if(numCarreta < 1){
+                        Long statusCon;
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        if (conexaoWeb.verificaConexao(MsgNumCarretaActivity.this)) {
+                            statusCon = 1L;
+                        }
+                        else{
+                            statusCon = 0L;
+                        }
+                        ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                    }
                     Intent it = new Intent(MsgNumCarretaActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();

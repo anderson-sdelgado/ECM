@@ -33,6 +33,8 @@ public class MotoMecBean extends Entidade {
 	private Long tipoOperMotoMec;
 	@DatabaseField
 	private Long aplicOperMotoMec;
+	@DatabaseField
+	private Long funcaoOperMotoMec; //1 - Atividade; 2 - Parada
 
     public MotoMecBean() {
     }
@@ -91,5 +93,13 @@ public class MotoMecBean extends Entidade {
 
 	public void setAplicOperMotoMec(Long aplicOperMotoMec) {
 		this.aplicOperMotoMec = aplicOperMotoMec;
+	}
+
+	public Long getFuncaoOperMotoMec() {
+		return funcaoOperMotoMec;
+	}
+
+	public void setFuncaoOperMotoMec(Long funcaoOperMotoMec) {
+		this.funcaoOperMotoMec = funcaoOperMotoMec;
 	}
 }

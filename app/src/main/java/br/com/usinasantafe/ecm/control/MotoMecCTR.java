@@ -4,16 +4,25 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
 import br.com.usinasantafe.ecm.model.dao.ApontMMDAO;
+import br.com.usinasantafe.ecm.model.dao.AtividadeDAO;
 import br.com.usinasantafe.ecm.model.dao.BoletimMMDAO;
+import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
+import br.com.usinasantafe.ecm.model.dao.MotoMecDAO;
+import br.com.usinasantafe.ecm.model.dao.OSDAO;
+import br.com.usinasantafe.ecm.model.dao.PreCECDAO;
 import br.com.usinasantafe.ecm.util.AtualDadosServ;
+import br.com.usinasantafe.ecm.util.Tempo;
 
 public class MotoMecCTR {
 
     private BoletimMMBean boletimMMBean;
+    private MotoMecBean motoMecBean;
 
     public MotoMecCTR() {
         if (boletimMMBean == null)
@@ -31,10 +40,6 @@ public class MotoMecCTR {
         apontMMDAO.updApont(apontMMBean);
     }
 
-    public BoletimMMBean getBolAberto(){
-        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        return boletimMMDAO.getBolAberto();
-    }
 
     //////////////////////////// SETAR CAMPOS ///////////////////////////////////////////////
 
@@ -55,146 +60,103 @@ public class MotoMecCTR {
             boletimMMBean.setOsBolMM(os);
     }
 
-//    public void setAtivBol(Long ativ){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            boletimMMBean.setAtivPrincBolMM(ativ);
-//            boletimMMBean.setStatusConBolMM(configCTR.getConfig().getStatusConConfig());
-//        }
-//        else{
-//            boletimFertBean.setAtivPrincBolFert(ativ);
-//            boletimFertBean.setStatusConBolFert(configCTR.getConfig().getStatusConConfig());
-//        }
-//    }
-//
-//
-//    public void setHodometroInicialBol(Double horimetroNum, Double longitude, Double latitude){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            boletimMMBean.setHodometroInicialBolMM(horimetroNum);
-//            boletimMMBean.setHodometroFinalBolMM(0D);
-//            boletimMMBean.setIdExtBolMM(0L);
-//            boletimMMBean.setLongitudeBolMM(longitude);
-//            boletimMMBean.setLatitudeBolMM(latitude);
-//        }
-//        else{
-//            boletimFertBean.setHodometroInicialBolFert(horimetroNum);
-//            boletimFertBean.setHodometroFinalBolFert(0D);
-//            boletimFertBean.setIdExtBolFert(0L);
-//            boletimFertBean.setLongitudeBolFert(longitude);
-//            boletimFertBean.setLongitudeBolFert(latitude);
-//        }
-//    }
-//
-//    public void setHodometroFinalBol(Double horimetroNum){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            boletimMMBean.setHodometroFinalBolMM(horimetroNum);
-//        }
-//        else{
-//            boletimFertBean.setHodometroFinalBolFert(horimetroNum);
-//        }
-//    }
-//
-//    public void setIdEquipBombaBol(Long idEquip){
-//        boletimFertBean.setIdEquipBombaBolFert(idEquip);
-//    }
+    public void setAtivBol(Long ativ){
+        ConfigCTR configCTR = new ConfigCTR();
+        boletimMMBean.setAtivPrincBolMM(ativ);
+        boletimMMBean.setStatusConBolMM(configCTR.getConfig().getStatusConConfig());
+    }
+
+
+    public void setHodometroInicialBol(Double horimetroNum, Double longitude, Double latitude){
+        boletimMMBean.setHodometroInicialBolMM(horimetroNum);
+        boletimMMBean.setHodometroFinalBolMM(0D);
+        boletimMMBean.setIdExtBolMM(0L);
+        boletimMMBean.setLongitudeBolMM(longitude);
+        boletimMMBean.setLatitudeBolMM(latitude);
+    }
+
+    public void setHodometroFinalBol(Double horimetroNum){
+        boletimMMBean.setHodometroFinalBolMM(horimetroNum);
+    }
+
+    public void setMotoMecBean(MotoMecBean motoMecBean) {
+        this.motoMecBean = motoMecBean;
+    }
+
+    public void setAtivMM(Long ativ) {
+        this.motoMecBean.setIdOperMotoMec(ativ);
+        this.motoMecBean.setFuncaoOperMotoMec(1L);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////// GET DE CAMPOS ///////////////////////////////////////////
 
-//    public Long getAtiv(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getAtivPrincBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getAtivPrincBolFert();
-//        }
-//    }
-//
-//    public Long getTurno(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getIdTurnoBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getIdTurnoBolFert();
-//        }
-//    }
-//
-//    public Long getFunc(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getMatricFuncBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getMatricFuncBolFert();
-//        }
-//    }
-//
-//    public Long getIdExtBol(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getIdExtBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getIdExtBolFert();
-//        }
-//    }
-//
-//    public Long getStatusConBol(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getStatusConBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getStatusConBolFert();
-//        }
-//    }
-//
-//    public Long getOS() {
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getOsBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getOsBolFert();
-//        }
-//    }
-//
-//    public Long getIdBol(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-//            return boletimMMDAO.getIdBolAberto();
-//        }
-//        else{
-//            BoletimFertDAO boletimFertDAO = new BoletimFertDAO();
-//            return boletimFertDAO.getIdBolAberto();
-//        }
-//    }
-//
-//    public Double getLongitude(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getLongitudeBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getLongitudeBolFert();
-//        }
-//    }
-//
-//    public Double getLatitude(){
-//        ConfigCTR configCTR = new ConfigCTR();
-//        if(configCTR.getEquip().getTipo() == 1) {
-//            return boletimMMBean.getLatitudeBolMM();
-//        }
-//        else{
-//            return boletimFertBean.getLatitudeBolFert();
-//        }
-//    }
+    public Long getAtiv(){
+        return boletimMMBean.getAtivPrincBolMM();
+    }
+
+    public Long getTurno(){
+        return boletimMMBean.getIdTurnoBolMM();
+    }
+
+    public Long getFunc(){
+        return boletimMMBean.getMatricFuncBolMM();
+    }
+
+    public String getDescrCarreta(){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        return carretaDAO.getDescrCarreta();
+    }
+
+    public String getMatricNomeFunc(){
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        return boletimMMDAO.getMatricNomeFunc();
+    }
+
+    public Long getIdExtBol(){
+        return boletimMMBean.getIdExtBolMM();
+    }
+
+    public Long getStatusConBol(){
+        return boletimMMBean.getStatusConBolMM();
+    }
+
+    public Long getOS() {
+        return boletimMMBean.getOsBolMM();
+    }
+
+    public Long getIdBol(){
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        return boletimMMDAO.getIdBolAberto();
+    }
+
+    public Double getLongitude(){
+        return boletimMMBean.getLongitudeBolMM();
+    }
+
+    public Double getLatitude(){
+        return boletimMMBean.getLatitudeBolMM();
+    }
+
+    public String getDataSaidaUlt(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.getDataSaidaUlt();
+    }
+
+    public List getMotoMecList() {
+        MotoMecDAO motoMecDAO = new MotoMecDAO();
+        return motoMecDAO.getMotoMecList();
+    }
+
+    public Long getOpCorSaidaUsina(){
+        MotoMecDAO motoMecDAO = new MotoMecDAO();
+        return motoMecDAO.getOpCorSaidaUsina();
+    }
+
+    public MotoMecBean getMotoMecBean() {
+        return motoMecBean;
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -202,48 +164,48 @@ public class MotoMecCTR {
 
     ///////////// SALVAR DADOS ///////////////
 
-    public void salvarBolAberto(){
+    public void salvarBolAbertoMM(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         boletimMMDAO.salvarBolAberto(boletimMMBean);
     }
 
-    public void salvarBolFechado(){
+    public void salvarBolFechadoMM(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         boletimMMDAO.salvarBolFechado(boletimMMBean);
     }
 
     ////////// VERIFICAÇÃO PRA ENVIO ///////////////
 
-    public boolean verEnvioBolAberto(){
+    public boolean verEnvioBolAbertoMM(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         return boletimMMDAO.bolAbertoSemEnvioList().size() > 0;
     }
 
-    public boolean verEnvioBolFech() {
+    public boolean verEnvioBolFechMM() {
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         return boletimMMDAO.bolFechadoList().size() > 0;
     }
 
     ////////// DADOS PRA ENVIO ///////////////
 
-    public String dadosEnvioBolAberto(){
+    public String dadosEnvioBolAbertoMM(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        return boletimMMDAO.dadosEnvioBolAberto(getBolAberto());
+        return boletimMMDAO.dadosEnvioBolAberto();
     }
 
-    public String dadosEnvioBolFechado(){
+    public String dadosEnvioBolFechadoMM(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         return boletimMMDAO.dadosEnvioBolFechado();
     }
 
     ////////// MANIPULAÇÃO RETORNO DE ENVIO ///////////////
 
-    public void updBolAberto(String retorno){
+    public void updBolAbertoMM(String retorno){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         boletimMMDAO.updateBolAberto(retorno);
     }
 
-    public void delBolFechado(String retorno) {
+    public void delBolFechadoMM(String retorno) {
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         boletimMMDAO.deleteBolFechado(retorno);
     }
@@ -255,7 +217,6 @@ public class MotoMecCTR {
     ////////// VERIFICAÇÃO PRA ENVIO ///////////////
 
     public Boolean verEnvioDadosApont(){
-        Boolean retorno = false;
         ApontMMDAO apontMMDAO = new ApontMMDAO();
         return (apontMMDAO.getListApontEnvio().size() > 0);
     }
@@ -297,10 +258,94 @@ public class MotoMecCTR {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-//    public List getMotoMecList() {
-//        MotoMecDAO motoMecDAO = new MotoMecDAO();
-//        return motoMecDAO.getMotoMecList();
-//    }
+    //////////////////////////////// VERIFICAÇÃO E ATUALIZAÇÃO DE DADOS ////////////////////////////
+
+    public void verOS(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+        OSDAO osDAO = new OSDAO();
+        osDAO.verOS(dado, telaAtual, telaProx, progressDialog);
+    }
+
+    public void verAtiv(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+        ConfigCTR configCTR = new ConfigCTR();
+        AtividadeDAO atividadeDAO = new AtividadeDAO();
+        atividadeDAO.verAtiv(dado  + "_" + configCTR.getEquip().getNroEquip(), telaAtual, telaProx, progressDialog);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////// RETORNO DE LISTA DAS ATIVIDADES DA OS /////////////////////////////
+
+    public ArrayList getAtivArrayList(Long nroOS){
+        ConfigCTR configCTR = new ConfigCTR();
+        AtividadeDAO atividadeDAO = new AtividadeDAO();
+        return atividadeDAO.retAtivArrayList(configCTR.getEquip().getIdEquip(), nroOS);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////// CRIAR E ATUALIZAR APONTAMENTO ////////////////////////////////////
+
+    public void insApontMM(Double longitude, Double latitude, Long statusCon){
+
+
+        ApontMMDAO apontMMDAO = new ApontMMDAO();
+        ApontMMBean apontMMBean = apontMMDAO.createApontAtividade(this);
+        ConfigCTR configCTR = new ConfigCTR();
+        apontMMBean.setOsApontMM(configCTR.getConfig().getOsConfig());
+        if(motoMecBean.getFuncaoOperMotoMec() == 1){
+            apontMMBean.setAtivApontMM(motoMecBean.getCodOperMotoMec());
+            apontMMBean.setParadaApontMM(0L);
+        }
+        else if(motoMecBean.getFuncaoOperMotoMec() == 2){
+            apontMMBean.setParadaApontMM(motoMecBean.getCodOperMotoMec());
+        }
+        apontMMBean.setLongitudeApontMM(longitude);
+        apontMMBean.setLatitudeApontMM(latitude);
+        apontMMBean.setStatusApontMM(1L);
+        apontMMBean.setDthrApontMM(Tempo.getInstance().dataComHora().getDataHora());
+        apontMMBean.setStatusDtHrApontMM(Tempo.getInstance().dataComHora().getStatus());
+        apontMMBean.setStatusConApontMM(statusCon);
+        salvarApontMM(apontMMBean);
+//        if(status == 0L){
+//            CabecPneuDAO cabecPneuDAO = new CabecPneuDAO();
+//            cabecPneuDAO.salvarDados(func, equip, getIdApont());
+//        }
+
+    }
+
+    private void salvarApontMM(ApontMMBean apontMMBean){
+
+        atualQtdeApontBol();
+
+        ApontMMDAO apontMMDAO = new ApontMMDAO();
+        apontMMDAO.salvarApont(apontMMBean);
+
+        ConfigCTR configCTR = new ConfigCTR();
+        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora().getDataHora());
+    }
+
+    public void insParadaCheckList(){
+        AtividadeDAO atividadeDAO = new AtividadeDAO();
+        ApontMMDAO apontMMDAO = new ApontMMDAO();
+        ApontMMBean apontMMBean = apontMMDAO.createApont(this);
+        apontMMBean.setDthrApontMM(Tempo.getInstance().dataComHora().getDataHora());
+        apontMMBean.setStatusDtHrApontMM(Tempo.getInstance().dataComHora().getStatus());
+        apontMMBean.setParadaApontMM(atividadeDAO.idParadaCheckList());
+        salvarApontMM(apontMMBean);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////// ATUALIZAR QTDE DE APONTAMENTO DO BOLETIM ///////////////////////////
+
+    public void atualQtdeApontBol(){
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        boletimMMDAO.atualQtdeApontBol();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+
+
 //
 //    public List getParadaList() {
 //        MotoMecDAO motoMecDAO = new MotoMecDAO();
@@ -309,9 +354,9 @@ public class MotoMecCTR {
 //
 //    public void salvaMotoMec(Long opCorMotoMec){
 //        MotoMecDAO motoMecDAO = new MotoMecDAO();
-//        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+//        PreCECDAO certifCanaDAO = new PreCECDAO();
 //        Long ativOS = 0L;
-//        if(certifCanaDAO.verCertifAberto()){
+//        if(certifCanaDAO.verPreCECAberto()){
 //            ativOS = certifCanaDAO.getCertifAberto().getAtivOS();
 //        }
 //        ConfigDAO configDAO = new ConfigDAO();
@@ -320,19 +365,16 @@ public class MotoMecCTR {
 //
 //    public void salvaSaidaCampoMM(){
 //        MotoMecDAO motoMecDAO = new MotoMecDAO();
-//        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+//        PreCECDAO certifCanaDAO = new PreCECDAO();
 //        Long ativOS = 0L;
-//        if(certifCanaDAO.verCertifAberto()){
+//        if(certifCanaDAO.verPreCECAberto()){
 //            ativOS = certifCanaDAO.getCertifAberto().getAtivOS();
 //        }
 //        ConfigDAO configDAO = new ConfigDAO();
 //        motoMecDAO.salvaSaidaCampo(ativOS, configDAO.getConfig());
 //    }
 //
-//    public Long getOpCorSaidaUsina(){
-//        MotoMecDAO motoMecDAO = new MotoMecDAO();
-//        return motoMecDAO.getOpCorSaidaUsina();
-//    }
+
 //
 //    public Long getDesengateCarreta(){
 //        MotoMecDAO motoMecDAO = new MotoMecDAO();
@@ -354,9 +396,6 @@ public class MotoMecCTR {
 //        return motoMecDAO.getVoltaTrabalho();
 //    }
 //
-//    public String textoCarreta(){
-//        CarretaDAO carretaDAO = new CarretaDAO();
-//        return carretaDAO.textoCarreta();
-//    }
+
 
 }

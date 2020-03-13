@@ -3,16 +3,18 @@ package br.com.usinasantafe.ecm;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import br.com.usinasantafe.ecm.model.bean.variaveis.HodometroBean;
+
+import br.com.usinasantafe.ecm.control.CheckListCTR;
 
 public class HodometroActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
+    private Double horimetroNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,51 +22,61 @@ public class HodometroActivity extends ActivityGeneric {
         setContentView(R.layout.activity_hodometro);
 
         ecmContext = (ECMContext) getApplication();
-        Button buttonOkCarreta = (Button) findViewById(R.id.buttonOkPadrao);
-        Button buttonCancCarreta = (Button) findViewById(R.id.buttonCancPadrao);
 
-        buttonOkCarreta.setOnClickListener(new View.OnClickListener() {
+        Button buttonOkHorimetro = (Button) findViewById(R.id.buttonOkPadrao);
+        Button buttonCancHorimetro = (Button) findViewById(R.id.buttonCancPadrao);
 
+        TextView textViewHorimetro = (TextView) findViewById(R.id.textViewPadrao);
+        textViewHorimetro.setText(ecmContext.getTextoHorimetro());
+
+        buttonOkHorimetro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    HodometroBean hodometroBean = new HodometroBean();
-                    hodometroBean.setHodometro(Long.parseLong(editTextPadrao.getText().toString()));
-                    hodometroBean.deleteAll();
-                    hodometroBean.insert();
+                    String horimetro = editTextPadrao.getText().toString();
+                    horimetroNum = Double.valueOf(horimetro.replace(",", "."));
 
-                    Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
-                    startActivity(it);
-                    finish();
+                    if (horimetroNum >= ecmContext.getConfigCTR().getConfig().getHorimetroConfig()) {
+                        verTela();
+                    } else {
 
-                } else {
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(HodometroActivity.this);
-                    alerta.setTitle("ATENÇÃO");
-                    alerta.setMessage("POR FAVOR. DIGITE O VALOR DO HODOMETRO.");
-                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(HodometroActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage("O HODOMETRO DIGITADO " + horimetroNum + " É MENOR QUE O HODOMETRO ANTERIOR DA MAQUINA " + ecmContext.getConfigCTR().getConfig().getHorimetroConfig() + ". DESEJA MANTER ESSE VALOR?");
 
-                        }
-                    });
-                    alerta.show();
+                        alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                verTela();
+                            }
+
+                        });
+
+                        alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        alerta.show();
+
+                    }
+
                 }
+
             }
         });
 
-        buttonCancCarreta.setOnClickListener(new View.OnClickListener() {
+        buttonCancHorimetro.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
-                } else {
-                    Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
-                    startActivity(it);
-                    finish();
                 }
             }
         });
@@ -72,7 +84,67 @@ public class HodometroActivity extends ActivityGeneric {
 
     }
 
-    public void onBackPressed()  {
+    public void verTela(){
+        if (ecmContext.getVerPosTela() == 1) {
+            salvarBoletimAberto();
+        }
+        else if (ecmContext.getVerPosTela() == 8) {
+            salvarBoletimFechado();
+        }
+    }
+
+    public void salvarBoletimAberto() {
+
+        ecmContext.getConfigCTR().setHorimetroConfig(horimetroNum);
+
+        ecmContext.getMotoMecCTR().setHodometroInicialBol(horimetroNum, getLongitude(), getLatitude());
+        ecmContext.getMotoMecCTR().salvarBolAbertoMM();
+
+        CheckListCTR checkListCTR = new CheckListCTR();
+        if(checkListCTR.verAberturaCheckList(ecmContext.getMotoMecCTR().getTurno())){
+            ecmContext.getMotoMecCTR().insParadaCheckList();
+            ecmContext.setPosCheckList(1);
+            checkListCTR.createCabecAberto(ecmContext.getMotoMecCTR());
+            if (ecmContext.getVerAtualCL().equals("N_AC")) {
+                Intent it = new Intent(HodometroActivity.this, PergAtualCheckListActivity.class);
+                startActivity(it);
+                finish();
+            } else {
+                Intent it = new Intent(HodometroActivity.this, ItemCheckListActivity.class);
+                startActivity(it);
+                finish();
+            }
+        }
+        else{
+            Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
+            startActivity(it);
+            finish();
+        }
+    }
+
+    public void salvarBoletimFechado() {
+
+        ecmContext.getConfigCTR().setHorimetroConfig(horimetroNum);
+        ecmContext.getMotoMecCTR().setHodometroFinalBol(horimetroNum);
+        ecmContext.getMotoMecCTR().salvarBolFechadoMM();
+
+        Intent it = new Intent(HodometroActivity.this, MenuInicialActivity.class);
+        startActivity(it);
+        finish();
+
+    }
+
+    public void onBackPressed() {
+        if (ecmContext.getVerPosTela() == 1) {
+            Intent it = new Intent(HodometroActivity.this, ListaAtividadeActivity.class);
+            startActivity(it);
+            finish();
+        }
+        else {
+            Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
+            startActivity(it);
+            finish();
+        }
     }
 
 }

@@ -2,6 +2,9 @@ package br.com.usinasantafe.ecm.model.dao;
 
 import java.util.List;
 
+import br.com.usinasantafe.ecm.control.ConfigCTR;
+import br.com.usinasantafe.ecm.control.MotoMecCTR;
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
@@ -25,7 +28,6 @@ public class CabecCheckListDAO {
         return cabecCLBean.getIdCabCL();
     }
 
-
     public CabecCLBean getCabecAberto(){
         CabecCLBean cabecCLBean = new CabecCLBean();
         List cabecList = cabecCLBean.get("statusCabecCheckList", 1L);
@@ -34,18 +36,33 @@ public class CabecCheckListDAO {
         return cabecCLBean;
     }
 
-    public void insCabec(Long idCheckListEquip, ConfigBean configBean){
+    public boolean verAberturaCheckList(Long idTurno){
 
-        ItemCLBean itemCheckListBean = new ItemCLBean();
-        List itemCheckList = itemCheckListBean.get("idCheckList", idCheckListEquip);
-        Long qtde = (long) itemCheckList.size();
-        itemCheckList.clear();
+        ConfigCTR configCTR = new ConfigCTR();
+        EquipBean equipBean = configCTR.getEquip();
+        ConfigBean configBean = configCTR.getConfig();
+
+        if ((equipBean.getIdCheckListEquip() > 0) &&
+                ((configBean.getUltTurnoCLConfig() != idTurno)
+                        || ((configBean.getUltTurnoCLConfig() == idTurno)
+                        && (!configBean.getDtUltCLConfig().equals(Tempo.getInstance().dataSHora()))))) {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public void createCabecAberto(MotoMecCTR motoMecCTR){
+
+        ConfigCTR configCTR = new ConfigCTR();
 
         CabecCLBean cabecCLBean = new CabecCLBean();
-        cabecCLBean.setDtCabCL(Tempo.getInstance().dataComHora());
-        cabecCLBean.setEquipCabCL(configBean.getCodEquipConfig());
-        cabecCLBean.setFuncCabCL(configBean.getMatricColabConfig());
-        cabecCLBean.setTurnoCabCL(configBean.getIdTurnoConfig());
+        cabecCLBean.setDtCabCL(Tempo.getInstance().dataComHora().getDataHora());
+        cabecCLBean.setEquipCabCL(configCTR.getEquip().getNroEquip());
+        cabecCLBean.setFuncCabCL(motoMecCTR.getFunc());
+        cabecCLBean.setTurnoCabCL(motoMecCTR.getTurno());
         cabecCLBean.setStatusCabCL(1L);
         cabecCLBean.insert();
 

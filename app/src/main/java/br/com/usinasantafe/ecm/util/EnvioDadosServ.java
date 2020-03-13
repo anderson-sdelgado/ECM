@@ -14,7 +14,7 @@ import android.util.Log;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 import br.com.usinasantafe.ecm.util.connHttp.PostCadGenerico;
@@ -63,25 +63,25 @@ public class EnvioDadosServ {
         configBean = (ConfigBean) configList.get(0);
         configList.clear();
 
-        CertifCanaBean certifCanaBean = new CertifCanaBean();
-        List compVCanaList = certifCanaBean.get("status", 1L);
-        certifCanaBean = (CertifCanaBean) compVCanaList.get(0);
+        PreCECBean preCECBean = new PreCECBean();
+        List compVCanaList = preCECBean.get("status", 1L);
+        preCECBean = (PreCECBean) compVCanaList.get(0);
 
-        certifCanaBean.setCam(configBean.getCodEquipConfig());
-        certifCanaBean.setMoto(configBean.getMatricColabConfig());
-        certifCanaBean.setTurno(configBean.getIdTurnoConfig());
-        certifCanaBean.setStatus(2L);
-        certifCanaBean.update();
+        preCECBean.setCam(configBean.getCodEquipConfig());
+        preCECBean.setMoto(configBean.getMatricColabConfig());
+        preCECBean.setTurno(configBean.getIdTurnoConfig());
+        preCECBean.setStatus(2L);
+        preCECBean.update();
 
         envioViagemCana();
 
         CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
-        certifCanaBkpBean.setMoto(certifCanaBean.getMoto());
-        certifCanaBkpBean.setCarr1(certifCanaBean.getCarr1());
-        certifCanaBkpBean.setCarr2(certifCanaBean.getCarr2());
-        certifCanaBkpBean.setCarr3(certifCanaBean.getCarr3());
-        certifCanaBkpBean.setDataSaidaCampo(certifCanaBean.getDataSaidaCampo());
-        certifCanaBkpBean.setNoteiro(certifCanaBean.getMoto());
+        certifCanaBkpBean.setMoto(preCECBean.getMoto());
+        certifCanaBkpBean.setCarr1(preCECBean.getCarr1());
+        certifCanaBkpBean.setCarr2(preCECBean.getCarr2());
+        certifCanaBkpBean.setCarr3(preCECBean.getCarr3());
+        certifCanaBkpBean.setDataSaidaCampo(preCECBean.getDataSaidaCampo());
+        certifCanaBkpBean.setNoteiro(preCECBean.getMoto());
 
         List listaCompVCanaBkp = certifCanaBkpBean.all();
         int qtdeVCana = listaCompVCanaBkp.size();
@@ -148,16 +148,16 @@ public class EnvioDadosServ {
 
     public void envioViagemCana() {
 
-        CertifCanaBean certifCanaBean = new CertifCanaBean();
+        PreCECBean preCECBean = new PreCECBean();
         List viagemCanaList = viagensCana();
 
         JsonArray jsonArray = new JsonArray();
 
         for (int i = 0; i < viagemCanaList.size(); i++) {
 
-            certifCanaBean = (CertifCanaBean) viagemCanaList.get(i);
+            preCECBean = (PreCECBean) viagemCanaList.get(i);
             Gson gson = new Gson();
-            jsonArray.add(gson.toJsonTree(certifCanaBean, certifCanaBean.getClass()));
+            jsonArray.add(gson.toJsonTree(preCECBean, preCECBean.getClass()));
 
         }
 
@@ -181,7 +181,7 @@ public class EnvioDadosServ {
     public void enviarBolFechadosMM() {
 
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        String dados = motoMecCTR.dadosEnvioBolFechado();
+        String dados = motoMecCTR.dadosEnvioBolFechadoMM();
 
         Log.i("PMM", "FECHADO = " + dados);
 
@@ -200,7 +200,7 @@ public class EnvioDadosServ {
     public void enviarBolAbertosMM() {
 
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        String dados = motoMecCTR.dadosEnvioBolAberto();
+        String dados = motoMecCTR.dadosEnvioBolAbertoMM();
 
         Log.i("PMM", "ABERTO = " + dados);
 
@@ -248,8 +248,8 @@ public class EnvioDadosServ {
     }
 
     public void delViagemCana() {
-        CertifCanaBean certifCanaBean = new CertifCanaBean();
-        certifCanaBean.deleteAll();
+        PreCECBean preCECBean = new PreCECBean();
+        preCECBean.deleteAll();
     }
 
     //////////////////////////TRAZER DADOS////////////////////////////
@@ -266,8 +266,8 @@ public class EnvioDadosServ {
     }
 
     public List viagensCana() {
-        CertifCanaBean certifCanaBean = new CertifCanaBean();
-        return certifCanaBean.get("status", 2L);
+        PreCECBean preCECBean = new PreCECBean();
+        return preCECBean.get("status", 2L);
     }
 
     //////////////////////VERIFICAÇÃO DE DADOS///////////////////////////
@@ -282,12 +282,12 @@ public class EnvioDadosServ {
 
     public Boolean verifBolFechadoMM() {
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        return motoMecCTR.verEnvioBolFech();
+        return motoMecCTR.verEnvioBolFechMM();
     }
 
     public Boolean verifBolAbertoSemEnvioMM() {
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        return motoMecCTR.verEnvioBolAberto();
+        return motoMecCTR.verEnvioBolAbertoMM();
     }
 
     public Boolean verifApontMM() {

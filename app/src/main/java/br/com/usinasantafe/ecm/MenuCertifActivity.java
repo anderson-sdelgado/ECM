@@ -74,9 +74,9 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                 if (text.equals("APONTAMENTO")) {
 
-                    if (ecmContext.getCertifCanaCTR().verCertifAberto()) {
+                    if (ecmContext.getCECCTR().verPreCECAberto()) {
 
-                        if (ecmContext.getCertifCanaCTR().verDataCertif()) {
+                        if (ecmContext.getCECCTR().verDataCertif()) {
 
                             Intent it = new Intent(MenuCertifActivity.this, AtivOSActivity.class);
                             startActivity(it);
@@ -132,8 +132,8 @@ public class MenuCertifActivity extends ActivityGeneric {
                         progressBar.setProgress(0);
                         progressBar.setMax(100);
                         progressBar.show();
-                        AtualDadosServ.getInstance().atualTodasTabBD(progressBar);
-                        AtualDadosServ.getInstance().setContext(MenuCertifActivity.this);
+
+                        ecmContext.getConfigCTR().atualTodasTabelas(MenuCertifActivity.this, progressBar);
 
                     } else {
                         AlertDialog.Builder alerta = new AlertDialog.Builder(MenuCertifActivity.this);

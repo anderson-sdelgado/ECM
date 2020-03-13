@@ -32,12 +32,10 @@ public class FrenteActivity extends ActivityGeneric {
 
                     if (frente < 50) {
 
-                        ecmContext.getCertifCanaCTR().salvarCertifAberto();
-                        ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getOpCorSaidaUsina());
+                        ecmContext.getCECCTR().salvarCertifAberto();
+                        ecmContext.setVerPosTela(2);
 
-                        ecmContext.setPosMenu(8);
-
-                        Intent it = new Intent(FrenteActivity.this, MenuMotoMecActivity.class);
+                        Intent it = new Intent(FrenteActivity.this, OSActivity.class);
                         startActivity(it);
                         finish();
 

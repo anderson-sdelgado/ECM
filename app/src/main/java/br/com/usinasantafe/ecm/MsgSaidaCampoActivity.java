@@ -22,7 +22,7 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                ecmContext.getCertifCanaCTR().setDataSaidaCampo();
+                ecmContext.getCECCTR().setDataSaidaCampo();
 
                 Intent it = new Intent(MsgSaidaCampoActivity.this, VerMotoristaActivity.class);
                 startActivity(it);

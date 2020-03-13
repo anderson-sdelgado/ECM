@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class DesengCarretaActivity extends ActivityGeneric {
 
@@ -30,7 +31,7 @@ public class DesengCarretaActivity extends ActivityGeneric {
 
         CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
         String mensagem = "DESEJA DESENGATAR A(S) CARRETA(S):";
-        List carretaList = ecmContext.getCertifCanaCTR().carretaList(2L);
+        List carretaList = ecmContext.getCECCTR().carretaList(2L);
         for(int i = 0; i < carretaList.size(); i++){
             carretaUtilBean = (CarretaUtilBean) carretaList.get(i);
             mensagem = mensagem + "\nCAR " + carretaUtilBean.getPosCarreta() + ": " + carretaUtilBean.getNroEquip();
@@ -43,7 +44,7 @@ public class DesengCarretaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                ecmContext.getCertifCanaCTR().delCarreta(2L);
+                ecmContext.getCECCTR().delCarreta(2L);
 
                 if (ecmContext.getVerPosTela() == 3){
                     Intent it = new Intent(DesengCarretaActivity.this, MenuMotoMecActivity.class);
@@ -56,7 +57,16 @@ public class DesengCarretaActivity extends ActivityGeneric {
                     finish();
                 }
 
-                ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getDesengateCarreta());
+                Long statusCon;
+                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                if (conexaoWeb.verificaConexao(DesengCarretaActivity.this)) {
+                    statusCon = 1L;
+                }
+                else{
+                    statusCon = 0L;
+                }
+
+                ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
 
             }
         });

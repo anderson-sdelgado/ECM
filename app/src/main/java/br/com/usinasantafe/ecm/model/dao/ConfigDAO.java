@@ -42,6 +42,25 @@ public class ConfigDAO {
         configBean.update();
     }
 
+    public void setStatusConConfig(Long status){
+        ConfigBean configBean = getConfig();
+        configBean.setStatusConConfig(status);
+        configBean.update();
+    }
+
+    public void setHorimetroConfig(Double horimetro){
+        ConfigBean configBean = getConfig();
+        configBean.setHorimetroConfig(horimetro);
+        configBean.setDtUltApontConfig("");
+        configBean.update();
+    }
+
+    public void setDtUltApontConfig(String data){
+        ConfigBean configBean = getConfig();
+        configBean.setDtUltApontConfig(data);
+        configBean.update();
+    }
+
     public Long getCodEquipConfig(){
         return getConfig().getCodEquipConfig();
     }
@@ -75,6 +94,16 @@ public class ConfigDAO {
         ConfigBean configBean = getConfig();
         configBean.setDifDthrConfig(status);
         configBean.update();
+    }
+
+    public void setOsConfig(Long nroOS){
+        ConfigBean configBean = getConfig();
+        configBean.setOsConfig(nroOS);
+        configBean.update();
+    }
+
+    public Long getOsConfig(){
+        return getConfig().getOsConfig();
     }
 
 }

@@ -26,13 +26,13 @@ import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class MenuInicialActivity extends ActivityGeneric {
@@ -307,30 +307,30 @@ public class MenuInicialActivity extends ActivityGeneric {
 
         }
 
-        CertifCanaBean certifCanaBean = new CertifCanaBean();
-        List compVCanaList = certifCanaBean.all();
+        PreCECBean preCECBean = new PreCECBean();
+        List compVCanaList = preCECBean.all();
 
-        Log.i("PMM", "CertifCanaBean");
+        Log.i("PMM", "PreCECBean");
 
         for (int i = 0; i < compVCanaList.size(); i++) {
 
-            certifCanaBean = (CertifCanaBean) compVCanaList.get(i);
-            Log.i("PMM", "idCompVCana = " + certifCanaBean.getIdCertifCana());
-            Log.i("PMM", "cam = " + certifCanaBean.getCam());
-            Log.i("PMM", "libCam = " + certifCanaBean.getLibCam());
-            Log.i("PMM", "moto = " + certifCanaBean.getMoto());
-            Log.i("PMM", "carr1 = " + certifCanaBean.getCarr1());
-            Log.i("PMM", "libCarr1 = " + certifCanaBean.getLibCarr1());
-            Log.i("PMM", "carr2 = " + certifCanaBean.getCarr2());
-            Log.i("PMM", "libCarr2 = " + certifCanaBean.getLibCarr2());
-            Log.i("PMM", "carr3 = " + certifCanaBean.getCarr3());
-            Log.i("PMM", "libCarr3 = " + certifCanaBean.getLibCarr3());
-            Log.i("PMM", "carr4 = " + certifCanaBean.getCarr4());
-            Log.i("PMM", "libCarr4 = " + certifCanaBean.getLibCarr4());
-            Log.i("PMM", "dataChegCampo = " + certifCanaBean.getDataChegCampo());
-            Log.i("PMM", "dataSaidaCampo = " + certifCanaBean.getDataSaidaCampo());
-            Log.i("PMM", "dataSaidaUsina = " + certifCanaBean.getDataSaidaUsina());
-            Log.i("PMM", "turno = " + certifCanaBean.getTurno());
+            preCECBean = (PreCECBean) compVCanaList.get(i);
+            Log.i("PMM", "idCompVCana = " + preCECBean.getIdCertifCana());
+            Log.i("PMM", "cam = " + preCECBean.getCam());
+            Log.i("PMM", "libCam = " + preCECBean.getLibCam());
+            Log.i("PMM", "moto = " + preCECBean.getMoto());
+            Log.i("PMM", "carr1 = " + preCECBean.getCarr1());
+            Log.i("PMM", "libCarr1 = " + preCECBean.getLibCarr1());
+            Log.i("PMM", "carr2 = " + preCECBean.getCarr2());
+            Log.i("PMM", "libCarr2 = " + preCECBean.getLibCarr2());
+            Log.i("PMM", "carr3 = " + preCECBean.getCarr3());
+            Log.i("PMM", "libCarr3 = " + preCECBean.getLibCarr3());
+            Log.i("PMM", "carr4 = " + preCECBean.getCarr4());
+            Log.i("PMM", "libCarr4 = " + preCECBean.getLibCarr4());
+            Log.i("PMM", "dataChegCampo = " + preCECBean.getDataChegCampo());
+            Log.i("PMM", "dataSaidaCampo = " + preCECBean.getDataSaidaCampo());
+            Log.i("PMM", "dataSaidaUsina = " + preCECBean.getDataSaidaUsina());
+            Log.i("PMM", "turno = " + preCECBean.getTurno());
 
         }
 

@@ -21,11 +21,21 @@ public class ConfigBean extends Entidade {
 	@DatabaseField
 	private Long idTurnoConfig;
 	@DatabaseField
+	private String dtUltApontConfig;
+	@DatabaseField
+	private String dtUltCLConfig;
+	@DatabaseField
 	private String dtServConfig;
 	@DatabaseField
 	private Long difDthrConfig;
 	@DatabaseField
+	private Long osConfig;
+	@DatabaseField
+	private Double horimetroConfig;
+	@DatabaseField
 	private Long verInforConfig; //0 - Verificar Dados; 1- Dados Recebidos; 2 - Dados Visualizados
+	@DatabaseField
+	private Long statusConConfig;  //0 - Offline; 1 - Online
 	
 	public ConfigBean() {
 	}
@@ -92,5 +102,45 @@ public class ConfigBean extends Entidade {
 
 	public void setDtServConfig(String dtServConfig) {
 		this.dtServConfig = dtServConfig;
+	}
+
+	public Long getStatusConConfig() {
+		return statusConConfig;
+	}
+
+	public void setStatusConConfig(Long statusConConfig) {
+		this.statusConConfig = statusConConfig;
+	}
+
+	public Long getOsConfig() {
+		return osConfig;
+	}
+
+	public void setOsConfig(Long osConfig) {
+		this.osConfig = osConfig;
+	}
+
+	public Double getHorimetroConfig() {
+		return horimetroConfig;
+	}
+
+	public void setHorimetroConfig(Double horimetroConfig) {
+		this.horimetroConfig = horimetroConfig;
+	}
+
+	public String getDtUltApontConfig() {
+		return dtUltApontConfig;
+	}
+
+	public void setDtUltApontConfig(String dtUltApontConfig) {
+		this.dtUltApontConfig = dtUltApontConfig;
+	}
+
+	public String getDtUltCLConfig() {
+		return dtUltCLConfig;
+	}
+
+	public void setDtUltCLConfig(String dtUltCLConfig) {
+		this.dtUltCLConfig = dtUltCLConfig;
 	}
 }

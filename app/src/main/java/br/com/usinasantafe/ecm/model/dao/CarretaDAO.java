@@ -120,7 +120,7 @@ public class CarretaDAO {
         return carretaUtilBean.get(pesqArrayList);
     }
 
-    public String textoCarreta(){
+    public String getDescrCarreta(){
         CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
         List carretaList = carretaUtilBean.getAndOrderBy("tipoCarreta", 2L, "idCarretaUtil", true);
         String textoCarreta = "";

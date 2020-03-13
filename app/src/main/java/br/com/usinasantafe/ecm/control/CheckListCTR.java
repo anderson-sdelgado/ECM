@@ -23,10 +23,14 @@ public class CheckListCTR {
         respItemCLDAO.clearRespItem(cabecCLTO.getIdCabCL());
     }
 
-    public void insCabec(){
-        ConfigCTR configCTR = new ConfigCTR();
+    public void createCabecAberto(MotoMecCTR motoMecCTR){
         CabecCheckListDAO cabecCheckListDAO = new CabecCheckListDAO();
-        cabecCheckListDAO.insCabec(configCTR.getEquip().getIdCheckListEquip(), configCTR.getConfig());
+        cabecCheckListDAO.createCabecAberto(motoMecCTR);
+    }
+
+    public boolean verAberturaCheckList(Long turno){
+        CabecCheckListDAO cabecCheckListDAO = new CabecCheckListDAO();
+        return cabecCheckListDAO.verAberturaCheckList(turno);
     }
 
     public ItemCLBean getItemCheckList(int pos){

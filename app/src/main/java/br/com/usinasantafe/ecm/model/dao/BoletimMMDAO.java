@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
@@ -29,12 +30,17 @@ public class BoletimMMDAO {
         return ret;
     }
 
-    public BoletimMMBean getBolAberto(){
+    public BoletimMMBean getBolMMAberto(){
         BoletimMMBean boletimMMBean = new BoletimMMBean();
         List boletimMMList = boletimMMBean.get("statusBolMM", 1L);
         boletimMMBean = (BoletimMMBean) boletimMMList.get(0);
         boletimMMList.clear();
         return boletimMMBean;
+    }
+
+    public Long getIdBolAberto(){
+        BoletimMMBean boletimMMBean = getBolMMAberto();
+        return boletimMMBean.getIdBolMM();
     }
 
     public void salvarBolAberto(BoletimMMBean boletimMMBean){
@@ -86,7 +92,9 @@ public class BoletimMMDAO {
 
     }
 
-    public String dadosEnvioBolAberto(BoletimMMBean boletimMMBean){
+    public String dadosEnvioBolAberto(){
+
+        BoletimMMBean boletimMMBean = getBolMMAberto();
 
         Gson gsonCabec = new Gson();
         JsonArray jsonArrayBoletim = new JsonArray();
@@ -239,6 +247,20 @@ public class BoletimMMDAO {
             Tempo.getInstance().setEnvioDado(true);
         }
 
+    }
+
+    public void atualQtdeApontBol(){
+        BoletimMMBean boletimMMBean = getBolMMAberto();
+        boletimMMBean.setQtdeApontBolMM(boletimMMBean.getQtdeApontBolMM() + 1L);
+        boletimMMBean.update();
+    }
+
+    public String getMatricNomeFunc(){
+        BoletimMMBean boletimMMBean = getBolMMAberto();
+        ColabBean colabBean = new ColabBean();
+        List colabList = colabBean.get("matricColab", boletimMMBean.getMatricFuncBolMM());
+        colabBean = (ColabBean) colabList.get(0);
+        return colabBean.getMatricColab() + " - " + colabBean.getNomeColab();
     }
 
 }

@@ -30,13 +30,13 @@ public class LibOSActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    if(ecmContext.getCertifCanaCTR().verLibOS(Long.parseLong(editTextPadrao.getText().toString()))){
+                    if(ecmContext.getCECCTR().verLibOS(Long.parseLong(editTextPadrao.getText().toString()))){
 
-                        if(!ecmContext.getCertifCanaCTR().verQtdeCarreta(1L)){
-                            ecmContext.getCertifCanaCTR().setLibCam(Long.parseLong(editTextPadrao.getText().toString()));
+                        if(!ecmContext.getCECCTR().verQtdeCarreta(1L)){
+                            ecmContext.getCECCTR().setLibCam(Long.parseLong(editTextPadrao.getText().toString()));
                         }
                         else{
-                            ecmContext.getCertifCanaCTR().setLibCarreta(Long.parseLong(editTextPadrao.getText().toString()));
+                            ecmContext.getCECCTR().setLibCarreta(Long.parseLong(editTextPadrao.getText().toString()));
                         }
                         Intent it = new Intent(LibOSActivity.this, MsgLibOSActivity.class);
                         startActivity(it);

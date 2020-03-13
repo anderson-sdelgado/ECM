@@ -14,6 +14,17 @@ public class MotoMecDAO {
     public MotoMecDAO() {
     }
 
+    public List getMotoMecList(){
+
+        ArrayList pesqArrayList = new ArrayList();
+        pesqArrayList.add(getPesqBeanAplic());
+        pesqArrayList.add(getPesqBeanMotoMec());
+
+        MotoMecBean motoMecBean = new MotoMecBean();
+        return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
+
+    }
+
     public Long getOpCorSaidaUsina(){
 
         MotoMecBean motoMecBean = new MotoMecBean();
@@ -146,16 +157,7 @@ public class MotoMecDAO {
 
     }
 
-    public List getMotoMecList(){
 
-        ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesqBeanAplic());
-        pesqArrayList.add(getPesqBeanMotoMec());
-
-        MotoMecBean motoMecBean = new MotoMecBean();
-        return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
-
-    }
 
     public List getParadaList(){
 

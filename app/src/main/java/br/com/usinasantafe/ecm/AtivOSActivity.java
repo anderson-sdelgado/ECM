@@ -34,9 +34,9 @@ public class AtivOSActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    if (ecmContext.getCertifCanaCTR().verAtivOS(Long.parseLong(editTextPadrao.getText().toString()))) {
+                    if (ecmContext.getCECCTR().verAtivOS(Long.parseLong(editTextPadrao.getText().toString()))) {
 
-                        ecmContext.getCertifCanaCTR().setAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
+                        ecmContext.getCECCTR().setAtivOS(Long.parseLong(editTextPadrao.getText().toString()));
 
                         Intent it = new Intent(AtivOSActivity.this, MsgAtivOSActivity.class);
                         startActivity(it);

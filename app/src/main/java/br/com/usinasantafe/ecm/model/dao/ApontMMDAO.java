@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.usinasantafe.ecm.control.MotoMecCTR;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecPneuBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ItemPneuBean;
@@ -70,8 +71,6 @@ public class ApontMMDAO {
     public String dadosEnvioApontMM(List apontaList){
 
         JsonArray jsonArrayAponta = new JsonArray();
-        JsonArray jsonArrayImplemento = new JsonArray();
-        JsonArray jsonArrayMovLeira = new JsonArray();
         JsonArray jsonArrayCabecPneu = new JsonArray();
         JsonArray jsonArrayItemPneu = new JsonArray();
 
@@ -128,10 +127,8 @@ public class ApontMMDAO {
         try{
 
             int pos1 = retorno.indexOf("_") + 1;
-            int pos2 = retorno.indexOf("|") + 1;
 
-            String objPrinc = retorno.substring(pos1, pos2);
-            String objSeg = retorno.substring(pos2);
+            String objPrinc = retorno.substring(pos1);
 
             JSONObject jObjApontMM = new JSONObject(objPrinc);
             JSONArray jsonArrayApontMM = jObjApontMM.getJSONArray("apont");
@@ -188,6 +185,79 @@ public class ApontMMDAO {
             Tempo.getInstance().setEnvioDado(true);
         }
 
+    }
+
+    public List getListAllApont(Long idBolMM){
+        ApontMMBean apontMMBean = new ApontMMBean();
+        return apontMMBean.getAndOrderBy("idBolApontMM", idBolMM, "idApontMM", true);
+    }
+
+
+    public ApontMMBean createApont(MotoMecCTR motoMecCTR){
+        ApontMMBean apontMMBean = new ApontMMBean();
+        List apontList = getListAllApont(motoMecCTR.getIdBol());
+        if (apontList.size() == 0) {
+            apontMMBean.setIdBolApontMM(motoMecCTR.getIdBol());
+            apontMMBean.setIdExtBolApontMM(motoMecCTR.getIdExtBol());
+            apontMMBean.setOsApontMM(motoMecCTR.getOS());
+            apontMMBean.setAtivApontMM(motoMecCTR.getAtiv());
+            apontMMBean.setParadaApontMM(0L);
+            apontMMBean.setStatusConApontMM(motoMecCTR.getStatusConBol());
+            apontMMBean.setStatusApontMM(1L);
+            apontMMBean.setLongitudeApontMM(motoMecCTR.getLongitude());
+            apontMMBean.setLatitudeApontMM(motoMecCTR.getLatitude());
+        } else {
+            ApontMMBean ultApontTO = (ApontMMBean) apontList.get(apontList.size() - 1);
+            apontMMBean = ultApontTO;
+            apontMMBean.setStatusApontMM(1L);
+        }
+        apontMMBean.setTransbApontMM(0L);
+        apontList.clear();
+        return apontMMBean;
+    }
+
+    public ApontMMBean createApontAtividade(MotoMecCTR motoMecCTR){
+        ApontMMBean apontMMBean = new ApontMMBean();
+        List apontList = getListAllApont(motoMecCTR.getIdBol());
+        if (apontList.size() == 0) {
+            apontMMBean.setIdBolApontMM(motoMecCTR.getIdBol());
+            apontMMBean.setIdExtBolApontMM(motoMecCTR.getIdExtBol());
+            apontMMBean.setOsApontMM(motoMecCTR.getOS());
+        } else {
+            ApontMMBean ultApontBean = (ApontMMBean) apontList.get(apontList.size() - 1);
+            apontMMBean = ultApontBean;
+            apontMMBean.setStatusApontMM(1L);
+        }
+        apontMMBean.setTransbApontMM(0L);
+        apontList.clear();
+        return apontMMBean;
+    }
+
+    public ApontMMBean createApontParada(MotoMecCTR boletimCTR){
+        ApontMMBean apontMMBean = new ApontMMBean();
+        List apontList = getListAllApont(boletimCTR.getIdBol());
+        if (apontList.size() == 0) {
+            apontMMBean.setIdBolApontMM(boletimCTR.getIdBol());
+            apontMMBean.setIdExtBolApontMM(boletimCTR.getIdExtBol());
+            apontMMBean.setOsApontMM(boletimCTR.getOS());
+            apontMMBean.setAtivApontMM(boletimCTR.getAtiv());
+            apontMMBean.setParadaApontMM(0L);
+            apontMMBean.setStatusConApontMM(boletimCTR.getStatusConBol());
+            apontMMBean.setStatusApontMM(1L);
+            apontMMBean.setLongitudeApontMM(boletimCTR.getLongitude());
+            apontMMBean.setLatitudeApontMM(boletimCTR.getLatitude());
+        } else {
+            ApontMMBean ultApontTO = (ApontMMBean) apontList.get(apontList.size() - 1);
+            apontMMBean = ultApontTO;
+            apontMMBean.setStatusApontMM(1L);
+        }
+        apontMMBean.setTransbApontMM(0L);
+        apontList.clear();
+        return apontMMBean;
+    }
+
+    public void salvarApont(ApontMMBean apontMMBean){
+        apontMMBean.insert();
     }
 
 }

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,11 +13,14 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
 
 public class OSActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
+    private ProgressDialog progressBar;
+    private Handler customHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,62 +38,33 @@ public class OSActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    if(ecmContext.getVerPosTela() == 1){
+                    try{
 
-                        try{
+                        Long nroOS = Long.parseLong(editTextPadrao.getText().toString());
 
-                            Long nroOS = Long.parseLong(editTextPadrao.getText().toString());
+                        ecmContext.getConfigCTR().setOsConfig(nroOS);
 
-                            ecmContext.getMotoMecCTR().setOSBol(nroOS);
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        OSBean osTO = new OSBean();
 
-                            ConexaoWeb conexaoWeb = new ConexaoWeb();
-                            OSBean osTO = new OSBean();
+                        if (osTO.hasElements()) {
 
-                            if (osTO.hasElements()) {
+                            List osList = osTO.get("nroOS", nroOS);
 
-                                List osList = osTO.get("nroOS", nroOS);
+                            if (osList.size() > 0) {
 
-                                if (osList.size() > 0) {
-
-                                    if (conexaoWeb.verificaConexao(OSActivity.this)) {
-                                        configCTR.setStatusConConfig(1L);
-                                    }
-                                    else{
-                                        configCTR.setStatusConConfig(0L);
-                                    }
-
-                                    VerifDadosServ.getInstance().setVerTerm(true);
-
-                                    Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
-                                    startActivity(it);
-                                    finish();
-
-                                } else {
-
-                                    if (conexaoWeb.verificaConexao(OSActivity.this)) {
-
-                                        progressBar = new ProgressDialog(v.getContext());
-                                        progressBar.setCancelable(true);
-                                        progressBar.setMessage("PESQUISANDO OS...");
-                                        progressBar.show();
-
-                                        customHandler.postDelayed(updateTimerThread, 10000);
-
-                                        pmmContext.getBoletimCTR().verOS(editTextPadrao.getText().toString()
-                                                , OSActivity.this, ListaAtividadeActivity.class, progressBar);
-
-
-                                    } else {
-
-                                        configCTR.setStatusConConfig(0L);
-
-                                        Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
-                                        startActivity(it);
-                                        finish();
-
-                                    }
-
+                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
+                                    ecmContext.getConfigCTR().setStatusConConfig(1L);
                                 }
+                                else{
+                                    ecmContext.getConfigCTR().setStatusConConfig(0L);
+                                }
+
+                                VerifDadosServ.getInstance().setVerTerm(true);
+
+                                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                                startActivity(it);
+                                finish();
 
                             } else {
 
@@ -102,12 +77,13 @@ public class OSActivity extends ActivityGeneric {
 
                                     customHandler.postDelayed(updateTimerThread, 10000);
 
-                                    pmmContext.getBoletimCTR().verOS(editTextPadrao.getText().toString()
+                                    ecmContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
                                             , OSActivity.this, ListaAtividadeActivity.class, progressBar);
+
 
                                 } else {
 
-                                    configCTR.setStatusConConfig(0L);
+                                    ecmContext.getConfigCTR().setStatusConConfig(0L);
 
                                     Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
                                     startActivity(it);
@@ -117,29 +93,54 @@ public class OSActivity extends ActivityGeneric {
 
                             }
 
-                        }
-                        catch (NumberFormatException e){
+                        } else {
 
-                            AlertDialog.Builder alerta = new AlertDialog.Builder( OSActivity.this);
-                            alerta.setTitle("ATENÇÃO");
-                            alerta.setMessage("VALOR DE OS INCORRETO! FAVOR VERIFICAR.");
-                            alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                            if (conexaoWeb.verificaConexao(OSActivity.this)) {
 
-                                }
-                            });
+                                progressBar = new ProgressDialog(v.getContext());
+                                progressBar.setCancelable(true);
+                                progressBar.setMessage("PESQUISANDO OS...");
+                                progressBar.show();
 
-                            alerta.show();
+                                customHandler.postDelayed(updateTimerThread, 10000);
+
+                                ecmContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
+                                        , OSActivity.this, ListaAtividadeActivity.class, progressBar);
+
+                            } else {
+
+                                ecmContext.getConfigCTR().setStatusConConfig(0L);
+
+                                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                                startActivity(it);
+                                finish();
+
+                            }
 
                         }
 
                     }
+                    catch (NumberFormatException e){
+
+                        AlertDialog.Builder alerta = new AlertDialog.Builder( OSActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage("VALOR DE OS INCORRETO! FAVOR VERIFICAR.");
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        alerta.show();
+
+                    }
 
 
-//                    if(ecmContext.getCertifCanaCTR().verNroOS(Long.parseLong(editTextPadrao.getText().toString()))){
+
+//                    if(ecmContext.getCECCTR().verNroOS(Long.parseLong(editTextPadrao.getText().toString()))){
 //
-//                        ecmContext.getCertifCanaCTR().setNroOS(Long.parseLong(editTextPadrao.getText().toString()));
+//                        ecmContext.getCECCTR().setNroOS(Long.parseLong(editTextPadrao.getText().toString()));
 //                        Intent it = new Intent(OSActivity.this, LibOSActivity.class);
 //                        startActivity(it);
 //                        finish();
@@ -179,7 +180,7 @@ public class OSActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
-        if(!ecmContext.getCertifCanaCTR().verQtdeCarreta(1L)){
+        if(!ecmContext.getCECCTR().verQtdeCarreta(1L)){
             Intent it = new Intent(OSActivity.this, CaminhaoActivity.class);
             startActivity(it);
             finish();
@@ -190,5 +191,27 @@ public class OSActivity extends ActivityGeneric {
             finish();
         }
     }
+
+    private Runnable updateTimerThread = new Runnable() {
+
+        public void run() {
+
+            if(!VerifDadosServ.getInstance().isVerTerm()) {
+
+                VerifDadosServ.getInstance().cancelVer();
+
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+
+                ecmContext.getConfigCTR().setStatusConConfig(0L);
+                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                startActivity(it);
+                finish();
+
+            }
+
+        }
+    };
 
 }

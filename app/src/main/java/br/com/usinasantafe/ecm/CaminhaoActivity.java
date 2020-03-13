@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
-
-        import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-
 public class CaminhaoActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
@@ -44,7 +40,7 @@ public class CaminhaoActivity extends ActivityGeneric {
                     }
                     else if(ecmContext.getConfigCTR().getEquip().getClasseEquip() == 6){
 
-                        ecmContext.getCertifCanaCTR().setLibCam(0L);
+                        ecmContext.getCECCTR().setLibCam(0L);
 
                         Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
                         startActivity(it);

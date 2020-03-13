@@ -7,26 +7,26 @@ import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
-import br.com.usinasantafe.ecm.model.dao.CertifCanaDAO;
+import br.com.usinasantafe.ecm.model.dao.PreCECDAO;
 import br.com.usinasantafe.ecm.model.dao.RAtivOSDAO;
 import br.com.usinasantafe.ecm.model.dao.RLibOSDAO;
 
-public class CertifCanaCTR {
+public class CECCTR {
 
-    public CertifCanaCTR() {
+    public CECCTR() {
     }
 
     //////////////////////////////CABECALHO ABERTO//////////////////////////////////////////
 
     public void salvarCertifAberto(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        certifCanaDAO.salvarCertifAberto();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.salvarCertifAberto();
     }
 
     public void delCertifAberto(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        delCarretaCertif(certifCanaDAO.getCertifAberto().getIdCertifCana());
-        certifCanaDAO.delCertifAberto();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        delCarretaCertif(preCECDAO.getCertifAberto().getIdCertifCana());
+        preCECDAO.delCertifAberto();
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -52,14 +52,14 @@ public class CertifCanaCTR {
 
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
 
-    public boolean verCertifAberto(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        return certifCanaDAO.verCertifAberto();
+    public boolean verPreCECAberto(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.verCertifAberto();
     }
 
     public boolean verDataCertif(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        return certifCanaDAO.verDataCertif();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.verDataCertif();
     }
 
     public boolean verAtivOS(Long idRAtivOS){
@@ -68,9 +68,9 @@ public class CertifCanaCTR {
     }
 
     public boolean verNroOS(Long nroOS){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
         RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
-        return rAtivOSDAO.verNroOS(certifCanaDAO.getCertifAberto().getAtivOS(), nroOS);
+        return rAtivOSDAO.verNroOS(preCECDAO.getCertifAberto().getAtivOS(), nroOS);
     }
 
     public int verCarreta(Long nroCarreta, Long tipo){
@@ -123,58 +123,58 @@ public class CertifCanaCTR {
     }
 
     public boolean verLibOS(Long codLib){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
         RLibOSDAO rLibOSDAO = new RLibOSDAO();
-        return  rLibOSDAO.verLibOS(codLib, certifCanaDAO.getCertifAberto().getNroOS());
+        return  rLibOSDAO.verLibOS(codLib, preCECDAO.getCertifAberto().getNroOS());
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////SET DADOS////////////////////////////////
 
+    public void setDataChegCampo(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.setDataChegCampo();
+    }
+
     public void setDataSaidaCampo(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        certifCanaDAO.setDataSaidaCampo();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.setDataSaidaCampo();
         MotoMecCTR motoMecCTR = new MotoMecCTR();
         motoMecCTR.salvaSaidaCampoMM();
     }
 
-    public void setDataChegCampo(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        certifCanaDAO.setDataChegCampo();
-    }
-
     public void setAtivOS(Long ativOS){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        certifCanaDAO.setAtivOS(ativOS);
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.setAtivOS(ativOS);
     }
 
     public void setLibCam(Long libCam){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        certifCanaDAO.setLibCam(libCam);
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.setLibCam(libCam);
     }
 
     public void setNroOS(Long nroOS){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        certifCanaDAO.setNroOS(nroOS);
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.setNroOS(nroOS);
     }
 
     public void insCarreta(Long nroCarreta, Long tipo){
         CarretaDAO carretaDAO = new CarretaDAO();
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
         Long posCarreta = carretaDAO.posCarreta(tipo) + 1;
         Long idCertif = 0L;
         if(tipo == 1){
-            idCertif = certifCanaDAO.getCertifAberto().getIdCertifCana();
+            idCertif = preCECDAO.getCertifAberto().getIdCertifCana();
         }
         carretaDAO.insCarreta(idCertif, posCarreta, nroCarreta, tipo);
     }
 
     public void setLibCarreta(Long nroLib){
         CarretaDAO carretaDAO = new CarretaDAO();
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
         Long posCarreta = carretaDAO.posCarreta(1L);
-        Long idCertif = certifCanaDAO.getCertifAberto().getIdCertifCana();
+        Long idCertif = preCECDAO.getCertifAberto().getIdCertifCana();
         CarretaUtilBean carretaUtilBean = carretaDAO.getCarreta(idCertif, posCarreta);
         carretaDAO.setLibCarreta(carretaUtilBean, nroLib);
     }
@@ -184,8 +184,8 @@ public class CertifCanaCTR {
     ///////////////////////////////////GET DADOS/////////////////////////////////
 
     public String getDataChegCampo(){
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        return certifCanaDAO.getDataChegCampo();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.getDataChegCampo();
     }
 
     public Long getPosCarreta(Long tipo){
@@ -195,19 +195,19 @@ public class CertifCanaCTR {
 
     public RAtivOSBean getAtivOS(){
         RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
-        RAtivOSBean rAtivOSBean = rAtivOSDAO.getAtivOS(certifCanaDAO.getCertifAberto().getAtivOS());
+        PreCECDAO preCECDAO = new PreCECDAO();
+        RAtivOSBean rAtivOSBean = rAtivOSDAO.getAtivOS(preCECDAO.getCertifAberto().getAtivOS());
         return rAtivOSBean;
     }
 
     public RLibOSBean getRLibOSBean(){
         RLibOSDAO rLibOSDAO = new RLibOSDAO();
-        CertifCanaDAO certifCanaDAO = new CertifCanaDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
         Long libCam = 0L;
         if(!verQtdeCarreta(1L)){
-            libCam = certifCanaDAO.getCertifAberto().getLibCam();
+            libCam = preCECDAO.getCertifAberto().getLibCam();
         }
-        RLibOSBean rLibOSBean = rLibOSDAO.getRLibOSBean(libCam, certifCanaDAO.getCertifAberto().getNroOS());
+        RLibOSBean rLibOSBean = rLibOSDAO.getRLibOSBean(libCam, preCECDAO.getCertifAberto().getNroOS());
         return rLibOSBean;
     }
 

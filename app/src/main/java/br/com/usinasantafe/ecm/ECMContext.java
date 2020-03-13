@@ -1,6 +1,6 @@
 package br.com.usinasantafe.ecm;
 
-import br.com.usinasantafe.ecm.control.CertifCanaCTR;
+import br.com.usinasantafe.ecm.control.CECCTR;
 import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
@@ -10,7 +10,7 @@ import android.app.Application;
 
 public class ECMContext extends Application {
 
-	private CertifCanaCTR certifCanaCTR;
+	private CECCTR CECCTR;
 	private ConfigCTR configCTR;
 	private MotoMecCTR motoMecCTR;
 	private CheckListCTR checkListCTR;
@@ -18,12 +18,13 @@ public class ECMContext extends Application {
 
 	private int verPosTela;
 	// 1 - Inicio do Aplicativo;
-	// 2 - Troca Motorista no Menu Moto Mec;
+	// 2 - Saida da Usina;
 	// 3 - Desengate no Menu Moto Mec;
 	// 4 - Engate no Menu Moto Mec;
 	// 5 - Certificado;
 	// 6 - Desengate no Parada;
 	// 7 - Engate no Parada;
+	// 8 - Finalizar Boletim Moto Mec;
 
 	private int numCarreta;
 	//	private int telaAltMoto; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
@@ -36,10 +37,11 @@ public class ECMContext extends Application {
 
 	private Long cargoMotomec;
 	private Long lugarMotivoParada;
+	private String textoHorimetro;
 
 	private boolean verTimer;
 
-	public static String versaoAplic = "2.03";
+	public static String versaoAplic = "3.00";
 	private String verAtualCL;
 
 	private int posCheckList;
@@ -67,10 +69,10 @@ public class ECMContext extends Application {
 		return motoMecCTR;
 	}
 
-    public CertifCanaCTR getCertifCanaCTR() {
-        if (certifCanaCTR == null)
-			certifCanaCTR = new CertifCanaCTR();
-        return certifCanaCTR;
+    public CECCTR getCECCTR() {
+        if (CECCTR == null)
+			CECCTR = new CECCTR();
+        return CECCTR;
     }
 
     public CheckListCTR getCheckListCTR() {
@@ -219,5 +221,13 @@ public class ECMContext extends Application {
 
 	public void setMinuto(int minuto) {
 		this.minuto = minuto;
+	}
+
+	public String getTextoHorimetro() {
+		return textoHorimetro;
+	}
+
+	public void setTextoHorimetro(String textoHorimetro) {
+		this.textoHorimetro = textoHorimetro;
 	}
 }

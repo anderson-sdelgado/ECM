@@ -1,10 +1,14 @@
 package br.com.usinasantafe.ecm.control;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
+import br.com.usinasantafe.ecm.util.AtualDadosServ;
 
 public class ConfigCTR {
 
@@ -76,6 +80,26 @@ public class ConfigCTR {
         configDAO.setDifDthrConfig(status);
     }
 
+    public void setStatusConConfig(Long status){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setStatusConConfig(status);
+    }
+
+    public void setHorimetroConfig(Double horimetro){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setHorimetroConfig(horimetro);
+    }
+
+    public void setDtUltApontConfig(String data){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setDtUltApontConfig(data);
+    }
+
+    public void setOsConfig(Long nroOS){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setOsConfig(nroOS);
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////// VER CAMPOS ////////////////////////////////////////////
@@ -87,6 +111,12 @@ public class ConfigCTR {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    ///////////////////////////// ATUALIZAÇÃO DE DADOS ////////////////////////////////////////////
 
+    public void atualTodasTabelas(Context tela, ProgressDialog progressDialog){
+        AtualDadosServ.getInstance().atualTodasTabBD(tela, progressDialog);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
 }

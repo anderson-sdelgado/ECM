@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="tbcompvcanavar")
-public class CertifCanaBean extends Entidade{
+public class PreCECBean extends Entidade{
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,7 +49,7 @@ public class CertifCanaBean extends Entidade{
 	@DatabaseField
 	private Long status; //1 - Aberto; 2 - Fechado; 3 - Enviado
     
-    public CertifCanaBean(){
+    public PreCECBean(){
     }
 
 	public Long getIdCertifCana() {

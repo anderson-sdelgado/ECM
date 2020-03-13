@@ -9,7 +9,6 @@ import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.FrenteBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.TurnoBean;
 
@@ -18,10 +17,9 @@ import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.HodometroBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -68,7 +66,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, FrenteBean.class);
 			TableUtils.createTable(cs, ItemCLBean.class);
 			TableUtils.createTable(cs, MotoMecBean.class);
-			TableUtils.createTable(cs, RAtivOSBean.class);
 			TableUtils.createTable(cs, RLibOSBean.class);
 			TableUtils.createTable(cs, TurnoBean.class);
 
@@ -77,10 +74,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, BoletimBkpBean.class);
 			TableUtils.createTable(cs, CabecCLBean.class);
 			TableUtils.createTable(cs, CarretaUtilBean.class);
-			TableUtils.createTable(cs, CertifCanaBean.class);
+			TableUtils.createTable(cs, PreCECBean.class);
 			TableUtils.createTable(cs, CertifCanaBkpBean.class);
 			TableUtils.createTable(cs, ConfigBean.class);
-			TableUtils.createTable(cs, HodometroBean.class);
 			TableUtils.createTable(cs, RespItemCLBean.class);
 
 		}

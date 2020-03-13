@@ -14,11 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
-import br.com.usinasantafe.ecm.util.Tempo;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class MenuMotoMecActivity extends ActivityGeneric {
 
@@ -29,7 +27,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
     private TextView textViewUltimaViagem;
     private ProgressDialog progressBar;
     private List motoMecList;
-    private MotoMecBean motoMecBean;
     private int posicao;
 
     @Override
@@ -50,7 +47,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         buttonRetMotoMec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(MenuMotoMecActivity.this, MenuInicialActivity.class);
+                ecmContext.setVerPosTela(8);
+                Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
                 startActivity(it);
                 finish();
             }
@@ -59,10 +57,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         buttonParadaMotoMec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                    ecmContext.setCargoMotomec(motoMecBean.getCargoMotoMec());
-//                    ecmContext.setLugarMotivoParada(1L);
-
                 Intent it = new Intent(MenuMotoMecActivity.this, ListaParadaActivity.class);
                 startActivity(it);
                 finish();
@@ -73,21 +67,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
     public void listarMenu() {
 
-        ColabBean colabBean = ecmContext.getConfigCTR().getColab();
-        textViewMotorista.setText(colabBean.getMatricColab() + " - " + colabBean.getNomeColab());
-
-        textViewCarreta.setText(ecmContext.getMotoMecCTR().textoCarreta());
-
-        CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
-        int qtdeCompVCanaBean = certifCanaBkpBean.count();
-
-        if (qtdeCompVCanaBean == 0) {
-            textViewUltimaViagem.setText("NÃO POSSUE CARREGAMENTOS");
-        } else {
-            List lista = certifCanaBkpBean.all();
-            certifCanaBkpBean = (CertifCanaBkpBean) lista.get(qtdeCompVCanaBean - 1);
-            textViewUltimaViagem.setText("ULT. VIAGEM: " + Tempo.getInstance().dataHoraCTZ(certifCanaBkpBean.getDataSaidaCampo()));
-        }
+        textViewMotorista.setText(ecmContext.getMotoMecCTR().getMatricNomeFunc());
+        textViewCarreta.setText(ecmContext.getMotoMecCTR().getDescrCarreta());
+        textViewUltimaViagem.setText(ecmContext.getMotoMecCTR().getDataSaidaUlt());
 
         ArrayList<String> motoMecArrayList = new ArrayList<String>();
         motoMecList = ecmContext.getMotoMecCTR().getMotoMecList();
@@ -107,7 +89,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                     long id) {
 
                 posicao = position;
-                motoMecBean = (MotoMecBean) motoMecList.get(position);
+                MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(position);
+                ecmContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
                 if (motoMecBean.getCodFuncaoOperMotoMec() == 1) {  // ATIVIDADES NORMAIS
 
@@ -118,8 +101,19 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
+
+                            Long statusCon;
+                            ConexaoWeb conexaoWeb = new ConexaoWeb();
+                            if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                                statusCon = 1L;
+                            }
+                            else{
+                                statusCon = 0L;
+                            }
+
+                            ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
                             motoMecListView.setSelection(posicao + 1);
+
                         }
                     });
 
@@ -132,16 +126,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     startActivity(it);
                     finish();
 
-                } else if (motoMecBean.getCodFuncaoOperMotoMec() == 8) { // TROCAR MOTORISTA
-
-                    ecmContext.setVerPosTela(2);
-                    Intent it = new Intent(MenuMotoMecActivity.this, MotoristaActivity.class);
-                    startActivity(it);
-                    finish();
-
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 2) { // SAIDA DA USINA
 
-                    if (ecmContext.getCertifCanaCTR().verCertifAberto()) {
+                    if (ecmContext.getCECCTR().verPreCECAberto()) {
 
                         String mensagem = "O HORÁRIO DE SAÍDA DA USINA JÁ FOI INSERIDO ANTERIORMENTE. " +
                                 "POR FAVOR TERMINE DE FAZER O APONTAMENTO OU REENVIE OS APONTAMENTOS JÁ PRONTOS.";
@@ -170,10 +157,10 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     String mensagem = "";
 
-                    if (ecmContext.getCertifCanaCTR().verCertifAberto()) {
+                    if (ecmContext.getCECCTR().verPreCECAberto()) {
                         mensagem = "É NECESSÁRIO A INSERÇÃO DO HORÁRIO DE SAÍDA DA USINA.";
                     } else {
-                        if (ecmContext.getCertifCanaCTR().getDataChegCampo().equals("")) {
+                        if (ecmContext.getCECCTR().getDataChegCampo().equals("")) {
                             mensagem = "FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBean.getDescrOperMotoMec();
                         } else {
                             mensagem = "O HORÁRIO DE CHEGADA AO CAMPO JÁ FOI INSERIDO ANTERIORMENTE. " +
@@ -188,9 +175,18 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (ecmContext.getCertifCanaCTR().getDataChegCampo().equals("")) {
-                                ecmContext.getCertifCanaCTR().setDataChegCampo();
-                                ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
+                            if (ecmContext.getCECCTR().getDataChegCampo().equals("")) {
+                                ecmContext.getCECCTR().setDataChegCampo();
+
+                                Long statusCon;
+                                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                                if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                                    statusCon = 1L;
+                                }
+                                else{
+                                    statusCon = 0L;
+                                }
+                                ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
                             }
                             motoMecListView.setSelection(posicao + 1);
                         }
@@ -200,14 +196,22 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 10) { // PESAGEM
 
-                    ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
+                    Long statusCon;
+                    ConexaoWeb conexaoWeb = new ConexaoWeb();
+                    if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                        statusCon = 1L;
+                    }
+                    else{
+                        statusCon = 0L;
+                    }
+                    ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
 
                     progressBar = new ProgressDialog(v.getContext());
                     progressBar.setCancelable(true);
                     progressBar.setMessage("Buscando o boletim...");
                     progressBar.show();
 
-//                    if (!ecmContext.getCertifCanaCTR().verCertifAberto()) {
+//                    if (!ecmContext.getCECCTR().verPreCECAberto()) {
 //                        VerifDadosServ.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "BoletimBean",
 //                                MenuMotoMecActivity.this, BoletimActivity.class, progressBar);
 //                    } else {
@@ -260,7 +264,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ecmContext.setVerPosTela(4);
-                                ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
                                 Intent it = new Intent(MenuMotoMecActivity.this, MsgNumCarretaActivity.class);
                                 startActivity(it);
                                 finish();
@@ -278,13 +281,14 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     }
 
-                } else if (motoMecBean.getCodFuncaoOperMotoMec() == 13) { // HODOMETRO
-
-                    ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
-                    Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
-                    startActivity(it);
-                    finish();
                 }
+//                else if (motoMecBean.getCodFuncaoOperMotoMec() == 13) { // HODOMETRO
+
+//                    ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
+//                    Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
+//                    startActivity(it);
+//                    finish();
+//                }
 
             }
 

@@ -93,7 +93,6 @@ public class ConfigActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-
                 ConexaoWeb conexaoWeb = new ConexaoWeb();
 
                 if(conexaoWeb.verificaConexao(ConfigActivity.this)){
@@ -104,8 +103,9 @@ public class ConfigActivity extends ActivityGeneric {
                     progressBar.setProgress(0);
                     progressBar.setMax(100);
                     progressBar.show();
-                    AtualDadosServ.getInstance().atualTodasTabBD(progressBar);
-                    AtualDadosServ.getInstance().setContext(ConfigActivity.this);
+
+                    ecmContext.getConfigCTR().atualTodasTabelas(ConfigActivity.this, progressBar);
+
                 }
                 else{
                     AlertDialog.Builder alerta = new AlertDialog.Builder(ConfigActivity.this);

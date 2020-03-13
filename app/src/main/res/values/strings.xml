@@ -22,7 +22,7 @@
     <string name="title_activity_noteiro">NOTEIRO</string>
     <string name="texto_noteiro">N. NOTEIRO</string>
     <string name="title_activity_atividade_os">ATIVIDADE</string>
-    <string name="texto_atividade">N. DA ATIVIDADE:</string>
+    <string name="texto_atividade">ATIVIDADE:</string>
     <string name="title_activity_msg_atividade_os">MSG ATIVIDADE</string>
     <string name="texto_desc_atividade">TESTE</string>
     <string name="title_activity_certificado">CERTIFICAÇÃO</string>
@@ -94,7 +94,7 @@
     <string name="texto_lista_motorista_atual">MOTORISTA ATUAL</string>
     <string name="texto_bt_manter_motorista">MANTER</string>
     <string name="texto_bt_trocar_motorista">TROCAR</string>
-    <string name="texto_menu_principal">PRINCIPAL - V 2.02</string>
+    <string name="texto_menu_principal">PRINCIPAL - V 3.00</string>
     <string name="texto_cod_motorista">19759</string>
     <string name="texto_nome_motorista">ANDERSON DA SILVA DELGADO</string>
     <string name="texto_motivo_parada">MOTIVOS DE PARADA</string>
@@ -111,4 +111,5 @@
     <string name="texto_pressao_col">PRESSÃO COLOCADA:</string>
     <string name="texto_msg_data_hora">POR FAVOR, DIGITE O DIA, MÊS, ANO, HORA E MINUTO ATUAL NAS PRÓXIMAS TELAS.</string>
     <string name="texto_data_hora">DIA:</string>
+    <string name="texto_atualizar">ATUALIZAR</string>
 </resources>

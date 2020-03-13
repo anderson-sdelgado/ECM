@@ -23,7 +23,7 @@ public class MsgLibOSActivity extends ActivityGeneric {
         Button buttonCancMsgLiberacao = (Button) findViewById(R.id.buttonCancMsgLiberacao);
         TextView textViewMsgLiberacao = (TextView) findViewById(R.id.textViewMsgLiberacao);
 
-        RLibOSBean = ecmContext.getCertifCanaCTR().getRLibOSBean();
+        RLibOSBean = ecmContext.getCECCTR().getRLibOSBean();
 
         textViewMsgLiberacao.setText(RLibOSBean.getCodFazenda() + " - " + RLibOSBean.getDescrFazenda());
 
