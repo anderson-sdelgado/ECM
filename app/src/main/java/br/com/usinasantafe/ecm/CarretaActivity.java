@@ -27,25 +27,15 @@ public class CarretaActivity extends ActivityGeneric {
 
                 if(!editTextPadrao.getText().toString().equals("")){
 
-                    int verCarreta;
-                    Long tipo;
-                    if (ecmContext.getVerPosTela() == 5) {
-                        tipo = 1L;
-                    }
-                    else{
-                        tipo = 2L;
-                    }
-
-                    verCarreta = ecmContext.getCECCTR().verCarreta(Long.parseLong(editTextPadrao.getText().toString()), tipo);
-
+                    int verCarreta = ecmContext.getMotoMecCTR().verCarr(Long.parseLong(editTextPadrao.getText().toString()));
                     if(verCarreta == 1) {
-                        ecmContext.getCECCTR().insCarreta(Long.parseLong(editTextPadrao.getText().toString()), tipo);
+                        ecmContext.getMotoMecCTR().insCarreta(Long.parseLong(editTextPadrao.getText().toString()));
                         if (ecmContext.getVerPosTela() == 5){
-                            Intent it = new Intent(CarretaActivity.this, OSActivity.class);
+                            ecmContext.getCECCTR().setCarr(Long.parseLong(editTextPadrao.getText().toString()));
+                            Intent it = new Intent(CarretaActivity.this, LibOSActivity.class);
                             startActivity(it);
                             finish();
-                        }
-                        else{
+                        } else {
                             Intent it = new Intent(CarretaActivity.this, MsgNumCarretaActivity.class);
                             startActivity(it);
                             finish();
@@ -53,8 +43,8 @@ public class CarretaActivity extends ActivityGeneric {
                     }
                     else{
                         String msg = "";
-                        Long numCarreta = ecmContext.getCECCTR().getPosCarreta(tipo) + 1;
-                        switch(ecmContext.getCECCTR().verCarreta(Long.parseLong(editTextPadrao.getText().toString()), tipo)){
+                        int numCarreta = ecmContext.getMotoMecCTR().qtdeCarreta() + 1;
+                        switch(verCarreta){
                             case 2:
                                 msg = "CARRETA INEXISTENTE NA BASE DE DADOS! POR FAVOR, ATUALIZE OS DADOS.";
                                 break;

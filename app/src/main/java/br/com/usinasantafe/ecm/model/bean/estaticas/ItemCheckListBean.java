@@ -10,7 +10,7 @@ import br.com.usinasantafe.ecm.model.pst.Entidade;
  */
 
 @DatabaseTable(tableName="tbitemchecklistest")
-public class ItemCLBean extends Entidade {
+public class ItemCheckListBean extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class ItemCLBean extends Entidade {
     @DatabaseField
     private String descrItemCheckList;
 
-    public ItemCLBean() {
+    public ItemCheckListBean() {
     }
 
     public Long getIdItemCheckList() {

@@ -92,7 +92,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
         });
 
         TurnoBean turnoBean = new TurnoBean();
-        turnoList = turnoBean.get("codTurno", ecmContext.getConfigCTR().getEquip().getIdTurnoEquip());
+        turnoList = turnoBean.get("codTurno", ecmContext.getConfigCTR().getEquip().getCodTurno());
 
         ArrayList<String> itens = new ArrayList<String>();
 
@@ -141,7 +141,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 //
 //                ecmContext.getConfigCTR().setIdTurnoConfig(turnoBean.getIdTurno());
 //
-//                if ((ecmContext.getConfigCTR().getEquip().getIdCheckListEquip() > 0)
+//                if ((ecmContext.getConfigCTR().getEquip().getTipoEquip() > 0)
 //                        && (ecmContext.getConfigCTR().getConfig().getUltTurnoCLConfig() != turnoBean.getIdTurno())) {
 //
 //                    ecmContext.setPosCheckList(1);

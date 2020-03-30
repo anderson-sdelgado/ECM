@@ -12,28 +12,22 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import br.com.usinasantafe.ecm.MenuInicialActivity;
+import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
-import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ROSAtivBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
-import br.com.usinasantafe.ecm.util.connHttp.PostVerGenerico;
+import br.com.usinasantafe.ecm.model.dao.AtividadeDAO;
+import br.com.usinasantafe.ecm.model.dao.EquipDAO;
+import br.com.usinasantafe.ecm.model.dao.InformativoDAO;
+import br.com.usinasantafe.ecm.model.dao.ItemPneuDAO;
+import br.com.usinasantafe.ecm.model.dao.OSDAO;
+import br.com.usinasantafe.ecm.util.conHttp.PostVerGenerico;
 import br.com.usinasantafe.ecm.model.pst.GenericRecordable;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
 import br.com.usinasantafe.ecm.model.bean.AtualAplicBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp;
+import br.com.usinasantafe.ecm.util.conHttp.UrlsConexaoHttp;
 
 /**
  * Created by anderson on 16/11/2015.
@@ -63,14 +57,6 @@ public class VerifDadosServ {
         return instance;
     }
 
-    public void manipularDadosHttp(String result) {
-
-        if (!result.equals("")) {
-            retornoVerifNormal(result);
-        }
-
-    }
-
     public String manipLocalClasse(String classe) {
         if (classe.contains("TO")) {
             classe = urlsConexaoHttp.localPSTEstatica + classe;
@@ -82,7 +68,7 @@ public class VerifDadosServ {
 
         AtualAplicBean atualAplicBean = new AtualAplicBean();
         ConfigCTR configCTR = new ConfigCTR();
-        atualAplicBean.setIdEquipAtualizacao(configCTR.getConfig().getCodEquipConfig());
+        atualAplicBean.setIdEquipAtualizacao(configCTR.getEquip().getNroEquip());
         atualAplicBean.setVersaoAtual(versaoAplic);
 
         urlsConexaoHttp = new UrlsConexaoHttp();
@@ -138,172 +124,55 @@ public class VerifDadosServ {
 
     public void envioDados() {
 
-        Map<String, Object> parametrosPost = new HashMap<String, Object>();
+        this.urlsConexaoHttp = new UrlsConexaoHttp();
         String[] url = {urlsConexaoHttp.urlVerifica(tipo)};
+        Map<String, Object> parametrosPost = new HashMap<String, Object>();
+        parametrosPost.put("dado", String.valueOf(dado));
 
-        Log.i("ECM", "URL = " + urlsConexaoHttp.urlVerifica(tipo));
-
-        if(this.tipo.equals("BoletimBeanViagem")) {
-
-            JsonArray jsonArray = new JsonArray();
-            PreCECBean preCECBean = new PreCECBean();
-
-            List viagemCana = preCECBean.all();
-
-            for (int i = 0; i < viagemCana.size(); i++) {
-
-                preCECBean = (PreCECBean) viagemCana.get(i);
-                Gson gson = new Gson();
-                jsonArray.add(gson.toJsonTree(preCECBean, preCECBean.getClass()));
-
-            }
-
-            JsonObject json = new JsonObject();
-            json.add("dados", jsonArray);
-
-            parametrosPost.put("dado", json.toString());
-            Log.i("ECM", "DADOS = " + json.toString());
-            preCECBean.deleteAll();
-
-        }
-        else{
-            parametrosPost.put("dado", String.valueOf(dado));
-            Log.i("ECM", "DADOS = " + String.valueOf(dado));
-        }
-
+        Log.i("PMM", "VERIFICA = " + String.valueOf(dado));
 
         postVerGenerico = new PostVerGenerico();
         postVerGenerico.setParametrosPost(parametrosPost);
-        if(this.tipo.equals("BoletimBeanViagem")) {
-            this.tipo = "BoletimBean";
-        }
-
-        Log.i("ECM", "TIPO = " + tipo);
-
-        postVerGenerico.setTipo(this.tipo);
         postVerGenerico.execute(url);
 
     }
 
-    public void retornoVerifNormal(String result) {
-
+    public void manipularDadosHttp(String result) {
         try {
-
-            if(this.tipo.equals("BoletimBean")) {
-
-                JSONObject jObj = new JSONObject(result);
-                JSONArray jsonArray = jObj.getJSONArray("dados");
-
-                JSONObject objeto = jsonArray.getJSONObject(0);
-                Gson gson = new Gson();
-                BoletimBean boletimBean = gson.fromJson(objeto.toString(), BoletimBean.class);
-                boletimBean.insert();
-
-                this.progressDialog.dismiss();
-                Intent it = new Intent(telaAtual, telaProx);
-                telaAtual.startActivity(it);
-
-            }
-            else if(this.tipo.equals("Atualiza")) {
-
-                String verAtualizacao = result.trim();
-
-                if(verAtualizacao.equals("S")){
-                    AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
-                    atualizarAplicativo.setContext(this.menuInicialActivity);
-                    atualizarAplicativo.execute();
-                }
-                else{
-                    this.menuInicialActivity.startTimer(verAtualizacao);
-                }
-
-            }
-            else if(this.tipo.equals("CheckList")) {
-
-                if (!result.contains("exceeded")) {
-
-                    JSONObject jObj = new JSONObject(result);
-                    JSONArray jsonArray = jObj.getJSONArray("dados");
-                    Class classe = Class.forName(urlsConexaoHttp.localPSTEstatica + "ItemCLBean");
-
-                    if (jsonArray.length() > 0) {
-
-                        genericRecordable = new GenericRecordable();
-                        genericRecordable.deleteAll(classe);
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-
-                            JSONObject objeto = jsonArray.getJSONObject(i);
-                            Gson gson = new Gson();
-                            genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
-
-                        }
-
+            if (!result.equals("")) {
+                if (this.tipo.equals("Equip")) {
+                    EquipDAO equipDAO = new EquipDAO();
+                    equipDAO.recDadosEquip(result);
+                } else if (this.tipo.equals("OS")) {
+                    OSDAO osDAO = new OSDAO();
+                    osDAO.recDadosOS(result);
+                } else if (this.tipo.equals("Atividade")) {
+                    AtividadeDAO atividadeDAO = new AtividadeDAO();
+                    atividadeDAO.recDadosAtiv(result);
+                } else if (this.tipo.equals("Atualiza")) {
+                    String verAtualizacao = result.trim();
+                    if (verAtualizacao.equals("S")) {
+                        AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
+                        atualizarAplicativo.setContext(this.menuInicialActivity);
+                        atualizarAplicativo.execute();
+                    } else {
+                        this.menuInicialActivity.startTimer(verAtualizacao);
                     }
-
-                    cabecCheckList(Tempo.getInstance().dataComHora());
-                    this.progressDialog.dismiss();
-                    Intent it = new Intent(telaAtual, telaProx);
-                    telaAtual.startActivity(it);
-
+                } else if (this.tipo.equals("CheckList")) {
+                    CheckListCTR checkListCTR = new CheckListCTR();
+                    checkListCTR.recDadosCheckList(result);
+                } else if (this.tipo.equals("Informativo")) {
+                    InformativoDAO informativoDAO = new InformativoDAO();
+                    informativoDAO.recInfor(result);
+                } else if (this.tipo.equals("Pneu")) {
+                    ItemPneuDAO itemPneuDAO = new ItemPneuDAO();
+                    itemPneuDAO.recDadosPneu(result);
+                } else if(this.tipo.equals("CECBean")) {
                 }
-                else{
-
-                    cabecCheckList("0");
-                    this.progressDialog.dismiss();
-                    Intent it = new Intent(telaAtual, telaProx);
-                    telaAtual.startActivity(it);
-
-                }
-
-
             }
-            else if(this.tipo.equals("RAtivOSBean")) {
-
-                JSONObject jObj = new JSONObject(result);
-                JSONArray jsonArray = jObj.getJSONArray("dados");
-
-                JSONObject objeto = jsonArray.getJSONObject(0);
-                Gson gson = new Gson();
-
-                ROSAtivBean RAtivOSBean = gson.fromJson(objeto.toString(), ROSAtivBean.class);
-                RAtivOSBean.insert();
-
-                this.progressDialog.dismiss();
-                Intent it = new Intent(telaAtual, telaProx);
-                telaAtual.startActivity(it);
-
-            }
-
         } catch (Exception e) {
-            Log.i("ERRO", "Erro Manip = " + e);
+            Log.i("PMM", "Erro Manip atualizar = " + e);
         }
-
-    }
-
-    public void cabecCheckList(String data){
-
-        ConfigBean configBean = new ConfigBean();
-        List listConfigBean = configBean.all();
-        configBean = (ConfigBean) listConfigBean.get(0);
-
-        EquipBean equipBean = new EquipBean();
-        List caminhaoList = equipBean.get("idCaminhao", configBean.getIdEquipConfig());
-        equipBean = (EquipBean) caminhaoList.get(0);
-        caminhaoList.clear();
-
-        ItemCLBean itemCLBean = new ItemCLBean();
-        List itemCheckList =  itemCLBean.get("idChecklist", equipBean.getIdCheckListEquip());
-        Long qtde = (long) itemCheckList.size();
-        itemCheckList.clear();
-
-        CabecCLBean cabecCLBean = new CabecCLBean();
-        cabecCLBean.setDtCabCL(Tempo.getInstance().dataComHora());
-        cabecCLBean.setEquipCabCL(configBean.getCodEquipConfig());
-        cabecCLBean.setFuncCabCL(configBean.getMatricColabConfig());
-        cabecCLBean.setTurnoCabCL(configBean.getIdTurnoConfig());
-        cabecCLBean.setStatusCabCL(1L);
-        cabecCLBean.insert();
 
     }
 
@@ -312,9 +181,8 @@ public class VerifDadosServ {
         verTerm = true;
         urlsConexaoHttp = new UrlsConexaoHttp();
         this.tipo = "Informativo";
-        ConfigCTR configCTR = new ConfigCTR();
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        this.dado = String.valueOf(motoMecCTR.getBolAberto().getMatricFuncBolMM());
+        this.dado = String.valueOf(motoMecCTR.getMatricNomeFunc());
     }
 
     public void pulaTelaSemTerm(){
@@ -375,6 +243,15 @@ public class VerifDadosServ {
         verTerm = true;
         if (postVerGenerico.getStatus() == AsyncTask.Status.RUNNING) {
             postVerGenerico.cancel(true);
+        }
+    }
+
+    public void pulaTelaDadosInfor(Class telaProx){
+        if(!verTerm){
+            this.progressDialog.dismiss();
+            this.verTerm = true;
+            Intent it = new Intent(telaAtual, telaProx);
+            telaAtual.startActivity(it);
         }
     }
 

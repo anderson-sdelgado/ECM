@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import br.com.usinasantafe.ecm.control.CheckListCTR;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class HodometroActivity extends ActivityGeneric {
 
@@ -102,7 +103,15 @@ public class HodometroActivity extends ActivityGeneric {
 
         CheckListCTR checkListCTR = new CheckListCTR();
         if(checkListCTR.verAberturaCheckList(ecmContext.getMotoMecCTR().getTurno())){
-            ecmContext.getMotoMecCTR().insParadaCheckList();
+            Long statusCon;
+            ConexaoWeb conexaoWeb = new ConexaoWeb();
+            if (conexaoWeb.verificaConexao(HodometroActivity.this)) {
+                statusCon = 1L;
+            }
+            else{
+                statusCon = 0L;
+            }
+            ecmContext.getMotoMecCTR().insParadaCheckList(getLongitude(), getLatitude(), statusCon);
             ecmContext.setPosCheckList(1);
             checkListCTR.createCabecAberto(ecmContext.getMotoMecCTR());
             if (ecmContext.getVerAtualCL().equals("N_AC")) {

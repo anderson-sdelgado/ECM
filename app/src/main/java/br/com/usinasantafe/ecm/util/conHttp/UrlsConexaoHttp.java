@@ -1,4 +1,4 @@
-package br.com.usinasantafe.ecm.util.connHttp;
+package br.com.usinasantafe.ecm.util.conHttp;
 
 import br.com.usinasantafe.ecm.ECMContext;
 
@@ -50,7 +50,7 @@ public class UrlsConexaoHttp {
             retorno = urlPrincipal + "verifativ.php";
         } else if (classe.equals("RLibOSBean")) {
             retorno = urlPrincipal + "veriflib.php";
-        } else if (classe.equals("BoletimBean")) {
+        } else if (classe.equals("CECBean")) {
             retorno = urlPrincEnvio + "buscabol.php";
         } else if (classe.equals("BoletimTOViagem")) {
             retorno = urlPrincEnvio + "buscabolviag.php";

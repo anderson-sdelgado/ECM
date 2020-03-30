@@ -14,8 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class MenuMotoMecActivity extends ActivityGeneric {
@@ -67,7 +68,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
     public void listarMenu() {
 
-        textViewMotorista.setText(ecmContext.getMotoMecCTR().getMatricNomeFunc());
+        ColabBean colabBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
+        textViewMotorista.setText(colabBean.getMatricColab() + " - " + colabBean.getNomeColab());
         textViewCarreta.setText(ecmContext.getMotoMecCTR().getDescrCarreta());
         textViewUltimaViagem.setText(ecmContext.getMotoMecCTR().getDataSaidaUlt());
 
@@ -147,6 +149,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     } else {
 
+                        ecmContext.setVerPosTela(2);
                         Intent it = new Intent(MenuMotoMecActivity.this, FrenteActivity.class);
                         startActivity(it);
                         finish();
@@ -211,19 +214,22 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     progressBar.setMessage("Buscando o boletim...");
                     progressBar.show();
 
+                    ecmContext.getCECCTR().recCEC();
+
 //                    if (!ecmContext.getCECCTR().verPreCECAberto()) {
-//                        VerifDadosServ.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "BoletimBean",
-//                                MenuMotoMecActivity.this, BoletimActivity.class, progressBar);
+//
+//                        VerifDadosServ.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "CECBean",
+//                                MenuMotoMecActivity.this, CECActivity.class, progressBar);
 //                    } else {
 //                        VerifDadosServ.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "BoletimTOViagem",
-//                                MenuMotoMecActivity.this, BoletimActivity.class, progressBar);
+//                                MenuMotoMecActivity.this, CECActivity.class, progressBar);
 //                    }
 
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 11) { // DESENGATE
 
-                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+                    CarretaBean carretaBean = new CarretaBean();
 
-                    if (carretaUtilBean.hasElements()) {
+                    if (carretaBean.hasElements()) {
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -252,9 +258,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                 } else if (motoMecBean.getCodFuncaoOperMotoMec() == 12) { // ENGATE
 
-                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+                    CarretaBean carretaBean = new CarretaBean();
 
-                    if (!carretaUtilBean.hasElements()) {
+                    if (!carretaBean.hasElements()) {
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -282,23 +288,12 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     }
 
                 }
-//                else if (motoMecBean.getCodFuncaoOperMotoMec() == 13) { // HODOMETRO
-
-//                    ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
-//                    Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
-//                    startActivity(it);
-//                    finish();
-//                }
 
             }
 
         });
 
     }
-
-//    public ListView getMotoMecListView() {
-//        return this.motoMecListView;
-//    }
 
     public void onBackPressed() {
     }

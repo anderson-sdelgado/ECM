@@ -26,10 +26,6 @@ public class ReceberAlarme extends BroadcastReceiver {
 			new DatabaseHelper(context);
 		}
 
-		if(Tempo.getInstance().getDatahora() != null) {
-			Tempo.getInstance().getDatahora().setTime(Tempo.getInstance().getDatahora().getTime() + 60000L);
-		}
-
 		Log.i("ECM", "DATA HORA = " + Tempo.getInstance().dataComHora());
 		if(EnvioDadosServ.getInstance().verifDadosEnvio()){
 			Log.i("ECM", "ENVIANDO");

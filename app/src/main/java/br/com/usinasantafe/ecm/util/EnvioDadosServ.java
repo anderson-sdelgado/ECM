@@ -15,12 +15,10 @@ import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
-import br.com.usinasantafe.ecm.util.connHttp.PostCadGenerico;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
+import br.com.usinasantafe.ecm.util.conHttp.PostCadGenerico;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp;
+import br.com.usinasantafe.ecm.util.conHttp.UrlsConexaoHttp;
 
 public class EnvioDadosServ {
 

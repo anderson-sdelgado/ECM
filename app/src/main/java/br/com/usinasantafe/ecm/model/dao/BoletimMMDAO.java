@@ -255,12 +255,13 @@ public class BoletimMMDAO {
         boletimMMBean.update();
     }
 
-    public String getMatricNomeFunc(){
+    public ColabBean getMatricNomeFunc(){
         BoletimMMBean boletimMMBean = getBolMMAberto();
         ColabBean colabBean = new ColabBean();
         List colabList = colabBean.get("matricColab", boletimMMBean.getMatricFuncBolMM());
         colabBean = (ColabBean) colabList.get(0);
-        return colabBean.getMatricColab() + " - " + colabBean.getNomeColab();
+        colabList.clear();
+        return colabBean;
     }
 
 }

@@ -24,15 +24,12 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class MenuInicialActivity extends ActivityGeneric {
@@ -171,16 +168,6 @@ public class MenuInicialActivity extends ActivityGeneric {
         }
     };
 
-//    public void clearBD() {
-//
-//        OSBean osTO = new OSBean();
-//        osTO.deleteAll();
-//
-//        ROSAtivBean rosAtivBean = new ROSAtivBean();
-//        rosAtivBean.deleteAll();
-//
-//    }
-
     public void startTimer(String verAtualizacao) {
 
         Log.i("PMM", "VERATUAL = " + verAtualizacao);
@@ -239,71 +226,27 @@ public class MenuInicialActivity extends ActivityGeneric {
 
     public void verif(){
 
-        ApontMotoMecBean apontMotoMecBean = new ApontMotoMecBean();
-        List apontMotoMecList = apontMotoMecBean.all();
-
-        Log.i("PMM", "AKI");
-
-        Log.i("PMM", "ApontMotoMec");
-
-        for (int i = 0; i < apontMotoMecList.size(); i++) {
-
-            apontMotoMecBean = (ApontMotoMecBean) apontMotoMecList.get(i);
-            Log.i("PMM", "idApontMM = " + apontMotoMecBean.getIdApontMM());
-            Log.i("PMM", "veic = " + apontMotoMecBean.getCodEquip());
-            Log.i("PMM", "motorista = " + apontMotoMecBean.getMatricColab());
-            Log.i("PMM", "opcor = " + apontMotoMecBean.getOpCor());
-            Log.i("PMM", "dihi = " + apontMotoMecBean.getDthr());
-            Log.i("PMM", "caux = " + apontMotoMecBean.getCaux());
-            Log.i("PMM", "tipoEngDeseng = " + apontMotoMecBean.getTipoEngDeseng());
-
-        }
-
-        BoletimBkpBean boletimBkpBean = new BoletimBkpBean();
-        List boletimBkpList = boletimBkpBean.all();
-
-        Log.i("PMM", "BoletimBkpBean");
-
-        for (int i = 0; i < boletimBkpList.size(); i++) {
-
-            boletimBkpBean = (BoletimBkpBean) boletimBkpList.get(i);
-            Log.i("PMM", "idBoleto = " + boletimBkpBean.getIdBoleto());
-            Log.i("PMM", "caminhaoBoleto = " + boletimBkpBean.getCaminhaoBoleto());
-            Log.i("PMM", "possuiSorteioBoleto = " + boletimBkpBean.getPossuiSorteioBoleto());
-            Log.i("PMM", "cecPaiBoleto = " + boletimBkpBean.getCecPaiBoleto());
-            Log.i("PMM", "cdFrenteBoleto = " + boletimBkpBean.getCdFrenteBoleto());
-            Log.i("PMM", "dthrEntradaBoleto = " + boletimBkpBean.getDthrEntradaBoleto());
-            Log.i("PMM", "cecSorteado1Boleto = " + boletimBkpBean.getCecSorteado1Boleto());
-            Log.i("PMM", "unidadeSorteada1Boleto = " + boletimBkpBean.getUnidadeSorteada1Boleto());
-            Log.i("PMM", "cecSorteado2Boleto = " + boletimBkpBean.getCecSorteado2Boleto());
-            Log.i("PMM", "unidadeSorteada2Boleto = " + boletimBkpBean.getUnidadeSorteada2Boleto());
-            Log.i("PMM", "cecSorteado3Boleto = " + boletimBkpBean.getCecSorteado3Boleto());
-            Log.i("PMM", "unidadeSorteada3Boleto = " + boletimBkpBean.getUnidadeSorteada3Boleto());
-            Log.i("PMM", "pesoLiquidoBoleto = " + boletimBkpBean.getPesoLiquidoBoleto());
-
-        }
-
-        BoletimBean boletimBean = new BoletimBean();
-        List boletimList = boletimBean.all();
+        CECBean CECBean = new CECBean();
+        List boletimList = CECBean.all();
 
         Log.i("PMM", "BoletimBkpBean");
 
         for (int i = 0; i < boletimList.size(); i++) {
 
-            boletimBean = (BoletimBean) boletimList.get(i);
-            Log.i("PMM", "idBoleto = " + boletimBean.getIdBoletim());
-            Log.i("PMM", "caminhaoBoleto = " + boletimBean.getCaminhaoBoleto());
-            Log.i("PMM", "possuiSorteioBoleto = " + boletimBean.getPossuiSorteioBoleto());
-            Log.i("PMM", "cecPaiBoleto = " + boletimBean.getCecPaiBoleto());
-            Log.i("PMM", "cdFrenteBoleto = " + boletimBean.getCdFrenteBoleto());
-            Log.i("PMM", "dthrEntradaBoleto = " + boletimBean.getDthrEntradaBoleto());
-            Log.i("PMM", "cecSorteado1Boleto = " + boletimBean.getCecSorteado1Boleto());
-            Log.i("PMM", "unidadeSorteada1Boleto = " + boletimBean.getUnidadeSorteada1Boleto());
-            Log.i("PMM", "cecSorteado2Boleto = " + boletimBean.getCecSorteado2Boleto());
-            Log.i("PMM", "unidadeSorteada2Boleto = " + boletimBean.getUnidadeSorteada2Boleto());
-            Log.i("PMM", "cecSorteado3Boleto = " + boletimBean.getCecSorteado3Boleto());
-            Log.i("PMM", "unidadeSorteada3Boleto = " + boletimBean.getUnidadeSorteada3Boleto());
-            Log.i("PMM", "pesoLiquidoBoleto = " + boletimBean.getPesoLiquidoBoleto());
+            CECBean = (CECBean) boletimList.get(i);
+            Log.i("PMM", "idBoleto = " + CECBean.getIdCEC());
+            Log.i("PMM", "caminhaoBoleto = " + CECBean.getCaminhaoCEC());
+            Log.i("PMM", "possuiSorteioBoleto = " + CECBean.getPossuiSorteioCEC());
+            Log.i("PMM", "cecPaiBoleto = " + CECBean.getCecPaiCEC());
+            Log.i("PMM", "cdFrenteBoleto = " + CECBean.getCodFrenteCEC());
+            Log.i("PMM", "dthrEntradaBoleto = " + CECBean.getDthrEntradaCEC());
+            Log.i("PMM", "cecSorteado1Boleto = " + CECBean.getCecSorteado1CEC());
+            Log.i("PMM", "unidadeSorteada1Boleto = " + CECBean.getUnidadeSorteada1CEC());
+            Log.i("PMM", "cecSorteado2Boleto = " + CECBean.getCecSorteado2CEC());
+            Log.i("PMM", "unidadeSorteada2Boleto = " + CECBean.getUnidadeSorteada2CEC());
+            Log.i("PMM", "cecSorteado3Boleto = " + CECBean.getCecSorteado3CEC());
+            Log.i("PMM", "unidadeSorteada3Boleto = " + CECBean.getUnidadeSorteada3CEC());
+            Log.i("PMM", "pesoLiquidoBoleto = " + CECBean.getPesoLiquidoCEC());
 
         }
 
@@ -315,7 +258,7 @@ public class MenuInicialActivity extends ActivityGeneric {
         for (int i = 0; i < compVCanaList.size(); i++) {
 
             preCECBean = (PreCECBean) compVCanaList.get(i);
-            Log.i("PMM", "idCompVCana = " + preCECBean.getIdCertifCana());
+            Log.i("PMM", "idCompVCana = " + preCECBean.getIdPreCEC());
             Log.i("PMM", "cam = " + preCECBean.getCam());
             Log.i("PMM", "libCam = " + preCECBean.getLibCam());
             Log.i("PMM", "moto = " + preCECBean.getMoto());
@@ -331,25 +274,6 @@ public class MenuInicialActivity extends ActivityGeneric {
             Log.i("PMM", "dataSaidaCampo = " + preCECBean.getDataSaidaCampo());
             Log.i("PMM", "dataSaidaUsina = " + preCECBean.getDataSaidaUsina());
             Log.i("PMM", "turno = " + preCECBean.getTurno());
-
-        }
-
-
-        CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
-        List compVCanaBkpList = certifCanaBkpBean.all();
-
-        Log.i("PMM", "CertifCanaBkpBean");
-
-        for (int i = 0; i < compVCanaBkpList.size(); i++) {
-
-            certifCanaBkpBean = (CertifCanaBkpBean) compVCanaBkpList.get(i);
-            Log.i("PMM", "idVCanaBkp = " + certifCanaBkpBean.getIdVCanaBkp());
-            Log.i("PMM", "moto = " + certifCanaBkpBean.getMoto());
-            Log.i("PMM", "carr1 = " + certifCanaBkpBean.getCarr1());
-            Log.i("PMM", "carr2 = " + certifCanaBkpBean.getCarr2());
-            Log.i("PMM", "carr3 = " + certifCanaBkpBean.getCarr3());
-            Log.i("PMM", "dataSaidaCampo = " + certifCanaBkpBean.getDataSaidaCampo());
-            Log.i("PMM", "noteiro = " + certifCanaBkpBean.getNoteiro());
 
         }
 

@@ -21,22 +21,28 @@ public class OSBean extends Entidade {
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(id=true)
-    private Long nroOS;
+    private Long idAtivOS;
 	@DatabaseField
-	private Double areaProgrOS;
+	private Long nroOS;
 	@DatabaseField
-	private String dtInicProgr;
+	private Long idLibOS;
 	@DatabaseField
-	private String dtFimProgr;
+	private Long idProprAgr;
 	@DatabaseField
-	private Long tipoOS;
+	private String descrProprAgr;
 	@DatabaseField
-	private Long codFazenda;
-	@DatabaseField
-	private String descrFazenda;
+	private Long idAtiv;
 
     public OSBean() {
     }
+
+	public Long getIdAtivOS() {
+		return idAtivOS;
+	}
+
+	public void setIdAtivOS(Long idAtivOS) {
+		this.idAtivOS = idAtivOS;
+	}
 
 	public Long getNroOS() {
 		return nroOS;
@@ -46,51 +52,35 @@ public class OSBean extends Entidade {
 		this.nroOS = nroOS;
 	}
 
-	public Double getAreaProgrOS() {
-		return areaProgrOS;
+	public Long getIdLibOS() {
+		return idLibOS;
 	}
 
-	public void setAreaProgrOS(Double areaProgrOS) {
-		this.areaProgrOS = areaProgrOS;
+	public void setIdLibOS(Long idLibOS) {
+		this.idLibOS = idLibOS;
 	}
 
-	public String getDtInicProgr() {
-		return dtInicProgr;
+	public Long getIdProprAgr() {
+		return idProprAgr;
 	}
 
-	public void setDtInicProgr(String dtInicProgr) {
-		this.dtInicProgr = dtInicProgr;
+	public void setIdProprAgr(Long idProprAgr) {
+		this.idProprAgr = idProprAgr;
 	}
 
-	public String getDtFimProgr() {
-		return dtFimProgr;
+	public String getDescrProprAgr() {
+		return descrProprAgr;
 	}
 
-	public void setDtFimProgr(String dtFimProgr) {
-		this.dtFimProgr = dtFimProgr;
+	public void setDescrProprAgr(String descrProprAgr) {
+		this.descrProprAgr = descrProprAgr;
 	}
 
-	public Long getTipoOS() {
-		return tipoOS;
+	public Long getIdAtiv() {
+		return idAtiv;
 	}
 
-	public void setTipoOS(Long tipoOS) {
-		this.tipoOS = tipoOS;
-	}
-
-	public Long getCodFazenda() {
-		return codFazenda;
-	}
-
-	public void setCodFazenda(Long codFazenda) {
-		this.codFazenda = codFazenda;
-	}
-
-	public String getDescrFazenda() {
-		return descrFazenda;
-	}
-
-	public void setDescrFazenda(String descrFazenda) {
-		this.descrFazenda = descrFazenda;
+	public void setIdAtiv(Long idAtiv) {
+		this.idAtiv = idAtiv;
 	}
 }

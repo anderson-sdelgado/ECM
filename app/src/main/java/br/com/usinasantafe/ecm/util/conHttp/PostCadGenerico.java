@@ -1,4 +1,4 @@
-package br.com.usinasantafe.ecm.util.connHttp;
+package br.com.usinasantafe.ecm.util.conHttp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

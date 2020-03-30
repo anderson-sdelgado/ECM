@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class ItemCheckListActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private ItemCLBean itemCLBean;
+    private ItemCheckListBean itemCheckListBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +27,10 @@ public class ItemCheckListActivity extends ActivityGeneric {
         Button buttonReparo = (Button) findViewById(R.id.buttonReparo);
         Button buttonCancChecklist = (Button) findViewById(R.id.buttonCancChecklist);
 
-        ItemCLBean itemCLBean = new ItemCLBean();
-        itemCLBean = ecmContext.getCheckListCTR().getItemCheckList(ecmContext.getPosCheckList());
+        ItemCheckListBean itemCheckListBean = new ItemCheckListBean();
+        itemCheckListBean = ecmContext.getCheckListCTR().getItemCheckList(ecmContext.getPosCheckList());
 
-        textViewItemChecklist.setText(itemCLBean.getSeqItemCheckList() + " - " + itemCLBean.getDescrItemCheckList());
+        textViewItemChecklist.setText(itemCheckListBean.getSeqItemCheckList() + " - " + itemCheckListBean.getDescrItemCheckList());
 
         buttonConforme.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,17 +66,17 @@ public class ItemCheckListActivity extends ActivityGeneric {
     public void proximaTela(Long opcao){
 
         RespItemCLBean respItemCLBean = new RespItemCLBean();
-        respItemCLBean.setIdItBDItCL(itemCLBean.getIdItemCheckList());
+        respItemCLBean.setIdItBDItCL(itemCheckListBean.getIdItemCheckList());
         respItemCLBean.setOpItCL(opcao);
         ecmContext.getCheckListCTR().insResp(respItemCLBean);
 
-        if(ecmContext.getCheckListCTR().getQtdeItemCabecAberto() == ecmContext.getPosCheckList()){
+        if(ecmContext.getCheckListCTR().qtdeItemCheckList() == ecmContext.getPosCheckList()){
+            ecmContext.getConfigCTR().setCheckListConfig(ecmContext.getMotoMecCTR().getTurno());
             ecmContext.getCheckListCTR().fechaCabec();
-            if((ecmContext.getVerPosTela() == 1) || (ecmContext.getVerPosTela() == 2)){
-                Intent it = new Intent(ItemCheckListActivity.this, MenuMotoMecActivity.class);
-                startActivity(it);
-                finish();
-            }
+            Intent it = new Intent(ItemCheckListActivity.this, MenuMotoMecActivity.class);
+            startActivity(it);
+            finish();
+
         }
         else{
             ecmContext.setPosCheckList(ecmContext.getPosCheckList() + 1);

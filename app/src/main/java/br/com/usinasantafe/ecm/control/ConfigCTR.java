@@ -3,11 +3,11 @@ package br.com.usinasantafe.ecm.control;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
+import br.com.usinasantafe.ecm.model.dao.EquipDAO;
 import br.com.usinasantafe.ecm.util.AtualDadosServ;
 
 public class ConfigCTR {
@@ -27,9 +27,9 @@ public class ConfigCTR {
         return configDAO.getConfig();
     }
 
-    public void insConfig(ConfigBean configBean){
+    public void salvarConfig(String senha){
         ConfigDAO configDAO = new ConfigDAO();
-        configDAO.insConfig(configBean);
+        configDAO.salvarConfig(senha);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,19 +41,9 @@ public class ConfigCTR {
         return configDAO.getConfigSenha(senha);
     }
 
-    public Long getCodEquipConfig(){
-        ConfigDAO configDAO = new ConfigDAO();
-        return configDAO.getCodEquipConfig();
-    }
-
-    public EquipBean getCaminhao(Long nroEquip){
-        CaminhaoDAO caminhaoDAO = new CaminhaoDAO();
-        return caminhaoDAO.getCaminhao(nroEquip);
-    }
-
     public EquipBean getEquip(){
         ConfigDAO configDAO = new ConfigDAO();
-        return configDAO.getEquip(getConfig().getIdEquipConfig());
+        return configDAO.getEquip(getConfig().getEquipConfig());
     }
 
     public Long getVerInforConfig(){
@@ -65,14 +55,9 @@ public class ConfigCTR {
 
     /////////////////////////////////////// SET CAMPOS ////////////////////////////////////////////
 
-    public void setIdTurnoConfig(Long nroTurnoConfig){
+    public void setCheckListConfig(Long idTurno){
         ConfigDAO configDAO = new ConfigDAO();
-        configDAO.setIdTurnoConfig(nroTurnoConfig);
-    }
-
-    public void setUltTurnoCLConfig(){
-        ConfigDAO configDAO = new ConfigDAO();
-        configDAO.setUltTurnoCLConfig(configDAO.getIdTurnoConfig());
+        configDAO.setCheckListConfig(idTurno);
     }
 
     public void setDifDthrConfig(Long status){
@@ -100,13 +85,28 @@ public class ConfigCTR {
         configDAO.setOsConfig(nroOS);
     }
 
+    public void setAtivConfig(Long idAtiv){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setAtivConfig(idAtiv);
+    }
+
+    public void setEquipConfig(EquipBean equipBean){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setEquipConfig(equipBean);
+    }
+
+    public void atualVerInforConfig(Long tipo){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setVerInforConfig(tipo);
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////// VER CAMPOS ////////////////////////////////////////////
 
-    public boolean verCaminhao(Long codEquip){
-        CaminhaoDAO caminhaoDAO = new CaminhaoDAO();
-        return caminhaoDAO.verCaminhao(codEquip);
+    public void verEquipConfig(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+        EquipDAO equipDAO = new EquipDAO();
+        equipDAO.verEquip(dado, telaAtual, telaProx, progressDialog);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

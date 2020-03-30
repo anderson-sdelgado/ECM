@@ -26,14 +26,8 @@ public class ECMContext extends Application {
 	// 7 - Engate no Parada;
 	// 8 - Finalizar Boletim Moto Mec;
 
-	private int numCarreta;
-	//	private int telaAltMoto; //1 - Menu Inicial, 2 - Ver Motorista Final, 3 - Menu Moto Mec
 	private int posMenu;
 	private int contDataHora;
-
-	private Long codigoAtivOS;
-	private Long nroOS;
-	private Long liberacaoOS;
 
 	private Long cargoMotomec;
 	private Long lugarMotivoParada;
@@ -86,14 +80,6 @@ public class ECMContext extends Application {
 			pneuCTR = new PneuCTR();
 		return pneuCTR;
 	}
-    
-	public int getNumCarreta() {
-		return numCarreta;
-	}
-
-	public void setNumCarreta(int numCarreta) {
-		this.numCarreta = numCarreta;
-	}
 
 	public int getPosMenu() {
 		return posMenu;
@@ -101,30 +87,6 @@ public class ECMContext extends Application {
 
 	public void setPosMenu(int posMenu) {
 		this.posMenu = posMenu;
-	}
-
-	public Long getCodigoAtivOS() {
-		return codigoAtivOS;
-	}
-
-	public void setCodigoAtivOS(Long codigoAtivOS) {
-		this.codigoAtivOS = codigoAtivOS;
-	}
-
-	public Long getNroOS() {
-		return nroOS;
-	}
-
-	public void setNroOS(Long nroOS) {
-		this.nroOS = nroOS;
-	}
-
-	public Long getLiberacaoOS() {
-		return liberacaoOS;
-	}
-
-	public void setLiberacaoOS(Long liberacaoOS) {
-		this.liberacaoOS = liberacaoOS;
 	}
 
 	public Long getCargoMotomec() {

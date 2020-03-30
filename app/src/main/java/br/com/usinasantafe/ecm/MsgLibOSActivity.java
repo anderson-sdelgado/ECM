@@ -6,12 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 
 public class MsgLibOSActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private RLibOSBean RLibOSBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +22,8 @@ public class MsgLibOSActivity extends ActivityGeneric {
         Button buttonCancMsgLiberacao = (Button) findViewById(R.id.buttonCancMsgLiberacao);
         TextView textViewMsgLiberacao = (TextView) findViewById(R.id.textViewMsgLiberacao);
 
-        RLibOSBean = ecmContext.getCECCTR().getRLibOSBean();
-
-        textViewMsgLiberacao.setText(RLibOSBean.getCodFazenda() + " - " + RLibOSBean.getDescrFazenda());
+        OSBean osBean = ecmContext.getCECCTR().getOSLib();
+        textViewMsgLiberacao.setText(osBean.getIdProprAgr() + " - " + osBean.getDescrProprAgr());
 
         buttonOkMsgLiberacao.setOnClickListener(new View.OnClickListener() {
 

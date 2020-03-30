@@ -5,9 +5,6 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.ecm.util.Tempo;
 
 public class MotoMecDAO {
 
@@ -43,7 +40,7 @@ public class MotoMecDAO {
         motoMecBean = (MotoMecBean) motoMecList.get(0);
         motoMecList.clear();
 
-        return motoMecBean.getCodOperMotoMec();
+        return motoMecBean.getIdOperMotoMec();
 
     }
 
@@ -65,7 +62,7 @@ public class MotoMecDAO {
         motoMecBean = (MotoMecBean) motoMecList.get(0);
         motoMecList.clear();
 
-        return motoMecBean.getCodOperMotoMec();
+        return motoMecBean.getIdOperMotoMec();
 
     }
 
@@ -87,11 +84,11 @@ public class MotoMecDAO {
         motoMecBean = (MotoMecBean) motoMecList.get(0);
         motoMecList.clear();
 
-        return motoMecBean.getCodOperMotoMec();
+        return motoMecBean.getIdOperMotoMec();
 
     }
 
-    public Long getCheckList(){
+    public MotoMecBean getCheckList(){
 
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
@@ -109,11 +106,11 @@ public class MotoMecDAO {
         motoMecBean = (MotoMecBean) motoMecList.get(0);
         motoMecList.clear();
 
-        return motoMecBean.getCodOperMotoMec();
+        return motoMecBean;
 
     }
 
-    public Long getSaidaCampo(){
+    public MotoMecBean getSaidaCampo(){
 
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
@@ -131,11 +128,11 @@ public class MotoMecDAO {
         motoMecBean = (MotoMecBean) motoMecList.get(0);
         motoMecList.clear();
 
-        return motoMecBean.getCodOperMotoMec();
+        return motoMecBean;
 
     }
 
-    public Long getVoltaTrabalho(){
+    public MotoMecBean getVoltaTrabalho(){
 
         MotoMecBean motoMecBean = new MotoMecBean();
         ArrayList pesqArrayList = new ArrayList();
@@ -153,7 +150,7 @@ public class MotoMecDAO {
         motoMecBean = (MotoMecBean) motoMecList.get(0);
         motoMecList.clear();
 
-        return motoMecBean.getCodOperMotoMec();
+        return motoMecBean;
 
     }
 
@@ -166,34 +163,6 @@ public class MotoMecDAO {
         pesqArrayList.add(getPesqBeanParada());
         MotoMecBean motoMecBean = new MotoMecBean();
         return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
-
-    }
-
-    public void salvaSaidaCampo(Long ativOS, ConfigBean configBean) {
-
-        ApontMotoMecBean apontMotoMecBean = new ApontMotoMecBean();
-        apontMotoMecBean.setOpCor(getSaidaCampo());
-        apontMotoMecBean.setCodEquip(configBean.getCodEquipConfig());
-        apontMotoMecBean.setMatricColab(configBean.getMatricColabConfig());
-        apontMotoMecBean.setDthr(Tempo.getInstance().dataComHora());
-        apontMotoMecBean.setCaux(ativOS);
-        apontMotoMecBean.insert();
-
-//        envioApontMotoMec();
-
-    }
-
-    public void salvaMotoMec(Long opCorMotoMec, Long ativOS, ConfigBean configBean) {
-
-        ApontMotoMecBean apontMotoMecBean = new ApontMotoMecBean();
-        apontMotoMecBean.setOpCor(opCorMotoMec);
-        apontMotoMecBean.setCodEquip(configBean.getCodEquipConfig());
-        apontMotoMecBean.setMatricColab(configBean.getMatricColabConfig());
-        apontMotoMecBean.setDthr(Tempo.getInstance().dataComHora());
-        apontMotoMecBean.setCaux(ativOS);
-        apontMotoMecBean.insert();
-
-//        envioApontMotoMec();
 
     }
 

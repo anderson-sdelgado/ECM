@@ -6,19 +6,16 @@ import android.util.Log;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipSegBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.FrenteBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.TurnoBean;
 
-import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBkpBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
@@ -63,19 +60,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 			TableUtils.createTable(cs, ColabBean.class);
 			TableUtils.createTable(cs, EquipBean.class);
+			TableUtils.createTable(cs, EquipSegBean.class);
 			TableUtils.createTable(cs, FrenteBean.class);
-			TableUtils.createTable(cs, ItemCLBean.class);
+			TableUtils.createTable(cs, ItemCheckListBean.class);
 			TableUtils.createTable(cs, MotoMecBean.class);
-			TableUtils.createTable(cs, RLibOSBean.class);
 			TableUtils.createTable(cs, TurnoBean.class);
 
-			TableUtils.createTable(cs, ApontMotoMecBean.class);
-			TableUtils.createTable(cs, BoletimBean.class);
-			TableUtils.createTable(cs, BoletimBkpBean.class);
+			TableUtils.createTable(cs, CECBean.class);
 			TableUtils.createTable(cs, CabecCLBean.class);
-			TableUtils.createTable(cs, CarretaUtilBean.class);
+			TableUtils.createTable(cs, CarretaBean.class);
 			TableUtils.createTable(cs, PreCECBean.class);
-			TableUtils.createTable(cs, CertifCanaBkpBean.class);
 			TableUtils.createTable(cs, ConfigBean.class);
 			TableUtils.createTable(cs, RespItemCLBean.class);
 

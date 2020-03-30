@@ -5,7 +5,6 @@ import java.util.List;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.util.Tempo;
@@ -42,7 +41,7 @@ public class CabecCheckListDAO {
         EquipBean equipBean = configCTR.getEquip();
         ConfigBean configBean = configCTR.getConfig();
 
-        if ((equipBean.getIdCheckListEquip() > 0) &&
+        if ((equipBean.getIdCheckList() > 0) &&
                 ((configBean.getUltTurnoCLConfig() != idTurno)
                         || ((configBean.getUltTurnoCLConfig() == idTurno)
                         && (!configBean.getDtUltCLConfig().equals(Tempo.getInstance().dataSHora()))))) {

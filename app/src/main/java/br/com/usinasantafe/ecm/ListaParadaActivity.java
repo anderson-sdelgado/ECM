@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class ListaParadaActivity extends ActivityGeneric {
 
     private ListView paradaListView;
     private ECMContext ecmContext;
     private List paradaList;
-    private MotoMecBean motoMecBean;
     private int posicao;
 
     @Override
@@ -32,12 +32,10 @@ public class ListaParadaActivity extends ActivityGeneric {
 
         Button buttonRetMenuParada = (Button) findViewById(R.id.buttonRetMenuParada);
 
-        paradaList = ecmContext.getMotoMecCTR().getParadaList();
-
         ArrayList<String> itens = new ArrayList<String>();
-
+        paradaList = ecmContext.getMotoMecCTR().getParadaList();
         for(int i = 0; i < paradaList.size(); i++){
-            motoMecBean = (MotoMecBean) paradaList.get(i);
+            MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(i);
             itens.add(motoMecBean.getDescrOperMotoMec());
         }
 
@@ -52,8 +50,8 @@ public class ListaParadaActivity extends ActivityGeneric {
                                     long id) {
 
                 posicao = position;
-
-                motoMecBean = (MotoMecBean) paradaList.get(posicao);
+                MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(posicao);
+                ecmContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
                 if(motoMecBean.getCodFuncaoOperMotoMec() == 1){
 
@@ -64,7 +62,15 @@ public class ListaParadaActivity extends ActivityGeneric {
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ecmContext.getMotoMecCTR().salvaMotoMec(motoMecBean.getCodOperMotoMec());
+                            Long statusCon;
+                            ConexaoWeb conexaoWeb = new ConexaoWeb();
+                            if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
+                                statusCon = 1L;
+                            }
+                            else{
+                                statusCon = 0L;
+                            }
+                            ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
                             paradaListView.setSelection(posicao + 1);
                         }
                     });
@@ -74,9 +80,9 @@ public class ListaParadaActivity extends ActivityGeneric {
                 }
                 else if(motoMecBean.getCodFuncaoOperMotoMec() == 11) { //DESENGATE
 
-                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+                    CarretaBean carretaBean = new CarretaBean();
 
-                    if (carretaUtilBean.hasElements()) {
+                    if (carretaBean.hasElements()) {
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -109,9 +115,9 @@ public class ListaParadaActivity extends ActivityGeneric {
                 }
                 else if(motoMecBean.getCodFuncaoOperMotoMec() == 12){ //ENGATE
 
-                    CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+                    CarretaBean carretaBean = new CarretaBean();
 
-                    if(!carretaUtilBean.hasElements()){
+                    if(!carretaBean.hasElements()){
 
                         AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
                         alerta.setTitle("ATENÇÃO");
@@ -147,7 +153,15 @@ public class ListaParadaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getVoltaTrabalho());
+                Long statusCon;
+                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
+                    statusCon = 1L;
+                }
+                else{
+                    statusCon = 0L;
+                }
+                ecmContext.getMotoMecCTR().insVoltaTrab(getLongitude(), getLatitude(), statusCon);
                 Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();

@@ -9,17 +9,15 @@ import com.j256.ormlite.table.DatabaseTable;
 public class ConfigBean extends Entidade {
 	
 	private static final long serialVersionUID = 1L;
-	
-	@DatabaseField(id=true)
-	private Long idEquipConfig;
+
+	@DatabaseField(generatedId=true)
+	private Long idConfig;
 	@DatabaseField
-	private Long codEquipConfig;
+	private Long equipConfig;
 	@DatabaseField
 	private String senhaConfig;
 	@DatabaseField
 	private Long ultTurnoCLConfig;
-	@DatabaseField
-	private Long idTurnoConfig;
 	@DatabaseField
 	private String dtUltApontConfig;
 	@DatabaseField
@@ -31,6 +29,8 @@ public class ConfigBean extends Entidade {
 	@DatabaseField
 	private Long osConfig;
 	@DatabaseField
+	private Long ativConfig;
+	@DatabaseField
 	private Double horimetroConfig;
 	@DatabaseField
 	private Long verInforConfig; //0 - Verificar Dados; 1- Dados Recebidos; 2 - Dados Visualizados
@@ -40,20 +40,12 @@ public class ConfigBean extends Entidade {
 	public ConfigBean() {
 	}
 
-	public Long getIdEquipConfig() {
-		return idEquipConfig;
+	public Long getEquipConfig() {
+		return equipConfig;
 	}
 
-	public void setIdEquipConfig(Long idEquipConfig) {
-		this.idEquipConfig = idEquipConfig;
-	}
-
-	public Long getCodEquipConfig() {
-		return codEquipConfig;
-	}
-
-	public void setCodEquipConfig(Long camconfig) {
-		this.codEquipConfig = camconfig;
+	public void setEquipConfig(Long equipConfig) {
+		this.equipConfig = equipConfig;
 	}
 
 	public String getSenhaConfig() {
@@ -70,14 +62,6 @@ public class ConfigBean extends Entidade {
 
 	public void setUltTurnoCLConfig(Long ultTurnoCLConfig) {
 		this.ultTurnoCLConfig = ultTurnoCLConfig;
-	}
-
-	public Long getIdTurnoConfig() {
-		return idTurnoConfig;
-	}
-
-	public void setIdTurnoConfig(Long idTurnoConfig) {
-		this.idTurnoConfig = idTurnoConfig;
 	}
 
 	public Long getDifDthrConfig() {
@@ -142,5 +126,13 @@ public class ConfigBean extends Entidade {
 
 	public void setDtUltCLConfig(String dtUltCLConfig) {
 		this.dtUltCLConfig = dtUltCLConfig;
+	}
+
+	public Long getAtivConfig() {
+		return ativConfig;
+	}
+
+	public void setAtivConfig(Long ativConfig) {
+		this.ativConfig = ativConfig;
 	}
 }

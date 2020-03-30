@@ -32,8 +32,7 @@ public class FrenteActivity extends ActivityGeneric {
 
                     if (frente < 50) {
 
-                        ecmContext.getCECCTR().salvarCertifAberto();
-                        ecmContext.setVerPosTela(2);
+                        ecmContext.getCECCTR().salvarPrecCECAberto();
 
                         Intent it = new Intent(FrenteActivity.this, OSActivity.class);
                         startActivity(it);

@@ -47,8 +47,8 @@ public class AtivOSActivity extends ActivityGeneric {
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
                         if (conexaoWeb.verificaConexao(AtivOSActivity.this)) {
 
-                            VerifDadosServ.getInstance().verDados(editTextPadrao.getText().toString(), "RAtivOSBean",
-                                    AtivOSActivity.this, MsgAtivOSActivity.class);
+//                            VerifDadosServ.getInstance().verDados(editTextPadrao.getText().toString(), "RAtivOSBean",
+//                                    AtivOSActivity.this, MsgAtivOSActivity.class);
 
                         } else {
                             AlertDialog.Builder alerta = new AlertDialog.Builder(AtivOSActivity.this);

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import br.com.usinasantafe.ecm.util.ConexaoWeb;
+
 public class MsgSaidaCampoActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
@@ -22,7 +24,16 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
+                Long statusCon;
+                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                if (conexaoWeb.verificaConexao(MsgSaidaCampoActivity.this)) {
+                    statusCon = 1L;
+                }
+                else{
+                    statusCon = 0L;
+                }
                 ecmContext.getCECCTR().setDataSaidaCampo();
+                ecmContext.getMotoMecCTR().insSaídaCampo(getLongitude(), getLatitude(), statusCon);
 
                 Intent it = new Intent(MsgSaidaCampoActivity.this, VerMotoristaActivity.class);
                 startActivity(it);

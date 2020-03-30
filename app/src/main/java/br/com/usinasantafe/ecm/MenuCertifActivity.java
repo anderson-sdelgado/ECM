@@ -13,10 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.usinasantafe.ecm.model.bean.variaveis.CertifCanaBkpBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
-import br.com.usinasantafe.ecm.util.AtualDadosServ;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimBean;
 
 public class MenuCertifActivity extends ActivityGeneric {
 
@@ -151,11 +148,10 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                 } else if (text.equals("LOG VIAGEM")) {
 
-                    CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
-                    int qtdeCompVCanaBean = certifCanaBkpBean.count();
+                    int qtdeCompVCanaBean = ecmContext.getCECCTR().getPreCECListEnviado().size();
 
                     if (qtdeCompVCanaBean > 0) {
-                        Intent it = new Intent(MenuCertifActivity.this, CertificadoBKPActivity.class);
+                        Intent it = new Intent(MenuCertifActivity.this, BackupPreCECActivity.class);
                         startActivity(it);
                         finish();
                     } else {
@@ -173,11 +169,8 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                 } else if (text.equals("LOG BOLETIM")) {
 
-                    BoletimBean boletimBean = new BoletimBean();
-                    int qtdeBoletim = boletimBean.count();
-
-                    if (qtdeBoletim > 0) {
-                        Intent it = new Intent(MenuCertifActivity.this, BoletimBKPActivity.class);
+                    if (ecmContext.getCECCTR().verCEC()) {
+                        Intent it = new Intent(MenuCertifActivity.this, BackupCECActivity.class);
                         startActivity(it);
                         finish();
                     } else {

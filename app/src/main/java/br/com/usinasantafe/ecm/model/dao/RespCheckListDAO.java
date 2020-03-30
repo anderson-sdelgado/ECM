@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 
@@ -25,11 +25,11 @@ public class RespCheckListDAO {
         }
     }
 
-    public ItemCLBean getItemCheckList(int pos, EquipBean equipBean){
+    public ItemCheckListBean getItemCheckList(int pos, EquipBean equipBean){
 
-        ItemCLBean itemCheckListBean = new ItemCLBean();
-        List itemCheckList = itemCheckListBean.get("idCheckList", equipBean.getIdCheckListEquip());
-        itemCheckListBean = (ItemCLBean) itemCheckList.get(pos - 1);
+        ItemCheckListBean itemCheckListBean = new ItemCheckListBean();
+        List itemCheckList = itemCheckListBean.get("idCheckList", equipBean.getIdCheckList());
+        itemCheckListBean = (ItemCheckListBean) itemCheckList.get(pos - 1);
         itemCheckList.clear();
 
         return itemCheckListBean;

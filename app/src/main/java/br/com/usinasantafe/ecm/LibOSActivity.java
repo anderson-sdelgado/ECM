@@ -32,12 +32,7 @@ public class LibOSActivity extends ActivityGeneric {
 
                     if(ecmContext.getCECCTR().verLibOS(Long.parseLong(editTextPadrao.getText().toString()))){
 
-                        if(!ecmContext.getCECCTR().verQtdeCarreta(1L)){
-                            ecmContext.getCECCTR().setLibCam(Long.parseLong(editTextPadrao.getText().toString()));
-                        }
-                        else{
-                            ecmContext.getCECCTR().setLibCarreta(Long.parseLong(editTextPadrao.getText().toString()));
-                        }
+                        ecmContext.getCECCTR().setLib(Long.parseLong(editTextPadrao.getText().toString()));
                         Intent it = new Intent(LibOSActivity.this, MsgLibOSActivity.class);
                         startActivity(it);
                         finish();

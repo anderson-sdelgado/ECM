@@ -1,9 +1,10 @@
 package br.com.usinasantafe.ecm.control;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCLBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 import br.com.usinasantafe.ecm.model.dao.CabecCheckListDAO;
+import br.com.usinasantafe.ecm.model.dao.ItemCheckListDAO;
 import br.com.usinasantafe.ecm.model.dao.RespCheckListDAO;
 
 public class CheckListCTR {
@@ -33,10 +34,16 @@ public class CheckListCTR {
         return cabecCheckListDAO.verAberturaCheckList(turno);
     }
 
-    public ItemCLBean getItemCheckList(int pos){
+    public ItemCheckListBean getItemCheckList(int pos){
         ConfigCTR configCTR = new ConfigCTR();
         RespCheckListDAO respCheckListDAO = new RespCheckListDAO();
         return respCheckListDAO.getItemCheckList(pos, configCTR.getEquip());
+    }
+
+    public int qtdeItemCheckList(){
+        ConfigCTR configCTR = new ConfigCTR();
+        ItemCheckListDAO itemCheckListDAO = new ItemCheckListDAO();
+        return itemCheckListDAO.qtdeItem(configCTR.getEquip().getIdCheckList());
     }
 
     public void insResp(RespItemCLBean respItemCLBean){
@@ -48,6 +55,11 @@ public class CheckListCTR {
     public void fechaCabec(){
         CabecCheckListDAO cabecCheckListDAO = new CabecCheckListDAO();
         cabecCheckListDAO.fechaCabec();
+    }
+
+    public void recDadosCheckList(String result) {
+        ItemCheckListDAO itemCheckListDAO = new ItemCheckListDAO();
+        itemCheckListDAO.recDadosCheckList(result);
     }
 
 }

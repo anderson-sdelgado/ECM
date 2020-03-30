@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.ecm.util.Tempo;
 
 public class ConfigDAO {
 
@@ -23,16 +24,25 @@ public class ConfigDAO {
         return configBean;
     }
 
-    public void insConfig(ConfigBean configBean){
-        configBean.setIdTurnoConfig(0L);
-        configBean.setUltTurnoCLConfig(0L);
+    public void salvarConfig(String senha){
+        ConfigBean configBean = new ConfigBean();
         configBean.deleteAll();
+        configBean.setUltTurnoCLConfig(0L);
+        configBean.setDtUltCLConfig("");
+        configBean.setDtUltApontConfig("");
+        configBean.setDtServConfig("");
+        configBean.setDifDthrConfig(0L);
+        configBean.setVerInforConfig(0L);
+        configBean.setSenhaConfig(senha);
+        configBean.setSenhaConfig(senha);
         configBean.insert();
+        configBean.commit();
     }
 
-    public void setIdTurnoConfig(Long idTurnoConfig){
+    public void setEquipConfig(EquipBean equipBean){
         ConfigBean configBean = getConfig();
-        configBean.setIdTurnoConfig(idTurnoConfig);
+        configBean.setEquipConfig(equipBean.getIdEquip());
+        configBean.setHorimetroConfig(equipBean.getHorimetroEquip());
         configBean.update();
     }
 
@@ -61,20 +71,12 @@ public class ConfigDAO {
         configBean.update();
     }
 
-    public Long getCodEquipConfig(){
-        return getConfig().getCodEquipConfig();
-    }
-
     public boolean getConfigSenha(String senha){
         ConfigBean configBean = new ConfigBean();
         List configList = configBean.get("senhaConfig", senha);
         boolean ret = configList.size() > 0;
         configList.clear();
         return ret;
-    }
-
-    public Long getIdTurnoConfig(){
-        return getConfig().getIdTurnoConfig();
     }
 
     public EquipBean getEquip(Long idEquip){
@@ -102,8 +104,27 @@ public class ConfigDAO {
         configBean.update();
     }
 
+    public void setAtivConfig(Long idAtiv){
+        ConfigBean configBean = getConfig();
+        configBean.setAtivConfig(idAtiv);
+        configBean.update();
+    }
+
     public Long getOsConfig(){
         return getConfig().getOsConfig();
+    }
+
+    public void setCheckListConfig(Long idTurno){
+        ConfigBean configBean = getConfig();
+        configBean.setUltTurnoCLConfig(idTurno);
+        configBean.setDtUltCLConfig(Tempo.getInstance().dataSHora());
+        configBean.update();
+    }
+
+    public void setVerInforConfig(Long tipo){
+        ConfigBean configBean = getConfig();
+        configBean.setVerInforConfig(tipo);
+        configBean.update();
     }
 
 }

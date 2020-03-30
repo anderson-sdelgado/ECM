@@ -5,8 +5,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import br.com.usinasantafe.ecm.model.pst.Entidade;
 
-@DatabaseTable(tableName="tbequipest")
-public class EquipBean extends Entidade {
+@DatabaseTable(tableName="tbequipsegest")
+public class EquipSegBean extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,13 +19,9 @@ public class EquipBean extends Entidade {
     @DatabaseField
     private Long descrClasseEquip;
     @DatabaseField
-    private Long idCheckList;
-    @DatabaseField
-    private Long codTurno;
-    @DatabaseField
-    private Double horimetroEquip;
+    private Long tipoEquip;
 
-    public EquipBean() {
+    public EquipSegBean() {
     }
 
     public Long getIdEquip() {
@@ -44,20 +40,12 @@ public class EquipBean extends Entidade {
         this.nroEquip = nroEquip;
     }
 
-    public Long getIdCheckList() {
-        return idCheckList;
+    public Long getTipoEquip() {
+        return tipoEquip;
     }
 
-    public void setIdCheckList(Long idCheckList) {
-        this.idCheckList = idCheckList;
-    }
-
-    public Long getCodTurno() {
-        return codTurno;
-    }
-
-    public void setCodTurno(Long codTurno) {
-        this.codTurno = codTurno;
+    public void setTipoEquip(Long tipoEquip) {
+        this.tipoEquip = tipoEquip;
     }
 
     public Long getDescrClasseEquip() {
@@ -66,14 +54,6 @@ public class EquipBean extends Entidade {
 
     public void setDescrClasseEquip(Long descrClasseEquip) {
         this.descrClasseEquip = descrClasseEquip;
-    }
-
-    public Double getHorimetroEquip() {
-        return horimetroEquip;
-    }
-
-    public void setHorimetroEquip(Double horimetroEquip) {
-        this.horimetroEquip = horimetroEquip;
     }
 
     public Long getCodClasseEquip() {

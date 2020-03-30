@@ -3,58 +3,48 @@ package br.com.usinasantafe.ecm.control;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.RLibOSBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipSegBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
+import br.com.usinasantafe.ecm.model.dao.BoletimMMDAO;
+import br.com.usinasantafe.ecm.model.dao.CECDAO;
 import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
+import br.com.usinasantafe.ecm.model.dao.OSDAO;
 import br.com.usinasantafe.ecm.model.dao.PreCECDAO;
-import br.com.usinasantafe.ecm.model.dao.RAtivOSDAO;
-import br.com.usinasantafe.ecm.model.dao.RLibOSDAO;
 
 public class CECCTR {
 
     public CECCTR() {
     }
 
-    //////////////////////////////CABECALHO ABERTO//////////////////////////////////////////
+    ///////////////////////////////////// CABECALHO //////////////////////////////////////////////
 
-    public void salvarCertifAberto(){
+    public void salvarPrecCECAberto(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        preCECDAO.salvarCertifAberto();
+        preCECDAO.abrirPreCEC();
     }
 
-    public void delCertifAberto(){
+    public void clearPreCECAberto(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        delCarretaCertif(preCECDAO.getCertifAberto().getIdCertifCana());
-        preCECDAO.delCertifAberto();
+        preCECDAO.clearPreCECAberto();
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////////////////CARRETA/////////////////////////////////////
-
-    public void delCarreta(Long tipo){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        carretaDAO.delCarreta(tipo);
+    public void fechaPreCEC(){
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.fechaPreCEC(boletimMMDAO.getBolMMAberto());
     }
-
-    private void delCarretaCertif(Long idCertif){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        carretaDAO.delCarretaCertif(idCertif);
-    }
-
-    public List carretaList(Long tipo){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        return carretaDAO.carretaList(tipo);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
 
     public boolean verPreCECAberto(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        return preCECDAO.verCertifAberto();
+        return preCECDAO.verPreCECAberto();
+    }
+
+    public boolean verPreCECFechado(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.verPreCECAberto();
     }
 
     public boolean verDataCertif(){
@@ -62,70 +52,74 @@ public class CECCTR {
         return preCECDAO.verDataCertif();
     }
 
-    public boolean verAtivOS(Long idRAtivOS){
-        RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
-        return rAtivOSDAO.verAtivOS(idRAtivOS);
+    public boolean verAtivOS(Long idAtivOS){
+        OSDAO osDAO = new OSDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        return osDAO.verAtivOS(idAtivOS, configCTR.getConfig().getOsConfig());
     }
 
-    public boolean verNroOS(Long nroOS){
-        PreCECDAO preCECDAO = new PreCECDAO();
-        RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
-        return rAtivOSDAO.verNroOS(preCECDAO.getCertifAberto().getAtivOS(), nroOS);
+    public boolean verLibOS(Long idLibOS){
+        OSDAO osDAO = new OSDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        return osDAO.verLibOS(idLibOS, configCTR.getConfig().getOsConfig());
     }
 
-    public int verCarreta(Long nroCarreta, Long tipo){
-        int retorno; //1 - CARRETA CORRETA; 2 - NÃO EXISTE NA BASE DE DADOS; 3 - CARRETA REPETIDA; 4 - CARRETA INVERTIDA;
-        CarretaDAO carretaDAO = new CarretaDAO();
-        if(carretaDAO.verCarretaBD(nroCarreta)){
-            EquipBean carretaBean = carretaDAO.getCarretaBD(nroCarreta);
-            if(!carretaDAO.verCarreta(carretaBean.getIdEquip(), tipo) ){
-                Long posCarreta = carretaDAO.posCarreta(tipo) + 1;
-                ConfigCTR configCTR = new ConfigCTR();
-                EquipBean caminhaoBean = configCTR.getEquip();
-                if(caminhaoBean.getClasseEquip() == 1){ //CAMINHÃO CANAVIEIRO
-                    if(carretaBean.getClasseEquip() != 21){//REBOQUE
-                        retorno = 1;
-                    }
-                    else{
-                        retorno = 4;
-                    }
-                } else { //CAVALO CANAVIEIRO
-                    if(carretaBean.getClasseEquip() == 21){  //SEMI REBOQUE
-                        if(posCarreta == 1){
-                            retorno = 1;
-                        }
-                        else{
-                            retorno = 4;
-                        }
-                    } else { //REBOQUE
-                        if(posCarreta > 1){
-                            retorno = 1;
-                        }
-                        else{
-                            retorno = 4;
-                        }
-                    }
-                }
-            }
-            else{
-                retorno = 3;
-            }
+//    public int verCarrPreCEC(Long nroCarreta){
+//        int retorno; //1 - CARRETA CORRETA; 2 - NÃO EXISTE NA BASE DE DADOS; 3 - CARRETA REPETIDA; 4 - CARRETA INVERTIDA;
+//        CarretaDAO carretaDAO = new CarretaDAO();
+//        PreCECDAO preCECDAO = new PreCECDAO();
+//        if(carretaDAO.verCarretaBD(nroCarreta)){
+//            if(preCECDAO.verCarretaPreCEC(nroCarreta)){
+//                ConfigCTR configCTR = new ConfigCTR();
+//                EquipBean equipBean = configCTR.getEquip();
+//                EquipSegBean carreta = carretaDAO.getCarretaBD(nroCarreta);
+//                if(equipBean.getCodClasseEquip() == 1){ //CAMINHÃO CANAVIEIRO
+//                    if(carreta.getCodClasseEquip() != 21){//REBOQUE
+//                        retorno = 1;
+//                    }
+//                    else{
+//                        retorno = 4;
+//                    }
+//                } else { //CAVALO CANAVIEIRO
+//                    if(carreta.getCodClasseEquip() == 21){  //SEMI REBOQUE
+//                        if(getPos() == 1){
+//                            retorno = 1;
+//                        }
+//                        else{
+//                            retorno = 4;
+//                        }
+//                    } else { //REBOQUE
+//                        if(getPos() > 1){
+//                            retorno = 1;
+//                        }
+//                        else{
+//                            retorno = 4;
+//                        }
+//                    }
+//                }
+//            }
+//            else{
+//                retorno = 3;
+//            }
+//        }
+//        else{
+//            retorno = 2;
+//        }
+//        return retorno;
+//    }
+
+    public boolean verCEC(){
+        CECDAO cecDAO = new CECDAO();
+        return cecDAO.verCEC();
+    }
+
+    public void recCEC(){
+        if(verPreCECFechado()){
+
         }
         else{
-            retorno = 2;
+
         }
-        return retorno;
-    }
-
-    public boolean verQtdeCarreta(Long tipo){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        return carretaDAO.verQtdeCarreta(tipo);
-    }
-
-    public boolean verLibOS(Long codLib){
-        PreCECDAO preCECDAO = new PreCECDAO();
-        RLibOSDAO rLibOSDAO = new RLibOSDAO();
-        return  rLibOSDAO.verLibOS(codLib, preCECDAO.getCertifAberto().getNroOS());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -140,8 +134,6 @@ public class CECCTR {
     public void setDataSaidaCampo(){
         PreCECDAO preCECDAO = new PreCECDAO();
         preCECDAO.setDataSaidaCampo();
-        MotoMecCTR motoMecCTR = new MotoMecCTR();
-        motoMecCTR.salvaSaidaCampoMM();
     }
 
     public void setAtivOS(Long ativOS){
@@ -149,34 +141,16 @@ public class CECCTR {
         preCECDAO.setAtivOS(ativOS);
     }
 
-    public void setLibCam(Long libCam){
+    public void setLib(Long libCam){
         PreCECDAO preCECDAO = new PreCECDAO();
-        preCECDAO.setLibCam(libCam);
-    }
-
-    public void setNroOS(Long nroOS){
-        PreCECDAO preCECDAO = new PreCECDAO();
-        preCECDAO.setNroOS(nroOS);
-    }
-
-    public void insCarreta(Long nroCarreta, Long tipo){
         CarretaDAO carretaDAO = new CarretaDAO();
-        PreCECDAO preCECDAO = new PreCECDAO();
-        Long posCarreta = carretaDAO.posCarreta(tipo) + 1;
-        Long idCertif = 0L;
-        if(tipo == 1){
-            idCertif = preCECDAO.getCertifAberto().getIdCertifCana();
-        }
-        carretaDAO.insCarreta(idCertif, posCarreta, nroCarreta, tipo);
+        preCECDAO.setLib(libCam, carretaDAO.getQtdeCarreta());
     }
 
-    public void setLibCarreta(Long nroLib){
-        CarretaDAO carretaDAO = new CarretaDAO();
+    public void setCarr(Long carr){
         PreCECDAO preCECDAO = new PreCECDAO();
-        Long posCarreta = carretaDAO.posCarreta(1L);
-        Long idCertif = preCECDAO.getCertifAberto().getIdCertifCana();
-        CarretaUtilBean carretaUtilBean = carretaDAO.getCarreta(idCertif, posCarreta);
-        carretaDAO.setLibCarreta(carretaUtilBean, nroLib);
+        CarretaDAO carretaDAO = new CarretaDAO();
+        preCECDAO.setCarr(carr, carretaDAO.getQtdeCarreta());
     }
 
     /////////////////////////////////////////////////////////////////////////////
@@ -188,30 +162,37 @@ public class CECCTR {
         return preCECDAO.getDataChegCampo();
     }
 
-    public Long getPosCarreta(Long tipo){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        return carretaDAO.posCarreta(tipo);
+    public OSBean getOSAtiv(){
+        OSDAO osDAO = new OSDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        return osDAO.getOSAtiv(getPreCECAberto().getAtivOS(), configCTR.getConfig().getOsConfig());
     }
 
+    public OSBean getOSLib(){
+        OSDAO osDAO = new OSDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        return osDAO.getOSLib(getLib(), configCTR.getConfig().getOsConfig());
+    }
 
-
-
-//    public RAtivOSBean getAtivOS(){
-//        RAtivOSDAO rAtivOSDAO = new RAtivOSDAO();
-//        PreCECDAO preCECDAO = new PreCECDAO();
-//        RAtivOSBean rAtivOSBean = rAtivOSDAO.getAtivOS(preCECDAO.getCertifAberto().getAtivOS());
-//        return rAtivOSBean;
-//    }
-
-    public RLibOSBean getRLibOSBean(){
-        RLibOSDAO rLibOSDAO = new RLibOSDAO();
+    public List getPreCECFechadoList(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        Long libCam = 0L;
-        if(!verQtdeCarreta(1L)){
-            libCam = preCECDAO.getCertifAberto().getLibCam();
-        }
-        RLibOSBean rLibOSBean = rLibOSDAO.getRLibOSBean(libCam, preCECDAO.getCertifAberto().getNroOS());
-        return rLibOSBean;
+        return preCECDAO.getPreCECListFechado();
+    }
+
+    public Long getLib(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        CarretaDAO carretaDAO = new CarretaDAO();
+        return preCECDAO.getLib(carretaDAO.getQtdeCarreta());
+    }
+
+    public List getPreCECListEnviado(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.getPreCECListEnviado();
+    }
+
+    public PreCECBean getPreCECAberto(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.getPreCECAberto();
     }
 
     /////////////////////////////////////////////////////////////////////////////

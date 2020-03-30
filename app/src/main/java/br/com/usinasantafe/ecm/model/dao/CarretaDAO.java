@@ -3,64 +3,93 @@ package br.com.usinasantafe.ecm.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipSegBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaUtilBean;
 
 public class CarretaDAO {
 
     public CarretaDAO() {
     }
 
-    public void insCarreta(Long idCertif, Long posicao, Long idEquip, Long tipo){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
-        carretaUtilBean.setIdCertif(idCertif);
-        carretaUtilBean.setPosCarreta(posicao);
-        carretaUtilBean.setNroEquip(idEquip);
-        carretaUtilBean.setTipoCarreta(tipo);
-        carretaUtilBean.setLibCarreta(0L);
-        carretaUtilBean.insert();
-    }
-
-    public void delCarreta(Long tipo){
-        List carretaList = carretaList(tipo);
-        for (int i = 0; i < carretaList.size(); i++) {
-            CarretaUtilBean carretaUtilBean = (CarretaUtilBean) carretaList.get(i);
-            carretaUtilBean.delete();
+    public int verCarr(Long nroCarreta){
+        int retorno; //1 - CARRETA CORRETA; 2 - NÃO EXISTE NA BASE DE DADOS; 3 - CARRETA REPETIDA; 4 - CARRETA INVERTIDA;
+        CarretaDAO carretaDAO = new CarretaDAO();
+        if(carretaDAO.verCarretaBD(nroCarreta)){
+            if(verCarreta(nroCarreta)){
+                ConfigCTR configCTR = new ConfigCTR();
+                EquipBean equipBean = configCTR.getEquip();
+                EquipSegBean carreta = carretaDAO.getCarretaBD(nroCarreta);
+                if(equipBean.getCodClasseEquip() == 1){ //CAMINHÃO CANAVIEIRO
+                    if(carreta.getCodClasseEquip() != 21){//REBOQUE
+                        retorno = 1;
+                    }
+                    else{
+                        retorno = 4;
+                    }
+                } else { //CAVALO CANAVIEIRO
+                    if(carreta.getCodClasseEquip() == 21){  //SEMI REBOQUE
+                        if((getQtdeCarreta() + 1) == 1){
+                            retorno = 1;
+                        }
+                        else{
+                            retorno = 4;
+                        }
+                    } else { //REBOQUE
+                        if((getQtdeCarreta() + 1) > 1){
+                            retorno = 1;
+                        }
+                        else{
+                            retorno = 4;
+                        }
+                    }
+                }
+            }
+            else{
+                retorno = 3;
+            }
         }
-        carretaList.clear();
-    }
-
-    public void delCarretaCertif(Long idCertif){
-        List carretaList = carretaCertifList(idCertif);
-        for (int i = 0; i < carretaList.size(); i++) {
-            CarretaUtilBean carretaUtilBean = (CarretaUtilBean) carretaList.get(i);
-            carretaUtilBean.delete();
+        else{
+            retorno = 2;
         }
-        carretaList.clear();
+        return retorno;
     }
 
-    public void setLibCarreta(CarretaUtilBean carretaUtilBean, Long nroLib){
-        carretaUtilBean.setLibCarreta(nroLib);
-        carretaUtilBean.insert();
+    public void insCarreta(Long carreta){
+        if(getQtdeCarreta() == 0){
+            CarretaBean carretaBean1 = new CarretaBean();
+            carretaBean1.setPosCarreta(1L);
+            carretaBean1.setNroEquip(carreta);
+            carretaBean1.insert();
+        }
+        else if(getQtdeCarreta() == 1){
+            CarretaBean carretaBean2 = new CarretaBean();
+            carretaBean2.setPosCarreta(2L);
+            carretaBean2.setNroEquip(carreta);
+            carretaBean2.insert();
+        }
+        else if(getQtdeCarreta() == 2){
+            CarretaBean carretaBean3 = new CarretaBean();
+            carretaBean3.setPosCarreta(3L);
+            carretaBean3.setNroEquip(carreta);
+            carretaBean3.insert();
+        }
+        else if(getQtdeCarreta() == 3){
+            CarretaBean carretaBean4 = new CarretaBean();
+            carretaBean4.setPosCarreta(4L);
+            carretaBean4.setNroEquip(carreta);
+            carretaBean4.insert();
+        }
+
+
     }
 
-    public boolean verQtdeCarreta(Long tipo){
-        List carretaList = carretaList(tipo);
-        boolean ver = carretaList.size() > 0;
-        carretaList.clear();
-        return ver;
-    }
-
-    public boolean verCarreta(Long nroCarreta, Long tipo){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
-        ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesqTipo(tipo));
-        pesqArrayList.add(getPesqNroEquip(nroCarreta));
-        List carretaList = carretaUtilBean.get(pesqArrayList);
-        boolean ver = carretaList.size() > 0;
-        carretaList.clear();
-        return ver;
+    public void delCarreta(){
+        CarretaBean carretaBean = new CarretaBean();
+        carretaBean.deleteAll();
     }
 
     public boolean verCarretaBD(Long nroCarreta){
@@ -70,108 +99,79 @@ public class CarretaDAO {
         return ver;
     }
 
-    public EquipBean getCarretaBD(Long nroCarreta){
-        List carretaList = carretaBDList(nroCarreta);
-        EquipBean equipBean = (EquipBean) carretaList.get(0);
+    public boolean verCarreta(Long nroCarreta){
+        List carretaList = carretaList(nroCarreta);
+        boolean ver = carretaList.size() > 0;
         carretaList.clear();
-        return equipBean;
+        return ver;
+    }
+
+    public EquipSegBean getCarretaBD(Long nroCarreta){
+        List carretaList = carretaBDList(nroCarreta);
+        EquipSegBean equipSegBean = (EquipSegBean) carretaList.get(0);
+        carretaList.clear();
+        return equipSegBean;
     }
 
     private List carretaBDList(Long nroCarreta){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+        EquipSegBean equipSegBean = new EquipSegBean();
         ArrayList pesqArrayList = new ArrayList();
         pesqArrayList.add(getPesqNroEquip(nroCarreta));
-        return carretaUtilBean.get(pesqArrayList);
+        pesqArrayList.add(getPesqTipoCarreta());
+        return equipSegBean.get(pesqArrayList);
     }
 
-    public CarretaUtilBean getCarreta(Long idCertif, Long posicao){
-        List carretaList = carretaCertifList(idCertif, posicao);
-        CarretaUtilBean carretaUtilBean = (CarretaUtilBean) carretaList.get(0);
-        carretaList.clear();
-        return carretaUtilBean;
-    }
-
-    private List carretaCertifList(Long idCertif){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
+    private List carretaList(Long nroCarreta){
+        CarretaBean carretaBean = new CarretaBean();
         ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesqCertif(idCertif));
-        return carretaUtilBean.get(pesqArrayList);
+        pesqArrayList.add(getPesqNroEquip(nroCarreta));
+        return carretaBean.get(pesqArrayList);
     }
 
-    private List carretaCertifList(Long idCertif, Long posicao){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
-        ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesqCertif(idCertif));
-        pesqArrayList.add(getPesqPosicao(posicao));
-        return carretaUtilBean.get(pesqArrayList);
-    }
-
-    public Long posCarreta(Long tipo){
-        List carretaList = carretaList(tipo);
-        Long pos = Long.valueOf(carretaList.size());
+    public int getQtdeCarreta(){
+        CarretaBean carretaBean = new CarretaBean();
+        List carretaList = carretaBean.all();
+        int pos = carretaList.size();
         carretaList.clear();
         return pos;
     }
 
-    public List carretaList(Long tipo){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
-        ArrayList pesqArrayList = new ArrayList();
-        pesqArrayList.add(getPesqTipo(tipo));
-        return carretaUtilBean.get(pesqArrayList);
-    }
-
     public String getDescrCarreta(){
-        CarretaUtilBean carretaUtilBean = new CarretaUtilBean();
-        List carretaList = carretaUtilBean.getAndOrderBy("tipoCarreta", 2L, "idCarretaUtil", true);
+        CarretaBean carretaBean = new CarretaBean();
+        List carretaList = carretaBean.orderBy("posCarreta", true);
         String textoCarreta = "";
         if (carretaList.size() == 0) {
             textoCarreta = "CARRETA(S): ";
         } else if (carretaList.size() == 1) {
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(0);
-            textoCarreta = "CARRETA(S): " + carretaUtilBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(0);
+            textoCarreta = "CARRETA(S): " + carretaBean.getNroEquip();
         } else if (carretaList.size() == 2) {
             textoCarreta = "CARRETA(S): ";
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(0);
-            textoCarreta = textoCarreta + carretaUtilBean.getNroEquip();
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(1);
-            textoCarreta = textoCarreta + " - " + carretaUtilBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(0);
+            textoCarreta = textoCarreta + carretaBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(1);
+            textoCarreta = textoCarreta + " - " + carretaBean.getNroEquip();
         } else if (carretaList.size() == 3) {
             textoCarreta = "CARRETA(S): ";
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(0);
-            textoCarreta = textoCarreta + carretaUtilBean.getNroEquip();
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(1);
-            textoCarreta = textoCarreta + " - " + carretaUtilBean.getNroEquip();
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(2);
-            textoCarreta = textoCarreta + " - " + carretaUtilBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(0);
+            textoCarreta = textoCarreta + carretaBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(1);
+            textoCarreta = textoCarreta + " - " + carretaBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(2);
+            textoCarreta = textoCarreta + " - " + carretaBean.getNroEquip();
         } else {
             textoCarreta = "CARRETA(S): ";
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(0);
-            textoCarreta = textoCarreta + carretaUtilBean.getNroEquip();
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(1);
-            textoCarreta = textoCarreta + " - " + carretaUtilBean.getNroEquip();
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(2);
-            textoCarreta = textoCarreta + " - " + carretaUtilBean.getNroEquip();
-            carretaUtilBean = (CarretaUtilBean) carretaList.get(3);
-            textoCarreta = textoCarreta + " - " + carretaUtilBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(0);
+            textoCarreta = textoCarreta + carretaBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(1);
+            textoCarreta = textoCarreta + " - " + carretaBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(2);
+            textoCarreta = textoCarreta + " - " + carretaBean.getNroEquip();
+            carretaBean = (CarretaBean) carretaList.get(3);
+            textoCarreta = textoCarreta + " - " + carretaBean.getNroEquip();
         }
         carretaList.clear();
         return textoCarreta;
-    }
-
-    private EspecificaPesquisa getPesqCertif(Long idCertif){
-        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
-        especificaPesquisa.setCampo("idCertif");
-        especificaPesquisa.setValor(idCertif);
-        especificaPesquisa.setTipo(1);
-        return especificaPesquisa;
-    }
-
-    private EspecificaPesquisa getPesqTipo(Long tipo){
-        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
-        especificaPesquisa.setCampo("tipoCarreta");
-        especificaPesquisa.setValor(tipo);
-        especificaPesquisa.setTipo(1);
-        return especificaPesquisa;
     }
 
     private EspecificaPesquisa getPesqNroEquip(Long nroEquip){
@@ -182,10 +182,10 @@ public class CarretaDAO {
         return especificaPesquisa;
     }
 
-    private EspecificaPesquisa getPesqPosicao(Long posicao){
+    private EspecificaPesquisa getPesqTipoCarreta(){
         EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
-        especificaPesquisa.setCampo("posCarreta");
-        especificaPesquisa.setValor(posicao);
+        especificaPesquisa.setCampo("tipoEquip");
+        especificaPesquisa.setValor(2L);
         especificaPesquisa.setTipo(1);
         return especificaPesquisa;
     }

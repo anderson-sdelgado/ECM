@@ -20,9 +20,9 @@ public class MotoMecBean extends Entidade {
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(id=true)
-    private Long idOperMotoMec;
+    private Long idMotoMec;
 	@DatabaseField
-	private Long codOperMotoMec;
+	private Long idOperMotoMec;
 	@DatabaseField
 	private String descrOperMotoMec;
 	@DatabaseField
@@ -39,20 +39,20 @@ public class MotoMecBean extends Entidade {
     public MotoMecBean() {
     }
 
+	public Long getIdMotoMec() {
+		return idMotoMec;
+	}
+
+	public void setIdMotoMec(Long idMotoMec) {
+		this.idMotoMec = idMotoMec;
+	}
+
 	public Long getIdOperMotoMec() {
 		return idOperMotoMec;
 	}
 
 	public void setIdOperMotoMec(Long idOperMotoMec) {
 		this.idOperMotoMec = idOperMotoMec;
-	}
-
-	public Long getCodOperMotoMec() {
-		return codOperMotoMec;
-	}
-
-	public void setCodOperMotoMec(Long codOperMotoMec) {
-		this.codOperMotoMec = codOperMotoMec;
 	}
 
 	public String getDescrOperMotoMec() {

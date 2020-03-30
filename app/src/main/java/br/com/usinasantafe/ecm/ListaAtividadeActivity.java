@@ -1,6 +1,5 @@
 package br.com.usinasantafe.ecm;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -13,14 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class ListaAtividadeActivity extends ActivityGeneric {
 
-    private ListView atividadeListView;
+    private ListView ativListView;
     private ECMContext ecmContext;
     private ProgressDialog progressBar;
     private ArrayList ativArrayList;
@@ -82,7 +80,11 @@ public class ListaAtividadeActivity extends ActivityGeneric {
             }
         });
 
-        textViewTituloAtividade.setText("ATIVIDADE PRINCIPAL");
+        if(ecmContext.getVerPosTela() == 1){
+            textViewTituloAtividade.setText("ATIVIDADE PRINCIPAL");
+        } else {
+            textViewTituloAtividade.setText("ATIVIDADE");
+        }
 
         ativArrayList = ecmContext.getMotoMecCTR().getAtivArrayList(nroOS);
 
@@ -93,10 +95,10 @@ public class ListaAtividadeActivity extends ActivityGeneric {
         }
 
         AdapterList adapterList = new AdapterList(this, itens);
-        atividadeListView = (ListView) findViewById(R.id.listAtividade);
-        atividadeListView.setAdapter(adapterList);
+        ativListView = (ListView) findViewById(R.id.listAtividade);
+        ativListView.setAdapter(adapterList);
 
-        atividadeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ativListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
@@ -105,6 +107,8 @@ public class ListaAtividadeActivity extends ActivityGeneric {
 
                 AtividadeBean atividadeBean = (AtividadeBean) ativArrayList.get(position);
                 ativArrayList.clear();
+
+                ecmContext.getConfigCTR().setAtivConfig(atividadeBean.getIdAtiv());
 
                 if(ecmContext.getVerPosTela() == 1){
 

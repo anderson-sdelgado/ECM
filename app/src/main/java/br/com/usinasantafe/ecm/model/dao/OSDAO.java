@@ -8,14 +8,85 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ROSAtivBean;
+import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
 public class OSDAO {
 
     public OSDAO() {
+    }
+
+    public OSBean getOSAtiv(Long idAtivOS, Long nroOS){
+        List ativOSList = ativOSList(idAtivOS, nroOS);
+        OSBean osBean = (OSBean) ativOSList.get(0);
+        ativOSList.clear();
+        return osBean;
+    }
+
+    public OSBean getOSLib(Long idLibOS, Long nroOS){
+        List libOSList = libOSList(idLibOS, nroOS);
+        OSBean osBean = (OSBean) libOSList.get(0);
+        libOSList.clear();
+        return osBean;
+    }
+
+    public boolean verAtivOS(Long idAtivOS, Long nroOS){
+        List ativOSList = ativOSList(idAtivOS, nroOS);
+        boolean retorno = ativOSList.size() > 0;
+        ativOSList.clear();
+        return retorno;
+    }
+
+    public boolean verLibOS(Long idLibOS, Long nroOS){
+        List libOSList = libOSList(idLibOS, nroOS);
+        boolean retorno = libOSList.size() > 0;
+        libOSList.clear();
+        return retorno;
+    }
+
+    private List ativOSList(Long idAtivOS, Long nroOS){
+        OSBean rAtivOSBean = new OSBean();
+        ArrayList pesqArrayList = new ArrayList();
+        pesqArrayList.add(getPesqAtiv(idAtivOS));
+        pesqArrayList.add(getPesqNroOS(nroOS));
+        return rAtivOSBean.get(pesqArrayList);
+    }
+
+    private List libOSList(Long idLibOS, Long nroOS){
+        OSBean rAtivOSBean = new OSBean();
+        ArrayList pesqArrayList = new ArrayList();
+        pesqArrayList.add(getPesqLib(idLibOS));
+        pesqArrayList.add(getPesqNroOS(nroOS));
+        return rAtivOSBean.get(pesqArrayList);
+    }
+
+    private EspecificaPesquisa getPesqAtiv(Long idAtivOS){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("idAtivOS");
+        especificaPesquisa.setValor(idAtivOS);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
+    }
+
+    private EspecificaPesquisa getPesqLib(Long idLibOS){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("idLibOS");
+        especificaPesquisa.setValor(idLibOS);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
+    }
+
+    private EspecificaPesquisa getPesqNroOS(Long nroOS){
+        EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
+        especificaPesquisa.setCampo("nroOS");
+        especificaPesquisa.setValor(nroOS);
+        especificaPesquisa.setTipo(1);
+        return especificaPesquisa;
     }
 
     public void verOS(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
@@ -31,11 +102,7 @@ public class OSDAO {
 
             if (!result.contains("exceeded")) {
 
-                int posicao = result.indexOf("#") + 1;
-                String objPrinc = result.substring(0, result.indexOf("#"));
-                String objSeg = result.substring(posicao);
-
-                JSONObject jObj = new JSONObject(objPrinc);
+                JSONObject jObj = new JSONObject(result.trim());
                 JSONArray jsonArray = jObj.getJSONArray("dados");
 
                 if (jsonArray.length() > 0) {
@@ -48,18 +115,6 @@ public class OSDAO {
                         Gson gson = new Gson();
                         osTO = gson.fromJson(objeto.toString(), OSBean.class);
                         osTO.insert();
-
-                    }
-
-                    jObj = new JSONObject(objSeg);
-                    jsonArray = jObj.getJSONArray("dados");
-
-                    for (int j = 0; j < jsonArray.length(); j++) {
-
-                        JSONObject objeto = jsonArray.getJSONObject(j);
-                        Gson gson = new Gson();
-                        ROSAtivBean rosAtivBean = gson.fromJson(objeto.toString(), ROSAtivBean.class);
-                        rosAtivBean.insert();
 
                     }
 

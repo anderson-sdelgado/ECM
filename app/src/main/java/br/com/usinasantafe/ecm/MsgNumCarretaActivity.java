@@ -13,7 +13,7 @@ import br.com.usinasantafe.ecm.util.ConexaoWeb;
 public class MsgNumCarretaActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;
-    private Long numCarreta;
+    private int numCarreta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +23,12 @@ public class MsgNumCarretaActivity extends ActivityGeneric {
         ecmContext = (ECMContext) getApplication();
 
         TextView textViewMsgNumCarreta = (TextView) findViewById(R.id.textViewMsgNumCarreta);
+
+        numCarreta = ecmContext.getMotoMecCTR().qtdeCarreta() + 1;
         if (ecmContext.getVerPosTela() == 5){
-            numCarreta = ecmContext.getCECCTR().getPosCarreta(1L) + 1;
             textViewMsgNumCarreta.setText("DESEJA INSERIR A CARRETA " + numCarreta +"?");
         }
         else{
-            numCarreta = ecmContext.getCECCTR().getPosCarreta(2L) + 1;
             textViewMsgNumCarreta.setText("DESEJA ENGATAR A CARRETA " + numCarreta + "?");
         }
 

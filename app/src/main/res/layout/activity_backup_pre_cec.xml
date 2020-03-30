@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.usinasantafe.ecm.BoletimBKPActivity">
+    tools:context="br.com.usinasantafe.ecm.BackupPreCECActivity">
 
     <TextView
-        android:id="@+id/textViewBkpBoletim"
+        android:id="@+id/textViewBkpViagemCana"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/buttonAntBkpBoletim"
+            android:id="@+id/buttonAntBkpViagemCana"
             style="@style/BotaoAvulso"
             android:layout_weight="1"
             android:layout_width="fill_parent"
@@ -31,7 +31,7 @@
             android:text="@string/texto_padrao_anterior" />
 
         <Button
-            android:id="@+id/buttonProxBkpBoletim"
+            android:id="@+id/buttonProxBkpViagemCana"
             style="@style/BotaoAvulso"
             android:layout_weight="1"
             android:layout_width="fill_parent"
@@ -41,7 +41,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonRetornarBkpBoletim"
+        android:id="@+id/buttonRetornarBkpViagemCana"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

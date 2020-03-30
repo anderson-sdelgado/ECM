@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.AtualDadosServ;
@@ -37,11 +38,10 @@ public class ConfigActivity extends ActivityGeneric {
         if(ecmContext.getConfigCTR().hasElements()){
 
             ConfigBean configBean = ecmContext.getConfigCTR().getConfig();
-
-            editTextCamConfig.setText(String.valueOf(configBean.getCodEquipConfig()));
+            editTextCamConfig.setText(String.valueOf(ecmContext.getConfigCTR().getEquip().getNroEquip()));
             editTextSenhaConfig.setText(configBean.getSenhaConfig());
-        }
 
+        }
 
         btOkConfig.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,28 +50,14 @@ public class ConfigActivity extends ActivityGeneric {
                 if(!editTextCamConfig.getText().toString().equals("") &&
                         !editTextSenhaConfig.getText().toString().equals("")){
 
-                    EquipBean equipBean = new EquipBean();
+                    progressBar = new ProgressDialog(v.getContext());
+                    progressBar.setCancelable(true);
+                    progressBar.setMessage("Pequisando o Equipamento...");
+                    progressBar.show();
 
-                    if(equipBean.hasElements()){
-
-                        if(ecmContext.getConfigCTR().verCaminhao(Long.valueOf(editTextCamConfig.getText().toString()))){
-
-                            equipBean = ecmContext.getConfigCTR().getCaminhao(Long.valueOf(editTextCamConfig.getText().toString()));
-
-                            ConfigBean configBean = new ConfigBean();
-                            configBean.setIdEquipConfig(equipBean.getIdEquip());
-                            configBean.setCodEquipConfig(equipBean.getNroEquip());
-                            configBean.setSenhaConfig(editTextSenhaConfig.getText().toString());
-
-                            ecmContext.getConfigCTR().insConfig(configBean);
-
-                            Intent it = new Intent(ConfigActivity.this, MenuInicialActivity.class);
-                            startActivity(it);
-                            finish();
-
-                        }
-
-                    }
+                    ConfigCTR configCTR = new ConfigCTR();
+                    configCTR.salvarConfig(editTextSenhaConfig.getText().toString().trim());
+                    configCTR.verEquipConfig(editTextCamConfig.getText().toString().trim(), ConfigActivity.this ,MenuInicialActivity.class, progressBar);
 
                 }
 

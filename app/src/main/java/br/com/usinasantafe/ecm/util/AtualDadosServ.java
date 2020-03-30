@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.com.usinasantafe.ecm.util.connHttp.GetBDGenerico;
+import br.com.usinasantafe.ecm.util.conHttp.GetBDGenerico;
 import br.com.usinasantafe.ecm.model.pst.GenericRecordable;
-import br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp;
+import br.com.usinasantafe.ecm.util.conHttp.UrlsConexaoHttp;
 
 import com.google.gson.Gson;
 
@@ -83,6 +83,38 @@ public class AtualDadosServ {
 
 	}
 
+	public void atualTodasTabBD(){
+
+		try {
+
+			this.tipoReceb = 2;
+			tabAtualArrayList = new ArrayList();
+			Class<?> retClasse = Class.forName(urlsConexaoHttp.localUrl);
+
+			for (Field field : retClasse.getDeclaredFields()) {
+				String campo = field.getName();
+				Log.i("ERRO", "Campo = " + campo);
+				if(campo.contains("Bean")){
+					tabAtualArrayList.add(campo);
+				}
+
+			}
+
+			classe = (String) tabAtualArrayList.get(contAtualBD);
+
+			String[] url = {classe};
+
+			contAtualBD++;
+
+			GetBDGenerico getBDGenerico = new GetBDGenerico();
+			getBDGenerico.execute(url);
+
+		} catch (Exception e) {
+			Log.i("ERRO", "Erro Manip2 = " + e);
+		}
+
+	}
+
 	public void atualTodasTabBD(Context telaAtual, ProgressDialog progressDialog){
 		
 		try {
@@ -96,7 +128,7 @@ public class AtualDadosServ {
 	        for (Field field : retClasse.getDeclaredFields()) {
 	            String campo = field.getName();
 	            Log.i("ERRO", "Campo = " + campo);
-	            if(campo.contains("TO")){
+	            if(campo.contains("Bean")){
 	            	tabAtualArrayList.add(campo);
 	            }
 	            
@@ -169,9 +201,7 @@ public class AtualDadosServ {
 				GetBDGenerico getBDGenerico = new GetBDGenerico();
 		        getBDGenerico.execute(url);
 		        
-			}
-			else
-			{
+			} else {
 				this.progressDialog.dismiss();
 				contAtualBD = 0;
 				AlertDialog.Builder alerta = new AlertDialog.Builder(this.telaAtual);
@@ -200,15 +230,9 @@ public class AtualDadosServ {
 				GetBDGenerico getBDGenerico = new GetBDGenerico();
 		        getBDGenerico.execute(url);
 		        
-			}
-			else
-			{
+			} else {
 				contAtualBD = 0;
 			}
-			
-		}
-		else if(this.tipoReceb == 3){
-			contAtualBD = 0;
 		}
 
 	}

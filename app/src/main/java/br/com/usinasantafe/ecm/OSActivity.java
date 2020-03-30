@@ -136,33 +136,6 @@ public class OSActivity extends ActivityGeneric {
 
                     }
 
-
-
-//                    if(ecmContext.getCECCTR().verNroOS(Long.parseLong(editTextPadrao.getText().toString()))){
-//
-//                        ecmContext.getCECCTR().setNroOS(Long.parseLong(editTextPadrao.getText().toString()));
-//                        Intent it = new Intent(OSActivity.this, LibOSActivity.class);
-//                        startActivity(it);
-//                        finish();
-//
-//                    }
-//                    else{
-//
-//                        AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
-//                        alerta.setTitle("ATENÇÃO");
-//                        alerta.setMessage("O.S. NÃO CORRESPONDENTE A ATIVIDADE ANTERIORMENTE DIGITADA. POR FAVOR, DIGITE A O.S. CORRESPONDE A MESMA.");
-//
-//                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                editTextPadrao.setText("");
-//                            }
-//                        });
-//                        alerta.show();
-//
-//                    }
-
                 }
             }
         });
@@ -180,16 +153,9 @@ public class OSActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
-        if(!ecmContext.getCECCTR().verQtdeCarreta(1L)){
-            Intent it = new Intent(OSActivity.this, CaminhaoActivity.class);
-            startActivity(it);
-            finish();
-        }
-        else{
-            Intent it = new Intent(OSActivity.this, CarretaActivity.class);
-            startActivity(it);
-            finish();
-        }
+        Intent it = new Intent(OSActivity.this, ListaTurnoActivity.class);
+        startActivity(it);
+        finish();
     }
 
     private Runnable updateTimerThread = new Runnable() {

@@ -6,12 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.RAtivOSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
+
 
 public class MsgAtivOSActivity extends ActivityGeneric {
 
-    private RAtivOSBean rAtivOSBean;
-    private String descAtividade;
     private ECMContext ecmContext;
 
     @Override
@@ -26,12 +25,8 @@ public class MsgAtivOSActivity extends ActivityGeneric {
 
         TextView textViewNomeAtividade = (TextView) findViewById(R.id.textViewNomeAtividade);
 
-        rAtivOSBean = ecmContext.getCECCTR().getAtivOS();
-
-//        codAtivOS = atividadeOsTO.getIdRAtivOS();
-//        ecmContext.setNroOS(atividadeOsTO.getNroOS());
-
-        textViewNomeAtividade.setText(rAtivOSBean.getCodFazenda() + " - " + rAtivOSBean.getDescrFazenda());
+        OSBean osBean = ecmContext.getCECCTR().getOSAtiv();
+        textViewNomeAtividade.setText(osBean.getIdProprAgr() + " - " + osBean.getDescrProprAgr());
 
         buttonOkMsgAtivOS.setOnClickListener(new View.OnClickListener() {
 

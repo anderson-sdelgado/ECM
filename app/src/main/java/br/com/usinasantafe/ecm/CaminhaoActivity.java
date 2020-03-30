@@ -22,7 +22,7 @@ public class CaminhaoActivity extends ActivityGeneric {
 
         ecmContext = (ECMContext) getApplication();
 
-        textViewCodCaminhaoTurno.setText(String.valueOf(ecmContext.getConfigCTR().getCodEquipConfig()));
+        textViewCodCaminhaoTurno.setText(String.valueOf(ecmContext.getConfigCTR().getEquip().getNroEquip()));
 
         buttonOkCaminhao.setOnClickListener(new View.OnClickListener() {
 
@@ -31,16 +31,16 @@ public class CaminhaoActivity extends ActivityGeneric {
 
                 if(ecmContext.getVerPosTela() == 5){
 
-                    if(ecmContext.getConfigCTR().getEquip().getClasseEquip() == 1){
+                    ecmContext.getMotoMecCTR().delCarreta();
 
-                        Intent it = new Intent(CaminhaoActivity.this, OSActivity.class);
+                    if(ecmContext.getConfigCTR().getEquip().getDescrClasseEquip() == 1){
+
+                        Intent it = new Intent(CaminhaoActivity.this, LibOSActivity.class);
                         startActivity(it);
                         finish();
 
                     }
-                    else if(ecmContext.getConfigCTR().getEquip().getClasseEquip() == 6){
-
-                        ecmContext.getCECCTR().setLibCam(0L);
+                    else if(ecmContext.getConfigCTR().getEquip().getDescrClasseEquip() == 6){
 
                         Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
                         startActivity(it);

@@ -10,9 +10,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.control.MotoMecCTR;
+import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ApontImpleMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecPneuBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ItemPneuBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.util.Tempo;
@@ -193,71 +196,106 @@ public class ApontMMDAO {
     }
 
 
-    public ApontMMBean createApont(MotoMecCTR motoMecCTR){
+
+//
+//    public ApontMMBean createApont(MotoMecCTR motoMecCTR){
+//        ApontMMBean apontMMBean = new ApontMMBean();
+//        List apontList = getListAllApont(motoMecCTR.getIdBol());
+//        if (apontList.size() == 0) {
+//            apontMMBean.setIdBolApontMM(motoMecCTR.getIdBol());
+//            apontMMBean.setIdExtBolApontMM(motoMecCTR.getIdExtBol());
+//            apontMMBean.setOsApontMM(motoMecCTR.getOS());
+//            apontMMBean.setAtivApontMM(motoMecCTR.getAtiv());
+//            apontMMBean.setParadaApontMM(0L);
+//            apontMMBean.setStatusConApontMM(motoMecCTR.getStatusConBol());
+//            apontMMBean.setStatusApontMM(1L);
+//            apontMMBean.setLongitudeApontMM(motoMecCTR.getLongitude());
+//            apontMMBean.setLatitudeApontMM(motoMecCTR.getLatitude());
+//        } else {
+//            ApontMMBean ultApontTO = (ApontMMBean) apontList.get(apontList.size() - 1);
+//            apontMMBean = ultApontTO;
+//            apontMMBean.setStatusApontMM(1L);
+//        }
+//        apontMMBean.setTransbApontMM(0L);
+//        apontList.clear();
+//        return apontMMBean;
+//    }
+//
+//    public ApontMMBean createApontAtividade(MotoMecCTR motoMecCTR){
+//        ApontMMBean apontMMBean = new ApontMMBean();
+//        List apontList = getListAllApont(motoMecCTR.getIdBol());
+//        if (apontList.size() == 0) {
+//            apontMMBean.setIdBolApontMM(motoMecCTR.getIdBol());
+//            apontMMBean.setIdExtBolApontMM(motoMecCTR.getIdExtBol());
+//            apontMMBean.setOsApontMM(motoMecCTR.getOS());
+//        } else {
+//            ApontMMBean ultApontBean = (ApontMMBean) apontList.get(apontList.size() - 1);
+//            apontMMBean = ultApontBean;
+//            apontMMBean.setStatusApontMM(1L);
+//        }
+//        apontMMBean.setTransbApontMM(0L);
+//        apontList.clear();
+//        return apontMMBean;
+//    }
+//
+//    public ApontMMBean createApontParada(MotoMecCTR boletimCTR){
+//        ApontMMBean apontMMBean = new ApontMMBean();
+//        List apontList = getListAllApont(boletimCTR.getIdBol());
+//        if (apontList.size() == 0) {
+//            apontMMBean.setIdBolApontMM(boletimCTR.getIdBol());
+//            apontMMBean.setIdExtBolApontMM(boletimCTR.getIdExtBol());
+//            apontMMBean.setOsApontMM(boletimCTR.getOS());
+//            apontMMBean.setAtivApontMM(boletimCTR.getAtiv());
+//            apontMMBean.setParadaApontMM(0L);
+//            apontMMBean.setStatusConApontMM(boletimCTR.getStatusConBol());
+//            apontMMBean.setStatusApontMM(1L);
+//            apontMMBean.setLongitudeApontMM(boletimCTR.getLongitude());
+//            apontMMBean.setLatitudeApontMM(boletimCTR.getLatitude());
+//        } else {
+//            ApontMMBean ultApontTO = (ApontMMBean) apontList.get(apontList.size() - 1);
+//            apontMMBean = ultApontTO;
+//            apontMMBean.setStatusApontMM(1L);
+//        }
+//        apontMMBean.setTransbApontMM(0L);
+//        apontList.clear();
+//        return apontMMBean;
+//    }
+
+    public void salvarApont(MotoMecBean motoMecBean, ConfigBean configBean, Double longitude, Double latitude, Long statusCon){
+
         ApontMMBean apontMMBean = new ApontMMBean();
-        List apontList = getListAllApont(motoMecCTR.getIdBol());
-        if (apontList.size() == 0) {
-            apontMMBean.setIdBolApontMM(motoMecCTR.getIdBol());
-            apontMMBean.setIdExtBolApontMM(motoMecCTR.getIdExtBol());
-            apontMMBean.setOsApontMM(motoMecCTR.getOS());
-            apontMMBean.setAtivApontMM(motoMecCTR.getAtiv());
+        apontMMBean. setOsApontMM(configBean.getOsConfig());
+        if(motoMecBean.getFuncaoOperMotoMec() == 1){
+            apontMMBean.setAtivApontMM(motoMecBean.getIdOperMotoMec());
             apontMMBean.setParadaApontMM(0L);
-            apontMMBean.setStatusConApontMM(motoMecCTR.getStatusConBol());
-            apontMMBean.setStatusApontMM(1L);
-            apontMMBean.setLongitudeApontMM(motoMecCTR.getLongitude());
-            apontMMBean.setLatitudeApontMM(motoMecCTR.getLatitude());
-        } else {
-            ApontMMBean ultApontTO = (ApontMMBean) apontList.get(apontList.size() - 1);
-            apontMMBean = ultApontTO;
-            apontMMBean.setStatusApontMM(1L);
+            configBean.setAtivConfig(motoMecBean.getIdOperMotoMec());
         }
-        apontMMBean.setTransbApontMM(0L);
-        apontList.clear();
-        return apontMMBean;
-    }
-
-    public ApontMMBean createApontAtividade(MotoMecCTR motoMecCTR){
-        ApontMMBean apontMMBean = new ApontMMBean();
-        List apontList = getListAllApont(motoMecCTR.getIdBol());
-        if (apontList.size() == 0) {
-            apontMMBean.setIdBolApontMM(motoMecCTR.getIdBol());
-            apontMMBean.setIdExtBolApontMM(motoMecCTR.getIdExtBol());
-            apontMMBean.setOsApontMM(motoMecCTR.getOS());
-        } else {
-            ApontMMBean ultApontBean = (ApontMMBean) apontList.get(apontList.size() - 1);
-            apontMMBean = ultApontBean;
-            apontMMBean.setStatusApontMM(1L);
+        else if(motoMecBean.getFuncaoOperMotoMec() == 2){
+            apontMMBean.setAtivApontMM(configBean.getAtivConfig());
+            apontMMBean.setParadaApontMM(motoMecBean.getIdOperMotoMec());
         }
-        apontMMBean.setTransbApontMM(0L);
-        apontList.clear();
-        return apontMMBean;
-    }
-
-    public ApontMMBean createApontParada(MotoMecCTR boletimCTR){
-        ApontMMBean apontMMBean = new ApontMMBean();
-        List apontList = getListAllApont(boletimCTR.getIdBol());
-        if (apontList.size() == 0) {
-            apontMMBean.setIdBolApontMM(boletimCTR.getIdBol());
-            apontMMBean.setIdExtBolApontMM(boletimCTR.getIdExtBol());
-            apontMMBean.setOsApontMM(boletimCTR.getOS());
-            apontMMBean.setAtivApontMM(boletimCTR.getAtiv());
-            apontMMBean.setParadaApontMM(0L);
-            apontMMBean.setStatusConApontMM(boletimCTR.getStatusConBol());
-            apontMMBean.setStatusApontMM(1L);
-            apontMMBean.setLongitudeApontMM(boletimCTR.getLongitude());
-            apontMMBean.setLatitudeApontMM(boletimCTR.getLatitude());
-        } else {
-            ApontMMBean ultApontTO = (ApontMMBean) apontList.get(apontList.size() - 1);
-            apontMMBean = ultApontTO;
-            apontMMBean.setStatusApontMM(1L);
-        }
-        apontMMBean.setTransbApontMM(0L);
-        apontList.clear();
-        return apontMMBean;
-    }
-
-    public void salvarApont(ApontMMBean apontMMBean){
+        apontMMBean.setLongitudeApontMM(longitude);
+        apontMMBean.setLatitudeApontMM(latitude);
+        apontMMBean.setStatusApontMM(1L);
+        apontMMBean.setDthrApontMM(Tempo.getInstance().dataComHora().getDataHora());
+        apontMMBean.setStatusDtHrApontMM(Tempo.getInstance().dataComHora().getStatus());
+        apontMMBean.setStatusConApontMM(statusCon);
+        configBean.update();
         apontMMBean.insert();
+
+        CarretaBean carretaBean = new CarretaBean();
+        List carretaList = carretaBean.orderBy("posCarreta", true);
+
+        for (int i = 0; i < carretaList.size(); i++) {
+            carretaBean = (CarretaBean) carretaList.get(i);
+            ApontImpleMMBean apontImpleMMBean = new ApontImpleMMBean();
+            apontImpleMMBean.setIdApontMM(apontMMBean.getIdApontMM());
+            apontImpleMMBean.setCodEquipImpleMM(carretaBean.getNroEquip());
+            apontImpleMMBean.setPosImpleMM(carretaBean.getPosCarreta());
+            apontImpleMMBean.setDthrImpleMM(apontMMBean.getDthrApontMM());
+            apontImpleMMBean.insert();
+        }
+
     }
 
 }

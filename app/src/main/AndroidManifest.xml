@@ -20,7 +20,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaAtividadeActivity"></activity>
+        <activity android:name=".DadosColheitaActivity"></activity>
+        <activity android:name=".DadosPlantioActivity" />
+        <activity android:name=".ListaAtividadeActivity" />
         <activity android:name=".DataHoraActivity" />
         <activity android:name=".MsgDataHoraActivity" />
         <activity android:name=".PressaoEncPneuActivity" />
@@ -40,13 +42,13 @@
             android:name=".AtivOSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BoletimBKPActivity"
+            android:name=".BackupCECActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CertificadoBKPActivity"
+            android:name=".BackupPreCECActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BoletimActivity"
+            android:name=".CECActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CaminhaoActivity"

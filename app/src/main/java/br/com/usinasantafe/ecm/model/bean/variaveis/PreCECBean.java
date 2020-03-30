@@ -11,11 +11,9 @@ public class PreCECBean extends Entidade{
 	private static final long serialVersionUID = 1L;
 
 	@DatabaseField(generatedId=true)
-	private Long idCertifCana;
+	private Long idPreCEC;
 	@DatabaseField
 	private Long ativOS;
-	@DatabaseField
-	private Long nroOS;
 	@DatabaseField
 	private Long cam;
 	@DatabaseField
@@ -52,8 +50,8 @@ public class PreCECBean extends Entidade{
     public PreCECBean(){
     }
 
-	public Long getIdCertifCana() {
-		return idCertifCana;
+	public Long getIdPreCEC() {
+		return idPreCEC;
 	}
 
 	public Long getCam() {
@@ -192,11 +190,4 @@ public class PreCECBean extends Entidade{
 		this.status = status;
 	}
 
-	public Long getNroOS() {
-		return nroOS;
-	}
-
-	public void setNroOS(Long nroOS) {
-		this.nroOS = nroOS;
-	}
 }

@@ -11,13 +11,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 
 public class VerMotoristaActivity extends ActivityGeneric {
 
-    private ListView lista;
     private ECMContext ecmContext;
 
     @Override
@@ -33,15 +31,7 @@ public class VerMotoristaActivity extends ActivityGeneric {
         TextView textViewCodMotorista = (TextView) findViewById(R.id.textViewCodMotorista);
         TextView textViewNomeMotorista = (TextView) findViewById(R.id.textViewNomeMotorista);
 
-        ConfigBean configBean = new ConfigBean();
-        List configList = configBean.all();
-        configBean = (ConfigBean) configList.get(0);
-        configList.clear();
-
-        ColabBean colabBean = new ColabBean();
-        List motoristaList = colabBean.get("codMotorista", configBean.getMatricColabConfig());
-        colabBean = (ColabBean) motoristaList.get(0);
-        motoristaList.clear();
+        ColabBean colabBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
 
         textViewCodMotorista.setText(String.valueOf(colabBean.getMatricColab()));
         textViewNomeMotorista.setText(colabBean.getNomeColab());
@@ -57,8 +47,7 @@ public class VerMotoristaActivity extends ActivityGeneric {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        EnvioDadosServ.getInstance().salvaViagemCana();
-
+                        ecmContext.getCECCTR().fechaPreCEC();
                         Intent it = new Intent(VerMotoristaActivity.this, MenuMotoMecActivity.class);
                         startActivity(it);
                         finish();

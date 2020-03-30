@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Objects;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.REquipAtivBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.RFuncaoAtivParBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ROSAtivBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
@@ -61,15 +61,12 @@ public class AtividadeDAO {
 
                 if (jsonArray.length() > 0) {
 
-                    ROSAtivBean rosAtivBean = new ROSAtivBean();
-                    rosAtivBean.deleteAll();
-
                     for (int j = 0; j < jsonArray.length(); j++) {
 
                         JSONObject objeto = jsonArray.getJSONObject(j);
                         Gson gson = new Gson();
-                        ROSAtivBean rosAtiv = gson.fromJson(objeto.toString(), ROSAtivBean.class);
-                        rosAtiv.insert();
+                        OSBean osBean = gson.fromJson(objeto.toString(), OSBean.class);
+                        osBean.insert();
 
                     }
 
@@ -119,16 +116,16 @@ public class AtividadeDAO {
         AtividadeBean atividadeBean = new AtividadeBean();
         List atividadeList = atividadeBean.in("idAtiv", rEquipAtivArrayList);
 
-        ROSAtivBean rOSAtivBean = new ROSAtivBean();
-        List rOSAtivList = rOSAtivBean.get("nroOS", nroOS);
+        OSBean osBean = new OSBean();
+        List rOSAtivList = osBean.get("nroOS", nroOS);
 
         if (rOSAtivList.size() > 0) {
 
             for (int i = 0; i < atividadeList.size(); i++) {
                 atividadeBean = (AtividadeBean) atividadeList.get(i);
                 for (int j = 0; j < rOSAtivList.size(); j++) {
-                    rOSAtivBean = (ROSAtivBean) rOSAtivList.get(j);
-                    if (Objects.equals(atividadeBean.getIdAtiv(), rOSAtivBean.getIdAtiv())) {
+                    osBean = (OSBean) rOSAtivList.get(j);
+                    if (Objects.equals(atividadeBean.getIdAtiv(), osBean.getIdAtiv())) {
                         atividadeArrayList.add(atividadeBean);
                     }
                 }
