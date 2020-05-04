@@ -22,6 +22,8 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perg_atual_check_list);
 
+        ecmContext = (ECMContext) getApplication();
+
         Button buttonSimAtualCL = (Button) findViewById(R.id.buttonSimAtualCL);
         Button buttonNaoAtualCL = (Button) findViewById(R.id.buttonNaoAtualCL);
 
@@ -29,8 +31,6 @@ public class PergAtualCheckListActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
-                ecmContext.getCheckListCTR().insCabec();
 
                 Intent it = new Intent(  PergAtualCheckListActivity.this, ItemCheckListActivity.class);
                 startActivity(it);

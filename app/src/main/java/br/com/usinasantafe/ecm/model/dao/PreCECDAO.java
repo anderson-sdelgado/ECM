@@ -1,5 +1,15 @@
 package br.com.usinasantafe.ecm.model.dao;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
@@ -51,6 +61,13 @@ public class PreCECDAO {
         preCECBean.update();
     }
 
+    public void delPreCECAberto(){
+        if(verPreCECAberto()){
+            PreCECBean preCECBean = getPreCECAberto();
+            preCECBean.delete();
+        }
+    }
+
     public void fechaPreCEC(BoletimMMBean boletimMMBean){
         PreCECBean preCECBean = getPreCECAberto();
         preCECBean.setMoto(boletimMMBean.getMatricFuncBolMM());
@@ -64,12 +81,71 @@ public class PreCECDAO {
         equipBean = (EquipBean) equipList.get(0);
         equipList.clear();
         preCECBean.setCam(equipBean.getNroEquip());
+        preCECBean.setStatus(2L);
         preCECBean.update();
+    }
+
+    public String dadosEnvioPreCEC(){
+
+        List preCECFechadoList = getPreCECListFechado();
+        JsonArray preCECJsonArray = new JsonArray();
+
+        for (int i = 0; i < preCECFechadoList.size(); i++) {
+
+            PreCECBean preCECBean = (PreCECBean) preCECFechadoList.get(i);
+            Gson gson = new Gson();
+            preCECJsonArray.add(gson.toJsonTree(preCECBean, preCECBean.getClass()));
+
+        }
+
+        preCECFechadoList.clear();
+
+        JsonObject preCECJsonObj = new JsonObject();
+        preCECJsonObj.add("precec", preCECJsonArray);
+
+        return preCECJsonObj.toString();
+
+    }
+
+    public void updatePreCEC(String retorno) {
+        int pos1 = retorno.indexOf("_") + 1;
+        String objPrinc = retorno.substring(pos1);
+        atualPreCEC(objPrinc);
+    }
+
+    public void atualPreCEC(String retorno) {
+
+        try{
+
+            JSONObject preCECJsonObj = new JSONObject(retorno);
+            JSONArray preCECJsonArray = preCECJsonObj.getJSONArray("precec");
+
+            for (int i = 0; i < preCECJsonArray.length(); i++) {
+
+                JSONObject objApont = preCECJsonArray.getJSONObject(i);
+                Gson gsonApont = new Gson();
+                PreCECBean preCECBean = gsonApont.fromJson(objApont.toString(), PreCECBean.class);
+
+                List preCECList = preCECBean.get("idPreCEC", preCECBean.getIdPreCEC());
+
+                if(preCECList.size() > 0){
+                    PreCECBean preCECBDBean = (PreCECBean) preCECList.get(i);
+                    preCECBDBean.setStatus(3L);
+                    preCECBDBean.update();
+                }
+
+            }
+
+        }
+        catch(Exception e){
+            Tempo.getInstance().setEnvioDado(true);
+        }
+
     }
 
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
 
-    public boolean verPreCECListFechado(){
+    public boolean verPreCECFechado(){
         List certifFechadoList = getPreCECListFechado();
         boolean retorno = certifFechadoList.size() > 0;
         certifFechadoList.clear();
@@ -77,33 +153,18 @@ public class PreCECDAO {
     }
 
     public boolean verPreCECAberto(){
-        List certifAbertoList = preCECAbertoList();
+        List certifAbertoList = getPreCECListAberto();
         boolean retorno = certifAbertoList.size() > 0;
         certifAbertoList.clear();
         return retorno;
     }
 
-    public boolean verDataCertif(){
-        List certifCanaList = preCECAbertoList();
+    public boolean verDataPreCEC(){
+        List certifCanaList = getPreCECListAberto();
         PreCECBean preCECBean = (PreCECBean) certifCanaList.get(0);
         certifCanaList.clear();
         return ((!preCECBean.getDataSaidaUsina().equals("")) && (!preCECBean.getDataChegCampo().equals("")));
     }
-
-//    public boolean verCarretaPreCEC(Long nroCarreta){
-//        PreCECBean preCECBean = getPreCECAberto();
-//        boolean ver = true;
-//        if(preCECBean.getCarr1() == nroCarreta){
-//            ver = false;
-//        } else if(preCECBean.getCarr2() == nroCarreta){
-//            ver = false;
-//        } else if(preCECBean.getCarr3() == nroCarreta){
-//            ver = false;
-//        } else if(preCECBean.getCarr4() == nroCarreta){
-//            ver = false;
-//        }
-//        return ver;
-//    }
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -179,7 +240,7 @@ public class PreCECDAO {
     }
 
     public PreCECBean getPreCECAberto(){
-        List preCECList = preCECAbertoList();
+        List preCECList = getPreCECListAberto();
         PreCECBean preCECBean = (PreCECBean) preCECList.get(0);
         preCECList.clear();
         return preCECBean;
@@ -208,7 +269,7 @@ public class PreCECDAO {
 
     ///////////////////////////////////LIST DE PRECEC/////////////////////////////////////////
 
-    private List preCECAbertoList(){
+    private List getPreCECListAberto(){
         PreCECBean preCECBean = new PreCECBean();
         List preCECList = preCECBean.get("status", 1L);
         return preCECList;

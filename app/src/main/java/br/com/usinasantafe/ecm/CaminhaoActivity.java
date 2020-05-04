@@ -16,13 +16,15 @@ public class CaminhaoActivity extends ActivityGeneric {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caminhao);
 
-        TextView textViewCodCaminhaoTurno = (TextView) findViewById(R.id.textViewCodCaminhaoTurno);
+        TextView textViewCodEquip = (TextView) findViewById(R.id.textViewCodEquip);
+        TextView textViewDescEquip = (TextView) findViewById(R.id.textViewDescEquip);
         Button buttonOkCaminhao = (Button) findViewById(R.id.buttonOkCaminhao);
         Button buttonCancCaminhao = (Button) findViewById(R.id.buttonCancCaminhao);
 
         ecmContext = (ECMContext) getApplication();
 
-        textViewCodCaminhaoTurno.setText(String.valueOf(ecmContext.getConfigCTR().getEquip().getNroEquip()));
+        textViewCodEquip.setText(String.valueOf(ecmContext.getConfigCTR().getEquip().getNroEquip()));
+        textViewDescEquip.setText(String.valueOf(ecmContext.getConfigCTR().getEquip().getDescrClasseEquip()));
 
         buttonOkCaminhao.setOnClickListener(new View.OnClickListener() {
 
@@ -33,14 +35,14 @@ public class CaminhaoActivity extends ActivityGeneric {
 
                     ecmContext.getMotoMecCTR().delCarreta();
 
-                    if(ecmContext.getConfigCTR().getEquip().getDescrClasseEquip() == 1){
+                    if(ecmContext.getConfigCTR().getEquip().getCodClasseEquip() == 1L){
 
                         Intent it = new Intent(CaminhaoActivity.this, LibOSActivity.class);
                         startActivity(it);
                         finish();
 
                     }
-                    else if(ecmContext.getConfigCTR().getEquip().getDescrClasseEquip() == 6){
+                    else if(ecmContext.getConfigCTR().getEquip().getCodClasseEquip() == 8L){
 
                         Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
                         startActivity(it);
@@ -70,7 +72,7 @@ public class CaminhaoActivity extends ActivityGeneric {
             public void onClick(View v) {
 
                 if (ecmContext.getVerPosTela() == 1) {
-                    Intent it = new Intent(CaminhaoActivity.this, MotoristaActivity.class);
+                    Intent it = new Intent(CaminhaoActivity.this, FuncionarioActivity.class);
                     startActivity(it);
                     finish();
                 }

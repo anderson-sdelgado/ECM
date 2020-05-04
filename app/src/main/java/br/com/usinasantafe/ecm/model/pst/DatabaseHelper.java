@@ -4,17 +4,29 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipSegBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.FrenteBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.PneuBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.REquipAtivBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.REquipPneuBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.TurnoBean;
 
+import br.com.usinasantafe.ecm.model.bean.variaveis.ApontImpleMMBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CabecPneuBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.InfColheitaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.InfPlantioBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ItemPneuBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
@@ -58,19 +70,31 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		
 		try{
 
-			TableUtils.createTable(cs, ColabBean.class);
+			TableUtils.createTable(cs, AtividadeBean.class);
 			TableUtils.createTable(cs, EquipBean.class);
 			TableUtils.createTable(cs, EquipSegBean.class);
 			TableUtils.createTable(cs, FrenteBean.class);
+			TableUtils.createTable(cs, FuncBean.class);
 			TableUtils.createTable(cs, ItemCheckListBean.class);
 			TableUtils.createTable(cs, MotoMecBean.class);
+			TableUtils.createTable(cs, OSBean.class);
+			TableUtils.createTable(cs, PneuBean.class);
+			TableUtils.createTable(cs, REquipAtivBean.class);
+			TableUtils.createTable(cs, REquipPneuBean.class);
 			TableUtils.createTable(cs, TurnoBean.class);
 
-			TableUtils.createTable(cs, CECBean.class);
+			TableUtils.createTable(cs, ApontImpleMMBean.class);
+			TableUtils.createTable(cs, ApontMMBean.class);
+			TableUtils.createTable(cs, BoletimMMBean.class);
 			TableUtils.createTable(cs, CabecCLBean.class);
+			TableUtils.createTable(cs, CabecPneuBean.class);
 			TableUtils.createTable(cs, CarretaBean.class);
-			TableUtils.createTable(cs, PreCECBean.class);
+			TableUtils.createTable(cs, CECBean.class);
 			TableUtils.createTable(cs, ConfigBean.class);
+			TableUtils.createTable(cs, InfColheitaBean.class);
+			TableUtils.createTable(cs, InfPlantioBean.class);
+			TableUtils.createTable(cs, ItemPneuBean.class);
+			TableUtils.createTable(cs, PreCECBean.class);
 			TableUtils.createTable(cs, RespItemCLBean.class);
 
 		}

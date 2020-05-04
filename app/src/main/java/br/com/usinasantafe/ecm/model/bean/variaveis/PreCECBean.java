@@ -5,7 +5,7 @@ import br.com.usinasantafe.ecm.model.pst.Entidade;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName="tbcompvcanavar")
+@DatabaseTable(tableName="tbprececvar")
 public class PreCECBean extends Entidade{
 
 	private static final long serialVersionUID = 1L;

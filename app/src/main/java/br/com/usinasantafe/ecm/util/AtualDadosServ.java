@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.com.usinasantafe.ecm.util.conHttp.GetBDGenerico;
+import br.com.usinasantafe.ecm.util.connHttp.GetBDGenerico;
 import br.com.usinasantafe.ecm.model.pst.GenericRecordable;
-import br.com.usinasantafe.ecm.util.conHttp.UrlsConexaoHttp;
+import br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp;
 
 import com.google.gson.Gson;
 
@@ -259,7 +259,7 @@ public class AtualDadosServ {
 	}
 	
 	public String manipLocalClasse(String classe){
-	    if(classe.contains("TO")){
+	    if(classe.contains("Bean")){
 	    	classe = urlsConexaoHttp.localPSTEstatica + classe;
 	    }
 		return classe;

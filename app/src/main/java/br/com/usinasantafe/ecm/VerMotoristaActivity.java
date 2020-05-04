@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
-import br.com.usinasantafe.ecm.util.EnvioDadosServ;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 
 public class VerMotoristaActivity extends ActivityGeneric {
 
@@ -31,10 +27,10 @@ public class VerMotoristaActivity extends ActivityGeneric {
         TextView textViewCodMotorista = (TextView) findViewById(R.id.textViewCodMotorista);
         TextView textViewNomeMotorista = (TextView) findViewById(R.id.textViewNomeMotorista);
 
-        ColabBean colabBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
+        FuncBean funcBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
 
-        textViewCodMotorista.setText(String.valueOf(colabBean.getMatricColab()));
-        textViewNomeMotorista.setText(colabBean.getNomeColab());
+        textViewCodMotorista.setText(String.valueOf(funcBean.getMatricFunc()));
+        textViewNomeMotorista.setText(funcBean.getNomeFunc());
 
         buttonManterMotorista.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +59,28 @@ public class VerMotoristaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(VerMotoristaActivity.this, MotoristaActivity.class);
-                startActivity(it);
-                finish();
+                AlertDialog.Builder alerta = new AlertDialog.Builder(VerMotoristaActivity.this);
+                alerta.setTitle("ATENÇÃO");
+                alerta.setMessage("DESEJA REALMENTE TROCA O MOTORISTA? ISSO ENCERRA-LA O BOLETIM.");
+
+                alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ecmContext.setVerPosTela(9);
+                        Intent it = new Intent(VerMotoristaActivity.this, HodometroActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                });
+
+                alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alerta.show();
 
             }
         });

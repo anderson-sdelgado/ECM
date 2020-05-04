@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
@@ -48,10 +49,29 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         buttonRetMotoMec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ecmContext.setVerPosTela(8);
-                Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
-                startActivity(it);
-                finish();
+                AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
+                alerta.setTitle("ATENÇÃO");
+                alerta.setMessage("DESEJA REALMENTE ENCERRA O BOLETIM?");
+
+                alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ecmContext.setVerPosTela(8);
+                        Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                });
+
+                alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alerta.show();
+
             }
         });
 
@@ -68,8 +88,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
     public void listarMenu() {
 
-        ColabBean colabBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
-        textViewMotorista.setText(colabBean.getMatricColab() + " - " + colabBean.getNomeColab());
+        FuncBean funcBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
+        textViewMotorista.setText(funcBean.getMatricFunc() + " - " + funcBean.getNomeFunc());
         textViewCarreta.setText(ecmContext.getMotoMecCTR().getDescrCarreta());
         textViewUltimaViagem.setText(ecmContext.getMotoMecCTR().getDataSaidaUlt());
 
@@ -93,6 +113,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                 posicao = position;
                 MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(position);
                 ecmContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
+
+                Log.i("ECM", "CodFuncaoOperMotoMec = " + motoMecBean.getCodFuncaoOperMotoMec());
 
                 if (motoMecBean.getCodFuncaoOperMotoMec() == 1) {  // ATIVIDADES NORMAIS
 
@@ -160,7 +182,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     String mensagem = "";
 
-                    if (ecmContext.getCECCTR().verPreCECAberto()) {
+                    if (!ecmContext.getCECCTR().verPreCECAberto()) {
                         mensagem = "É NECESSÁRIO A INSERÇÃO DO HORÁRIO DE SAÍDA DA USINA.";
                     } else {
                         if (ecmContext.getCECCTR().getDataChegCampo().equals("")) {
@@ -178,26 +200,28 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (ecmContext.getCECCTR().getDataChegCampo().equals("")) {
-                                ecmContext.getCECCTR().setDataChegCampo();
 
-                                Long statusCon;
-                                ConexaoWeb conexaoWeb = new ConexaoWeb();
-                                if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
-                                    statusCon = 1L;
+                            if (ecmContext.getCECCTR().verPreCECAberto()) {
+                                if (ecmContext.getCECCTR().getDataChegCampo().equals("")) {
+                                    ecmContext.getCECCTR().setDataChegCampo();
+
+                                    Long statusCon;
+                                    ConexaoWeb conexaoWeb = new ConexaoWeb();
+                                    if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                                        statusCon = 1L;
+                                    } else {
+                                        statusCon = 0L;
+                                    }
+                                    ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
                                 }
-                                else{
-                                    statusCon = 0L;
-                                }
-                                ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                                motoMecListView.setSelection(posicao + 1);
                             }
-                            motoMecListView.setSelection(posicao + 1);
                         }
                     });
 
                     alerta.show();
 
-                } else if (motoMecBean.getCodFuncaoOperMotoMec() == 10) { // PESAGEM
+                } else if (motoMecBean.getCodFuncaoOperMotoMec() == 6) { // PESAGEM
 
                     Long statusCon;
                     ConexaoWeb conexaoWeb = new ConexaoWeb();
@@ -211,21 +235,14 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     progressBar = new ProgressDialog(v.getContext());
                     progressBar.setCancelable(true);
-                    progressBar.setMessage("Buscando o boletim...");
+                    progressBar.setMessage("BUSCANDO BOLETIM...");
                     progressBar.show();
 
-                    ecmContext.getCECCTR().recCEC();
+                    ecmContext.getCECCTR().delPreCECAberto();
+                    ecmContext.getCECCTR().verCECServ(MenuMotoMecActivity.this, CECActivity.class, progressBar);
 
-//                    if (!ecmContext.getCECCTR().verPreCECAberto()) {
-//
-//                        VerifDadosServ.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "CECBean",
-//                                MenuMotoMecActivity.this, CECActivity.class, progressBar);
-//                    } else {
-//                        VerifDadosServ.getInstance().verDados(ecmContext.getApontMotoMecBean().getNroEquip().toString(), "BoletimTOViagem",
-//                                MenuMotoMecActivity.this, CECActivity.class, progressBar);
-//                    }
-
-                } else if (motoMecBean.getCodFuncaoOperMotoMec() == 11) { // DESENGATE
+                } else if ((motoMecBean.getCodFuncaoOperMotoMec() == 8)
+                        || (motoMecBean.getCodFuncaoOperMotoMec() == 19)){ // DESENGATE
 
                     CarretaBean carretaBean = new CarretaBean();
 
@@ -256,7 +273,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     }
 
-                } else if (motoMecBean.getCodFuncaoOperMotoMec() == 12) { // ENGATE
+                } else if ((motoMecBean.getCodFuncaoOperMotoMec() == 9)
+                        || (motoMecBean.getCodFuncaoOperMotoMec() == 20)) { // ENGATE
 
                     CarretaBean carretaBean = new CarretaBean();
 
@@ -279,7 +297,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                         alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
 

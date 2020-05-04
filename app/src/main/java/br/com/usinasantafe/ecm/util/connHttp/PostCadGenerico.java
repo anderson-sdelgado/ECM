@@ -1,4 +1,4 @@
-package br.com.usinasantafe.ecm.util.conHttp;
+package br.com.usinasantafe.ecm.util.connHttp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -99,19 +99,9 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 
 		try {
 			Log.i("ECM", "VALOR RECEBIDO --> " + result);
-			if(result.trim().equals("GRAVOU-MOTOMEC")){
-				EnvioDadosServ.getInstance().delApontMotoMec();
-			}
-			else if(result.trim().equals("GRAVOU-CANA")){
-				EnvioDadosServ.getInstance().delViagemCana();
-			}
-			else if(result.trim().equals("GRAVOU-CHECKLIST")){
-				EnvioDadosServ.getInstance().delChecklist();
-			}
-			else{
-				Tempo.getInstance().setEnvioDado(true);
-			}
+			EnvioDadosServ.getInstance().recDados(result);
 		} catch (Exception e) {
+			EnvioDadosServ.getInstance().setStatusEnvio(2);
 			Log.i("ERRO", "Erro2 = " + e);
 		}
 		

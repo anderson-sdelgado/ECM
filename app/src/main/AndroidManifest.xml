@@ -17,27 +17,48 @@
         android:name=".ECMContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DadosColheitaActivity"></activity>
-        <activity android:name=".DadosPlantioActivity" />
-        <activity android:name=".ListaAtividadeActivity" />
-        <activity android:name=".DataHoraActivity" />
-        <activity android:name=".MsgDataHoraActivity" />
-        <activity android:name=".PressaoEncPneuActivity" />
-        <activity android:name=".PressaoColPneuActivity" />
-        <activity android:name=".PneuActivity" />
-        <activity android:name=".ListaPosPneuActivity" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <activity
             android:name=".MenuInicialActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DadosColheitaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DadosPlantioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListaAtividadeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DataHoraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MsgDataHoraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PressaoEncPneuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PressaoColPneuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PneuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListaPosPneuActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AtivOSActivity"
             android:screenOrientation="portrait" />
@@ -54,16 +75,7 @@
             android:name=".CaminhaoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CaminhaoTurnoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".CarretaActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".CarretaEngateActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".CertificadoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ConfigActivity"
@@ -87,9 +99,6 @@
             android:name=".ListaFinalizaApontActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaLocalActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ListaTurnoActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -102,13 +111,10 @@
             android:name=".ListaParadaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MotoristaActivity"
+            android:name=".FuncionarioActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MsgAtivOSActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MsgCarretaEngateActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MsgLibOSActivity"
@@ -131,15 +137,8 @@
         <activity
             android:name=".ItemCheckListActivity"
             android:screenOrientation="portrait" />
-
         <receiver android:name=".ReceberAlarme">
-            <intent-filter>
-                <action android:name="EXECUTAR_ALARME" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </receiver>
-
         <activity
             android:name=".PergAtualCheckListActivity"
             android:screenOrientation="portrait" />

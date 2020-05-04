@@ -65,4 +65,9 @@ public class RespCheckListDAO {
         respList.clear();
     }
 
+    public List respItemList(Long idCabCL){
+        RespItemCLBean respItemCLBean = new RespItemCLBean();
+        return respItemCLBean.get("idCabItCL", idCabCL);
+    }
+
 }

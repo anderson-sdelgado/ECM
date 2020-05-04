@@ -1,5 +1,7 @@
 package br.com.usinasantafe.ecm.model.dao;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
@@ -53,10 +55,7 @@ public class BoletimMMDAO {
 
     public void salvarBolFechado(BoletimMMBean boletimMMBean) {
 
-        BoletimMMBean boletimMMTOBD = new BoletimMMBean();
-        List listBoletim = boletimMMTOBD.get("statusBolMM", 1L);
-        boletimMMTOBD = (BoletimMMBean) listBoletim.get(0);
-        listBoletim.clear();
+        BoletimMMBean boletimMMTOBD = getBolMMAberto();
 
         boletimMMTOBD.setDthrFinalBolMM(Tempo.getInstance().dataComHora().getDataHora());
         boletimMMTOBD.setStatusDtHrFinalBolMM(Tempo.getInstance().dataComHora().getStatus());
@@ -116,6 +115,7 @@ public class BoletimMMDAO {
 
         JsonArray jsonArrayBoletim = new JsonArray();
         String dadosEnvioApont = "";
+        JsonArray jsonArrayRendimento = new JsonArray();
 
         for (int i = 0; i < boletimMMList.size(); i++) {
 
@@ -133,7 +133,10 @@ public class BoletimMMDAO {
         JsonObject jsonBoletim = new JsonObject();
         jsonBoletim.add("boletim", jsonArrayBoletim);
 
-        return jsonBoletim.toString() + "_" + dadosEnvioApont;
+        JsonObject jsonRend = new JsonObject();
+        jsonRend.add("rendimento", jsonArrayRendimento);
+
+        return jsonBoletim.toString() + "_" + dadosEnvioApont + "=" + jsonRend.toString();
 
     }
 
@@ -157,6 +160,8 @@ public class BoletimMMDAO {
             List bolMMList = boletimMMBean.get("idBolMM", boletimMMBean.getIdBolMM());
             BoletimMMBean boletimMMTOBD = (BoletimMMBean) bolMMList.get(0);
             bolMMList.clear();
+
+            Log.i("ECM", "CHEGOU AKI 1");
 
             boletimMMTOBD.setIdExtBolMM(boletimMMBean.getIdExtBolMM());
             boletimMMTOBD.update();
@@ -255,13 +260,13 @@ public class BoletimMMDAO {
         boletimMMBean.update();
     }
 
-    public ColabBean getMatricNomeFunc(){
+    public FuncBean getMatricNomeFunc(){
         BoletimMMBean boletimMMBean = getBolMMAberto();
-        ColabBean colabBean = new ColabBean();
-        List colabList = colabBean.get("matricColab", boletimMMBean.getMatricFuncBolMM());
-        colabBean = (ColabBean) colabList.get(0);
+        FuncBean funcBean = new FuncBean();
+        List colabList = funcBean.get("matricFunc", boletimMMBean.getMatricFuncBolMM());
+        funcBean = (FuncBean) colabList.get(0);
         colabList.clear();
-        return colabBean;
+        return funcBean;
     }
 
 }

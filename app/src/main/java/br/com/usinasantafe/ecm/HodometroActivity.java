@@ -28,7 +28,18 @@ public class HodometroActivity extends ActivityGeneric {
         Button buttonCancHorimetro = (Button) findViewById(R.id.buttonCancPadrao);
 
         TextView textViewHorimetro = (TextView) findViewById(R.id.textViewPadrao);
-        textViewHorimetro.setText(ecmContext.getTextoHorimetro());
+        if (ecmContext.getVerPosTela() == 1) {
+            textViewHorimetro.setText("HODOMETRO INICIAL");
+        }
+        else if (ecmContext.getVerPosTela() == 8) {
+            textViewHorimetro.setText("HODOMETRO FINAL");
+        }
+        else if (ecmContext.getVerPosTela() == 9) {
+            textViewHorimetro.setText("HODOMETRO FINAL");
+        }
+        else if (ecmContext.getVerPosTela() == 10) {
+            textViewHorimetro.setText("HODOMETRO INICIAL");
+        }
 
         buttonOkHorimetro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +103,12 @@ public class HodometroActivity extends ActivityGeneric {
         else if (ecmContext.getVerPosTela() == 8) {
             salvarBoletimFechado();
         }
+        else if (ecmContext.getVerPosTela() == 9) {
+            salvarBoletimFechado();
+        }
+        else if (ecmContext.getVerPosTela() == 10) {
+            salvarBoletimAberto();
+        }
     }
 
     public void salvarBoletimAberto() {
@@ -125,9 +142,15 @@ public class HodometroActivity extends ActivityGeneric {
             }
         }
         else{
-            Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
-            startActivity(it);
-            finish();
+            if (ecmContext.getVerPosTela() == 1) {
+                Intent it = new Intent(HodometroActivity.this, MenuMotoMecActivity.class);
+                startActivity(it);
+                finish();
+            } else if (ecmContext.getVerPosTela() == 10) {
+                Intent it = new Intent(HodometroActivity.this, VerMotoristaActivity.class);
+                startActivity(it);
+                finish();
+            }
         }
     }
 
@@ -137,9 +160,16 @@ public class HodometroActivity extends ActivityGeneric {
         ecmContext.getMotoMecCTR().setHodometroFinalBol(horimetroNum);
         ecmContext.getMotoMecCTR().salvarBolFechadoMM();
 
-        Intent it = new Intent(HodometroActivity.this, MenuInicialActivity.class);
-        startActivity(it);
-        finish();
+        if (ecmContext.getVerPosTela() == 8) {
+            Intent it = new Intent(HodometroActivity.this, MenuInicialActivity.class);
+            startActivity(it);
+            finish();
+        } else if (ecmContext.getVerPosTela() == 9) {
+            ecmContext.setVerPosTela(10);
+            Intent it = new Intent(HodometroActivity.this, FuncionarioActivity.class);
+            startActivity(it);
+            finish();
+        }
 
     }
 

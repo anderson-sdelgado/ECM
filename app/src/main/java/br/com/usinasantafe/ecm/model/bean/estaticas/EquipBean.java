@@ -17,7 +17,7 @@ public class EquipBean extends Entidade {
     @DatabaseField
     private Long codClasseEquip;
     @DatabaseField
-    private Long descrClasseEquip;
+    private String descrClasseEquip;
     @DatabaseField
     private Long idCheckList;
     @DatabaseField
@@ -60,11 +60,11 @@ public class EquipBean extends Entidade {
         this.codTurno = codTurno;
     }
 
-    public Long getDescrClasseEquip() {
+    public String getDescrClasseEquip() {
         return descrClasseEquip;
     }
 
-    public void setDescrClasseEquip(Long descrClasseEquip) {
+    public void setDescrClasseEquip(String descrClasseEquip) {
         this.descrClasseEquip = descrClasseEquip;
     }
 

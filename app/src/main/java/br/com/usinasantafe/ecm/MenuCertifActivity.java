@@ -73,7 +73,7 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                     if (ecmContext.getCECCTR().verPreCECAberto()) {
 
-                        if (ecmContext.getCECCTR().verDataCertif()) {
+                        if (ecmContext.getCECCTR().verDataPreCEC()) {
 
                             Intent it = new Intent(MenuCertifActivity.this, AtivOSActivity.class);
                             startActivity(it);

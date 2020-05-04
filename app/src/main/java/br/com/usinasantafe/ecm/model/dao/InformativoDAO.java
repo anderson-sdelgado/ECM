@@ -46,21 +46,21 @@ public class InformativoDAO {
                 }
                 else{
                     if(configCTR.getVerInforConfig() == 0L) {
-                        configCTR.atualVerInforConfig(3L);
+                        configCTR.setVerInforConfig(3L);
                         VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
                     }
                 }
 
             } else {
                 if(configCTR.getVerInforConfig() == 0L) {
-                    configCTR.atualVerInforConfig(1L);
+                    configCTR.setVerInforConfig(1L);
                     VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
                 }
             }
 
         } catch (Exception e) {
             if(configCTR.getVerInforConfig() == 0L) {
-                configCTR.atualVerInforConfig(1L);
+                configCTR.setVerInforConfig(1L);
                 VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
             }
         }
@@ -96,27 +96,27 @@ public class InformativoDAO {
                         VerifDadosServ.getInstance().pulaTelaDadosInfor(DadosColheitaActivity.class);
                     }
                     else{
-                        configCTR.atualVerInforConfig(2L);
+                        configCTR.setVerInforConfig(2L);
                     }
 
                 } else {
 
                     if(configCTR.getVerInforConfig() == 0L) {
-                        configCTR.atualVerInforConfig(3L);
+                        configCTR.setVerInforConfig(3L);
                         VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
                     }
                 }
 
             } else {
                 if(configCTR.getVerInforConfig() == 0L) {
-                    configCTR.atualVerInforConfig(1L);
+                    configCTR.setVerInforConfig(1L);
                     VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
                 }
             }
 
         } catch (Exception e) {
             if(configCTR.getVerInforConfig() == 0L) {
-                configCTR.atualVerInforConfig(1L);
+                configCTR.setVerInforConfig(1L);
                 VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
             }
         }
@@ -152,27 +152,27 @@ public class InformativoDAO {
                         VerifDadosServ.getInstance().pulaTelaDadosInfor(DadosPlantioActivity.class);
                     }
                     else{
-                        configCTR.atualVerInforConfig(2L);
+                        configCTR.setVerInforConfig(2L);
                     }
 
                 } else {
 
                     if(configCTR.getVerInforConfig() == 0L) {
-                        configCTR.atualVerInforConfig(3L);
+                        configCTR.setVerInforConfig(3L);
                         VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
                     }
                 }
 
             } else {
                 if(configCTR.getVerInforConfig() == 0L) {
-                    configCTR.atualVerInforConfig(1L);
+                    configCTR.setVerInforConfig(1L);
                     VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
                 }
             }
 
         } catch (Exception e) {
             if(configCTR.getVerInforConfig() == 0L) {
-                configCTR.atualVerInforConfig(1L);
+                configCTR.setVerInforConfig(1L);
                 VerifDadosServ.getInstance().pulaTelaComTermSemBarra();
             }
         }

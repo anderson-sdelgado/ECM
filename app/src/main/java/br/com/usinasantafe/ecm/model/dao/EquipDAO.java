@@ -4,9 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
@@ -92,6 +96,24 @@ public class EquipDAO {
         } catch (Exception e) {
             VerifDadosServ.getInstance().msgSemTerm("FALHA DE PESQUISA DE EQUIPAMENTO! POR FAVOR, TENTAR NOVAMENTE COM UM SINAL MELHOR.");
         }
+    }
+
+    public String dadosEnvioEquip(){
+
+        EquipBean equipBean = new EquipBean();
+        List equipList = equipBean.all();
+        JsonArray equipJsonArray = new JsonArray();
+
+        equipBean = (EquipBean) equipList.get(0);
+        Gson gson = new Gson();
+        equipJsonArray.add(gson.toJsonTree(equipBean, equipBean.getClass()));
+        equipList.clear();
+
+        JsonObject equipJsonObj = new JsonObject();
+        equipJsonObj.add("equip", equipJsonArray);
+
+        return equipJsonObj.toString();
+
     }
 
 }

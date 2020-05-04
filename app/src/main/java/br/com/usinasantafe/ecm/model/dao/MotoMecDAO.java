@@ -18,7 +18,7 @@ public class MotoMecDAO {
         pesqArrayList.add(getPesqBeanMotoMec());
 
         MotoMecBean motoMecBean = new MotoMecBean();
-        return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
+        return motoMecBean.getAndOrderBy(pesqArrayList, "posOperMotoMec", true);
 
     }
 
@@ -162,7 +162,7 @@ public class MotoMecDAO {
         pesqArrayList.add(getPesqBeanAplic());
         pesqArrayList.add(getPesqBeanParada());
         MotoMecBean motoMecBean = new MotoMecBean();
-        return motoMecBean.getAndOrderBy(pesqArrayList, "posicaoMotoMec", true);
+        return motoMecBean.getAndOrderBy(pesqArrayList, "posOperMotoMec", true);
 
     }
 

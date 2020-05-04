@@ -1,14 +1,16 @@
 package br.com.usinasantafe.ecm.control;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.EquipSegBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.model.dao.BoletimMMDAO;
 import br.com.usinasantafe.ecm.model.dao.CECDAO;
 import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
+import br.com.usinasantafe.ecm.model.dao.EquipDAO;
 import br.com.usinasantafe.ecm.model.dao.OSDAO;
 import br.com.usinasantafe.ecm.model.dao.PreCECDAO;
 
@@ -35,6 +37,31 @@ public class CECCTR {
         preCECDAO.fechaPreCEC(boletimMMDAO.getBolMMAberto());
     }
 
+    public String dadosEnvioPreCEC(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        return preCECDAO.dadosEnvioPreCEC();
+    }
+
+    public void atualPreCEC(String result){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.updatePreCEC(result);
+    }
+
+    public void recDados(String result){
+        int pos1 = result.indexOf("_") + 1;
+        String precec = result.substring(0, (pos1 - 1));
+        String cec = result.substring(pos1);
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.atualPreCEC(precec);
+        CECDAO cecDAO = new CECDAO();
+        cecDAO.recDadosCEC(cec);
+    }
+
+    public void delPreCECAberto(){
+        PreCECDAO preCECDAO = new PreCECDAO();
+        preCECDAO.delPreCECAberto();
+    }
+
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
 
     public boolean verPreCECAberto(){
@@ -44,12 +71,12 @@ public class CECCTR {
 
     public boolean verPreCECFechado(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        return preCECDAO.verPreCECAberto();
+        return preCECDAO.verPreCECFechado();
     }
 
-    public boolean verDataCertif(){
+    public boolean verDataPreCEC(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        return preCECDAO.verDataCertif();
+        return preCECDAO.verDataPreCEC();
     }
 
     public boolean verAtivOS(Long idAtivOS){
@@ -64,62 +91,17 @@ public class CECCTR {
         return osDAO.verLibOS(idLibOS, configCTR.getConfig().getOsConfig());
     }
 
-//    public int verCarrPreCEC(Long nroCarreta){
-//        int retorno; //1 - CARRETA CORRETA; 2 - NÃO EXISTE NA BASE DE DADOS; 3 - CARRETA REPETIDA; 4 - CARRETA INVERTIDA;
-//        CarretaDAO carretaDAO = new CarretaDAO();
-//        PreCECDAO preCECDAO = new PreCECDAO();
-//        if(carretaDAO.verCarretaBD(nroCarreta)){
-//            if(preCECDAO.verCarretaPreCEC(nroCarreta)){
-//                ConfigCTR configCTR = new ConfigCTR();
-//                EquipBean equipBean = configCTR.getEquip();
-//                EquipSegBean carreta = carretaDAO.getCarretaBD(nroCarreta);
-//                if(equipBean.getCodClasseEquip() == 1){ //CAMINHÃO CANAVIEIRO
-//                    if(carreta.getCodClasseEquip() != 21){//REBOQUE
-//                        retorno = 1;
-//                    }
-//                    else{
-//                        retorno = 4;
-//                    }
-//                } else { //CAVALO CANAVIEIRO
-//                    if(carreta.getCodClasseEquip() == 21){  //SEMI REBOQUE
-//                        if(getPos() == 1){
-//                            retorno = 1;
-//                        }
-//                        else{
-//                            retorno = 4;
-//                        }
-//                    } else { //REBOQUE
-//                        if(getPos() > 1){
-//                            retorno = 1;
-//                        }
-//                        else{
-//                            retorno = 4;
-//                        }
-//                    }
-//                }
-//            }
-//            else{
-//                retorno = 3;
-//            }
-//        }
-//        else{
-//            retorno = 2;
-//        }
-//        return retorno;
-//    }
-
     public boolean verCEC(){
         CECDAO cecDAO = new CECDAO();
         return cecDAO.verCEC();
     }
 
-    public void recCEC(){
-        if(verPreCECFechado()){
-
-        }
-        else{
-
-        }
+    public void verCECServ(Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+        CECDAO cecDAO = new CECDAO();
+        EquipDAO equipDAO = new EquipDAO();
+        PreCECDAO preCECDAO = new PreCECDAO();
+        String dados = equipDAO.dadosEnvioEquip() + "_" + preCECDAO.dadosEnvioPreCEC();
+        cecDAO.verCEC(dados, telaAtual, telaProx, progressDialog);
     }
 
     ////////////////////////////////////////////////////////////////////////////

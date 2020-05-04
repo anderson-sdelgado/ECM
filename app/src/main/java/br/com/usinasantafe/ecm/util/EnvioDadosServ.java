@@ -1,24 +1,17 @@
 package br.com.usinasantafe.ecm.util;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import android.content.Context;
 import android.util.Log;
 
+import br.com.usinasantafe.ecm.control.CECCTR;
+import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
-import br.com.usinasantafe.ecm.util.conHttp.PostCadGenerico;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.ecm.util.conHttp.UrlsConexaoHttp;
+import br.com.usinasantafe.ecm.util.connHttp.PostCadGenerico;
+import br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp;
 
 public class EnvioDadosServ {
 
@@ -38,105 +31,20 @@ public class EnvioDadosServ {
         return instance;
     }
 
-    //////////////////////// SALVAR DADOS ////////////////////////////////////////////
-
-    public void salvaCheckList() {
-
-        CabecCLBean cabecCLBean = new CabecCLBean();
-        List cabecCheckListLista = cabecCLBean.get("statusCabecCheckList", 1L);
-        cabecCLBean = (CabecCLBean) cabecCheckListLista.get(0);
-        cabecCheckListLista.clear();
-
-        cabecCLBean.setStatusCabCL(2L);
-        cabecCLBean.update();
-
-        enviarChecklist();
-
-    }
-
-    public void salvaViagemCana() {
-
-        ConfigBean configBean = new ConfigBean();
-        List configList = configBean.all();
-        configBean = (ConfigBean) configList.get(0);
-        configList.clear();
-
-        PreCECBean preCECBean = new PreCECBean();
-        List compVCanaList = preCECBean.get("status", 1L);
-        preCECBean = (PreCECBean) compVCanaList.get(0);
-
-        preCECBean.setCam(configBean.getCodEquipConfig());
-        preCECBean.setMoto(configBean.getMatricColabConfig());
-        preCECBean.setTurno(configBean.getIdTurnoConfig());
-        preCECBean.setStatus(2L);
-        preCECBean.update();
-
-        envioViagemCana();
-
-        CertifCanaBkpBean certifCanaBkpBean = new CertifCanaBkpBean();
-        certifCanaBkpBean.setMoto(preCECBean.getMoto());
-        certifCanaBkpBean.setCarr1(preCECBean.getCarr1());
-        certifCanaBkpBean.setCarr2(preCECBean.getCarr2());
-        certifCanaBkpBean.setCarr3(preCECBean.getCarr3());
-        certifCanaBkpBean.setDataSaidaCampo(preCECBean.getDataSaidaCampo());
-        certifCanaBkpBean.setNoteiro(preCECBean.getMoto());
-
-        List listaCompVCanaBkp = certifCanaBkpBean.all();
-        int qtdeVCana = listaCompVCanaBkp.size();
-        if (qtdeVCana == 10) {
-            CertifCanaBkpBean certifCanaBkpBeanDel = (CertifCanaBkpBean) listaCompVCanaBkp.get(0);
-            certifCanaBkpBeanDel.delete();
-        }
-
-        certifCanaBkpBean.insert();
-
-    }
-
-    //////////////////////// ENVIAR DADOS ////////////////////////////////////////////
+    ////////////////////////////////// ENVIAR DADOS //////////////////////////////////////////////
 
     public void enviarChecklist() {
 
-        CabecCLBean cabecCLBean = new CabecCLBean();
-        List listCabec = boletinsCheckList();
-
-        JsonArray jsonArrayCabec = new JsonArray();
-        JsonArray jsonArrayItem = new JsonArray();
-
-        for (int i = 0; i < listCabec.size(); i++) {
-
-            cabecCLBean = (CabecCLBean) listCabec.get(i);
-            Gson gsonCabec = new Gson();
-            jsonArrayCabec.add(gsonCabec.toJsonTree(cabecCLBean, cabecCLBean.getClass()));
-
-            RespItemCLBean respItemCLBean = new RespItemCLBean();
-            List listaItem = respItemCLBean.get("idCabecItemCheckList", cabecCLBean.getIdCabCL());
-
-            for (int j = 0; j < listaItem.size(); j++) {
-
-                respItemCLBean = (RespItemCLBean) listaItem.get(j);
-                Gson gsonItem = new Gson();
-                jsonArrayItem.add(gsonItem.toJsonTree(respItemCLBean, respItemCLBean.getClass()));
-
-            }
-
-        }
-
-        JsonObject jsonCabec = new JsonObject();
-        jsonCabec.add("cabecalho", jsonArrayCabec);
-
-        JsonObject jsonItem = new JsonObject();
-        jsonItem.add("item", jsonArrayItem);
-
-        String dados = jsonCabec.toString() + "_" + jsonItem.toString();
+        CheckListCTR checkListCTR = new CheckListCTR();
+        String dados = checkListCTR.dadosEnvio();
 
         UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
 
-        String[] url = {urlsConexaoHttp.getsApontChecklist()};
+        String[] url = {urlsConexaoHttp.getsInsertChecklist()};
         Map<String, Object> parametrosPost = new HashMap<String, Object>();
         parametrosPost.put("dado", dados);
 
-
-        Log.i("ECM", "DADOS VIAGEM = " + dados);
+        Log.i("ECM", "DADOS CHECKLIST = " + dados);
 
         PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
         conHttpPostGenerico.setParametrosPost(parametrosPost);
@@ -144,29 +52,16 @@ public class EnvioDadosServ {
 
     }
 
-    public void envioViagemCana() {
+    public void envioPreCEC() {
 
-        PreCECBean preCECBean = new PreCECBean();
-        List viagemCanaList = viagensCana();
+        CECCTR cecCTR = new CECCTR();
+        String dados = cecCTR.dadosEnvioPreCEC();
 
-        JsonArray jsonArray = new JsonArray();
-
-        for (int i = 0; i < viagemCanaList.size(); i++) {
-
-            preCECBean = (PreCECBean) viagemCanaList.get(i);
-            Gson gson = new Gson();
-            jsonArray.add(gson.toJsonTree(preCECBean, preCECBean.getClass()));
-
-        }
-
-        JsonObject json = new JsonObject();
-        json.add("dados", jsonArray);
-
-        String[] url = {urlsConexaoHttp.getsApontVCana()};
+        String[] url = {urlsConexaoHttp.getsInsertPreCEC()};
         Map<String, Object> parametrosPost = new HashMap<String, Object>();
-        parametrosPost.put("dado", json.toString());
+        parametrosPost.put("dado", dados);
 
-        Log.i("ECM", "DADOS VIAGEM = " + json.toString());
+        Log.i("ECM", "DADOS VIAGEM = " + dados);
 
         PostCadGenerico.getInstance().setParametrosPost(parametrosPost);
 
@@ -231,51 +126,44 @@ public class EnvioDadosServ {
 
     }
 
-    /////////////////////////////// DELETAR DADOS ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void delChecklist() {
-        CabecCLBean cabecCLBean = new CabecCLBean();
-        cabecCLBean.deleteAll();
-        RespItemCLBean respItemCLBean = new RespItemCLBean();
-        respItemCLBean.deleteAll();
+    /////////////////////////////////////RECEBIMENTO DE DADOS//////////////////////////////////////
+
+    public void recDados(String result){
+        if(result.trim().startsWith("GRAVOU-CHECKLIST")){
+            CheckListCTR checkListCTR = new CheckListCTR();
+            checkListCTR.delChecklist();
+        } else if (result.trim().startsWith("BOLABERTOMM")) {
+            MotoMecCTR motoMecCTR = new MotoMecCTR();
+            motoMecCTR.updBolAbertoMM(result);
+        } else if (result.trim().startsWith("BOLFECHADOMM")) {
+            MotoMecCTR motoMecCTR = new MotoMecCTR();
+            motoMecCTR.delBolFechadoMM(result);
+        } else if (result.trim().startsWith("APONTMM")) {
+            MotoMecCTR motoMecCTR = new MotoMecCTR();
+            motoMecCTR.updateApontMM(result);
+        } else if(result.trim().startsWith("PRECEC")){
+            CECCTR cecCTR = new CECCTR();
+            cecCTR.atualPreCEC(result);
+        }
+        else{
+            Tempo.getInstance().setEnvioDado(true);
+        }
     }
 
-    public void delApontMotoMec() {
-        ApontMotoMecBean apontMotoMecBean = new ApontMotoMecBean();
-        apontMotoMecBean.deleteAll();
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void delViagemCana() {
-        PreCECBean preCECBean = new PreCECBean();
-        preCECBean.deleteAll();
-    }
-
-    //////////////////////////TRAZER DADOS////////////////////////////
-
-    public List boletinsCheckList(){
-        CabecCLBean cabecCLBean = new CabecCLBean();
-        return cabecCLBean.get("statusCabecCheckList", 2L);
-    }
-
-    public List apontamentosMotoMec() {
-        ApontMotoMecBean apontMotoMecBeanRec = new ApontMotoMecBean();
-        return apontMotoMecBeanRec.all();
-
-    }
-
-    public List viagensCana() {
-        PreCECBean preCECBean = new PreCECBean();
-        return preCECBean.get("status", 2L);
-    }
-
-    //////////////////////VERIFICAÇÃO DE DADOS///////////////////////////
+    /////////////////////////////////////VERIFICAÇÃO DE DADOS//////////////////////////////////////
 
     public boolean verifCheckList() {
-        return boletinsCheckList().size() > 0;
+        CheckListCTR checkListCTR = new CheckListCTR();
+        return checkListCTR.verEnvioDados();
     }
 
-    public boolean verifViagemCana() {
-        return viagensCana().size() > 0;
+    public boolean verifPreCEC() {
+        CECCTR cecCTR = new CECCTR();
+        return cecCTR.verPreCECFechado();
     }
 
     public Boolean verifBolFechadoMM() {
@@ -304,7 +192,9 @@ public class EnvioDadosServ {
         return ret;
     }
 
-    /////////////////////////MECANISMO DE ENVIO//////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////MECANISMO DE ENVIO///////////////////////////////////////
 
     public void envioDados(Context context) {
         enviando = true;
@@ -326,10 +216,9 @@ public class EnvioDadosServ {
         else {
             if (verifCheckList()) {
                 enviarChecklist();
-            }
-            else {
-                if (verifViagemCana()) {
-                    envioViagemCana();
+            } else {
+                if (verifPreCEC()) {
+                    envioPreCEC();
                 } else {
                     if (verifBolFechadoMM()) {
                         enviarBolFechadosMM();
@@ -350,7 +239,7 @@ public class EnvioDadosServ {
     public boolean verifDadosEnvio() {
         if ((!verifInfor())
                 && (!verifCheckList())
-                && (!verifViagemCana())
+                && (!verifPreCEC())
                 && (!verifBolFechadoMM())
                 && (!verifBolAbertoSemEnvioMM())
                 && (!verifApontMM())){
@@ -373,6 +262,8 @@ public class EnvioDadosServ {
         }
         return statusEnvio;
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     public void setEnviando(boolean enviando) {
         this.enviando = enviando;

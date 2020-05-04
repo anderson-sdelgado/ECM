@@ -17,12 +17,11 @@ public class CarretaDAO {
 
     public int verCarr(Long nroCarreta){
         int retorno; //1 - CARRETA CORRETA; 2 - NÃO EXISTE NA BASE DE DADOS; 3 - CARRETA REPETIDA; 4 - CARRETA INVERTIDA;
-        CarretaDAO carretaDAO = new CarretaDAO();
-        if(carretaDAO.verCarretaBD(nroCarreta)){
-            if(verCarreta(nroCarreta)){
+        if(verCarretaBD(nroCarreta)){
+            if(!verCarreta(nroCarreta)){
                 ConfigCTR configCTR = new ConfigCTR();
                 EquipBean equipBean = configCTR.getEquip();
-                EquipSegBean carreta = carretaDAO.getCarretaBD(nroCarreta);
+                EquipSegBean carreta = getCarretaBD(nroCarreta);
                 if(equipBean.getCodClasseEquip() == 1){ //CAMINHÃO CANAVIEIRO
                     if(carreta.getCodClasseEquip() != 21){//REBOQUE
                         retorno = 1;

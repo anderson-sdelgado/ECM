@@ -10,28 +10,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.usinasantafe.ecm.CaminhaoActivity">
 
+    <TextView
+        android:id="@+id/textViewEquipamento"
+        style="@style/TextViewTituloLista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_titulo_equip" />
+
     <LinearLayout
-        android:id="@+id/rightRelativeLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/rightRelLayout"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"  >
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        >
 
         <TextView
-            android:id="@+id/textViewCaminhao"
-            style="@style/TextViewTituloLista"
-            android:layout_weight="1"
+            android:id="@+id/textViewCodEquip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/texto_caminhao" />
+            android:layout_weight="2"
+            android:text="@string/texto_cod_equip"
+            style="@style/TextView"
+            />
 
         <TextView
-            android:id="@+id/textViewCodCaminhaoTurno"
-            style="@style/TextViewTituloLista"
-            android:layout_weight="1"
+            android:id="@+id/textViewDescEquip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/texto_cam" />
+            android:layout_weight="1"
+            android:text="@string/texto_descr_equip"
+            style="@style/TextView"
+            />
 
     </LinearLayout>
 

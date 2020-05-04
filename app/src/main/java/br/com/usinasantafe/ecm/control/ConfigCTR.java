@@ -95,9 +95,14 @@ public class ConfigCTR {
         configDAO.setEquipConfig(equipBean);
     }
 
-    public void atualVerInforConfig(Long tipo){
+    public void setVerInforConfig(Long tipo){
         ConfigDAO configDAO = new ConfigDAO();
         configDAO.setVerInforConfig(tipo);
+    }
+
+    public void setDtServConfig(String dtServConfig){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setDtServConfig(dtServConfig);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -3,6 +3,7 @@ package br.com.usinasantafe.ecm.model.bean;
 public class AtualAplicBean {
 
     private Long idEquipAtualizacao;
+    private Long idCheckList;
     private String versaoAtual;
     private String versaoNova;
 
@@ -15,6 +16,14 @@ public class AtualAplicBean {
 
     public void setIdEquipAtualizacao(Long idEquipAtualizacao) {
         this.idEquipAtualizacao = idEquipAtualizacao;
+    }
+
+    public Long getIdCheckList() {
+        return idCheckList;
+    }
+
+    public void setIdCheckList(Long idCheckList) {
+        this.idCheckList = idCheckList;
     }
 
     public String getVersaoAtual() {

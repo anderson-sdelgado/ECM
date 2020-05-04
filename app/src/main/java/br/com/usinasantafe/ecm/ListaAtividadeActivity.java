@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -110,17 +111,7 @@ public class ListaAtividadeActivity extends ActivityGeneric {
 
                 ecmContext.getConfigCTR().setAtivConfig(atividadeBean.getIdAtiv());
 
-                if(ecmContext.getVerPosTela() == 1){
-
-                    ecmContext.getMotoMecCTR().setAtivBol(atividadeBean.getIdAtiv());
-                    ecmContext.setTextoHorimetro("HODOMETRO INICIAL:");
-
-                    Intent it = new Intent(ListaAtividadeActivity.this, HodometroActivity.class);
-                    startActivity(it);
-                    finish();
-
-                }
-                else if(ecmContext.getVerPosTela() == 2){
+                if(ecmContext.getVerPosTela() == 2){
 
                     Long statusCon;
                     ConexaoWeb conexaoWeb = new ConexaoWeb();
@@ -131,11 +122,21 @@ public class ListaAtividadeActivity extends ActivityGeneric {
                         statusCon = 0L;
                     }
 
-                    ecmContext.getMotoMecCTR().setAtivMM(atividadeBean.getIdAtiv());
+                    ecmContext.getMotoMecCTR().setAtivApont(atividadeBean.getIdAtiv());
                     ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
                     ecmContext.setPosMenu(8);
 
                     Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
+                    startActivity(it);
+                    finish();
+
+                }
+                else{
+
+                    ecmContext.getMotoMecCTR().setOSBol(ecmContext.getConfigCTR().getConfig().getOsConfig());
+                    ecmContext.getMotoMecCTR().setAtivBol(atividadeBean.getIdAtiv());
+
+                    Intent it = new Intent(ListaAtividadeActivity.this, HodometroActivity.class);
                     startActivity(it);
                     finish();
 

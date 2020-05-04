@@ -1,4 +1,4 @@
-package br.com.usinasantafe.ecm.util.conHttp;
+package br.com.usinasantafe.ecm.util.connHttp;
 
 import android.os.AsyncTask;
 import android.util.Log;

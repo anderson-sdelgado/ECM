@@ -46,12 +46,6 @@ public class ConfigDAO {
         configBean.update();
     }
 
-    public void setUltTurnoCLConfig(Long ultTurnoCLConfig){
-        ConfigBean configBean = getConfig();
-        configBean.setUltTurnoCLConfig(ultTurnoCLConfig);
-        configBean.update();
-    }
-
     public void setStatusConConfig(Long status){
         ConfigBean configBean = getConfig();
         configBean.setStatusConConfig(status);
@@ -68,6 +62,12 @@ public class ConfigDAO {
     public void setDtUltApontConfig(String data){
         ConfigBean configBean = getConfig();
         configBean.setDtUltApontConfig(data);
+        configBean.update();
+    }
+
+    public void setDtServConfig(String data){
+        ConfigBean configBean = getConfig();
+        configBean.setDtServConfig(data);
         configBean.update();
     }
 

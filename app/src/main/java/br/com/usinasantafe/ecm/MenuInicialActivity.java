@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.control.CheckListCTR;
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
@@ -47,9 +47,13 @@ public class MenuInicialActivity extends ActivityGeneric {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_inicial);
 
+        textViewProcesso = (TextView) findViewById(R.id.textViewProcesso);
+
         verif();
 
         ecmContext = (ECMContext) getApplication();
+
+        customHandler.postDelayed(updateTimerThread, 0);
 
         if(!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
             String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -86,7 +90,6 @@ public class MenuInicialActivity extends ActivityGeneric {
             atualizarAplic();
         }
 
-
         listarMenuInicial();
 
     }
@@ -114,11 +117,11 @@ public class MenuInicialActivity extends ActivityGeneric {
 
                 if (text.equals("APONTAMENTO")) {
 
-                    ColabBean colabBean = new ColabBean();
-                    if(colabBean.hasElements() && ecmContext.getConfigCTR().hasElements()) {
+                    FuncBean funcBean = new FuncBean();
+                    if(funcBean.hasElements() && ecmContext.getConfigCTR().hasElements()) {
                         ecmContext.setVerPosTela(1);
                         customHandler.removeCallbacks(updateTimerThread);
-                        Intent it = new Intent(MenuInicialActivity.this, MotoristaActivity.class);
+                        Intent it = new Intent(MenuInicialActivity.this, FuncionarioActivity.class);
                         startActivity(it);
                         finish();
                     }
@@ -168,11 +171,24 @@ public class MenuInicialActivity extends ActivityGeneric {
         }
     };
 
-    public void startTimer(String verAtualizacao) {
+    public void startTimer(String verAtual) {
 
-        Log.i("PMM", "VERATUAL = " + verAtualizacao);
-        ecmContext.setVerAtualCL(verAtualizacao);
-        boolean alarmeAtivo = (PendingIntent.getBroadcast(this, 0, new Intent("ALARME_DISPARADO"), PendingIntent.FLAG_NO_CREATE) == null);
+        Log.i("PMM", "VERATUAL = " + verAtual);
+
+        String verAtualCL;
+        if(verAtual.equals("N_NAC")){
+            verAtualCL = verAtual;
+        }
+        else{
+            int pos1 = verAtual.indexOf("#") + 1;
+            verAtualCL = verAtual.substring(0, (pos1 - 1));
+            String dthr = verAtual.substring(pos1);
+            ecmContext.getConfigCTR().setDtServConfig(dthr);
+        }
+
+        ecmContext.setVerAtualCL(verAtualCL);
+        Intent intent = new Intent(this, ReceberAlarme.class);
+        boolean alarmeAtivo = (PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_NO_CREATE) == null);
 
         if(progressBar.isShowing()){
             progressBar.dismiss();
@@ -181,9 +197,8 @@ public class MenuInicialActivity extends ActivityGeneric {
         if(alarmeAtivo){
 
             Log.i("PMM", "NOVO TIMER");
-
-            Intent intent = new Intent("EXECUTAR_ALARME");
-            PendingIntent p = PendingIntent.getBroadcast(this, 0, intent, 0);
+            PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(System.currentTimeMillis());
@@ -198,6 +213,7 @@ public class MenuInicialActivity extends ActivityGeneric {
         }
 
         if(verTela){
+            ecmContext.getCECCTR().clearPreCECAberto();
             Intent it = new Intent(MenuInicialActivity.this, MenuMotoMecActivity.class);
             startActivity(it);
             finish();

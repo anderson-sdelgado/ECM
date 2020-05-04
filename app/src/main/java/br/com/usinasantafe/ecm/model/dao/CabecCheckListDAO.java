@@ -16,7 +16,7 @@ public class CabecCheckListDAO {
 
     public boolean verCabecAberto(){
         CabecCLBean cabecCLBean = new CabecCLBean();
-        List cabecList = cabecCLBean.get("statusCabecCheckList", 1L);
+        List cabecList = cabecCLBean.get("statusCabCL", 1L);
         Boolean ret = (cabecList.size() > 0);
         cabecList.clear();
         return ret;
@@ -29,7 +29,7 @@ public class CabecCheckListDAO {
 
     public CabecCLBean getCabecAberto(){
         CabecCLBean cabecCLBean = new CabecCLBean();
-        List cabecList = cabecCLBean.get("statusCabecCheckList", 1L);
+        List cabecList = cabecCLBean.get("statusCabCL", 1L);
         cabecCLBean = (CabecCLBean) cabecList.get(0);
         cabecList.clear();
         return cabecCLBean;
@@ -71,6 +71,11 @@ public class CabecCheckListDAO {
         CabecCLBean cabecCLBean = getCabecAberto();
         cabecCLBean.setStatusCabCL(2L);
         cabecCLBean.update();
+    }
+
+    public List bolFechList(){
+        CabecCLBean cabecCLBean = new CabecCLBean();
+        return cabecCLBean.get("statusCabCL", 2L);
     }
 
 }

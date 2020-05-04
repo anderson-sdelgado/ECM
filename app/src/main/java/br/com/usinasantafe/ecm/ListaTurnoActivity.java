@@ -136,43 +136,6 @@ public class ListaTurnoActivity extends ActivityGeneric {
                     }
                 }
 
-
-//                TurnoBean turnoBean = (TurnoBean) turnoList.get(position);
-//
-//                ecmContext.getConfigCTR().setIdTurnoConfig(turnoBean.getIdTurno());
-//
-//                if ((ecmContext.getConfigCTR().getEquip().getTipoEquip() > 0)
-//                        && (ecmContext.getConfigCTR().getConfig().getUltTurnoCLConfig() != turnoBean.getIdTurno())) {
-//
-//                    ecmContext.setPosCheckList(1);
-//                    ecmContext.getMotoMecCTR().salvaMotoMec(ecmContext.getMotoMecCTR().getCheckList());
-//
-//                    if (ecmContext.getVerAtualCL().equals("N_AC")) {
-//
-//                        Intent it = new Intent(ListaTurnoActivity.this, PergAtualCheckListActivity.class);
-//                        startActivity(it);
-//                        finish();
-//
-//                    } else {
-//
-//                        ecmContext.getCheckListCTR().insCabec();
-//                        ecmContext.getConfigCTR().setUltTurnoCLConfig();
-//
-//                        Intent it = new Intent(ListaTurnoActivity.this, ItemCheckListActivity.class);
-//                        startActivity(it);
-//                        finish();
-//
-//                    }
-//
-//                } else {
-//
-//                    Intent it = new Intent(ListaTurnoActivity.this, MenuMotoMecActivity.class);
-//                    startActivity(it);
-//                    finish();
-//
-//                }
-
-
             }
 
         });
@@ -181,7 +144,6 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-
                 Intent it = new Intent(ListaTurnoActivity.this, CaminhaoActivity.class);
                 startActivity(it);
                 finish();

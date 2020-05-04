@@ -112,4 +112,8 @@
     <string name="texto_msg_data_hora">POR FAVOR, DIGITE O DIA, MÊS, ANO, HORA E MINUTO ATUAL NAS PRÓXIMAS TELAS.</string>
     <string name="texto_data_hora">DIA:</string>
     <string name="texto_atualizar">ATUALIZAR</string>
+    <string name="texto_enc_boletim">ENCERRA BOLETIM</string>
+    <string name="texto_titulo_equip">EQUIPAMENTO</string>
+    <string name="texto_cod_equip">323</string>
+    <string name="texto_descr_equip">CAMINHÃO</string>
 </resources>

@@ -15,32 +15,32 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="tbmotoristaest")
-public class ColabBean extends Entidade {
+public class FuncBean extends Entidade {
 
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(id=true)
-    private Long matricColab;
+    private Long matricFunc;
 	@DatabaseField
-    private String nomeColab;
+    private String nomeFunc;
 
-    public ColabBean() {
+    public FuncBean() {
     }
 
-	public Long getMatricColab() {
-		return matricColab;
+	public Long getMatricFunc() {
+		return matricFunc;
 	}
 
-	public void setMatricColab(Long codmotorista) {
-		this.matricColab = codmotorista;
+	public void setMatricFunc(Long codmotorista) {
+		this.matricFunc = codmotorista;
 	}
 
-	public String getNomeColab() {
-		return nomeColab;
+	public String getNomeFunc() {
+		return nomeFunc;
 	}
 
-	public void setNomeColab(String nomemotorista) {
-		this.nomeColab = nomemotorista;
+	public void setNomeFunc(String nomemotorista) {
+		this.nomeFunc = nomemotorista;
 	}
 
 }

@@ -6,7 +6,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
@@ -45,6 +45,7 @@ public class MotoMecCTR {
     //////////////////////////// SETAR CAMPOS ///////////////////////////////////////////////
 
     public void setFuncBol(Long matric){
+        boletimMMBean = new BoletimMMBean();
         boletimMMBean.setMatricFuncBolMM(matric);
     }
 
@@ -84,8 +85,8 @@ public class MotoMecCTR {
         this.motoMecBean = motoMecBean;
     }
 
-    public void setAtivMM(Long ativ) {
-        this.motoMecBean.setIdMotoMec(ativ);
+    public void setAtivApont(Long ativ) {
+        this.motoMecBean.setIdOperMotoMec(ativ);
         this.motoMecBean.setFuncaoOperMotoMec(1L);
     }
 
@@ -110,7 +111,7 @@ public class MotoMecCTR {
         return carretaDAO.getDescrCarreta();
     }
 
-    public ColabBean getMatricNomeFunc(){
+    public FuncBean getMatricNomeFunc(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         return boletimMMDAO.getMatricNomeFunc();
     }
@@ -153,11 +154,6 @@ public class MotoMecCTR {
     public List getParadaList() {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         return motoMecDAO.getParadaList();
-    }
-
-    public Long getOpCorSaidaUsina(){
-        MotoMecDAO motoMecDAO = new MotoMecDAO();
-        return motoMecDAO.getOpCorSaidaUsina();
     }
 
     public MotoMecBean getMotoMecBean() {
@@ -300,7 +296,8 @@ public class MotoMecCTR {
 
         ApontMMDAO apontMMDAO = new ApontMMDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        apontMMDAO.salvarApont(motoMecBean, configCTR.getConfig(), longitude, latitude, statusCon);
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        apontMMDAO.salvarApont(motoMecBean, configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
@@ -319,7 +316,8 @@ public class MotoMecCTR {
         ApontMMDAO apontMMDAO = new ApontMMDAO();
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        apontMMDAO.salvarApont(motoMecDAO.getCheckList(), configCTR.getConfig(), longitude, latitude, statusCon);
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        apontMMDAO.salvarApont(motoMecDAO.getCheckList(), configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
@@ -327,10 +325,12 @@ public class MotoMecCTR {
     }
 
     public void insSaídaCampo(Double longitude, Double latitude, Long statusCon){
+
         ApontMMDAO apontMMDAO = new ApontMMDAO();
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        apontMMDAO.salvarApont(motoMecDAO.getSaidaCampo(), configCTR.getConfig(), longitude, latitude, statusCon);
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        apontMMDAO.salvarApont(motoMecDAO.getSaidaCampo(), configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
@@ -338,10 +338,12 @@ public class MotoMecCTR {
     }
 
     public void insVoltaTrab(Double longitude, Double latitude, Long statusCon){
+
         ApontMMDAO apontMMDAO = new ApontMMDAO();
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        apontMMDAO.salvarApont(motoMecDAO.getVoltaTrabalho(), configCTR.getConfig(), longitude, latitude, statusCon);
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        apontMMDAO.salvarApont(motoMecDAO.getVoltaTrabalho(), configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 

@@ -25,13 +25,10 @@ public class ECMContext extends Application {
 	// 6 - Desengate no Parada;
 	// 7 - Engate no Parada;
 	// 8 - Finalizar Boletim Moto Mec;
+	// 9 - Finalizar Boletim Pre CEC;
 
 	private int posMenu;
 	private int contDataHora;
-
-	private Long cargoMotomec;
-	private Long lugarMotivoParada;
-	private String textoHorimetro;
 
 	private boolean verTimer;
 
@@ -87,22 +84,6 @@ public class ECMContext extends Application {
 
 	public void setPosMenu(int posMenu) {
 		this.posMenu = posMenu;
-	}
-
-	public Long getCargoMotomec() {
-		return cargoMotomec;
-	}
-
-	public void setCargoMotomec(Long cargoMotomec) {
-		this.cargoMotomec = cargoMotomec;
-	}
-
-	public Long getLugarMotivoParada() {
-		return lugarMotivoParada;
-	}
-
-	public void setLugarMotivoParada(Long lugarMotivoParada) {
-		this.lugarMotivoParada = lugarMotivoParada;
 	}
 
 	public boolean isVerTimer() {
@@ -185,11 +166,4 @@ public class ECMContext extends Application {
 		this.minuto = minuto;
 	}
 
-	public String getTextoHorimetro() {
-		return textoHorimetro;
-	}
-
-	public void setTextoHorimetro(String textoHorimetro) {
-		this.textoHorimetro = textoHorimetro;
-	}
 }

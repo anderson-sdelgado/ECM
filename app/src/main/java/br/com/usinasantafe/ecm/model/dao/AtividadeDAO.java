@@ -15,7 +15,6 @@ import java.util.Objects;
 import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.REquipAtivBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.RFuncaoAtivParBean;
 import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
@@ -142,29 +141,5 @@ public class AtividadeDAO {
 
     }
 
-    public Long idParadaCheckList(){
-
-        RFuncaoAtivParBean rFuncaoAtivParBean = new RFuncaoAtivParBean();
-        ArrayList pesqList = new ArrayList();
-
-        EspecificaPesquisa pesq1 = new EspecificaPesquisa();
-        pesq1.setCampo("codFuncao");
-        pesq1.setValor(1L);
-        pesq1.setTipo(1);
-        pesqList.add(pesq1);
-
-        EspecificaPesquisa pesq2 = new EspecificaPesquisa();
-        pesq2.setCampo("tipoFuncao");
-        pesq2.setValor(2L);
-        pesq2.setTipo(1);
-        pesqList.add(pesq2);
-
-        List rFuncaoAtivParList =   rFuncaoAtivParBean.get(pesqList);
-        rFuncaoAtivParBean = (RFuncaoAtivParBean) rFuncaoAtivParList.get(0);
-        rFuncaoAtivParList.clear();
-
-        return rFuncaoAtivParBean.getIdAtivPar();
-
-    }
 
 }

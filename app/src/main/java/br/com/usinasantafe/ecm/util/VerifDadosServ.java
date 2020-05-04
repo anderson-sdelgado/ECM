@@ -16,18 +16,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.usinasantafe.ecm.MenuInicialActivity;
+import br.com.usinasantafe.ecm.control.CECCTR;
 import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
 import br.com.usinasantafe.ecm.model.dao.AtividadeDAO;
+import br.com.usinasantafe.ecm.model.dao.CECDAO;
 import br.com.usinasantafe.ecm.model.dao.EquipDAO;
 import br.com.usinasantafe.ecm.model.dao.InformativoDAO;
 import br.com.usinasantafe.ecm.model.dao.ItemPneuDAO;
 import br.com.usinasantafe.ecm.model.dao.OSDAO;
-import br.com.usinasantafe.ecm.util.conHttp.PostVerGenerico;
+import br.com.usinasantafe.ecm.util.connHttp.PostVerGenerico;
 import br.com.usinasantafe.ecm.model.pst.GenericRecordable;
 import br.com.usinasantafe.ecm.model.bean.AtualAplicBean;
-import br.com.usinasantafe.ecm.util.conHttp.UrlsConexaoHttp;
+import br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp;
 
 /**
  * Created by anderson on 16/11/2015.
@@ -69,6 +71,7 @@ public class VerifDadosServ {
         AtualAplicBean atualAplicBean = new AtualAplicBean();
         ConfigCTR configCTR = new ConfigCTR();
         atualAplicBean.setIdEquipAtualizacao(configCTR.getEquip().getNroEquip());
+        atualAplicBean.setIdCheckList(configCTR.getEquip().getIdCheckList());
         atualAplicBean.setVersaoAtual(versaoAplic);
 
         urlsConexaoHttp = new UrlsConexaoHttp();
@@ -139,36 +142,36 @@ public class VerifDadosServ {
 
     public void manipularDadosHttp(String result) {
         try {
-            if (!result.equals("")) {
-                if (this.tipo.equals("Equip")) {
-                    EquipDAO equipDAO = new EquipDAO();
-                    equipDAO.recDadosEquip(result);
-                } else if (this.tipo.equals("OS")) {
-                    OSDAO osDAO = new OSDAO();
-                    osDAO.recDadosOS(result);
-                } else if (this.tipo.equals("Atividade")) {
-                    AtividadeDAO atividadeDAO = new AtividadeDAO();
-                    atividadeDAO.recDadosAtiv(result);
-                } else if (this.tipo.equals("Atualiza")) {
-                    String verAtualizacao = result.trim();
-                    if (verAtualizacao.equals("S")) {
-                        AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
-                        atualizarAplicativo.setContext(this.menuInicialActivity);
-                        atualizarAplicativo.execute();
-                    } else {
-                        this.menuInicialActivity.startTimer(verAtualizacao);
-                    }
-                } else if (this.tipo.equals("CheckList")) {
-                    CheckListCTR checkListCTR = new CheckListCTR();
-                    checkListCTR.recDadosCheckList(result);
-                } else if (this.tipo.equals("Informativo")) {
-                    InformativoDAO informativoDAO = new InformativoDAO();
-                    informativoDAO.recInfor(result);
-                } else if (this.tipo.equals("Pneu")) {
-                    ItemPneuDAO itemPneuDAO = new ItemPneuDAO();
-                    itemPneuDAO.recDadosPneu(result);
-                } else if(this.tipo.equals("CECBean")) {
+            if (this.tipo.equals("Equip")) {
+                EquipDAO equipDAO = new EquipDAO();
+                equipDAO.recDadosEquip(result);
+            } else if (this.tipo.equals("OS")) {
+                OSDAO osDAO = new OSDAO();
+                osDAO.recDadosOS(result);
+            } else if (this.tipo.equals("Atividade")) {
+                AtividadeDAO atividadeDAO = new AtividadeDAO();
+                atividadeDAO.recDadosAtiv(result);
+            } else if (this.tipo.equals("Atualiza")) {
+                String verAtual = result.trim();
+                if (verAtual.equals("S")) {
+                    AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
+                    atualizarAplicativo.setContext(this.menuInicialActivity);
+                    atualizarAplicativo.execute();
+                } else {
+                    this.menuInicialActivity.startTimer(verAtual);
                 }
+            } else if (this.tipo.equals("CheckList")) {
+                CheckListCTR checkListCTR = new CheckListCTR();
+                checkListCTR.recDadosCheckList(result);
+            } else if (this.tipo.equals("Informativo")) {
+                InformativoDAO informativoDAO = new InformativoDAO();
+                informativoDAO.recInfor(result);
+            } else if (this.tipo.equals("Pneu")) {
+                ItemPneuDAO itemPneuDAO = new ItemPneuDAO();
+                itemPneuDAO.recDadosPneu(result);
+            } else if (this.tipo.equals("CEC")) {
+                CECCTR cecCTR = new CECCTR();;
+                cecCTR.recDados(result);
             }
         } catch (Exception e) {
             Log.i("PMM", "Erro Manip atualizar = " + e);
