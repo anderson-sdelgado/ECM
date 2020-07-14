@@ -170,7 +170,7 @@ public class VerifDadosServ {
                 ItemPneuDAO itemPneuDAO = new ItemPneuDAO();
                 itemPneuDAO.recDadosPneu(result);
             } else if (this.tipo.equals("CEC")) {
-                CECCTR cecCTR = new CECCTR();;
+                CECCTR cecCTR = new CECCTR();
                 cecCTR.recDados(result);
             }
         } catch (Exception e) {

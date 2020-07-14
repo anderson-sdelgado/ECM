@@ -32,7 +32,7 @@ public class ECMContext extends Application {
 
 	private boolean verTimer;
 
-	public static String versaoAplic = "3.00";
+	public static String versaoAplic = "3.01";
 	private String verAtualCL;
 
 	private int posCheckList;

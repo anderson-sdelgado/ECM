@@ -6,6 +6,7 @@ import android.content.Context;
 import java.util.List;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.model.dao.BoletimMMDAO;
 import br.com.usinasantafe.ecm.model.dao.CECDAO;
@@ -60,6 +61,11 @@ public class CECCTR {
     public void delPreCECAberto(){
         PreCECDAO preCECDAO = new PreCECDAO();
         preCECDAO.delPreCECAberto();
+    }
+
+    public void delCEC(){
+        CECDAO cecDAO = new CECDAO();
+        cecDAO.delCEC();
     }
 
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
@@ -175,6 +181,11 @@ public class CECCTR {
     public PreCECBean getPreCECAberto(){
         PreCECDAO preCECDAO = new PreCECDAO();
         return preCECDAO.getPreCECAberto();
+    }
+
+    public CECBean getCEC(){
+        CECDAO cecDAO = new CECDAO();
+        return cecDAO.getCEC();
     }
 
     /////////////////////////////////////////////////////////////////////////////

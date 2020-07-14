@@ -41,57 +41,24 @@ public class OSActivity extends ActivityGeneric {
                     try{
 
                         Long nroOS = Long.parseLong(editTextPadrao.getText().toString());
-
                         ecmContext.getConfigCTR().setOsConfig(nroOS);
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
-                        OSBean osTO = new OSBean();
 
-                        if (osTO.hasElements()) {
+                        if (ecmContext.getConfigCTR().verOS(nroOS)){
 
-                            List osList = osTO.get("nroOS", nroOS);
-
-                            if (osList.size() > 0) {
-
-                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
-                                    ecmContext.getConfigCTR().setStatusConConfig(1L);
-                                }
-                                else{
-                                    ecmContext.getConfigCTR().setStatusConConfig(0L);
-                                }
-
-                                VerifDadosServ.getInstance().setVerTerm(true);
-
-                                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
-                                startActivity(it);
-                                finish();
-
-                            } else {
-
-                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
-
-                                    progressBar = new ProgressDialog(v.getContext());
-                                    progressBar.setCancelable(true);
-                                    progressBar.setMessage("PESQUISANDO OS...");
-                                    progressBar.show();
-
-                                    customHandler.postDelayed(updateTimerThread, 10000);
-
-                                    ecmContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
-                                            , OSActivity.this, ListaAtividadeActivity.class, progressBar);
-
-
-                                } else {
-
-                                    ecmContext.getConfigCTR().setStatusConConfig(0L);
-
-                                    Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
-                                    startActivity(it);
-                                    finish();
-
-                                }
-
+                            if (conexaoWeb.verificaConexao(OSActivity.this)) {
+                                ecmContext.getConfigCTR().setStatusConConfig(1L);
                             }
+                            else{
+                                ecmContext.getConfigCTR().setStatusConConfig(0L);
+                            }
+
+                            VerifDadosServ.getInstance().setVerTerm(true);
+
+                            Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                            startActivity(it);
+                            finish();
 
                         } else {
 
@@ -106,6 +73,7 @@ public class OSActivity extends ActivityGeneric {
 
                                 ecmContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
                                         , OSActivity.this, ListaAtividadeActivity.class, progressBar);
+
 
                             } else {
 

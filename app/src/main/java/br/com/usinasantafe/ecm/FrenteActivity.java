@@ -38,7 +38,6 @@ public class FrenteActivity extends ActivityGeneric {
                         startActivity(it);
                         finish();
 
-
                     }
                     else{
 

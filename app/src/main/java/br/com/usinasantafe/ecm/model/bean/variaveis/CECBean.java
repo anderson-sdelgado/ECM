@@ -37,6 +37,10 @@ public class CECBean extends Entidade  {
 	@DatabaseField
     private Long unidadeSorteada3CEC;
 	@DatabaseField
+	private Long cecSorteado4CEC;
+	@DatabaseField
+	private Long unidadeSorteada4CEC;
+	@DatabaseField
     private Double pesoLiquidoCEC;
 	
 	public CECBean() {
@@ -153,5 +157,20 @@ public class CECBean extends Entidade  {
 	public void setPesoLiquidoCEC(Double pesoLiquidoCEC) {
 		this.pesoLiquidoCEC = pesoLiquidoCEC;
 	}
-	
+
+	public Long getCecSorteado4CEC() {
+		return cecSorteado4CEC;
+	}
+
+	public void setCecSorteado4CEC(Long cecSorteado4CEC) {
+		this.cecSorteado4CEC = cecSorteado4CEC;
+	}
+
+	public Long getUnidadeSorteada4CEC() {
+		return unidadeSorteada4CEC;
+	}
+
+	public void setUnidadeSorteada4CEC(Long unidadeSorteada4CEC) {
+		this.unidadeSorteada4CEC = unidadeSorteada4CEC;
+	}
 }

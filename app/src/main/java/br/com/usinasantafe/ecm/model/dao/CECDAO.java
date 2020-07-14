@@ -19,16 +19,38 @@ public class CECDAO {
     }
 
     public boolean verCEC(){
-        List cecList = getCECList();
+        List cecList = getCECListDesc();
         boolean retorno = cecList.size() > 0;
         cecList.clear();
         return retorno;
     }
 
-    public List getCECList(){
+    public List getCECListDesc(){
         CECBean cecBean = new CECBean();
-        List equipList = cecBean.get("status", 2L);
+        List equipList = cecBean.getAndOrderBy("status", 2L, "idCEC", false);
         return equipList;
+    }
+
+    public List getCECListCresc(){
+        CECBean cecBean = new CECBean();
+        List equipList = cecBean.getAndOrderBy("status", 2L, "idCEC", true);
+        return equipList;
+    }
+
+    public CECBean getCEC(){
+        List cecList = getCECListDesc();
+        CECBean cecBean = (CECBean) cecList.get(0);
+        cecList.clear();
+        return cecBean;
+    }
+
+    public void delCEC(){
+        List cecList = getCECListCresc();
+        int qtdeCEC = cecList.size();
+        if (qtdeCEC > 10) {
+            CECBean cecBeanDel = (CECBean) cecList.get(0);
+            cecBeanDel.delete();
+        }
     }
 
     public void verCEC(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){

@@ -142,4 +142,12 @@ public class OSDAO {
 
     }
 
+    public boolean verOS(Long nroOS){
+        OSBean osTO = new OSBean();
+        List osList = osTO.get("nroOS", nroOS);
+        boolean ret = osList.size() > 0;
+        osList.clear();
+        return ret;
+    }
+
 }

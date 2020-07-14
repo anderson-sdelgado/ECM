@@ -8,6 +8,7 @@ import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
 import br.com.usinasantafe.ecm.model.dao.EquipDAO;
+import br.com.usinasantafe.ecm.model.dao.OSDAO;
 import br.com.usinasantafe.ecm.util.AtualDadosServ;
 
 public class ConfigCTR {
@@ -123,5 +124,10 @@ public class ConfigCTR {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    public boolean verOS(Long nroOS){
+        OSDAO osDAO = new OSDAO();
+        return osDAO.verOS(nroOS);
+    }
 
 }

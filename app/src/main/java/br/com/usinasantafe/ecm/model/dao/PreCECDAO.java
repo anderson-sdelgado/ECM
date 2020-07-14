@@ -146,23 +146,23 @@ public class PreCECDAO {
     /////////////////////////////VERIFICAR DADOS////////////////////////////////
 
     public boolean verPreCECFechado(){
-        List certifFechadoList = getPreCECListFechado();
-        boolean retorno = certifFechadoList.size() > 0;
-        certifFechadoList.clear();
+        List preCECFechadoList = getPreCECListFechado();
+        boolean retorno = preCECFechadoList.size() > 0;
+        preCECFechadoList.clear();
         return retorno;
     }
 
     public boolean verPreCECAberto(){
-        List certifAbertoList = getPreCECListAberto();
-        boolean retorno = certifAbertoList.size() > 0;
-        certifAbertoList.clear();
+        List preCECAbertoList = getPreCECListAberto();
+        boolean retorno = preCECAbertoList.size() > 0;
+        preCECAbertoList.clear();
         return retorno;
     }
 
     public boolean verDataPreCEC(){
-        List certifCanaList = getPreCECListAberto();
-        PreCECBean preCECBean = (PreCECBean) certifCanaList.get(0);
-        certifCanaList.clear();
+        List preCECList = getPreCECListAberto();
+        PreCECBean preCECBean = (PreCECBean) preCECList.get(0);
+        preCECList.clear();
         return ((!preCECBean.getDataSaidaUsina().equals("")) && (!preCECBean.getDataChegCampo().equals("")));
     }
 
