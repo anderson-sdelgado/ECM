@@ -27,13 +27,13 @@ public class CECDAO {
 
     public List getCECListDesc(){
         CECBean cecBean = new CECBean();
-        List equipList = cecBean.getAndOrderBy("status", 2L, "idCEC", false);
+        List equipList = cecBean.orderBy("idCEC", false);
         return equipList;
     }
 
     public List getCECListCresc(){
         CECBean cecBean = new CECBean();
-        List equipList = cecBean.getAndOrderBy("status", 2L, "idCEC", true);
+        List equipList = cecBean.orderBy("idCEC", true);
         return equipList;
     }
 

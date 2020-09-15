@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import br.com.usinasantafe.ecm.control.CECCTR;
 import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.REquipAtivBean;
@@ -65,7 +66,10 @@ public class AtividadeDAO {
                         JSONObject objeto = jsonArray.getJSONObject(j);
                         Gson gson = new Gson();
                         OSBean osBean = gson.fromJson(objeto.toString(), OSBean.class);
-                        osBean.insert();
+                        CECCTR cecCTR = new CECCTR();
+                        if(!cecCTR.verAtivOS(osBean.getIdAtivOS())) {
+                            osBean.insert();
+                        }
 
                     }
 
