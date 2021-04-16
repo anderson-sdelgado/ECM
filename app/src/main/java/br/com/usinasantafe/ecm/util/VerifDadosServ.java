@@ -15,13 +15,13 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.usinasantafe.ecm.MenuInicialActivity;
+import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
+import br.com.usinasantafe.ecm.view.MenuInicialActivity;
 import br.com.usinasantafe.ecm.control.CECCTR;
 import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.control.MotoMecCTR;
 import br.com.usinasantafe.ecm.model.dao.AtividadeDAO;
-import br.com.usinasantafe.ecm.model.dao.CECDAO;
 import br.com.usinasantafe.ecm.model.dao.EquipDAO;
 import br.com.usinasantafe.ecm.model.dao.InformativoDAO;
 import br.com.usinasantafe.ecm.model.dao.ItemPneuDAO;
@@ -152,13 +152,14 @@ public class VerifDadosServ {
                 AtividadeDAO atividadeDAO = new AtividadeDAO();
                 atividadeDAO.recDadosAtiv(result);
             } else if (this.tipo.equals("Atualiza")) {
-                String verAtual = result.trim();
-                if (verAtual.equals("S")) {
+                ConfigDAO configDAO = new ConfigDAO();
+                AtualAplicBean atualAplicBean = configDAO.recAtual(result.trim());
+                if (atualAplicBean.getFlagAtualApp().equals(1L)) {
                     AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
                     atualizarAplicativo.setContext(this.menuInicialActivity);
                     atualizarAplicativo.execute();
                 } else {
-                    this.menuInicialActivity.startTimer(verAtual);
+                    this.menuInicialActivity.startTimer();
                 }
             } else if (this.tipo.equals("CheckList")) {
                 CheckListCTR checkListCTR = new CheckListCTR();

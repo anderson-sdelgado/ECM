@@ -25,7 +25,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
         <activity
-            android:name=".MenuInicialActivity"
+            android:name=".view.MenuInicialActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,114 +33,114 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DadosColheitaActivity"
+            android:name=".view.DadosColheitaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DadosPlantioActivity"
+            android:name=".view.DadosPlantioActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaAtividadeActivity"
+            android:name=".view.ListaAtividadeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DataHoraActivity"
+            android:name=".view.DataHoraActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgDataHoraActivity"
+            android:name=".view.MsgDataHoraActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PressaoEncPneuActivity"
+            android:name=".view.PressaoEncPneuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PressaoColPneuActivity"
+            android:name=".view.PressaoColPneuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PneuActivity"
+            android:name=".view.PneuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaPosPneuActivity"
+            android:name=".view.ListaPosPneuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AtivOSActivity"
+            android:name=".view.AtivOSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BackupCECActivity"
+            android:name=".view.BackupCECActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BackupPreCECActivity"
+            android:name=".view.BackupPreCECActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CECActivity"
+            android:name=".view.CECActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CaminhaoActivity"
+            android:name=".view.CaminhaoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CarretaActivity"
+            android:name=".view.CarretaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ConfigActivity"
+            android:name=".view.ConfigActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DesengCarretaActivity"
+            android:name=".view.DesengCarretaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EnvioDadosActivity"
+            android:name=".view.EnvioDadosActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FrenteActivity"
+            android:name=".view.FrenteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HodometroActivity"
+            android:name=".view.HodometroActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LibOSActivity"
+            android:name=".view.LibOSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaFinalizaApontActivity"
+            android:name=".view.ListaFinalizaApontActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaTurnoActivity"
+            android:name=".view.ListaTurnoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MenuCertifActivity"
+            android:name=".view.MenuCertifActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MenuMotoMecActivity"
+            android:name=".view.MenuMotoMecActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaParadaActivity"
+            android:name=".view.ListaParadaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FuncionarioActivity"
+            android:name=".view.FuncionarioActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgAtivOSActivity"
+            android:name=".view.MsgAtivOSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgLibOSActivity"
+            android:name=".view.MsgLibOSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgNumCarretaActivity"
+            android:name=".view.MsgNumCarretaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MsgSaidaCampoActivity"
+            android:name=".view.MsgSaidaCampoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OSActivity"
+            android:name=".view.OSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SenhaActivity"
+            android:name=".view.SenhaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VerMotoristaActivity"
+            android:name=".view.VerMotoristaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ItemCheckListActivity"
+            android:name=".view.ItemCheckListActivity"
             android:screenOrientation="portrait" />
         <receiver android:name=".ReceberAlarme">
         </receiver>
         <activity
-            android:name=".PergAtualCheckListActivity"
+            android:name=".view.PergAtualCheckListActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.usinasantafe.ecm.DesengCarretaActivity">
+    tools:context="br.com.usinasantafe.ecm.view.DesengCarretaActivity">
 
     <TextView
         android:id="@+id/textViewMsgDesengCarreta"

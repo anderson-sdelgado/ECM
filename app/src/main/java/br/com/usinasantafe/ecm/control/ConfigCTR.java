@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
@@ -101,11 +102,6 @@ public class ConfigCTR {
         configDAO.setVerInforConfig(tipo);
     }
 
-    public void setDtServConfig(String dtServConfig){
-        ConfigDAO configDAO = new ConfigDAO();
-        configDAO.setDtServConfig(dtServConfig);
-    }
-
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////// VER CAMPOS ////////////////////////////////////////////
@@ -128,6 +124,11 @@ public class ConfigCTR {
     public boolean verOS(Long nroOS){
         OSDAO osDAO = new OSDAO();
         return osDAO.verOS(nroOS);
+    }
+
+    public OSBean getOS(Long nroOS){
+        OSDAO osDAO = new OSDAO();
+        return osDAO.getOS(nroOS);
     }
 
 }

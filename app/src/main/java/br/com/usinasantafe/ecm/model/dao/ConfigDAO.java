@@ -1,7 +1,13 @@
 package br.com.usinasantafe.ecm.model.dao;
 
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import br.com.usinasantafe.ecm.model.bean.AtualAplicBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.util.Tempo;
@@ -33,7 +39,8 @@ public class ConfigDAO {
         configBean.setDtServConfig("");
         configBean.setDifDthrConfig(0L);
         configBean.setVerInforConfig(0L);
-        configBean.setSenhaConfig(senha);
+        configBean.setFlagLogErro(0L);
+        configBean.setFlagLogEnvio(0L);
         configBean.setSenhaConfig(senha);
         configBean.insert();
         configBean.commit();
@@ -65,11 +72,6 @@ public class ConfigDAO {
         configBean.update();
     }
 
-    public void setDtServConfig(String data){
-        ConfigBean configBean = getConfig();
-        configBean.setDtServConfig(data);
-        configBean.update();
-    }
 
     public boolean getConfigSenha(String senha){
         ConfigBean configBean = new ConfigBean();
@@ -125,6 +127,37 @@ public class ConfigDAO {
         ConfigBean configBean = getConfig();
         configBean.setVerInforConfig(tipo);
         configBean.update();
+    }
+
+    public AtualAplicBean recAtual(String result) {
+
+        AtualAplicBean atualAplicBean = new AtualAplicBean();
+
+        try {
+
+            JSONObject jObj = new JSONObject(result);
+            JSONArray jsonArray = jObj.getJSONArray("dados");
+
+            if (jsonArray.length() > 0) {
+
+                JSONObject objeto = jsonArray.getJSONObject(0);
+                Gson gson = new Gson();
+                atualAplicBean = gson.fromJson(objeto.toString(), AtualAplicBean.class);
+
+                ConfigBean configBean = getConfig();
+                configBean.setFlagLogEnvio(atualAplicBean.getFlagLogEnvio());
+                configBean.setFlagLogErro(atualAplicBean.getFlagLogErro());
+                configBean.setDtServConfig(atualAplicBean.getDthr());
+                configBean.setAtualCheckList(atualAplicBean.getFlagAtualCheckList());
+                configBean.update();
+
+            }
+
+        } catch (Exception e) {
+        }
+
+        return atualAplicBean;
+
     }
 
 }

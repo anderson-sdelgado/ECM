@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="br.com.usinasantafe.ecm.VerMotoristaActivity">
+    tools:context="br.com.usinasantafe.ecm.view.VerMotoristaActivity">
 
     <TextView
         android:id="@+id/textViewVerMotorista"

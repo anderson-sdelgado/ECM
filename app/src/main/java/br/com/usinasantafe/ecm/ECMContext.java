@@ -32,8 +32,7 @@ public class ECMContext extends Application {
 
 	private boolean verTimer;
 
-	public static String versaoAplic = "3.01";
-	private String verAtualCL;
+	public static String versaoAplic = "3.02";
 
 	private int posCheckList;
 
@@ -92,14 +91,6 @@ public class ECMContext extends Application {
 
 	public void setVerTimer(boolean verTimer) {
 		this.verTimer = verTimer;
-	}
-
-	public String getVerAtualCL() {
-		return verAtualCL;
-	}
-
-	public void setVerAtualCL(String verAtualCL) {
-		this.verAtualCL = verAtualCL;
 	}
 
 	public int getPosCheckList() {

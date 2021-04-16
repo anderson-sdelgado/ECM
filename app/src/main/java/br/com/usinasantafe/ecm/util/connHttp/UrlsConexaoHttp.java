@@ -4,8 +4,8 @@ import br.com.usinasantafe.ecm.ECMContext;
 
 public class UrlsConexaoHttp {
 
-    public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmdev/view/";
-    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmdev/view/";
+    public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmprod/view/";
+    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmprod/view/";
 
     public static String localPSTEstatica = "br.com.usinasantafe.ecm.model.bean.estaticas.";
     public static String localUrl = "br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp";
@@ -53,7 +53,7 @@ public class UrlsConexaoHttp {
         } else if (classe.equals("CEC")) {
             retorno = urlPrincEnvio + "retcec.php" + put;
         }else if (classe.equals("Atualiza")) {
-            retorno = urlPrincEnvio + "atualaplicecm.php" + put;
+            retorno = urlPrincEnvio + "atualaplic.php" + put;
         } else if (classe.equals("CheckList")) {
             retorno = urlPrincEnvio + "itemchecklist.php" + put;
         } else if (classe.equals("Atividade")) {

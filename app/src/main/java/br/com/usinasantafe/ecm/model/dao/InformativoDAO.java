@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.com.usinasantafe.ecm.DadosColheitaActivity;
-import br.com.usinasantafe.ecm.DadosPlantioActivity;
+import br.com.usinasantafe.ecm.view.DadosColheitaActivity;
+import br.com.usinasantafe.ecm.view.DadosPlantioActivity;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.model.bean.variaveis.InfColheitaBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.InfPlantioBean;

@@ -102,8 +102,8 @@ public class MotoMecDAO {
         especificaPesquisa3.setTipo(1);
         pesqArrayList.add(especificaPesquisa3);
 
-        List motoMecList = motoMecBean.get(pesqArrayList);
-        motoMecBean = (MotoMecBean) motoMecList.get(0);
+        List<MotoMecBean> motoMecList = motoMecBean.get(pesqArrayList);
+        motoMecBean = motoMecList.get(0);
         motoMecList.clear();
 
         return motoMecBean;
