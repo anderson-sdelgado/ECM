@@ -20,20 +20,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import br.com.usinasantafe.ecm.ECMContext;
 import br.com.usinasantafe.ecm.R;
 import br.com.usinasantafe.ecm.ReceberAlarme;
-import br.com.usinasantafe.ecm.control.CheckListCTR;
-import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.EnvioDadosServ;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class MenuInicialActivity extends ActivityGeneric {
 
@@ -43,7 +36,6 @@ public class MenuInicialActivity extends ActivityGeneric {
 
     private TextView textViewProcesso;
     private Handler customHandler = new Handler();
-    private boolean verTela;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +43,6 @@ public class MenuInicialActivity extends ActivityGeneric {
         setContentView(R.layout.activity_menu_inicial);
 
         textViewProcesso = (TextView) findViewById(R.id.textViewProcesso);
-
-        verif();
 
         ecmContext = (ECMContext) getApplication();
 
@@ -64,12 +54,11 @@ public class MenuInicialActivity extends ActivityGeneric {
         }
 
         progressBar = new ProgressDialog(this);
-        CheckListCTR checkListCTR = new CheckListCTR();
 
         if(ecmContext.getMotoMecCTR().verBolAberto()){
-            if(checkListCTR.verCabecAberto()){
+            if(ecmContext.getCheckListCTR().verCabecAberto()){
                 startTimer();
-                checkListCTR.clearRespCabecAberto();
+                ecmContext.getCheckListCTR().clearRespCabecAberto();
                 ecmContext.setPosCheckList(1);
                 Intent it = new Intent(MenuInicialActivity.this, ItemCheckListActivity.class);
                 startActivity(it);
@@ -83,13 +72,15 @@ public class MenuInicialActivity extends ActivityGeneric {
                     finish();
                 }
                 else {
-                    verTela = true;
-                    atualizarAplic();
+                    startTimer();
+                    ecmContext.getCECCTR().clearPreCECAberto();
+                    Intent it = new Intent(MenuInicialActivity.this, MenuMotoMecActivity.class);
+                    startActivity(it);
+                    finish();
                 }
             }
         }
         else{
-            verTela = false;
             atualizarAplic();
         }
 
@@ -120,8 +111,7 @@ public class MenuInicialActivity extends ActivityGeneric {
 
                 if (text.equals("APONTAMENTO")) {
 
-                    FuncBean funcBean = new FuncBean();
-                    if(funcBean.hasElements() && ecmContext.getConfigCTR().hasElements()) {
+                    if(ecmContext.getConfigCTR().hasElemFunc() && ecmContext.getConfigCTR().hasElements()) {
                         ecmContext.setVerPosTela(1);
                         customHandler.removeCallbacks(updateTimerThread);
                         Intent it = new Intent(MenuInicialActivity.this, FuncionarioActivity.class);
@@ -176,36 +166,32 @@ public class MenuInicialActivity extends ActivityGeneric {
 
     public void startTimer() {
 
-        Intent intent = new Intent(this, ReceberAlarme.class);
-        boolean alarmeAtivo = (PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_NO_CREATE) == null);
+        if(ecmContext.getConfigCTR().hasElements()) {
 
-        if(progressBar.isShowing()){
-            progressBar.dismiss();
-        }
+            Intent intent = new Intent(this, ReceberAlarme.class);
+            boolean alarmeAtivo = (PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_NO_CREATE) == null);
 
-        if(alarmeAtivo){
+            if (progressBar.isShowing()) {
+                progressBar.dismiss();
+            }
 
-            Log.i("PMM", "NOVO TIMER");
-            PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(), 0,
-                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            if (alarmeAtivo) {
 
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(System.currentTimeMillis());
-            c.add(Calendar.SECOND, 1);
+                Log.i("PMM", "NOVO TIMER");
+                PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                        intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarme = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarme.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 60000, p);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
+                c.add(Calendar.SECOND, 1);
 
-        }
-        else{
-            Log.i("PMM", "TIMER já ativo");
-        }
+                AlarmManager alarme = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarme.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 60000, p);
 
-        if(verTela){
-            ecmContext.getCECCTR().clearPreCECAberto();
-            Intent it = new Intent(MenuInicialActivity.this, MenuMotoMecActivity.class);
-            startActivity(it);
-            finish();
+            } else {
+                Log.i("PMM", "TIMER já ativo");
+            }
+
         }
 
     }
@@ -227,96 +213,6 @@ public class MenuInicialActivity extends ActivityGeneric {
         } else {
             startTimer();
         }
-    }
-
-    public void verif(){
-
-        CECBean CECBean = new CECBean();
-        List boletimList = CECBean.all();
-
-        Log.i("PMM", "BoletimBkpBean");
-
-        for (int i = 0; i < boletimList.size(); i++) {
-
-            CECBean = (CECBean) boletimList.get(i);
-            Log.i("PMM", "idBoleto = " + CECBean.getIdCEC());
-            Log.i("PMM", "caminhaoBoleto = " + CECBean.getCaminhaoCEC());
-            Log.i("PMM", "possuiSorteioBoleto = " + CECBean.getPossuiSorteioCEC());
-            Log.i("PMM", "cecPaiBoleto = " + CECBean.getCecPaiCEC());
-            Log.i("PMM", "cdFrenteBoleto = " + CECBean.getCodFrenteCEC());
-            Log.i("PMM", "dthrEntradaBoleto = " + CECBean.getDthrEntradaCEC());
-            Log.i("PMM", "cecSorteado1Boleto = " + CECBean.getCecSorteado1CEC());
-            Log.i("PMM", "unidadeSorteada1Boleto = " + CECBean.getUnidadeSorteada1CEC());
-            Log.i("PMM", "cecSorteado2Boleto = " + CECBean.getCecSorteado2CEC());
-            Log.i("PMM", "unidadeSorteada2Boleto = " + CECBean.getUnidadeSorteada2CEC());
-            Log.i("PMM", "cecSorteado3Boleto = " + CECBean.getCecSorteado3CEC());
-            Log.i("PMM", "unidadeSorteada3Boleto = " + CECBean.getUnidadeSorteada3CEC());
-            Log.i("PMM", "pesoLiquidoBoleto = " + CECBean.getPesoLiquidoCEC());
-
-        }
-
-        PreCECBean preCECBean = new PreCECBean();
-        List compVCanaList = preCECBean.all();
-
-        Log.i("PMM", "PreCECBean");
-
-        for (int i = 0; i < compVCanaList.size(); i++) {
-
-            preCECBean = (PreCECBean) compVCanaList.get(i);
-            Log.i("PMM", "idCompVCana = " + preCECBean.getIdPreCEC());
-            Log.i("PMM", "cam = " + preCECBean.getCam());
-            Log.i("PMM", "libCam = " + preCECBean.getLibCam());
-            Log.i("PMM", "moto = " + preCECBean.getMoto());
-            Log.i("PMM", "carr1 = " + preCECBean.getCarr1());
-            Log.i("PMM", "libCarr1 = " + preCECBean.getLibCarr1());
-            Log.i("PMM", "carr2 = " + preCECBean.getCarr2());
-            Log.i("PMM", "libCarr2 = " + preCECBean.getLibCarr2());
-            Log.i("PMM", "carr3 = " + preCECBean.getCarr3());
-            Log.i("PMM", "libCarr3 = " + preCECBean.getLibCarr3());
-            Log.i("PMM", "carr4 = " + preCECBean.getCarr4());
-            Log.i("PMM", "libCarr4 = " + preCECBean.getLibCarr4());
-            Log.i("PMM", "dataChegCampo = " + preCECBean.getDataChegCampo());
-            Log.i("PMM", "dataSaidaCampo = " + preCECBean.getDataSaidaCampo());
-            Log.i("PMM", "dataSaidaUsina = " + preCECBean.getDataSaidaUsina());
-            Log.i("PMM", "turno = " + preCECBean.getTurno());
-
-        }
-
-        CabecCLBean cabecCLBean = new CabecCLBean();
-        List cabecList = cabecCLBean.all();
-
-        Log.i("PMM", "CabecCheckList");
-
-        for (int j = 0; j < cabecList.size(); j++) {
-
-            cabecCLBean = (CabecCLBean) cabecList.get(j);
-            Log.i("PMM", "IdCabecCheck = " + cabecCLBean.getIdCabCL());
-            Log.i("PMM", "EquipCabecCheckList = " + cabecCLBean.getEquipCabCL());
-            Log.i("PMM", "DtCabecCheckList = " + cabecCLBean.getDtCabCL());
-            Log.i("PMM", "FuncCabecCheckList = " + cabecCLBean.getFuncCabCL());
-            Log.i("PMM", "TurnoCabecCheckList = " + cabecCLBean.getTurnoCabCL());
-            Log.i("PMM", "StatusCabecCheckList = " + cabecCLBean.getStatusCabCL());
-            Log.i("PMM", "DtCabecCheckList = " + cabecCLBean.getDtCabCL());
-
-        }
-
-        RespItemCLBean respItemCLBean = new RespItemCLBean();
-        List respItemList = respItemCLBean.all();
-
-        Log.i("PMM", "RespItemCheckList");
-
-        for (int j = 0; j < respItemList.size(); j++) {
-
-            respItemCLBean = (RespItemCLBean) respItemList.get(j);
-            Log.i("PMM", "IdItemCheckList = " + respItemCLBean.getIdItCL());
-            Log.i("PMM", "IdItItemCheckList = " + respItemCLBean.getIdItBDItCL());
-            Log.i("PMM", "IdCabecItemCheckList = " + respItemCLBean.getIdCabItCL());
-            Log.i("PMM", "OpcaoItemCheckList = " + respItemCLBean.getOpItCL());
-
-        }
-
-        Log.i("PMM", "versão = " + ECMContext.versaoAplic);
-
     }
 
 }

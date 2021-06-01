@@ -39,6 +39,14 @@ public class ApontMMDAO {
         return apontMMBean;
     }
 
+    public ApontMMBean getApontMMData(String dthr){
+        ApontMMBean apontMMBean = new ApontMMBean();
+        List apontaMMList = apontMMBean.get("dthrApontMM", dthr);
+        apontMMBean = (ApontMMBean) apontaMMList.get(0);
+        apontaMMList.clear();
+        return apontMMBean;
+    }
+
     public void updApont(ApontMMBean apontMMBean){
         apontMMBean.setStatusApontMM(1L);
         apontMMBean.update();
@@ -152,7 +160,6 @@ public class ApontMMDAO {
             int pos2 = retorno.indexOf("|") + 1;
 
             String objPrinc = retorno.substring(pos1, pos2);
-//            String objSeg = retorno.substring(pos2);
 
             JSONObject jObjApontMM = new JSONObject(objPrinc);
             JSONArray jsonArrayApontMM = jObjApontMM.getJSONArray("apont");
@@ -219,7 +226,7 @@ public class ApontMMDAO {
 
     }
 
-    public void salvarApont(MotoMecBean motoMecBean, ConfigBean configBean, BoletimMMBean boletimMMBean,
+    public void salvarApont(MotoMecBean motoMecBean, ConfigBean configBean, BoletimMMBean boletimMMBean, String dthr,
                             Double longitude, Double latitude, Long statusCon){
 
         ApontMMBean apontMMBean = new ApontMMBean();
@@ -237,25 +244,10 @@ public class ApontMMDAO {
         apontMMBean.setLongitudeApontMM(longitude);
         apontMMBean.setLatitudeApontMM(latitude);
         apontMMBean.setStatusApontMM(1L);
-        apontMMBean.setDthrApontMM(Tempo.getInstance().dataComHora().getDataHora());
-        apontMMBean.setStatusDtHrApontMM(Tempo.getInstance().dataComHora().getStatus());
+        apontMMBean.setDthrApontMM(dthr);
         apontMMBean.setStatusConApontMM(statusCon);
         apontMMBean.setTransbApontMM(0L);
-        configBean.update();
         apontMMBean.insert();
-
-        CarretaBean carretaBean = new CarretaBean();
-        List carretaList = carretaBean.orderBy("posCarreta", true);
-
-        for (int i = 0; i < carretaList.size(); i++) {
-            carretaBean = (CarretaBean) carretaList.get(i);
-            ApontImpleMMBean apontImpleMMBean = new ApontImpleMMBean();
-            apontImpleMMBean.setIdApontMM(apontMMBean.getIdApontMM());
-            apontImpleMMBean.setCodEquipImpleMM(carretaBean.getNroEquip());
-            apontImpleMMBean.setPosImpleMM(carretaBean.getPosCarreta());
-            apontImpleMMBean.setDthrImpleMM(apontMMBean.getDthrApontMM());
-            apontImpleMMBean.insert();
-        }
 
     }
 

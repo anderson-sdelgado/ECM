@@ -15,6 +15,11 @@ public class CarretaDAO {
     public CarretaDAO() {
     }
 
+    public boolean hasElements(){
+        CarretaBean carretaBean = new CarretaBean();
+        return carretaBean.hasElements();
+    }
+
     public int verCarr(Long nroCarreta){
         int retorno; //1 - CARRETA CORRETA; 2 - NÃO EXISTE NA BASE DE DADOS; 3 - CARRETA REPETIDA; 4 - CARRETA INVERTIDA;
         if(verCarretaBD(nroCarreta)){

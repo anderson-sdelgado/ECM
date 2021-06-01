@@ -14,6 +14,7 @@ import br.com.usinasantafe.ecm.model.dao.ApontMMDAO;
 import br.com.usinasantafe.ecm.model.dao.AtividadeDAO;
 import br.com.usinasantafe.ecm.model.dao.BoletimMMDAO;
 import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
+import br.com.usinasantafe.ecm.model.dao.ImplementoDAO;
 import br.com.usinasantafe.ecm.model.dao.MotoMecDAO;
 import br.com.usinasantafe.ecm.model.dao.OSDAO;
 import br.com.usinasantafe.ecm.model.dao.PreCECDAO;
@@ -146,14 +147,14 @@ public class MotoMecCTR {
         return preCECDAO.getDataSaidaUlt();
     }
 
-    public List getMotoMecList() {
+    public List<MotoMecBean> motoMecList() {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
-        return motoMecDAO.getMotoMecList();
+        return motoMecDAO.motoMecList();
     }
 
-    public List getParadaList() {
+    public List<MotoMecBean> paradaList() {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
-        return motoMecDAO.getParadaList();
+        return motoMecDAO.paradaList();
     }
 
     public MotoMecBean getMotoMecBean() {
@@ -294,60 +295,64 @@ public class MotoMecCTR {
 
     public void insApontMM(Double longitude, Double latitude, Long statusCon){
 
-        ApontMMDAO apontMMDAO = new ApontMMDAO();
-        ConfigCTR configCTR = new ConfigCTR();
-        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        apontMMDAO.salvarApont(motoMecBean, configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
+        inserirApont(motoMecBean, longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
-        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora().getDataHora());
-
-//        if(status == 0L){
-//            CabecPneuDAO cabecPneuDAO = new CabecPneuDAO();
-//            cabecPneuDAO.salvarDados(func, equip, getIdApont());
-//        }
+        ConfigCTR configCTR = new ConfigCTR();
+        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora());
 
     }
 
 
     public void insParadaCheckList(Double longitude, Double latitude, Long statusCon){
 
-        ApontMMDAO apontMMDAO = new ApontMMDAO();
         MotoMecDAO motoMecDAO = new MotoMecDAO();
-        ConfigCTR configCTR = new ConfigCTR();
-        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        apontMMDAO.salvarApont(motoMecDAO.getCheckList(), configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
+        inserirApont(motoMecDAO.getCheckList(),  longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
-        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora().getDataHora());
+        ConfigCTR configCTR = new ConfigCTR();
+        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora());
+
     }
 
     public void insSaídaCampo(Double longitude, Double latitude, Long statusCon){
 
-        ApontMMDAO apontMMDAO = new ApontMMDAO();
         MotoMecDAO motoMecDAO = new MotoMecDAO();
-        ConfigCTR configCTR = new ConfigCTR();
-        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        apontMMDAO.salvarApont(motoMecDAO.getSaidaCampo(), configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
+        inserirApont(motoMecDAO.getSaidaCampo(),  longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
-        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora().getDataHora());
+        ConfigCTR configCTR = new ConfigCTR();
+        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora());
+
     }
 
     public void insVoltaTrab(Double longitude, Double latitude, Long statusCon){
 
-        ApontMMDAO apontMMDAO = new ApontMMDAO();
         MotoMecDAO motoMecDAO = new MotoMecDAO();
-        ConfigCTR configCTR = new ConfigCTR();
-        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        apontMMDAO.salvarApont(motoMecDAO.getVoltaTrabalho(), configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), longitude, latitude, statusCon);
+        inserirApont(motoMecDAO.getVoltaTrabalho(),  longitude, latitude, statusCon);
 
         atualQtdeApontBol();
 
-        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora().getDataHora());
+        ConfigCTR configCTR = new ConfigCTR();
+        configCTR.setDtUltApontConfig(Tempo.getInstance().dataComHora());
+
+    }
+
+    private void inserirApont(MotoMecBean motoMecBean, Double longitude, Double latitude, Long statusCon){
+
+        ApontMMDAO apontMMDAO = new ApontMMDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        String dthr = Tempo.getInstance().dataComHora();
+
+        apontMMDAO.salvarApont(motoMecBean, configCTR.getConfig(), boletimMMDAO.getBolMMAberto(), dthr, longitude, latitude, statusCon);
+
+        ImplementoDAO implementoDAO = new ImplementoDAO();
+        implementoDAO.insImplemento(apontMMDAO.getApontMMData(dthr));
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,6 +381,11 @@ public class MotoMecCTR {
     public void insCarreta(Long nroCarreta){
         CarretaDAO carretaDAO = new CarretaDAO();
         carretaDAO.insCarreta(nroCarreta);
+    }
+
+    public boolean hasElemCarreta(){
+        CarretaDAO carretaDAO = new CarretaDAO();
+        return carretaDAO.hasElements();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////

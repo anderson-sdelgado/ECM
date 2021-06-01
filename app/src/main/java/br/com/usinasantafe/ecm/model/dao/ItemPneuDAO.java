@@ -21,12 +21,11 @@ public class ItemPneuDAO {
     }
 
     public void salvarItem(ItemPneuBean itemPneuBean){
-        itemPneuBean.setDthrItemPneu(Tempo.getInstance().dataComHora().getDataHora());
+        itemPneuBean.setDthrItemPneu(Tempo.getInstance().dataComHora());
         itemPneuBean.insert();
     }
 
-
-    public List getListItemPneu(Long idBolPneu){
+    public List<ItemPneuBean> itemPneuList(Long idBolPneu){
         ItemPneuBean itemPneuBean = new ItemPneuBean();
         return itemPneuBean.get("idCabecItemPneu", idBolPneu);
     }
@@ -71,7 +70,6 @@ public class ItemPneuDAO {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             VerifDadosServ.getInstance().msgSemTerm("FALHA DE PESQUISA DE PNEU! POR FAVOR, TENTAR NOVAMENTE COM UM SINAL MELHOR.");
         }
 

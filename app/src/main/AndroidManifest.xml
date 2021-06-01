@@ -33,12 +33,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.DadosColheitaActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.DadosPlantioActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.ListaAtividadeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -58,9 +52,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.ListaPosPneuActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.AtivOSActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.BackupCECActivity"
@@ -84,16 +75,10 @@
             android:name=".view.DesengCarretaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.EnvioDadosActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.FrenteActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.HodometroActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.LibOSActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.ListaFinalizaApontActivity"
@@ -112,12 +97,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.FuncionarioActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.MsgAtivOSActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.MsgLibOSActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.MsgNumCarretaActivity"

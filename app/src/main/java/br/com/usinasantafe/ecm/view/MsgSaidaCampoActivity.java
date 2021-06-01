@@ -35,7 +35,10 @@ public class MsgSaidaCampoActivity extends ActivityGeneric {
                     statusCon = 0L;
                 }
                 ecmContext.getCECCTR().setDataSaidaCampo();
-                ecmContext.getMotoMecCTR().insSaídaCampo(getLongitude(), getLatitude(), statusCon);
+
+                ecmContext.getMotoMecCTR().setAtivApont(ecmContext.getConfigCTR().getConfig().getAtivConfig());
+                ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+//                ecmContext.getMotoMecCTR().insSaídaCampo(getLongitude(), getLatitude(), statusCon);
 
                 Intent it = new Intent(MsgSaidaCampoActivity.this, VerMotoristaActivity.class);
                 startActivity(it);

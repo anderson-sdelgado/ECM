@@ -12,6 +12,30 @@ import android.widget.EditText;
 import br.com.usinasantafe.ecm.ECMContext;
 import br.com.usinasantafe.ecm.R;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
+import br.com.usinasantafe.ecm.model.bean.estaticas.AtividadeBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.EquipSegBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FrenteBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.PneuBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.REquipAtivBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.REquipPneuBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.TurnoBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ApontImpleMMBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CECBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CabecPneuBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.InfColheitaBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.InfPlantioBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.ItemPneuBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.PreCECBean;
+import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 
@@ -32,6 +56,7 @@ public class ConfigActivity extends ActivityGeneric {
         Button btOkConfig =  (Button) findViewById(R.id.buttonSalvarConfig );
         Button btCancConfig = (Button) findViewById(R.id.buttonCancConfig);
         Button btAtualBDConfig = (Button) findViewById(R.id.buttonAtualizarBD);
+        Button buttonLimparBD = (Button) findViewById(R.id.buttonLimparBD);
         editTextCamConfig = (EditText)  findViewById(R.id.editTextCamConfig );
         editTextSenhaConfig = (EditText)  findViewById(R.id.editTextSenhaConfig);
 
@@ -60,6 +85,101 @@ public class ConfigActivity extends ActivityGeneric {
                     configCTR.verEquipConfig(editTextCamConfig.getText().toString().trim(), ConfigActivity.this ,MenuInicialActivity.class, progressBar);
 
                 }
+
+            }
+        });
+
+
+        buttonLimparBD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AtividadeBean atividadeBean = new AtividadeBean();
+                atividadeBean.deleteAll();
+
+                EquipBean equipBean = new EquipBean();
+                equipBean.deleteAll();
+
+                EquipSegBean equipSegBean = new EquipSegBean();
+                equipSegBean.deleteAll();
+
+                FrenteBean frenteBean = new FrenteBean();
+                frenteBean.deleteAll();
+
+                FuncBean funcBean = new FuncBean();
+                funcBean.deleteAll();
+
+                ItemCheckListBean itemCheckListBean = new ItemCheckListBean();
+                itemCheckListBean.deleteAll();
+
+                MotoMecBean motoMecBean = new MotoMecBean();
+                motoMecBean.deleteAll();
+
+                OSBean osBean = new OSBean();
+                osBean.deleteAll();
+
+                PneuBean pneuBean = new PneuBean();
+                pneuBean.deleteAll();
+
+                REquipAtivBean rEquipAtivBean = new REquipAtivBean();
+                rEquipAtivBean.deleteAll();
+
+                REquipPneuBean rEquipPneuBean = new REquipPneuBean();
+                rEquipPneuBean.deleteAll();
+
+                TurnoBean turnoBean = new TurnoBean();
+                turnoBean.deleteAll();
+
+                ApontImpleMMBean apontImpleMMBean = new ApontImpleMMBean();
+                apontImpleMMBean.deleteAll();
+
+                ApontMMBean apontMMBean = new ApontMMBean();
+                apontMMBean.deleteAll();
+
+                BoletimMMBean boletimMMBean = new BoletimMMBean();
+                boletimMMBean.deleteAll();
+
+                CabecCLBean cabecCLBean = new CabecCLBean();
+                cabecCLBean.deleteAll();
+
+                CabecPneuBean cabecPneuBean = new CabecPneuBean();
+                cabecPneuBean.deleteAll();
+
+                CarretaBean carretaBean = new CarretaBean();
+                carretaBean.deleteAll();
+
+                CECBean cecBean = new CECBean();
+                cecBean.deleteAll();
+
+                ConfigBean configBean = new ConfigBean();
+                configBean.deleteAll();
+
+                InfColheitaBean infColheitaBean = new InfColheitaBean();
+                infColheitaBean.deleteAll();
+
+                InfPlantioBean infPlantioBean = new InfPlantioBean();
+                infPlantioBean.deleteAll();
+
+                ItemPneuBean itemPneuBean = new ItemPneuBean();
+                itemPneuBean.deleteAll();
+
+                PreCECBean preCECBean = new PreCECBean();
+                preCECBean.deleteAll();
+
+                RespItemCLBean respItemCLBean = new RespItemCLBean();
+                respItemCLBean.deleteAll();
+
+                AlertDialog.Builder alerta = new AlertDialog.Builder(ConfigActivity.this);
+                alerta.setTitle("ATENÇÃO");
+                alerta.setMessage("TODOS OS DADOS FORAM APAGADOS!");
+                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alerta.show();
 
             }
         });

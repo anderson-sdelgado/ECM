@@ -94,9 +94,9 @@ public class ConfigDAO {
         return configBean.getVerInforConfig();
     }
 
-    public void setDifDthrConfig(Long status){
+    public void setDifDthrConfig(Long difDthr){
         ConfigBean configBean = getConfig();
-        configBean.setDifDthrConfig(status);
+        configBean.setDifDthrConfig(difDthr);
         configBean.update();
     }
 

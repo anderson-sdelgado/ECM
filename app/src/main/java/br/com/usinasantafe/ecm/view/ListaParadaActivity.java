@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,14 @@ import java.util.List;
 import br.com.usinasantafe.ecm.ECMContext;
 import br.com.usinasantafe.ecm.R;
 import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CarretaBean;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
+import br.com.usinasantafe.ecm.util.Tempo;
 
 public class ListaParadaActivity extends ActivityGeneric {
 
     private ListView paradaListView;
     private ECMContext ecmContext;
-    private List paradaList;
+    private List<MotoMecBean> paradaList;
     private int posicao;
 
     @Override
@@ -35,9 +36,8 @@ public class ListaParadaActivity extends ActivityGeneric {
         Button buttonRetMenuParada = (Button) findViewById(R.id.buttonRetMenuParada);
 
         ArrayList<String> itens = new ArrayList<String>();
-        paradaList = ecmContext.getMotoMecCTR().getParadaList();
-        for(int i = 0; i < paradaList.size(); i++){
-            MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(i);
+        paradaList = ecmContext.getMotoMecCTR().paradaList();
+        for(MotoMecBean motoMecBean : paradaList){
             itens.add(motoMecBean.getDescrOperMotoMec());
         }
 
@@ -52,96 +52,97 @@ public class ListaParadaActivity extends ActivityGeneric {
                                     long id) {
 
                 posicao = position;
-                MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(posicao);
+                MotoMecBean motoMecBean = paradaList.get(posicao);
                 ecmContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
-                if(motoMecBean.getCodFuncaoOperMotoMec() == 1){
+                if (ecmContext.getConfigCTR().getConfig().getDtUltApontConfig().equals(Tempo.getInstance().dataComHora())) {
+                    Toast.makeText(ListaParadaActivity.this, "POR FAVOR! ESPERE 1 MINUTO PARA REALIZAR UM NOVO APONTAMENTO.",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
 
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
-                    alerta.setTitle("ATENÇÃO");
-                    alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBean.getDescrOperMotoMec());
+                    if (motoMecBean.getCodFuncaoOperMotoMec() == 1) {
 
-                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Long statusCon;
-                            ConexaoWeb conexaoWeb = new ConexaoWeb();
-                            if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
-                                statusCon = 1L;
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBean.getDescrOperMotoMec());
+
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Long statusCon;
+                                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                                if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
+                                    statusCon = 1L;
+                                } else {
+                                    statusCon = 0L;
+                                }
+                                ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                                paradaListView.setSelection(posicao + 1);
                             }
-                            else{
-                                statusCon = 0L;
-                            }
-                            ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
-                            paradaListView.setSelection(posicao + 1);
+                        });
+
+                        alerta.show();
+
+                    } else if (motoMecBean.getCodFuncaoOperMotoMec() == 11) { //DESENGATE
+
+                        if (ecmContext.getMotoMecCTR().hasElemCarreta()) {
+
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
+                            alerta.setTitle("ATENÇÃO");
+                            alerta.setMessage("DESEJA REALMENTE DESENGATAR AS CARRETAS?");
+
+                            alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    ecmContext.setVerPosTela(6);
+                                    Intent it = new Intent(ListaParadaActivity.this, DesengCarretaActivity.class);
+                                    MotoMecBean motoMec = (MotoMecBean) paradaList.get(posicao);
+                                    startActivity(it);
+                                    finish();
+
+                                }
+                            });
+
+                            alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            alerta.show();
+
                         }
-                    });
 
-                    alerta.show();
+                    } else if (motoMecBean.getCodFuncaoOperMotoMec() == 12) { //ENGATE
 
-                }
-                else if(motoMecBean.getCodFuncaoOperMotoMec() == 11) { //DESENGATE
+                        if (!ecmContext.getMotoMecCTR().hasElemCarreta()) {
 
-                    CarretaBean carretaBean = new CarretaBean();
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
+                            alerta.setTitle("ATENÇÃO");
+                            alerta.setMessage("DESEJA REALMENTE ENGATAR AS CARRETAS?");
 
-                    if (carretaBean.hasElements()) {
+                            alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ecmContext.setVerPosTela(7);
+                                    Intent it = new Intent(ListaParadaActivity.this, MsgNumCarretaActivity.class);
+                                    startActivity(it);
+                                    finish();
+                                }
+                            });
 
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
-                        alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("DESEJA REALMENTE DESENGATAR AS CARRETAS?");
+                            alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
 
-                        alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            alerta.show();
 
-                                ecmContext.setVerPosTela(6);
-                                Intent it = new Intent(ListaParadaActivity.this, DesengCarretaActivity.class);
-                                MotoMecBean motoMec = (MotoMecBean) paradaList.get(posicao);
-                                startActivity(it);
-                                finish();
-
-                            }
-                        });
-
-                        alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-                        alerta.show();
-
-                    }
-
-                }
-                else if(motoMecBean.getCodFuncaoOperMotoMec() == 12){ //ENGATE
-
-                    CarretaBean carretaBean = new CarretaBean();
-
-                    if(!carretaBean.hasElements()){
-
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
-                        alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("DESEJA REALMENTE ENGATAR AS CARRETAS?");
-
-                        alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ecmContext.setVerPosTela(7);
-                                Intent it = new Intent(ListaParadaActivity.this, MsgNumCarretaActivity.class);
-                                startActivity(it);
-                                finish();
-                            }
-                        });
-
-                        alerta.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-
-                        alerta.show();
+                        }
 
                     }
 
@@ -155,18 +156,27 @@ public class ListaParadaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                Long statusCon;
-                ConexaoWeb conexaoWeb = new ConexaoWeb();
-                if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
-                    statusCon = 1L;
+                if (ecmContext.getConfigCTR().getConfig().getDtUltApontConfig().equals(Tempo.getInstance().dataComHora())) {
+                    Toast.makeText(ListaParadaActivity.this, "POR FAVOR! ESPERE 1 MINUTO PARA REALIZAR UM NOVO APONTAMENTO.",
+                            Toast.LENGTH_LONG).show();
                 }
-                else{
-                    statusCon = 0L;
+                else {
+                    Long statusCon;
+                    ConexaoWeb conexaoWeb = new ConexaoWeb();
+                    if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
+                        statusCon = 1L;
+                    } else {
+                        statusCon = 0L;
+                    }
+
+                    ecmContext.getMotoMecCTR().setAtivApont(ecmContext.getConfigCTR().getConfig().getAtivConfig());
+                    ecmContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+//                    ecmContext.getMotoMecCTR().insVoltaTrab(getLongitude(), getLatitude(), statusCon);
+
+                    Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
+                    startActivity(it);
+                    finish();
                 }
-                ecmContext.getMotoMecCTR().insVoltaTrab(getLongitude(), getLatitude(), statusCon);
-                Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
-                startActivity(it);
-                finish();
             }
 
         });

@@ -2,7 +2,7 @@ package br.com.usinasantafe.ecm.model.bean;
 
 public class AtualAplicBean {
 
-    private Long idEquipAtualizacao;
+    private Long idEquipAtual;
     private Long idCheckList;
     private String versaoAtual;
     private String versaoNova;
@@ -15,12 +15,12 @@ public class AtualAplicBean {
     public AtualAplicBean() {
     }
 
-    public Long getIdEquipAtualizacao() {
-        return idEquipAtualizacao;
+    public Long getIdEquipAtual() {
+        return idEquipAtual;
     }
 
-    public void setIdEquipAtualizacao(Long idEquipAtualizacao) {
-        this.idEquipAtualizacao = idEquipAtualizacao;
+    public void setIdEquipAtual(Long idEquipAtual) {
+        this.idEquipAtual = idEquipAtual;
     }
 
     public Long getIdCheckList() {

@@ -76,7 +76,7 @@ public class EnvioDadosServ {
         MotoMecCTR motoMecCTR = new MotoMecCTR();
         String dados = motoMecCTR.dadosEnvioBolFechadoMM();
 
-        Log.i("PMM", "FECHADO = " + dados);
+        Log.i("ECM", "FECHADO = " + dados);
 
         UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
 
@@ -95,7 +95,7 @@ public class EnvioDadosServ {
         MotoMecCTR motoMecCTR = new MotoMecCTR();
         String dados = motoMecCTR.dadosEnvioBolAbertoMM();
 
-        Log.i("PMM", "ABERTO = " + dados);
+        Log.i("ECM", "ABERTO = " + dados);
 
         UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
 
@@ -106,23 +106,6 @@ public class EnvioDadosServ {
         PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
         conHttpPostGenerico.setParametrosPost(parametrosPost);
         conHttpPostGenerico.execute(url);
-
-    }
-
-    public void envioApontMM() {
-
-        MotoMecCTR motoMecCTR = new MotoMecCTR();
-        String dados = motoMecCTR.dadosEnvioApontMM();
-
-        Log.i("PMM", "APONTAMENTO = " + dados);
-
-        String[] url = {urlsConexaoHttp.getsInsertApontaMM()};
-        Map<String, Object> parametrosPost = new HashMap<String, Object>();
-        parametrosPost.put("dado", dados);
-
-        PostCadGenerico postCadGenerico = new PostCadGenerico();
-        postCadGenerico.setParametrosPost(parametrosPost);
-        postCadGenerico.execute(url);
 
     }
 
@@ -223,12 +206,8 @@ public class EnvioDadosServ {
                     if (verifBolFechadoMM()) {
                         enviarBolFechadosMM();
                     } else {
-                        if (verifBolAbertoSemEnvioMM()) {
+                        if (verifApontMM()){
                             enviarBolAbertosMM();
-                        } else {
-                            if (verifApontMM()) {
-                                envioApontMM();
-                            }
                         }
                     }
                 }
@@ -241,7 +220,6 @@ public class EnvioDadosServ {
                 && (!verifCheckList())
                 && (!verifPreCEC())
                 && (!verifBolFechadoMM())
-                && (!verifBolAbertoSemEnvioMM())
                 && (!verifApontMM())){
             enviando = false;
             return false;

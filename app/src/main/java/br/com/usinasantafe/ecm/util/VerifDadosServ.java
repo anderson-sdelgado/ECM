@@ -50,7 +50,6 @@ public class VerifDadosServ {
     private boolean verTerm;
 
     public VerifDadosServ() {
-        //genericRecordable = new GenericRecordable();
     }
 
     public static VerifDadosServ getInstance() {
@@ -70,7 +69,7 @@ public class VerifDadosServ {
 
         AtualAplicBean atualAplicBean = new AtualAplicBean();
         ConfigCTR configCTR = new ConfigCTR();
-        atualAplicBean.setIdEquipAtualizacao(configCTR.getEquip().getNroEquip());
+        atualAplicBean.setIdEquipAtual(configCTR.getEquip().getNroEquip());
         atualAplicBean.setIdCheckList(configCTR.getEquip().getIdCheckList());
         atualAplicBean.setVersaoAtual(versaoAplic);
 
@@ -203,7 +202,6 @@ public class VerifDadosServ {
         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
             }
         });
         alerta.show();
@@ -228,7 +226,6 @@ public class VerifDadosServ {
             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // TODO Auto-generated method stub
                 }
             });
             alerta.show();

@@ -37,9 +37,7 @@ public class Tempo {
         return instance;
     }
 
-    public DataHoraTO dataComHora(){
-
-        String dataCerta = "";
+    public String dataComHora(){
 
         TimeZone tz = TimeZone.getDefault();
         Date dataHora = new Date();
@@ -87,18 +85,7 @@ public class Tempo {
             minutosStr = String.valueOf(minutos);
         }
 
-        dataCerta = ""+diaStr+"/"+mesStr+"/"+ano+" "+horasStr+":"+minutosStr;
-
-        DataHoraTO dataHoraTO = new DataHoraTO();
-        dataHoraTO.setDataHora(dataCerta);
-        if(dif() == 0){
-            dataHoraTO.setStatus(1L);
-        }
-        else{
-            dataHoraTO.setStatus(0L);
-        }
-
-        return dataHoraTO;
+        return ""+diaStr+"/"+mesStr+"/"+ano+" "+horasStr+":"+minutosStr;
 
     }
 
@@ -214,7 +201,6 @@ public class Tempo {
 
         }
         catch (Exception e) {
-            // TODO Auto-generated catch block
             Log.i("PMM", "Erro Manip = " + e);
         }
 

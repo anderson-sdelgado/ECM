@@ -47,8 +47,7 @@ public class BoletimMMDAO {
 
     public void salvarBolAberto(BoletimMMBean boletimMMBean){
         boletimMMBean.setStatusBolMM(1L);
-        boletimMMBean.setDthrInicialBolMM(Tempo.getInstance().dataComHora().getDataHora());
-        boletimMMBean.setStatusDtHrInicialBolMM(Tempo.getInstance().dataComHora().getStatus());
+        boletimMMBean.setDthrInicialBolMM(Tempo.getInstance().dataComHora());
         boletimMMBean.setQtdeApontBolMM(0L);
         boletimMMBean.insert();
     }
@@ -57,8 +56,7 @@ public class BoletimMMDAO {
 
         BoletimMMBean boletimMMTOBD = getBolMMAberto();
 
-        boletimMMTOBD.setDthrFinalBolMM(Tempo.getInstance().dataComHora().getDataHora());
-        boletimMMTOBD.setStatusDtHrFinalBolMM(Tempo.getInstance().dataComHora().getStatus());
+        boletimMMTOBD.setDthrFinalBolMM(Tempo.getInstance().dataComHora());
         boletimMMTOBD.setStatusBolMM(2L);
         boletimMMTOBD.setHodometroFinalBolMM(boletimMMBean.getHodometroFinalBolMM());
         boletimMMTOBD.update();

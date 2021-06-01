@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import br.com.usinasantafe.ecm.ECMContext;
 import br.com.usinasantafe.ecm.R;
-import br.com.usinasantafe.ecm.control.CheckListCTR;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 
 public class HodometroActivity extends ActivityGeneric {
@@ -120,8 +119,7 @@ public class HodometroActivity extends ActivityGeneric {
         ecmContext.getMotoMecCTR().setHodometroInicialBol(horimetroNum, getLongitude(), getLatitude());
         ecmContext.getMotoMecCTR().salvarBolAbertoMM();
 
-        CheckListCTR checkListCTR = new CheckListCTR();
-        if(checkListCTR.verAberturaCheckList(ecmContext.getMotoMecCTR().getTurno())){
+        if(ecmContext.getCheckListCTR().verAberturaCheckList(ecmContext.getMotoMecCTR().getTurno())){
             Long statusCon;
             ConexaoWeb conexaoWeb = new ConexaoWeb();
             if (conexaoWeb.verificaConexao(HodometroActivity.this)) {
@@ -132,7 +130,7 @@ public class HodometroActivity extends ActivityGeneric {
             }
             ecmContext.getMotoMecCTR().insParadaCheckList(getLongitude(), getLatitude(), statusCon);
             ecmContext.setPosCheckList(1);
-            checkListCTR.createCabecAberto(ecmContext.getMotoMecCTR());
+            ecmContext.getCheckListCTR().createCabecAberto(ecmContext.getMotoMecCTR());
             if (ecmContext.getConfigCTR().getConfig().getAtualCheckList().equals(1L)) {
                 Intent it = new Intent(HodometroActivity.this, PergAtualCheckListActivity.class);
                 startActivity(it);

@@ -32,12 +32,27 @@ public class CarretaActivity extends ActivityGeneric {
 
                     int verCarreta = ecmContext.getMotoMecCTR().verCarr(Long.parseLong(editTextPadrao.getText().toString()));
                     if(verCarreta == 1) {
+
                         ecmContext.getMotoMecCTR().insCarreta(Long.parseLong(editTextPadrao.getText().toString()));
+
                         if (ecmContext.getVerPosTela() == 5){
+
                             ecmContext.getCECCTR().setCarr(Long.parseLong(editTextPadrao.getText().toString()));
-                            Intent it = new Intent(CarretaActivity.this, LibOSActivity.class);
-                            startActivity(it);
-                            finish();
+                            ecmContext.getCECCTR().setLib(ecmContext.getCECCTR().getOSTipoAtiv().getIdLibOS());
+
+                            int numCarreta = ecmContext.getMotoMecCTR().qtdeCarreta() + 1;
+
+                            if (numCarreta < 4) {
+                                Intent it = new Intent(CarretaActivity.this, MsgNumCarretaActivity.class);
+                                startActivity(it);
+                                finish();
+                            }
+                            else{
+                                Intent it = new Intent(CarretaActivity.this, ListaFinalizaApontActivity.class);
+                                startActivity(it);
+                                finish();
+                            }
+
                         } else {
                             Intent it = new Intent(CarretaActivity.this, MsgNumCarretaActivity.class);
                             startActivity(it);

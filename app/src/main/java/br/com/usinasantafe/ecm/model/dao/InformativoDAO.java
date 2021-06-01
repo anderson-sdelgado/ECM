@@ -7,8 +7,6 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.com.usinasantafe.ecm.view.DadosColheitaActivity;
-import br.com.usinasantafe.ecm.view.DadosPlantioActivity;
 import br.com.usinasantafe.ecm.control.ConfigCTR;
 import br.com.usinasantafe.ecm.model.bean.variaveis.InfColheitaBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.InfPlantioBean;
@@ -92,12 +90,12 @@ public class InformativoDAO {
 
                     }
 
-                    if(configCTR.getVerInforConfig() == 0L){
-                        VerifDadosServ.getInstance().pulaTelaDadosInfor(DadosColheitaActivity.class);
-                    }
-                    else{
-                        configCTR.setVerInforConfig(2L);
-                    }
+//                    if(configCTR.getVerInforConfig() == 0L){
+//                        VerifDadosServ.getInstance().pulaTelaDadosInfor(DadosColheitaActivity.class);
+//                    }
+//                    else{
+//                        configCTR.setVerInforConfig(2L);
+//                    }
 
                 } else {
 
@@ -148,12 +146,12 @@ public class InformativoDAO {
 
                     }
 
-                    if(configCTR.getVerInforConfig() == 0L){
-                        VerifDadosServ.getInstance().pulaTelaDadosInfor(DadosPlantioActivity.class);
-                    }
-                    else{
-                        configCTR.setVerInforConfig(2L);
-                    }
+//                    if(configCTR.getVerInforConfig() == 0L){
+//                        VerifDadosServ.getInstance().pulaTelaDadosInfor(DadosPlantioActivity.class);
+//                    }
+//                    else{
+//                        configCTR.setVerInforConfig(2L);
+//                    }
 
                 } else {
 

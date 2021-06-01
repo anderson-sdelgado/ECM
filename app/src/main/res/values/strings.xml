@@ -92,7 +92,7 @@
     <string name="texto_lista_motorista_atual">MOTORISTA ATUAL</string>
     <string name="texto_bt_manter_motorista">MANTER</string>
     <string name="texto_bt_trocar_motorista">TROCAR</string>
-    <string name="texto_menu_principal">PRINCIPAL - V 3.02</string>
+    <string name="texto_menu_principal">PRINCIPAL - V 3.03</string>
     <string name="texto_cod_motorista">19759</string>
     <string name="texto_nome_motorista">ANDERSON DA SILVA DELGADO</string>
     <string name="texto_motivo_parada">MOTIVOS DE PARADA</string>
@@ -114,4 +114,5 @@
     <string name="texto_titulo_equip">EQUIPAMENTO</string>
     <string name="texto_cod_equip">323</string>
     <string name="texto_descr_equip">CAMINHÃO</string>
+    <string name="texto_limpar_dados">LIMPAR DADOS</string>
 </resources>

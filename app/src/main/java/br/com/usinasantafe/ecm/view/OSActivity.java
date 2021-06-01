@@ -14,7 +14,6 @@ import br.com.usinasantafe.ecm.R;
 import br.com.usinasantafe.ecm.util.ConexaoWeb;
 import br.com.usinasantafe.ecm.util.VerifDadosServ;
 
-
 public class OSActivity extends ActivityGeneric {
 
     private ECMContext ecmContext;

@@ -38,28 +38,24 @@ public class PneuActivity extends ActivityGeneric {
             @SuppressWarnings("rawtypes")
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
                     ecmContext.getPneuCTR().getItemPneuBean().setNroPneuItemPneu(editTextPadrao.getText().toString());
 
-                    PneuBean pneuBean = new PneuBean();
-                    List pneuList = pneuBean.get("codPneu", editTextPadrao.getText().toString());
-
-                    if(pneuList.size() > 0){
+                    if(ecmContext.getPneuCTR().verPneu(editTextPadrao.getText().toString())){
 
                         VerifDadosServ.getInstance().setVerTerm(true);
 
                         boolean verCad = true;
 
-                        List itemMedPneuList = ecmContext.getPneuCTR().getListItemCalibPneu();
-                        for(int i = 0; i < itemMedPneuList.size(); i++) {
-                            ItemPneuBean itemPneuBean = (ItemPneuBean) itemMedPneuList.get(i);
+                        List<ItemPneuBean> itemMedPneuList = ecmContext.getPneuCTR().itemCalibPneuList();
+                        for(ItemPneuBean itemPneuBean : itemMedPneuList) {
                             if(editTextPadrao.getText().toString().equals(itemPneuBean.getNroPneuItemPneu())){
                                 verCad = false;
                             }
                         }
+                        itemMedPneuList.clear();
 
                         if(verCad){
                             Intent it = new Intent(PneuActivity.this, PressaoEncPneuActivity.class);
@@ -74,7 +70,6 @@ public class PneuActivity extends ActivityGeneric {
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // TODO Auto-generated method stub
 
                                 }
                             });
@@ -109,8 +104,6 @@ public class PneuActivity extends ActivityGeneric {
 
                     }
 
-                    pneuList.clear();
-
                 }
 
             }
@@ -121,7 +114,6 @@ public class PneuActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }

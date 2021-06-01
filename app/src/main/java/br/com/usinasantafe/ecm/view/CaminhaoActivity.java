@@ -1,6 +1,5 @@
 package br.com.usinasantafe.ecm.view;
 
-//import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,18 +38,12 @@ public class CaminhaoActivity extends ActivityGeneric {
                     ecmContext.getMotoMecCTR().delCarreta();
 
                     if(ecmContext.getConfigCTR().getEquip().getCodClasseEquip() == 1L){
-
-                        Intent it = new Intent(CaminhaoActivity.this, LibOSActivity.class);
-                        startActivity(it);
-                        finish();
-
+                        ecmContext.getCECCTR().setLib(ecmContext.getCECCTR().getOSTipoAtiv().getIdLibOS());
                     }
-                    else if(ecmContext.getConfigCTR().getEquip().getCodClasseEquip() == 8L){
 
-                        Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
-                        startActivity(it);
-                        finish();
-                    }
+                    Intent it = new Intent(CaminhaoActivity.this, MsgNumCarretaActivity.class);
+                    startActivity(it);
+                    finish();
 
                 }
                 else{
@@ -61,9 +54,6 @@ public class CaminhaoActivity extends ActivityGeneric {
                     startActivity(it);
                     finish();
                 }
-
-
-
 
             }
 
@@ -79,11 +69,15 @@ public class CaminhaoActivity extends ActivityGeneric {
                     startActivity(it);
                     finish();
                 }
+                else if (ecmContext.getVerPosTela() == 5) {
+                    Intent it = new Intent(CaminhaoActivity.this, MenuCertifActivity.class);
+                    startActivity(it);
+                    finish();
+                }
 
             }
 
         });
-
 
     }
 

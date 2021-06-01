@@ -29,10 +29,8 @@ public class VerMotoristaActivity extends ActivityGeneric {
         TextView textViewCodMotorista = (TextView) findViewById(R.id.textViewCodMotorista);
         TextView textViewNomeMotorista = (TextView) findViewById(R.id.textViewNomeMotorista);
 
-        FuncBean funcBean = ecmContext.getMotoMecCTR().getMatricNomeFunc();
-
-        textViewCodMotorista.setText(String.valueOf(funcBean.getMatricFunc()));
-        textViewNomeMotorista.setText(funcBean.getNomeFunc());
+        textViewCodMotorista.setText(String.valueOf(ecmContext.getMotoMecCTR().getMatricNomeFunc().getMatricFunc()));
+        textViewNomeMotorista.setText(ecmContext.getMotoMecCTR().getMatricNomeFunc().getNomeFunc());
 
         buttonManterMotorista.setOnClickListener(new View.OnClickListener() {
             @Override

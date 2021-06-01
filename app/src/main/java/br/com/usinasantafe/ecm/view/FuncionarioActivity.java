@@ -96,10 +96,7 @@ public class FuncionarioActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    FuncBean funcBean = new FuncBean();
-                    List funcList = funcBean.get("matricFunc", Long.parseLong(editTextPadrao.getText().toString()));
-
-                    if (funcList.size() > 0) {
+                    if (ecmContext.getConfigCTR().verFunc(Long.parseLong(editTextPadrao.getText().toString()))) {
 
                         ecmContext.getMotoMecCTR().setFuncBol(Long.parseLong(editTextPadrao.getText().toString()));
 

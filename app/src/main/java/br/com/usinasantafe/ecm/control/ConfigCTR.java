@@ -3,13 +3,18 @@ package br.com.usinasantafe.ecm.control;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import java.util.List;
+
 import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.ecm.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.ecm.model.bean.estaticas.TurnoBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.ecm.model.dao.CaminhaoDAO;
 import br.com.usinasantafe.ecm.model.dao.ConfigDAO;
 import br.com.usinasantafe.ecm.model.dao.EquipDAO;
+import br.com.usinasantafe.ecm.model.dao.FuncDAO;
 import br.com.usinasantafe.ecm.model.dao.OSDAO;
+import br.com.usinasantafe.ecm.model.dao.TurnoDAO;
 import br.com.usinasantafe.ecm.util.AtualDadosServ;
 
 public class ConfigCTR {
@@ -62,9 +67,9 @@ public class ConfigCTR {
         configDAO.setCheckListConfig(idTurno);
     }
 
-    public void setDifDthrConfig(Long status){
+    public void setDifDthrConfig(Long difDthr){
         ConfigDAO configDAO = new ConfigDAO();
-        configDAO.setDifDthrConfig(status);
+        configDAO.setDifDthrConfig(difDthr);
     }
 
     public void setStatusConConfig(Long status){
@@ -130,5 +135,33 @@ public class ConfigCTR {
         OSDAO osDAO = new OSDAO();
         return osDAO.getOS(nroOS);
     }
+
+    ///////////////////////////// FUNCIONARIO ////////////////////////////////////////////
+
+    public boolean verFunc(Long matricFunc){
+        FuncDAO funcDAO = new FuncDAO();
+        return funcDAO.verFunc(matricFunc);
+    }
+
+    public FuncBean getFunc(Long matricColab){
+        FuncDAO funcDAO = new FuncDAO();
+        return funcDAO.getFunc(matricColab);
+    }
+
+    public boolean hasElemFunc(){
+        FuncDAO funcDAO = new FuncDAO();
+        return funcDAO.hasElements();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////// FUNCIONARIO ////////////////////////////////////////////
+
+    public List<TurnoBean> getTurnoList(Long codTurno){
+        TurnoDAO turnoDAO = new TurnoDAO();
+        return turnoDAO.getTurnoList(codTurno);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
 }

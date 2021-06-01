@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -42,13 +43,15 @@ public class ListaFinalizaApontActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
+                TextView textView = v.findViewById(R.id.textViewItemList);
+                String text = textView.getText().toString();
 
-                if(position == 0){
+                if (text.equals("FINALIZAR CERTIFICADO")) {
                     Intent it = new Intent(ListaFinalizaApontActivity.this, MsgSaidaCampoActivity.class);
                     startActivity(it);
                     finish();
                 }
-                else if(position == 1){
+                else if (text.equals("DESFAZER CERTIFICADO")) {
                     ecmContext.getCECCTR().clearPreCECAberto();
                     Intent it = new Intent(ListaFinalizaApontActivity.this, MenuCertifActivity.class);
                     startActivity(it);

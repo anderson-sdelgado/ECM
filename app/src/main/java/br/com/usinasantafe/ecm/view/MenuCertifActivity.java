@@ -77,7 +77,8 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                         if (ecmContext.getCECCTR().verDataPreCEC()) {
 
-                            Intent it = new Intent(MenuCertifActivity.this, AtivOSActivity.class);
+                            ecmContext.getCECCTR().setAtivOS(ecmContext.getCECCTR().getOSTipoAtiv().getIdAtivOS());
+                            Intent it = new Intent(MenuCertifActivity.this, CaminhaoActivity.class);
                             startActivity(it);
                             finish();
 
@@ -150,9 +151,7 @@ public class MenuCertifActivity extends ActivityGeneric {
 
                 } else if (text.equals("LOG VIAGEM")) {
 
-                    int qtdeCompVCanaBean = ecmContext.getCECCTR().getPreCECListEnviado().size();
-
-                    if (qtdeCompVCanaBean > 0) {
+                    if (ecmContext.getCECCTR().getPreCECFechadoList().size() > 0) {
                         Intent it = new Intent(MenuCertifActivity.this, BackupPreCECActivity.class);
                         startActivity(it);
                         finish();

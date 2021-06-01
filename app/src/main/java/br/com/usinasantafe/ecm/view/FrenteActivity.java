@@ -1,6 +1,5 @@
 package br.com.usinasantafe.ecm.view;
 
-//import android.support.v7.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;

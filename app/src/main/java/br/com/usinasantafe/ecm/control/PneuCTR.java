@@ -5,9 +5,12 @@ import android.content.Context;
 
 import java.util.List;
 
+import br.com.usinasantafe.ecm.model.bean.estaticas.REquipPneuBean;
 import br.com.usinasantafe.ecm.model.bean.variaveis.ItemPneuBean;
 import br.com.usinasantafe.ecm.model.dao.CabecPneuDAO;
+import br.com.usinasantafe.ecm.model.dao.EquipDAO;
 import br.com.usinasantafe.ecm.model.dao.ItemPneuDAO;
+import br.com.usinasantafe.ecm.model.dao.PneuDAO;
 
 public class PneuCTR {
 
@@ -21,10 +24,10 @@ public class PneuCTR {
         return cabecPneuDAO.verCabecPneuAberto();
     }
 
-    public List getListItemCalibPneu(){
+    public List<ItemPneuBean> itemCalibPneuList(){
         CabecPneuDAO cabecPneuDAO = new CabecPneuDAO();
         ItemPneuDAO itemPneuDAO = new ItemPneuDAO();
-        return itemPneuDAO.getListItemPneu(cabecPneuDAO.getIdCabecAberto());
+        return itemPneuDAO.itemPneuList(cabecPneuDAO.getIdCabecAberto());
     }
 
     public ItemPneuBean getItemPneuBean() {
@@ -51,7 +54,22 @@ public class PneuCTR {
     public boolean verFechCabec(){
         CabecPneuDAO cabecPneuDAO = new CabecPneuDAO();
         ItemPneuDAO itemPneuDAO = new ItemPneuDAO();
-        return cabecPneuDAO.verFechCabec(itemPneuDAO.getListItemPneu(cabecPneuDAO.getIdCabecAberto()));
+        return cabecPneuDAO.verFechCabec(itemPneuDAO.itemPneuList(cabecPneuDAO.getIdCabecAberto()));
+    }
+
+    public List<REquipPneuBean> rEquipPneuList(){
+        EquipDAO equipDAO = new EquipDAO();
+        return equipDAO.rEquipPneuList();
+    }
+
+    public REquipPneuBean getEquipPneu(String posPneu){
+        EquipDAO equipDAO = new EquipDAO();
+        return equipDAO.getEquipPneu(posPneu);
+    }
+
+    public boolean verPneu(String codPneu){
+        PneuDAO pneuDAO = new PneuDAO();
+        return pneuDAO.verPneu(codPneu);
     }
 
 }

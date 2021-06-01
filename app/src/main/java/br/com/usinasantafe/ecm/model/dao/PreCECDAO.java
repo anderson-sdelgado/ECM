@@ -27,7 +27,7 @@ public class PreCECDAO {
 
     public void abrirPreCEC(){
         PreCECBean preCECBean = new PreCECBean();
-        preCECBean.setDataSaidaUsina(Tempo.getInstance().dataComHora().getDataHora());
+        preCECBean.setDataSaidaUsina(Tempo.getInstance().dataComHora());
         preCECBean.setDataChegCampo("");
         preCECBean.setDataSaidaCampo("");
         preCECBean.setAtivOS(0L);
@@ -172,13 +172,13 @@ public class PreCECDAO {
 
     public void setDataChegCampo(){
         PreCECBean preCECBean = getPreCECAberto();
-        preCECBean.setDataChegCampo(Tempo.getInstance().dataComHora().getDataHora());
+        preCECBean.setDataChegCampo(Tempo.getInstance().dataComHora());
         preCECBean.update();
     }
 
     public void setDataSaidaCampo(){
         PreCECBean preCECBean = getPreCECAberto();
-        preCECBean.setDataSaidaCampo(Tempo.getInstance().dataComHora().getDataHora());
+        preCECBean.setDataSaidaCampo(Tempo.getInstance().dataComHora());
         preCECBean.update();
     }
 

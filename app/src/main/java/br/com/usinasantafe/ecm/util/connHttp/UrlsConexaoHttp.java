@@ -4,8 +4,8 @@ import br.com.usinasantafe.ecm.ECMContext;
 
 public class UrlsConexaoHttp {
 
-    public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmprod/view/";
-    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmprod/view/";
+    public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmqa/view/";
+    public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmqa/view/";
 
     public static String localPSTEstatica = "br.com.usinasantafe.ecm.model.bean.estaticas.";
     public static String localUrl = "br.com.usinasantafe.ecm.util.connHttp.UrlsConexaoHttp";

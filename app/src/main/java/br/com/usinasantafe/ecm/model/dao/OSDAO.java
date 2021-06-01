@@ -28,7 +28,19 @@ public class OSDAO {
         return osBean;
     }
 
-    public OSBean getOSAtiv(Long idAtivOS, Long nroOS){
+    public OSBean getOSTipoAtiv(Long idAtiv, Long nroOS){
+        List<OSBean> osList = osList(nroOS);
+        OSBean retOSBean = new OSBean();
+        for(OSBean osBean : osList){
+            if(idAtiv.equals(osBean.getIdAtiv())){
+                retOSBean = osBean;
+            }
+        }
+        osList.clear();
+        return retOSBean;
+    }
+
+    public OSBean getOSIdAtiv(Long idAtivOS, Long nroOS){
         List<OSBean> ativOSList = ativOSList(idAtivOS, nroOS);
         OSBean osBean = ativOSList.get(0);
         ativOSList.clear();

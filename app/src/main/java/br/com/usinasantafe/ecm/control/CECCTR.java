@@ -29,7 +29,7 @@ public class CECCTR {
 
     public void clearPreCECAberto(){
         PreCECDAO preCECDAO = new PreCECDAO();
-        preCECDAO.clearPreCECAberto();
+        preCECDAO.delPreCECAberto();
     }
 
     public void fechaPreCEC(){
@@ -150,10 +150,26 @@ public class CECCTR {
         return preCECDAO.getDataChegCampo();
     }
 
-    public OSBean getOSAtiv(){
+    public OSBean getOSTipoAtiv(){
         OSDAO osDAO = new OSDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        return osDAO.getOSAtiv(getPreCECAberto().getAtivOS(), configCTR.getConfig().getOsConfig());
+        Long tipo;
+        if(configCTR.getEquip().getTipoEquip() == 1){
+            tipo = 557L;
+        }
+        else if(configCTR.getEquip().getTipoEquip() == 2){
+            tipo = 558L;
+        }
+        else{
+            tipo = 559L;
+        }
+        return osDAO.getOSTipoAtiv(tipo, configCTR.getConfig().getOsConfig());
+    }
+
+    public OSBean getOSIdAtiv(){
+        OSDAO osDAO = new OSDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        return osDAO.getOSIdAtiv(getPreCECAberto().getAtivOS(), configCTR.getConfig().getOsConfig());
     }
 
     public OSBean getOSLib(){
@@ -186,6 +202,11 @@ public class CECCTR {
     public CECBean getCEC(){
         CECDAO cecDAO = new CECDAO();
         return cecDAO.getCEC();
+    }
+
+    public List<CECBean> cecListDesc(){
+        CECDAO cecDAO = new CECDAO();
+        return cecDAO.cecListDesc();
     }
 
     /////////////////////////////////////////////////////////////////////////////

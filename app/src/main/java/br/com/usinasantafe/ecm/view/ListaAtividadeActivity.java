@@ -105,7 +105,6 @@ public class ListaAtividadeActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
 
                 AtividadeBean atividadeBean = (AtividadeBean) ativArrayList.get(position);
                 ativArrayList.clear();

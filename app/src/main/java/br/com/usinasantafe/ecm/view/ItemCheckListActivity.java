@@ -11,7 +11,6 @@ import java.util.List;
 import br.com.usinasantafe.ecm.ECMContext;
 import br.com.usinasantafe.ecm.R;
 import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
 
 public class ItemCheckListActivity extends ActivityGeneric {
 
@@ -70,10 +69,7 @@ public class ItemCheckListActivity extends ActivityGeneric {
     public void proximaTela(Long opcao){
 
         ItemCheckListBean itemCheckListBean = (ItemCheckListBean) itemCheckListList.get(ecmContext.getPosCheckList() - 1);
-        RespItemCLBean respItemCLBean = new RespItemCLBean();
-        respItemCLBean.setIdItBDItCL(itemCheckListBean.getIdItemCheckList());
-        respItemCLBean.setOpItCL(opcao);
-        ecmContext.getCheckListCTR().insResp(respItemCLBean);
+        ecmContext.getCheckListCTR().insResp(itemCheckListBean.getIdItemCheckList(), opcao);
 
         if(itemCheckListList.size() == ecmContext.getPosCheckList()){
             ecmContext.getConfigCTR().setCheckListConfig(ecmContext.getMotoMecCTR().getTurno());

@@ -1,6 +1,5 @@
 package br.com.usinasantafe.ecm.view;
 
-//import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +16,7 @@ import br.com.usinasantafe.ecm.util.Tempo;
 public class BackupCECActivity extends ActivityGeneric {
 
     private int contador;
-    private List cecList;
+    private List<CECBean> cecList;
     private TextView textViewBkpBoletim;
     private ECMContext ecmContext;
 
@@ -33,13 +32,11 @@ public class BackupCECActivity extends ActivityGeneric {
         Button buttonProxBkpBoletim = (Button) findViewById(R.id.buttonProxBkpBoletim);
         Button buttonRetornarBkpBoletim = (Button) findViewById(R.id.buttonRetornarBkpBoletim);
 
-
-        CECBean cecBean = new CECBean();
-        cecList = cecBean.get("idBoletim", false);
+        cecList = ecmContext.getCECCTR().cecListDesc();
 
         contador = cecList.size() - 1;
 
-        cecBean = (CECBean) cecList.get(contador);
+        CECBean cecBean = (CECBean) cecList.get(contador);
         textViewBkpBoletim.setText(visBoletim(cecBean));
 
         buttonAntBkpBoletim.setOnClickListener(new View.OnClickListener() {

@@ -23,7 +23,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
     private ListView turnoListView;
     private ECMContext ecmContext;
-    private List turnoList;
+    private List<TurnoBean> turnoList;
     private ProgressDialog progressBar;
 
     @Override
@@ -83,7 +83,6 @@ public class ListaTurnoActivity extends ActivityGeneric {
                 alerta.setPositiveButton("NÃO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
 
@@ -93,13 +92,11 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
         });
 
-        TurnoBean turnoBean = new TurnoBean();
-        turnoList = turnoBean.get("codTurno", ecmContext.getConfigCTR().getEquip().getCodTurno());
+        turnoList = ecmContext.getConfigCTR().getTurnoList(ecmContext.getConfigCTR().getEquip().getCodTurno());
 
         ArrayList<String> itens = new ArrayList<String>();
 
-        for(int i = 0; i < turnoList.size(); i++){
-            turnoBean = (TurnoBean) turnoList.get(i);
+        for(TurnoBean turnoBean : turnoList){
             itens.add(turnoBean.getDescTurno());
         }
 

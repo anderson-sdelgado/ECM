@@ -15,6 +15,8 @@ public class EquipBean extends Entidade {
     @DatabaseField
     private Long nroEquip;
     @DatabaseField
+    private Long tipoEquip;
+    @DatabaseField
     private Long codClasseEquip;
     @DatabaseField
     private String descrClasseEquip;
@@ -44,6 +46,30 @@ public class EquipBean extends Entidade {
         this.nroEquip = nroEquip;
     }
 
+    public Long getTipoEquip() {
+        return tipoEquip;
+    }
+
+    public void setTipoEquip(Long tipoEquip) {
+        this.tipoEquip = tipoEquip;
+    }
+
+    public Long getCodClasseEquip() {
+        return codClasseEquip;
+    }
+
+    public void setCodClasseEquip(Long codClasseEquip) {
+        this.codClasseEquip = codClasseEquip;
+    }
+
+    public String getDescrClasseEquip() {
+        return descrClasseEquip;
+    }
+
+    public void setDescrClasseEquip(String descrClasseEquip) {
+        this.descrClasseEquip = descrClasseEquip;
+    }
+
     public Long getIdCheckList() {
         return idCheckList;
     }
@@ -60,27 +86,11 @@ public class EquipBean extends Entidade {
         this.codTurno = codTurno;
     }
 
-    public String getDescrClasseEquip() {
-        return descrClasseEquip;
-    }
-
-    public void setDescrClasseEquip(String descrClasseEquip) {
-        this.descrClasseEquip = descrClasseEquip;
-    }
-
     public Double getHorimetroEquip() {
         return horimetroEquip;
     }
 
     public void setHorimetroEquip(Double horimetroEquip) {
         this.horimetroEquip = horimetroEquip;
-    }
-
-    public Long getCodClasseEquip() {
-        return codClasseEquip;
-    }
-
-    public void setCodClasseEquip(Long codClasseEquip) {
-        this.codClasseEquip = codClasseEquip;
     }
 }

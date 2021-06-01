@@ -19,33 +19,33 @@ public class CECDAO {
     }
 
     public boolean verCEC(){
-        List cecList = getCECListDesc();
+        List<CECBean> cecList = cecListDesc();
         boolean retorno = cecList.size() > 0;
         cecList.clear();
         return retorno;
     }
 
-    public List getCECListDesc(){
+    public List<CECBean> cecListDesc(){
         CECBean cecBean = new CECBean();
-        List equipList = cecBean.orderBy("idCEC", false);
-        return equipList;
+        List<CECBean> cecList = cecBean.orderBy("idCEC", false);
+        return cecList;
     }
 
-    public List getCECListCresc(){
+    public List<CECBean> cecListCresc(){
         CECBean cecBean = new CECBean();
-        List equipList = cecBean.orderBy("idCEC", true);
-        return equipList;
+        List<CECBean> cecList = cecBean.orderBy("idCEC", true);
+        return cecList;
     }
 
     public CECBean getCEC(){
-        List cecList = getCECListDesc();
-        CECBean cecBean = (CECBean) cecList.get(0);
+        List<CECBean> cecList = cecListDesc();
+        CECBean cecBean = cecList.get(0);
         cecList.clear();
         return cecBean;
     }
 
     public void delCEC(){
-        List cecList = getCECListCresc();
+        List cecList = cecListCresc();
         int qtdeCEC = cecList.size();
         if (qtdeCEC > 10) {
             CECBean cecBeanDel = (CECBean) cecList.get(0);

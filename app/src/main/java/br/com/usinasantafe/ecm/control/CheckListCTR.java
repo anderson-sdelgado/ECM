@@ -61,10 +61,10 @@ public class CheckListCTR {
         return itemCheckListDAO.qtdeItem(configCTR.getEquip().getIdCheckList());
     }
 
-    public void insResp(RespItemCLBean respItemCLBean){
+    public void insResp(Long idItBDItCL, Long opItCL){
         CabecCheckListDAO cabecCheckListDAO = new CabecCheckListDAO();
         RespCheckListDAO respCheckListDAO = new RespCheckListDAO();
-        respCheckListDAO.salvarRespCheckList(cabecCheckListDAO.getIdCabecAberto(), respItemCLBean);
+        respCheckListDAO.salvarRespCheckList(cabecCheckListDAO.getIdCabecAberto(), idItBDItCL, opItCL);
     }
 
     public void fechaCabec(){

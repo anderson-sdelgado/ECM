@@ -36,7 +36,11 @@ public class RespCheckListDAO {
 
     }
 
-    public void salvarRespCheckList(Long idCabCL, RespItemCLBean respItemCLBean){
+    public void salvarRespCheckList(Long idCabCL, Long idItBDItCL, Long opItCL){
+
+        RespItemCLBean respItemCLBean = new RespItemCLBean();
+        respItemCLBean.setIdItBDItCL(idItBDItCL);
+        respItemCLBean.setOpItCL(opItCL);
 
         ArrayList pesqArrayList = new ArrayList();
         EspecificaPesquisa pesquisa1 = new EspecificaPesquisa();
@@ -51,10 +55,10 @@ public class RespCheckListDAO {
         pesquisa2.setTipo(1);
         pesqArrayList.add(pesquisa2);
 
-        List respList = respItemCLBean.get(pesqArrayList);
+        List<RespItemCLBean> respList = respItemCLBean.get(pesqArrayList);
         if(respList.size() > 0) {
             Long opcao = respItemCLBean.getOpItCL();
-            respItemCLBean = (RespItemCLBean) respList.get(0);
+            respItemCLBean = respList.get(0);
             respItemCLBean.setOpItCL(opcao);
             respItemCLBean.update();
         }

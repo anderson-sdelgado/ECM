@@ -19,14 +19,14 @@ import br.com.usinasantafe.ecm.model.bean.variaveis.ItemPneuBean;
 
 public class ListaPosPneuActivity extends ActivityGeneric {
 
-    private ECMContext pmmContext;
+    private ECMContext ecmContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pos_pneu);
 
-        pmmContext = (ECMContext) getApplication();
+        ecmContext = (ECMContext) getApplication();
 
         Button buttonAtualPosPneu = (Button) findViewById(R.id.buttonAtualPosPneu);
 
@@ -39,16 +39,12 @@ public class ListaPosPneuActivity extends ActivityGeneric {
 
         ArrayList<String> itens = new ArrayList<String>();
 
-        REquipPneuBean rEquipPneuBean = new REquipPneuBean();
-        List rEquipPneuList = rEquipPneuBean.all();
-
-        List itemMedPneuList = pmmContext.getPneuCTR().getListItemCalibPneu();
+        List<REquipPneuBean> rEquipPneuList = ecmContext.getPneuCTR().rEquipPneuList();
+        List<ItemPneuBean> itemMedPneuList = ecmContext.getPneuCTR().itemCalibPneuList();
         boolean verCad;
-        for(int i = 0; i < rEquipPneuList.size(); i++){
-            rEquipPneuBean = (REquipPneuBean) rEquipPneuList.get(i);
+        for(REquipPneuBean rEquipPneuBean : rEquipPneuList){
             verCad = true;
-            for(int j = 0; j < itemMedPneuList.size(); j++) {
-                ItemPneuBean itemPneuBean = (ItemPneuBean) itemMedPneuList.get(j);
+            for(ItemPneuBean itemPneuBean : itemMedPneuList) {
                 if(rEquipPneuBean.getIdPosConfPneu() == itemPneuBean.getPosItemPneu()){
                     verCad = false;
                 }
@@ -69,17 +65,11 @@ public class ListaPosPneuActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
 
                 TextView textView = (TextView) v.findViewById(R.id.textViewItemList);
                 String posPneu = textView.getText().toString();
 
-                REquipPneuBean rEquipPneuBean = new REquipPneuBean();
-                List rEquipPneuList = rEquipPneuBean.get("posPneu", posPneu);
-                rEquipPneuBean = (REquipPneuBean) rEquipPneuList.get(0);
-                rEquipPneuList.clear();
-
-                pmmContext.getPneuCTR().setItemPneuBean(rEquipPneuBean.getIdPosConfPneu());
+                ecmContext.getPneuCTR().setItemPneuBean(ecmContext.getPneuCTR().getEquipPneu(posPneu).getIdPosConfPneu());
 
                 Intent it = new Intent(ListaPosPneuActivity.this, PneuActivity.class);
                 startActivity(it);

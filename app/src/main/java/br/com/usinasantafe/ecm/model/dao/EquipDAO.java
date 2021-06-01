@@ -23,6 +23,23 @@ public class EquipDAO {
     public EquipDAO() {
     }
 
+    public List<REquipPneuBean> rEquipPneuList(){
+        REquipPneuBean rEquipPneuBean = new REquipPneuBean();
+        return rEquipPneuBean.all();
+    }
+
+    public REquipPneuBean getEquipPneu(String posPneu){
+        List<REquipPneuBean> rEquipPneuList = rEquipPneuList(posPneu);
+        REquipPneuBean rEquipPneuBean = (REquipPneuBean) rEquipPneuList.get(0);
+        rEquipPneuList.clear();
+        return rEquipPneuBean;
+    }
+
+    private List<REquipPneuBean> rEquipPneuList(String posPneu){
+        REquipPneuBean rEquipPneuBean = new REquipPneuBean();
+        return rEquipPneuBean.get("posPneu", posPneu);
+    }
+
     public void verEquip(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
         VerifDadosServ.getInstance().setVerTerm(true);
         VerifDadosServ.getInstance().verDados(dado, "Equip", telaAtual, telaProx, progressDialog);

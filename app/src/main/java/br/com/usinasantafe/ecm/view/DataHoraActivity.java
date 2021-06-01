@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import br.com.usinasantafe.ecm.ECMContext;
 import br.com.usinasantafe.ecm.R;
-import br.com.usinasantafe.ecm.control.ConfigCTR;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.ecm.util.Tempo;
 
 public class DataHoraActivity extends ActivityGeneric {
@@ -149,11 +147,7 @@ public class DataHoraActivity extends ActivityGeneric {
                                 Long dif = Tempo.getInstance().difDthr(ecmContext.getDia(), ecmContext.getMes(), ecmContext.getAno()
                                         , ecmContext.getHora(), ecmContext.getMinuto());
 
-                                ConfigCTR configCTR = new ConfigCTR();
-
-                                ConfigBean configBean = configCTR.getConfig();
-                                configBean.setDifDthrConfig(dif);
-                                configBean.update();
+                                ecmContext.getConfigCTR().setDifDthrConfig(dif);
 
                                 if (ecmContext.getVerPosTela() == 1) {
                                     it = new Intent(DataHoraActivity.this, OSActivity.class);
@@ -190,7 +184,6 @@ public class DataHoraActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }
